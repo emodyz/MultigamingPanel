@@ -19,8 +19,8 @@ class CreateServersTable extends Migration
             $table->string('ip');
             $table->integer('port');
             $table->string('picture');
-            $table->json('data')->default('{}');
-            $table->json('modpacks')->default('[]');
+            $table->json('data')->nullable();
+            $table->json('modpacks')->nullable();
             $table->unsignedInteger('game_id');
             $table->foreign('game_id')
                 ->references('id')
