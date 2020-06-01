@@ -14,8 +14,9 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-        $response = $this->get('/');
+        $this->followingRedirects();
 
-        $response->assertStatus(200);
+        $this->get('/')
+            ->assertStatus(200);
     }
 }
