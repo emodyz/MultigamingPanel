@@ -2,11 +2,8 @@
 
 
 @section('css')
-    <link rel="stylesheet" type="text/css" href="css/plugins/file-uploaders/dropzone.css">
-    <link rel="stylesheet" type="text/css" href="css/pages/data-list-view.css">
+    <link rel="stylesheet" type="text/css" href="css/pages/servers/index.css">
     <link rel="stylesheet" type="text/css" href="vendors/css/tables/datatable/datatables.min.css">
-    <link rel="stylesheet" type="text/css" href="vendors/css/file-uploaders/dropzone.min.css">
-    <link rel="stylesheet" type="text/css" href="vendors/css/tables/datatable/extensions/dataTables.checkboxes.css">
 @endsection
 
 @section('content')
@@ -33,7 +30,6 @@
             <table class="table data-list-view">
                 <thead>
                 <tr>
-                    <th></th>
                     <th>NAME</th>
                     <th>GAME</th>
                     <th>POPULARITY</th>
@@ -45,21 +41,21 @@
                 <tbody>
                 @foreach($servers as $server)
                     <tr>
-                        <td></td>
-                        <td class="product-name">{{$server->name}}</td>
-                        <td class="product-category">{{$server->game->name}}</td>
+                        <td class="server-name">{{$server->name}}</td>
+                        <td class="server-category">{{$server->game->name}}</td>
                         <td>
+                            <span class="hidden">{{$server->status['popularity']}}</span>
                             @if($server->status['popularity'] < 10)
                                 <div class="progress progress-bar-dark">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="40"
                                          aria-valuemax="100" style="width:{{$server->status['popularity']}}%"></div>
                                 </div>
-                            @elseif($server->status['popularity'] >= 10 && $server->status['popularity'] < 50)
+                            @elseif($server->status['popularity'] >= 10 && $server->status['popularity'] < 40)
                                 <div class="progress progress-bar-danger">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="40"
                                          aria-valuemax="100" style="width:{{$server->status['popularity']}}%"></div>
                                 </div>
-                            @elseif($server->status['popularity'] >= 50 && $server->status['popularity'] < 70)
+                            @elseif($server->status['popularity'] >= 40 && $server->status['popularity'] < 70)
                                 <div class="progress progress-bar-warning">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="40"
                                          aria-valuemax="100" style="width:{{$server->status['popularity']}}%"></div>
@@ -86,10 +82,14 @@
                                 </div>
                             @endif
                         </td>
-                        <td class="product-price">{{ $server->status['players']['online'] }}</td>
-                        <td class="product-action">
-                            <span class="action-edit"><i class="feather icon-edit"></i></span>
-                            <span class="action-delete"><i class="feather icon-trash"></i></span>
+                        <td class="server-price">{{ $server->status['players']['online'] }}</td>
+                        <td class="server-action">
+                            <span class="action-edit">
+                                <i class="feather icon-edit"></i>
+                            </span>
+                            <span class="action-delete">
+                                <i class="feather icon-trash"></i>
+                            </span>
                         </td>
                     </tr>
                 @endforeach
@@ -102,13 +102,9 @@
 
 
 @section('script')
-    <script src="vendors/js/extensions/dropzone.min.js"></script>
     <script src="vendors/js/tables/datatable/datatables.min.js"></script>
     <script src="vendors/js/tables/datatable/datatables.buttons.min.js"></script>
     <script src="vendors/js/tables/datatable/datatables.bootstrap4.min.js"></script>
-    <script src="vendors/js/tables/datatable/buttons.bootstrap.min.js"></script>
-    <script src="vendors/js/tables/datatable/dataTables.select.min.js"></script>
-    <script src="vendors/js/tables/datatable/datatables.checkboxes.min.js"></script>
 
-    <script src="js/scripts/ui/data-list-view.js"></script>
+    <script src="js/pages/servers/index.js"></script>
 @endsection

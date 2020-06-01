@@ -43,7 +43,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body class="vertical-layout vertical-menu-modern dark-layout 2-columns  navbar-floating footer-static"
+<body class="vertical-layout vertical-menu-modern dark-layout 2-columns navbar-floating fixed-footer"
       data-open="click" data-menu="vertical-menu-modern" data-col="2-columns" data-layout="dark-layout">
 <div id="app">
 

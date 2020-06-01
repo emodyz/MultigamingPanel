@@ -14,7 +14,7 @@ if (!function_exists('fetch_server_status')) {
         $results = $gameQ->process();
         switch ($server->game->identifier) {
             case 'arma3':
-                return (new \App\Http\Resources\ServerStatus\Arma3StatusResource($results[$host]))->toArray();
+                return (new \App\Http\Resources\ServerStatus\Arma3StatusResource($results[$host]))->toArray(null);
                 break;
             default:
                 abort(501);

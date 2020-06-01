@@ -90,7 +90,8 @@ class ServerController extends Controller
      */
     public function destroy(Server $server)
     {
-        //
+        $server->delete();
+        return response()->noContent();
     }
 
     public function status(Request $request, $serverId)
