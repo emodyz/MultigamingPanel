@@ -44,95 +44,100 @@
                 </ul>
             </li>
             <li class="navigation-header">
-                <span>Settings</span>
+                <span>Servers</span>
             </li>
             <li class="nav-item">
                 <a href="#">
-                    <i class="feather icon-settings"></i>
-                    <span class="menu-title" data-i18n="Launcher">Launcher</span>
-                </a>
-            </li>
-            <li class="navigation-header">
-                <span>App</span>
-            </li>
-            <li class="nav-item">
-                <a href="#">
-                    <i class="feather icon-server"></i>
-                    <span class="menu-title" data-i18n="Servers">Servers</span>
+                    <i class="feather icon-align-right"></i>
+                    <span class="menu-title" data-i18n="Servers">List of server</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#">
-                    <i class="feather icon-users"></i>
-                    <span class="menu-title" data-i18n="Users">Users</span>
+                    <i class="feather icon-trending-up"></i>
+                    <span class="menu-title" data-i18n="Users">Statistics</span>
                 </a>
             </li>
             <li class=" nav-item">
                 <a href="#">
-                    <i class="feather icon-shopping-cart"></i>
+                    <i class="feather icon-settings"></i>
                     <span class="menu-title" data-i18n="Ecommerce">
-                        Menu
+                        Settings
                     </span>
                 </a>
                 <ul class="menu-content">
                     <li>
                         <a href="#">
-                            <i class="feather icon-circle"></i>
-                            <span class="menu-item" data-i18n="Menu 1">Menu 1</span>
+                            <i class="feather icon-cloud-lightning"></i>
+                            <span class="menu-item" data-i18n="Menu 1">Maintenance</span>
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            <i class="feather icon-circle"></i>
-                            <span class="menu-item" data-i18n="Menu 2">Menu 2</span>
+                            <i class="feather icon-corner-down-right"></i>
+                            <span class="menu-item" data-i18n="Menu 2">Others</span>
                         </a>
                     </li>
                 </ul>
             </li>
             <li class=" navigation-header">
-                <span>Others</span>
+                <span>Announcements</span>
             </li>
             <li class=" nav-item">
                 <a href="#">
-                    <i class="feather icon-menu"></i>
-                    <span class="menu-title" data-i18n="Menu Levels">Menu Levels</span>
+                    <i class="feather icon-sliders"></i>
+                    <span class="menu-title" data-i18n="management">management</span>
                 </a>
                 <ul class="menu-content">
                     <li>
                         <a href="#">
-                            <i class="feather icon-circle"></i>
-                            <span class="menu-item" data-i18n="Second Level">Second Level</span>
+                            <i class="feather icon-plus"></i>
+                            <span class="menu-item" data-i18n="Second Level">Create</span>
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            <i class="feather icon-circle"></i>
-                            <span class="menu-item" data-i18n="Second Level">Second Level</span>
+                            <i class="feather icon-align-left"></i>
+                            <span class="menu-item" data-i18n="Second Level">All Announcements</span>
                         </a>
-                        <ul class="menu-content">
-                            <li>
-                                <a href="#">
-                                    <i class="feather icon-circle"></i>
-                                    <span class="menu-item"
-                                          data-i18n="Third Level">Third Level</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="feather icon-circle"></i>
-                                    <span class="menu-item"
-                                          data-i18n="Third Level">Third Level</span>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                 </ul>
             </li>
             <li class="disabled nav-item">
                 <a href="#">
-                    <i class="feather icon-eye-off"></i>
+                    <i class="feather icon-trending-up"></i>
                     <span class="menu-title"
-                          data-i18n="Disabled Menu">Disabled Menu</span>
+                          data-i18n="Disabled Menu">Statistics</span>
+                </a>
+            </li>
+            <li class=" navigation-header">
+                <span>Users</span>
+            </li>
+            <li class=" nav-item">
+                <a href="#">
+                    <i class="feather icon-sliders"></i>
+                    <span class="menu-title" data-i18n="management">management</span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                        <a href="#">
+                            <i class="feather icon-users"></i>
+                            <span class="menu-item" data-i18n="Second Level">Staff</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="feather icon-unlock"></i>
+                            <span class="menu-item" data-i18n="Second Level">Permissions</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="disabled nav-item">
+                <a href="#">
+                    <i class="feather icon-list"></i>
+                    <span class="menu-title"
+                          data-i18n="Disabled Menu">List of users</span>
                 </a>
             </li>
             <li class=" navigation-header">
@@ -148,6 +153,15 @@
                 <a href="https://pixinvent.ticksy.com/">
                     <i class="feather icon-life-buoy"></i>
                     <span class="menu-title" data-i18n="Raise Support">Raise Support</span>
+                </a>
+            </li>
+            <li class="navigation-header">
+                <span>Settings</span>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('Launcher Settings') }}">
+                    <i class="feather icon-settings"></i>
+                    <span class="menu-title" data-i18n="Launcher">Launcher</span>
                 </a>
             </li>
         </ul>

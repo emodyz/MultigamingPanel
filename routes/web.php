@@ -23,3 +23,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard')->middleware('auth');
+Route::get('/settings', function () {
+    return view('settings/launcher');
+})->name('Launcher Settings')->middleware('auth');
