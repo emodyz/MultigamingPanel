@@ -1,9 +1,17 @@
 @extends('layouts.auth')
 
+@section('auth.title')
+    {{ __('Reset Password') }}
+@endsection
+
+@section('auth.subtitle')
+    Lost your password ? Request a new one now.
+@endsection
+
 @section('content')
 
     @if (session('status'))
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success mb-3" role="alert">
             {{ session('status') }}
         </div>
     @endif

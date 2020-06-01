@@ -4,6 +4,10 @@
     {{__('Login')}}
 @endsection
 
+@section('auth.subtitle')
+    Welcome back, please login to your account.
+@endsection
+
 @section('content')
     <form method="POST" action="{{ route('login') }}">
         @csrf
@@ -60,8 +64,10 @@
                 </div>
             @endif
         </div>
-        <div class="pb-4">
-            <a href="{{route('register')}}" class="btn btn-outline-primary float-left btn-inline">{{__('Register')}}</a>
+        <div class="pb-4 d-flex flex-column flex-sm-row justify-content-between">
+            <a href="{{route('register')}}" class="btn btn-outline-primary float-left btn-inline mb-sm-0 mb-1">
+                {{__('Register')}}
+            </a>
             <button type="submit" class="btn btn-primary float-right btn-inline">
                 {{ __('Login') }}
             </button>

@@ -4,6 +4,10 @@
     {{__('Register')}}
 @endsection
 
+@section('auth.subtitle')
+    Welcome ! Register now to see what append
+@endsection
+
 @section('content')
 
     <form method="POST" action="{{ route('register') }}">
@@ -54,15 +58,14 @@
             <label for="name">{{ __('Password') }}</label>
         </fieldset>
 
-
         <fieldset class="form-label-group form-group position-relative has-icon-left">
             <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required
                    autocomplete="new-password">
 
             @error('password')
             <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                <strong>{{ $message }}</strong>
+            </span>
             @enderror
             <div class="form-control-position">
                 <i class="feather icon-lock"></i>
@@ -70,8 +73,10 @@
             <label for="name">{{ __('Confirm Password') }}</label>
         </fieldset>
 
-        <div class="pb-4">
-            <a href="{{route('login')}}" class="btn btn-outline-primary float-left btn-inline">{{__('Login')}}</a>
+        <div class="pb-4 d-flex flex-column flex-sm-row justify-content-between">
+            <a href="{{route('login')}}" class="btn btn-outline-primary float-left btn-inline mb-sm-0 mb-1">
+                {{__('Login')}}
+            </a>
             <button type="submit" class="btn btn-primary float-right btn-inline">
                 {{ __('Register') }}
             </button>

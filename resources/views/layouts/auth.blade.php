@@ -72,7 +72,7 @@
                                             </div>
                                         </div>
                                         <p class="px-2">
-                                            Welcome back, please login to your account.
+                                            @yield('auth.subtitle')
                                         </p>
                                         <div class="card-content pt-2">
                                             <div class="card-body pt-1">
