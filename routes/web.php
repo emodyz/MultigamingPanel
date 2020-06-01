@@ -13,21 +13,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', 'home');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard')->middleware('auth');
+Route::group(['middleware' => 'auth'], function () {
 
-/************************************/
-/*              SETTINGS            */
-/************************************/
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard')->middleware('auth');
 
-Route::get('/settings/launcher', function () {
-    return view('settings/launcher/launcher');
-})->name('Launcher Settings')->middleware('auth');
+    Route::resource('servers', 'ServerController');
+
+    /************************************/
+    /*              SETTINGS            */
+    /************************************/
+    Route::group(['prefix' => 'settings'], function () {
+        Route::get('launcher', function () {
+            return view('settings/launcher/launcher');
+        })->name('settings.launcher.index');
+    });
+});
+
+

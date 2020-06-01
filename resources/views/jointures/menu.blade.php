@@ -46,8 +46,8 @@
             <li class="navigation-header">
                 <span>Servers</span>
             </li>
-            <li class="nav-item">
-                <a href="#">
+            <li class="nav-item {{Route::currentRouteName() === 'servers.index' ? 'active': ''}}">
+                <a href="{{route('servers.index')}}">
                     <i class="feather icon-align-right"></i>
                     <span class="menu-title" data-i18n="Servers">List of server</span>
                 </a>
@@ -159,25 +159,25 @@
                 <span>Settings</span>
             </li>
             <li class="nav-item">
-                <a href="{{ route('Launcher Settings') }}">
+                <a href="{{ route('settings.launcher.index') }}">
                     <i class="feather icon-grid"></i>
                     <span class="menu-title" data-i18n="Launcher">Launcher</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('Launcher Settings') }}">
+                <a href="{{ route('settings.launcher.index') }}">
                     <i class="feather icon-globe"></i>
                     <span class="menu-title" data-i18n="Launcher">Website</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('Launcher Settings') }}">
+                <a href="{{ route('settings.launcher.index') }}">
                     <i class="feather icon-at-sign"></i>
                     <span class="menu-title" data-i18n="Launcher">SMTP</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('Launcher Settings') }}">
+                <a href="{{ route('settings.launcher.index') }}">
                     <i class="feather icon-corner-down-right"></i>
                     <span class="menu-title" data-i18n="Launcher">Others</span>
                 </a>

@@ -1,5 +1,9 @@
 @extends('layouts.auth')
 
+@section('auth.title')
+    {{__('Login')}}
+@endsection
+
 @section('content')
     <form method="POST" action="{{ route('login') }}">
         @csrf
@@ -32,6 +36,7 @@
             </div>
             <label for="password">{{ __('Password') }}</label>
         </fieldset>
+
         <div class="form-group d-flex justify-content-between align-items-center">
             <div class="text-left">
                 <fieldset class="checkbox">
@@ -55,10 +60,11 @@
                 </div>
             @endif
         </div>
-        <a href="/register" class="btn btn-outline-primary float-left btn-inline">Register</a>
-        <button type="submit" class="btn btn-primary float-right btn-inline">
-            {{ __('Login') }}
-        </button>
-
+        <div class="pb-4">
+            <a href="{{route('register')}}" class="btn btn-outline-primary float-left btn-inline">{{__('Register')}}</a>
+            <button type="submit" class="btn btn-primary float-right btn-inline">
+                {{ __('Login') }}
+            </button>
+        </div>
     </form>
 @endsection
