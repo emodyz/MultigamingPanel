@@ -160,8 +160,26 @@
             </li>
             <li class="nav-item">
                 <a href="{{ route('Launcher Settings') }}">
-                    <i class="feather icon-settings"></i>
+                    <i class="feather icon-grid"></i>
                     <span class="menu-title" data-i18n="Launcher">Launcher</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('Launcher Settings') }}">
+                    <i class="feather icon-globe"></i>
+                    <span class="menu-title" data-i18n="Launcher">Website</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('Launcher Settings') }}">
+                    <i class="feather icon-at-sign"></i>
+                    <span class="menu-title" data-i18n="Launcher">SMTP</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('Launcher Settings') }}">
+                    <i class="feather icon-corner-down-right"></i>
+                    <span class="menu-title" data-i18n="Launcher">Others</span>
                 </a>
             </li>
         </ul>
