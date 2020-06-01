@@ -105,6 +105,7 @@
     <script src="vendors/js/tables/datatable/datatables.min.js"></script>
     <script src="vendors/js/tables/datatable/datatables.buttons.min.js"></script>
     <script src="vendors/js/tables/datatable/datatables.bootstrap4.min.js"></script>
+    <script src="vendors/js/tables/datatable/buttons.bootstrap.min.js"></script>
 
     <script src="js/pages/servers/index.js"></script>
 @endsection
