@@ -21,10 +21,8 @@ class CreateServersTable extends Migration
             $table->string('picture');
             $table->json('data')->nullable();
             $table->json('modpacks')->nullable();
-            $table->unsignedInteger('game_id');
-            $table->foreign('game_id')
-                ->references('id')
-                ->on('games')
+            $table->foreignId('game_id')
+                ->constrained()
                 ->onDelete('cascade');
             $table->timestamps();
         });
