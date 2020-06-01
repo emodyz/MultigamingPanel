@@ -13,6 +13,7 @@ class DevSeeder extends Seeder
     public function run()
     {
         factory(\App\User::class)->create([
+            'name' => 'John Doe',
             'email' => 'test@emodyz.eu',
             'password' => Hash::make('password')
         ]);
