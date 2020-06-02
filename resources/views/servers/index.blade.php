@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
+@section('vendor-style')
+    <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/datatables.min.css')) }}">
+@endsection
 
-@section('css')
-    <link rel="stylesheet" type="text/css" href="css/pages/servers/index.css">
-    <link rel="stylesheet" type="text/css" href="vendors/css/tables/datatable/datatables.min.css">
+@section('page-style')
+    <link rel="stylesheet" href="{{ asset(mix('css/pages/servers/index.css')) }}">
 @endsection
 
 @section('content')
@@ -84,9 +86,9 @@
                         </td>
                         <td class="server-price">{{ $server->status['players']['online'] }}</td>
                         <td class="server-action">
-                            <span class="action-edit">
+                            <a href="{{route('servers.edit', [$server->id])}}" class="action-edit">
                                 <i class="feather icon-edit"></i>
-                            </span>
+                            </a>
                             <span class="action-delete">
                                 <i class="feather icon-trash"></i>
                             </span>
@@ -101,11 +103,13 @@
 @endsection
 
 
-@section('script')
-    <script src="vendors/js/tables/datatable/datatables.min.js"></script>
-    <script src="vendors/js/tables/datatable/datatables.buttons.min.js"></script>
-    <script src="vendors/js/tables/datatable/datatables.bootstrap4.min.js"></script>
-    <script src="vendors/js/tables/datatable/buttons.bootstrap.min.js"></script>
+@section('vendor-script')
+    <script src="{{ asset(mix('vendors/js/tables/datatable/datatables.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/tables/datatable/datatables.buttons.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/tables/datatable/datatables.bootstrap4.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/tables/datatable/buttons.bootstrap.min.js')) }}"></script>
+@endsection
 
-    <script src="js/pages/servers/index.js"></script>
+@section('page-script')
+    <script src="{{ asset(mix('js/scripts/pages/servers/index.js')) }}"></script>
 @endsection

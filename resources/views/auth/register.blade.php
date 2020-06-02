@@ -73,6 +73,22 @@
             <label for="name">{{ __('Confirm Password') }}</label>
         </fieldset>
 
+        <div class="form-group row">
+            <div class="col-12">
+                <fieldset class="checkbox">
+                    <div class="vs-checkbox-con vs-checkbox-primary">
+                        <input type="checkbox" checked>
+                        <span class="vs-checkbox">
+                                                <span class="vs-checkbox--check">
+                                                  <i class="vs-icon feather icon-check"></i>
+                                                </span>
+                                              </span>
+                        <span class=""> I accept the terms & conditions.</span>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+
         <div class="pb-4 d-flex flex-column flex-sm-row justify-content-between">
             <a href="{{route('login')}}" class="btn btn-outline-primary float-left btn-inline mb-sm-0 mb-1">
                 {{__('Login')}}

@@ -16,26 +16,8 @@
     <link rel="apple-touch-icon" href="{{asset('images/ico/apple-icon-120.png')}}">
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('images/ico/favicon.ico')}}">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
 
-    <!-- BEGIN: Vendor CSS-->
-    <link href="{{ asset('vendors/css/vendors.min.css') }}" rel="stylesheet">
-    <!-- END: Vendor CSS-->
-
-    <!-- BEGIN: Theme CSS-->
-    <link type="text/css" href="{{ asset('css/bootstrap.css')}}" rel="stylesheet">
-    <link type="text/css" href="{{ asset('css/bootstrap-extended.css')}}" rel="stylesheet">
-    <link type="text/css" href="{{ asset('css/colors.css')}}" rel="stylesheet">
-    <link type="text/css" href="{{ asset('css/components.css')}}" rel="stylesheet">
-    <link type="text/css" href="{{ asset('css/themes/dark-layout.css')}}" rel="stylesheet">
-    <!-- END: Theme CSS-->
-
-    <!-- BEGIN: Page CSS-->
-    <link href="{{ asset('css/core/menu/menu-types/vertical-menu.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/core/colors/palette-gradient.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/pages/authentication.css') }}" rel="stylesheet">
-@yield('css')
-<!-- END: Page CSS-->
+    @include('jointures/styles')
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -63,7 +45,7 @@
                                         alt="branding logo" style="width: 100%;">
                                 </div>
                                 <div class="col-lg-6 col-12 p-0">
-                                    <div class="card rounded-0 mb-0 px-2"  style="height: 100%;">
+                                    <div class="card rounded-0 mb-0 px-2" style="height: 100%;">
                                         <div class="card-header pb-1">
                                             <div class="card-title">
                                                 <h4 class="mb-0">
@@ -92,16 +74,7 @@
     <!-- END: Content-->
 
 </div>
-<!-- BEGIN: Vendor JS-->
-<script src="{{asset("vendors/js/vendors.min.js")}}"></script>
-<!-- END: Vendor JS-->
 
-<!-- BEGIN: Theme JS-->
-<script src="{{asset("js/core/app-menu.js")}}"></script>
-<script src="{{asset("js/core/app.js")}}"></script>
-<script src="{{asset("js/scripts/components.js")}}"></script>
-<!-- END: Theme JS-->
-
-@yield('script')
+@include('jointures/scripts')
 </body>
 </html>
