@@ -30,26 +30,28 @@
                 </div>
                 <ul class="nav navbar-nav float-right">
                     <li class="dropdown dropdown-language nav-item">
-                        <a class="dropdown-toggle nav-link"
-                           id="dropdown-flag" href="#"
+                        <a class="dropdown-toggle nav-link" href="#"
                            data-toggle="dropdown" aria-haspopup="true"
                            aria-expanded="false">
-                            <i class="flag-icon flag-icon-us"></i>
+                            <i class="flag-icon {{config("app.locales.". auth()->user()->preferredLocale() .".icon")}}"></i>
                             <span class="selected-language">
-                                English
+                                {{config("app.locales.". auth()->user()->preferredLocale() .".locale")}}
                             </span>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdown-flag">
-                            <a class="dropdown-item" href="#"
-                               data-language="en">
-                                <i class="flag-icon flag-icon-us"></i>
-                                English
-                            </a>
-                            <a class="dropdown-item" href="#"
-                               data-language="fr">
-                                <i class="flag-icon flag-icon-fr"></i>
-                                French
-                            </a>
+                            @foreach(config('app.locales') as $locale => $language)
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                   data-language="{{$locale}}" onclick="event.preventDefault();
+                                                     document.getElementById('change-locale-form-{{$locale}}').submit();">
+                                    <i class="flag-icon {{$language['icon']}}"></i>
+                                    {{$language['locale']}}
+                                </a>
+                                <form id="change-locale-form-{{$locale}}" action="{{ route('locale.update', [$locale]) }}"
+                                      style="display: none;" method="POST">
+                                    @method('PUT')
+                                    @csrf
+                                </form>
+                            @endforeach
                         </div>
                     </li>
                     <li class="dropdown dropdown-notification nav-item">

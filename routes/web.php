@@ -19,6 +19,9 @@ Auth::routes(['verify' => true]);
 
 Route::group(['middleware' => 'auth'], function () {
 
+    Route::resource('users', 'UserController');
+    Route::put('locale/{locale}', 'LocaleController@update')->name('locale.update');
+
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/dashboard', function () {
         return view('dashboard');
