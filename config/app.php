@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    'debug' => (bool)env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -81,6 +81,28 @@ return [
     */
 
     'locale' => 'en',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Available Locales Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Available locales determines the locale can be used
+    | by the translation service provider. You are free to set this value
+    | to any of the locales which will be supported by the application.
+    |
+    */
+
+    'locales' => [
+        'fr' => [
+            'locale' => 'Français',
+            'icon' => 'flag-icon-fr'
+        ],
+        'en' => [
+            'locale' => 'English',
+            'icon' => 'flag-icon-us'
+        ]
+    ],
 
     /*
     |--------------------------------------------------------------------------
