@@ -30,11 +30,11 @@ class ServerController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        //
+        return view('servers.create');
     }
 
     /**
@@ -63,11 +63,11 @@ class ServerController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param \App\Server $server
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Server $server)
     {
-        //
+        return view('servers.edit', ['server' => $server]);
     }
 
     /**

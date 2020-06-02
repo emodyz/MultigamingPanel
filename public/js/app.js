@@ -12783,8 +12783,8 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
  *
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+// const files = require.context('./', true, /\.vue$/i);
+// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
 /**
@@ -12879,15 +12879,291 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/sass/bootstrap-extended.scss":
+/*!************************************************!*\
+  !*** ./resources/sass/bootstrap-extended.scss ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/bootstrap.scss":
+/*!***************************************!*\
+  !*** ./resources/sass/bootstrap.scss ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/colors.scss":
+/*!************************************!*\
+  !*** ./resources/sass/colors.scss ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/components.scss":
+/*!****************************************!*\
+  !*** ./resources/sass/components.scss ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/core/colors/palette-gradient.scss":
+/*!**********************************************************!*\
+  !*** ./resources/sass/core/colors/palette-gradient.scss ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/core/colors/palette-noui.scss":
+/*!******************************************************!*\
+  !*** ./resources/sass/core/colors/palette-noui.scss ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/core/colors/palette-variables.scss":
+/*!***********************************************************!*\
+  !*** ./resources/sass/core/colors/palette-variables.scss ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/core/menu/menu-types/horizontal-menu.scss":
+/*!******************************************************************!*\
+  !*** ./resources/sass/core/menu/menu-types/horizontal-menu.scss ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/core/menu/menu-types/vertical-menu.scss":
+/*!****************************************************************!*\
+  !*** ./resources/sass/core/menu/menu-types/vertical-menu.scss ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/core/menu/menu-types/vertical-overlay-menu.scss":
+/*!************************************************************************!*\
+  !*** ./resources/sass/core/menu/menu-types/vertical-overlay-menu.scss ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/core/mixins/alert.scss":
+/*!***********************************************!*\
+  !*** ./resources/sass/core/mixins/alert.scss ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/core/mixins/hex2rgb.scss":
+/*!*************************************************!*\
+  !*** ./resources/sass/core/mixins/hex2rgb.scss ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/core/mixins/main-menu-mixin.scss":
+/*!*********************************************************!*\
+  !*** ./resources/sass/core/mixins/main-menu-mixin.scss ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/core/mixins/transitions.scss":
+/*!*****************************************************!*\
+  !*** ./resources/sass/core/mixins/transitions.scss ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/custom-laravel.scss":
+/*!********************************************!*\
+  !*** ./resources/sass/custom-laravel.scss ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/custom-rtl.scss":
+/*!****************************************!*\
+  !*** ./resources/sass/custom-rtl.scss ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/pages/authentication.scss":
+/*!**************************************************!*\
+  !*** ./resources/sass/pages/authentication.scss ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/pages/card-analytics.scss":
+/*!**************************************************!*\
+  !*** ./resources/sass/pages/card-analytics.scss ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/pages/dashboard-analytics.scss":
+/*!*******************************************************!*\
+  !*** ./resources/sass/pages/dashboard-analytics.scss ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/pages/servers/index.scss":
+/*!*************************************************!*\
+  !*** ./resources/sass/pages/servers/index.scss ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/plugins/tour/tour.scss":
+/*!***********************************************!*\
+  !*** ./resources/sass/plugins/tour/tour.scss ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/themes/dark-layout.scss":
+/*!************************************************!*\
+  !*** ./resources/sass/themes/dark-layout.scss ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/themes/semi-dark-layout.scss":
+/*!*****************************************************!*\
+  !*** ./resources/sass/themes/semi-dark-layout.scss ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ 0:
-/*!*************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ***!
-  \*************************************************************/
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/plugins/tour/tour.scss ./resources/sass/themes/dark-layout.scss ./resources/sass/themes/semi-dark-layout.scss ./resources/sass/pages/authentication.scss ./resources/sass/pages/card-analytics.scss ./resources/sass/pages/dashboard-analytics.scss ./resources/sass/pages/servers/index.scss ./resources/sass/core/colors/palette-gradient.scss ./resources/sass/core/colors/palette-noui.scss ./resources/sass/core/colors/palette-variables.scss ./resources/sass/core/menu/menu-types/horizontal-menu.scss ./resources/sass/core/menu/menu-types/vertical-menu.scss ./resources/sass/core/menu/menu-types/vertical-overlay-menu.scss ./resources/sass/core/mixins/alert.scss ./resources/sass/core/mixins/hex2rgb.scss ./resources/sass/core/mixins/main-menu-mixin.scss ./resources/sass/core/mixins/transitions.scss ./resources/sass/bootstrap.scss ./resources/sass/bootstrap-extended.scss ./resources/sass/colors.scss ./resources/sass/components.scss ./resources/sass/custom-rtl.scss ./resources/sass/custom-laravel.scss ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/plugins/tour/tour.scss */"./resources/sass/plugins/tour/tour.scss");
+__webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/themes/dark-layout.scss */"./resources/sass/themes/dark-layout.scss");
+__webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/themes/semi-dark-layout.scss */"./resources/sass/themes/semi-dark-layout.scss");
+__webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/pages/authentication.scss */"./resources/sass/pages/authentication.scss");
+__webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/pages/card-analytics.scss */"./resources/sass/pages/card-analytics.scss");
+__webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/pages/dashboard-analytics.scss */"./resources/sass/pages/dashboard-analytics.scss");
+__webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/pages/servers/index.scss */"./resources/sass/pages/servers/index.scss");
+__webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/core/colors/palette-gradient.scss */"./resources/sass/core/colors/palette-gradient.scss");
+__webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/core/colors/palette-noui.scss */"./resources/sass/core/colors/palette-noui.scss");
+__webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/core/colors/palette-variables.scss */"./resources/sass/core/colors/palette-variables.scss");
+__webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/core/menu/menu-types/horizontal-menu.scss */"./resources/sass/core/menu/menu-types/horizontal-menu.scss");
+__webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/core/menu/menu-types/vertical-menu.scss */"./resources/sass/core/menu/menu-types/vertical-menu.scss");
+__webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/core/menu/menu-types/vertical-overlay-menu.scss */"./resources/sass/core/menu/menu-types/vertical-overlay-menu.scss");
+__webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/core/mixins/alert.scss */"./resources/sass/core/mixins/alert.scss");
+__webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/core/mixins/hex2rgb.scss */"./resources/sass/core/mixins/hex2rgb.scss");
+__webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/core/mixins/main-menu-mixin.scss */"./resources/sass/core/mixins/main-menu-mixin.scss");
+__webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/core/mixins/transitions.scss */"./resources/sass/core/mixins/transitions.scss");
+__webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/bootstrap.scss */"./resources/sass/bootstrap.scss");
+__webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/bootstrap-extended.scss */"./resources/sass/bootstrap-extended.scss");
+__webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/colors.scss */"./resources/sass/colors.scss");
+__webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/components.scss */"./resources/sass/components.scss");
+__webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/custom-rtl.scss */"./resources/sass/custom-rtl.scss");
+module.exports = __webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/custom-laravel.scss */"./resources/sass/custom-laravel.scss");
 
 
 /***/ })
