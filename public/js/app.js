@@ -13099,6 +13099,50 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/sass/plugins/forms/extended/typeahed.scss":
+/*!*************************************************************!*\
+  !*** ./resources/sass/plugins/forms/extended/typeahed.scss ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/plugins/forms/form-inputs-groups.scss":
+/*!**************************************************************!*\
+  !*** ./resources/sass/plugins/forms/form-inputs-groups.scss ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/plugins/forms/validation/form-validation.scss":
+/*!**********************************************************************!*\
+  !*** ./resources/sass/plugins/forms/validation/form-validation.scss ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/plugins/forms/wizard.scss":
+/*!**************************************************!*\
+  !*** ./resources/sass/plugins/forms/wizard.scss ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./resources/sass/plugins/tour/tour.scss":
 /*!***********************************************!*\
   !*** ./resources/sass/plugins/tour/tour.scss ***!
@@ -13133,14 +13177,18 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 0:
-/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/plugins/tour/tour.scss ./resources/sass/themes/dark-layout.scss ./resources/sass/themes/semi-dark-layout.scss ./resources/sass/pages/authentication.scss ./resources/sass/pages/card-analytics.scss ./resources/sass/pages/dashboard-analytics.scss ./resources/sass/pages/servers/index.scss ./resources/sass/core/colors/palette-gradient.scss ./resources/sass/core/colors/palette-noui.scss ./resources/sass/core/colors/palette-variables.scss ./resources/sass/core/menu/menu-types/horizontal-menu.scss ./resources/sass/core/menu/menu-types/vertical-menu.scss ./resources/sass/core/menu/menu-types/vertical-overlay-menu.scss ./resources/sass/core/mixins/alert.scss ./resources/sass/core/mixins/hex2rgb.scss ./resources/sass/core/mixins/main-menu-mixin.scss ./resources/sass/core/mixins/transitions.scss ./resources/sass/bootstrap.scss ./resources/sass/bootstrap-extended.scss ./resources/sass/colors.scss ./resources/sass/components.scss ./resources/sass/custom-rtl.scss ./resources/sass/custom-laravel.scss ***!
-  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/plugins/forms/extended/typeahed.scss ./resources/sass/plugins/forms/form-inputs-groups.scss ./resources/sass/plugins/forms/validation/form-validation.scss ./resources/sass/plugins/forms/wizard.scss ./resources/sass/plugins/tour/tour.scss ./resources/sass/themes/dark-layout.scss ./resources/sass/themes/semi-dark-layout.scss ./resources/sass/pages/authentication.scss ./resources/sass/pages/card-analytics.scss ./resources/sass/pages/dashboard-analytics.scss ./resources/sass/pages/servers/index.scss ./resources/sass/core/colors/palette-gradient.scss ./resources/sass/core/colors/palette-noui.scss ./resources/sass/core/colors/palette-variables.scss ./resources/sass/core/menu/menu-types/horizontal-menu.scss ./resources/sass/core/menu/menu-types/vertical-menu.scss ./resources/sass/core/menu/menu-types/vertical-overlay-menu.scss ./resources/sass/core/mixins/alert.scss ./resources/sass/core/mixins/hex2rgb.scss ./resources/sass/core/mixins/main-menu-mixin.scss ./resources/sass/core/mixins/transitions.scss ./resources/sass/bootstrap.scss ./resources/sass/bootstrap-extended.scss ./resources/sass/colors.scss ./resources/sass/components.scss ./resources/sass/custom-rtl.scss ./resources/sass/custom-laravel.scss ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/js/app.js */"./resources/js/app.js");
 __webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/plugins/forms/extended/typeahed.scss */"./resources/sass/plugins/forms/extended/typeahed.scss");
+__webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/plugins/forms/form-inputs-groups.scss */"./resources/sass/plugins/forms/form-inputs-groups.scss");
+__webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/plugins/forms/validation/form-validation.scss */"./resources/sass/plugins/forms/validation/form-validation.scss");
+__webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/plugins/forms/wizard.scss */"./resources/sass/plugins/forms/wizard.scss");
 __webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/plugins/tour/tour.scss */"./resources/sass/plugins/tour/tour.scss");
 __webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/themes/dark-layout.scss */"./resources/sass/themes/dark-layout.scss");
 __webpack_require__(/*! /Users/hubert_i/Launcher/multigaming/MultigamingPanel/resources/sass/themes/semi-dark-layout.scss */"./resources/sass/themes/semi-dark-layout.scss");
