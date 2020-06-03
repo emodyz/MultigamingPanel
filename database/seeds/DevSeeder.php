@@ -12,34 +12,46 @@ class DevSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\User::class)->create([
+        $user = factory(\App\User::class)->create([
             'name' => 'John Doe',
             'email' => 'test@emodyz.eu',
             'password' => Hash::make('password')
         ]);
 
-        factory(\App\Game::class)->create([
+        $gameArma3 = factory(\App\Game::class)->create([
             'name' => 'Arma3',
             'identifier' => 'arma3',
             'appid' => 107410,
             'logo' => 'https://upload.wikimedia.org/wikipedia/commons/f/fa/ArmA_3_Logo_(Black).png'
         ]);
 
-        factory(\App\Server::class)->create([
+        /**
+         * @var $modpack1 \App\Modpack
+         */
+        $modpack1 = factory(\App\Modpack::class)->create();
+
+        /**
+         * @var $flashServer \App\Server
+         */
+        $flashServer = factory(\App\Server::class)->create([
             'name' => 'Flash',
             'ip' => '78.129.89.37',
-            'port' => 2302
+            'port' => 2302,
+            'game_id' => $gameArma3->id
         ]);
         factory(\App\Server::class)->create([
             'name' => 'HARM',
             'ip' => '77.250.59.106',
-            'port' => 2302
+            'port' => 2302,
+            'game_id' => $gameArma3->id
         ]);
         factory(\App\Server::class)->create([
             'name' => 'Server TEST',
             'ip' => '151.80.230.188',
-            'port' => 2502
+            'port' => 2502,
+            'game_id' => $gameArma3->id
         ]);
-        factory(\App\Server::class, 4)->create();
+
+        $flashServer->modpacks()->attach($modpack1->id);
     }
 }

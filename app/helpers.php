@@ -33,7 +33,6 @@ if (!function_exists('fetch_server_status')) {
 
         $results = $gameQ->process();
 
-
         $serversResult = collect([]);
         $servers->each(function ($server) use ($results, $serversResult) {
             switch ($server->game->identifier) {

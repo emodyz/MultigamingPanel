@@ -33,6 +33,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Server wherePort($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Server whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read int|null $modpacks_count
  */
 class Server extends Model
 {
@@ -41,8 +42,7 @@ class Server extends Model
         'ip',
         'port',
         'picture',
-        'data',
-        'modpacks'
+        'data'
     ];
 
     protected $casts = [
@@ -50,7 +50,18 @@ class Server extends Model
         'modpacks' => 'array'
     ];
 
+    /**
+     * @return HasOne
+     */
     public function game(): HasOne {
         return $this->hasOne(Game::class, 'id', 'game_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function modpacks()
+    {
+        return $this->belongsToMany(Modpack::class);
     }
 }

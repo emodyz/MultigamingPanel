@@ -22,10 +22,6 @@ $factory->define(Server::class, function (Faker $faker) {
         'picture' => $faker->url,
         'ip' => $faker->ipv4,
         'port' => $faker->randomNumber(4),
-        'data' => '{}',
-        'modpacks' => json_encode([
-            "@Test"
-        ]),
-        'game_id' => fn() => factory(\App\Game::class)->create()->first()->id
+        'game_id' => fn() => factory(\App\Game::class)->create()->id
     ];
 });

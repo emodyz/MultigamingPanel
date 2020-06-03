@@ -14,9 +14,14 @@ return json_decode(json_encode([
         "icon" => "feather icon-home"
     ],
     [
+        "url" => "",
+        "navheader" => true,
+        "i18n" => 'menu.gaming_zone'
+    ],
+    [
         "url" => "#",
         "i18n" => 'menu.servers',
-        "icon" => "feather icon-zap",
+        "icon" => "feather icon-server",
         "submenu" => [
             [
                 "route_name" => "servers.index",
@@ -27,6 +32,11 @@ return json_decode(json_encode([
                 "i18n" => 'menu.common.create'
             ]
         ]
+    ],
+    [
+        "route_name" => "modpacks.index",
+        "i18n" => 'menu.modpacks',
+        "icon" => "feather icon-box"
     ],
     [
         "url" => "",

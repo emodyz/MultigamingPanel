@@ -20,7 +20,6 @@ class CreateServersTable extends Migration
             $table->integer('port');
             $table->string('picture');
             $table->json('data')->nullable();
-            $table->json('modpacks')->nullable();
             $table->foreignId('game_id')
                 ->constrained()
                 ->onDelete('cascade');

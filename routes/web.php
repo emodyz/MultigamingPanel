@@ -28,6 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
     })->name('dashboard')->middleware('auth');
 
     Route::resource('servers', 'ServerController');
+    Route::resource('modpacks', 'ModpackController');
 
     /************************************/
     /*              SETTINGS            */
