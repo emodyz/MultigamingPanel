@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -28,9 +29,8 @@ class HomeController extends Controller
         $user->ip = $request->ip();
         $user->save();
 
-        $x = 1;
-        $y = 2;
+        $finished = auth()->user()->profilFinished();
 
-        return view('home')->with(compact('x', 'y'));
+        return view('home')->with(compact('finished'));
     }
 }
