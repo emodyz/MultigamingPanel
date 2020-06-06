@@ -2,6 +2,7 @@
 
 @section('vendor-style')
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/datatables.min.css')) }}">
+    <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/sweetalert2.min.css')) }}">
 @endsection
 
 @section('page-style')
@@ -39,9 +40,9 @@
                             <a href="{{route('modpacks.edit', [$modpack->id])}}" class="action-edit">
                                 <i class="feather icon-edit"></i>
                             </a>
-                            <span class="action-delete">
+                            <a href="{{route('modpacks.destroy', [$modpack->id])}}" class="action-delete">
                                 <i class="feather icon-trash"></i>
-                            </span>
+                            </a>
                         </td>
                     </tr>
                 @endforeach
@@ -62,6 +63,9 @@
     <!-- MODAL REQUIRED -->
     <script src="{{ asset(mix('vendors/js/extensions/jquery.steps.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/forms/validation/jquery.validate.min.js')) }}"></script>
+
+    <!-- SWEET ALERT-->
+    <script src="{{ asset(mix('vendors/js/extensions/sweetalert2.all.min.js')) }}"></script>
 @endsection
 
 @section('page-script')

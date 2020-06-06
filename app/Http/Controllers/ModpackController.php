@@ -102,6 +102,7 @@ class ModpackController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Modpack::findOrFail($id)->delete();
+        return response()->noContent();
     }
 }
