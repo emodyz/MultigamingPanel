@@ -48,6 +48,13 @@ return [
             'root' => storage_path('app'),
         ],
 
+        'modpacks' => [
+            'driver' => 'local',
+            'root' => storage_path('app/modpacks'),
+            'url' => env('APP_URL').'/modpacks',
+            'visibility' => 'public',
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
