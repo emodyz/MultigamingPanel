@@ -22,6 +22,9 @@ class CreateUsersTable extends Migration
             $table->string('locale')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->string('image')->after('name')->nullable();
+            $table->ipAddress('ip')->after('remember_token')->default('0.0.0.0');
+            $table->integer('uuid')->after('email')->unsigned()->nullable()->default(32);
         });
     }
 
