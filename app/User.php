@@ -54,7 +54,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasLocalePreferen
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'ip',
     ];
 
     /**
@@ -74,5 +74,10 @@ class User extends Authenticatable implements MustVerifyEmail, HasLocalePreferen
     public function preferredLocale()
     {
         return $this->locale ?? config('app.fallback_locale');
+    }
+
+    public function profilFinished(): bool
+    {
+        return ($this->name && $this->locale && $this->email_verified_at);
     }
 }
