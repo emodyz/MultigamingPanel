@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -21,8 +22,15 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('home');
+        $user = \Auth::user();
+        $user->ip = $request->ip();
+        $user->save();
+
+        $x = 1;
+        $y = 2;
+
+        return view('home')->with(compact('x', 'y'));
     }
 }

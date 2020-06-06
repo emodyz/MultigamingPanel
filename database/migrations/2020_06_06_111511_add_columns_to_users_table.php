@@ -14,10 +14,10 @@ class AddColumnsToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('image')->after('name')->collation('utf8mb4_unicode_ci')->nullable();
+            $table->string('image')->after('name')->nullable();
             $table->boolean('profile_finished')->after('locale')->default(false);
             $table->ipAddress('ip')->after('remember_token')->default('0.0.0.0');
-            $table->integer('uuid')->after('email')->collation('utf8mb4_unicode_ci')->unsigned()->nullable()->default(32);
+            $table->integer('uuid')->after('email')->unsigned()->nullable()->default(32);
         });
     }
 
