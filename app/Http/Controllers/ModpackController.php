@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Modpack;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class ModpackController extends Controller
 {
@@ -17,13 +16,13 @@ class ModpackController extends Controller
      */
     public function index(Request $request)
     {
-        $modpacks = Modpack::all();
+        $modpacks = Modpack::get();
 
         if ($request->wantsJson()) {
             return response()->json($modpacks);
         }
 
-        return view('modpacks.index', ['modpacks' => $modpacks]);
+        return view('modpacks.index')->with(compact('modpacks'));
     }
 
     /**
@@ -45,15 +44,11 @@ class ModpackController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:30|string',
+            'name' => 'required|unique:modpacks,name|max:30|string',
         ]);
 
         $cleanedName = preg_replace("/[^a-zA-Z0-9]+/", "", $request->get('name'));
         $modpackPath = "modpacks/$cleanedName";
-
-        if (!Storage::makeDirectory($modpackPath)) {
-            abort(500, "Cannot create modpack directory, please check local storage folder permissions. (path: $modpackPath)");
-        }
 
         $modpack = Modpack::create(
             array_merge($request->only(['name']), ['path' => $modpackPath])

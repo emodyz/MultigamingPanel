@@ -14,7 +14,7 @@
 @section('content')
     <section id="data-list-view" class="data-list-view-header">
 
-        <create-modpack id="createModpackModal"></create-modpack>
+        <create-modpack></create-modpack>
 
         <!-- DataTable starts -->
         <div class="table-responsive">
@@ -66,7 +66,6 @@
 
 @section('page-script')
     <script src="{{ asset(mix('js/scripts/pages/modpacks/index.js')) }}"></script>
-    <script src="{{ asset(mix('js/scripts/modal/components-modal.js')) }}"></script>
 
     <!-- MODAL REQUIRED -->
     <script src="{{ asset(mix('js/scripts/forms/wizard-steps.js')) }}"></script>

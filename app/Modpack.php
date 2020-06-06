@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * App\Modpack
@@ -36,6 +37,21 @@ class Modpack extends Model
         'manifest',
         'manifest_last_update'
     ];
+
+    protected static function booted()
+    {
+        static::created(function ($modpack) {
+            if (!Storage::exists($modpack->path)) {
+                Storage::makeDirectory($modpack->path);
+            }
+        });
+
+        static::deleted(function ($modpack) {
+            if (Storage::exists($modpack->path)) {
+                Storage::deleteDirectory($modpack->path);
+            }
+        });
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

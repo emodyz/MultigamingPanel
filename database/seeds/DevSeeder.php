@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Artisan;
 
 class DevSeeder extends Seeder
 {
@@ -53,5 +54,6 @@ class DevSeeder extends Seeder
         ]);
 
         $flashServer->modpacks()->attach($modpack1->id);
+        Artisan::call('modpacks:clean', [], $this->command->getOutput());
     }
 }
