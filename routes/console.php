@@ -20,6 +20,11 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
 
+Artisan::command('refresh', function () {
+    $modpack = Modpack::first();
+    \App\Jobs\ProcessModpackManifest::dispatch($modpack);
+})->describe('Display an inspiring quote');
+
 
 Artisan::command('modpacks:clean', function () {
     if (app()->environment('production')) {
