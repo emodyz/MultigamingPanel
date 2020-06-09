@@ -34,6 +34,7 @@ class Modpack extends Model
     protected $fillable = [
         'name',
         'path',
+        'disk',
         'manifest',
         'manifest_last_update'
     ];
@@ -41,14 +42,14 @@ class Modpack extends Model
     protected static function booted()
     {
         static::created(function ($modpack) {
-            if (!Storage::exists($modpack->path)) {
-                Storage::makeDirectory($modpack->path);
+            if (!Storage::disk($modpack->disk)->exists($modpack->path)) {
+                Storage::disk($modpack->disk)->makeDirectory($modpack->path);
             }
         });
 
         static::deleted(function ($modpack) {
-            if (Storage::exists($modpack->path)) {
-                Storage::deleteDirectory($modpack->path);
+            if (Storage::disk($modpack->disk)->exists($modpack->path)) {
+                Storage::disk($modpack->disk)->deleteDirectory($modpack->path);
             }
         });
     }

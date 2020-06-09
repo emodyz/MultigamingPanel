@@ -21,7 +21,7 @@ Artisan::command('inspire', function () {
 })->describe('Display an inspiring quote');
 
 Artisan::command('refresh', function () {
-    $modpack = Modpack::first();
+    $modpack = Modpack::latest()->first();
     \App\Jobs\ProcessModpackManifest::dispatch($modpack);
 })->describe('Display an inspiring quote');
 
@@ -36,7 +36,7 @@ Artisan::command('modpacks:clean', function () {
     $this->comment("Cleaning: Oldest Modpacks");
 
     $inDatabaseDirs = Modpack::pluck('path')->toArray();
-    $modpackDirs = collect(Storage::directories('modpacks'));
+    $modpackDirs = collect(Storage::disk('modpacks')->directories());
 
     /**
      * Reject all in database present paths.
@@ -46,7 +46,7 @@ Artisan::command('modpacks:clean', function () {
     });
 
     foreach ($modpackDirs as $directory) {
-        Storage::disk('local')->deleteDirectory($directory);
+        Storage::disk('modpacks')->deleteDirectory($directory);
     }
     $this->info('Cleaned: Oldest Modpacks');
 });

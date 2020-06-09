@@ -9,6 +9,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProcessModpackManifest implements ShouldQueue
 {
@@ -19,6 +20,10 @@ class ProcessModpackManifest implements ShouldQueue
      */
     private Modpack $modpack;
 
+    private $storage;
+
+    private bool $compressFiles = false;
+
     /**
      * Create a new job instance.
      *
@@ -27,6 +32,22 @@ class ProcessModpackManifest implements ShouldQueue
     public function __construct(Modpack $modpack)
     {
         $this->modpack = $modpack;
+        $this->storage = Storage::disk($modpack->disk);
+    }
+
+
+    function taille_fichier($octets)
+    {
+        $resultat = $octets;
+        for ($i = 0; $i < 8 && $resultat >= 1024; $i++) {
+            $resultat = $resultat / 1024;
+        }
+        if ($i > 0) {
+            return preg_replace('/,00$/', '', number_format($resultat, 2, ',', ''))
+                . ' ' . substr('KMGTPEZY', $i - 1, 1) . 'o';
+        } else {
+            return $resultat . ' o';
+        }
     }
 
     /**
@@ -38,48 +59,75 @@ class ProcessModpackManifest implements ShouldQueue
     public function handle()
     {
         $path = $this->modpack->path;
-        if (!Storage::exists($path)) {
+        if (!$this->storage->exists($path)) {
             throw new \Exception("Modpack path not found on localstorage.");
         }
 
-
         $now = now();
         $manifestFilePath = "$path-{$now->timestamp}-manifest.json";
-        Storage::put($manifestFilePath, '[');
+        $this->storage->put($manifestFilePath, '[');
 
-        $files = Storage::files($path, true);
-        $fileCount = count($files);
+        $files = $this->storage->files($path, true);
+        $filesCount = count($files);
+        $filesSize = 0;
+
+        foreach ($files as $key => $file) {
+            $filesSize += $this->storage->size($file);
+        }
 
         $startTime = now();
 
-
-        echo "Generate manifest of $fileCount files\n";
+        echo "Generate manifest of $filesCount files\n";
+        echo "Total " . $this->taille_fichier($filesSize) . "\n";
 
         foreach ($files as $key => $file) {
-            $startFile = now();
-            $fileName = "TOTO";
-            $fileSize = Storage::size($file);
-            echo "File size $fileSize of $file\n";
-            $hash = hash_file('sha256', storage_path("app/$file"));
-            echo "End file size of $file\n";
-            echo "Take ". now()->diffAsCarbonInterval($startFile) . "\n";
+            // FILE INFO
+            $fileName = basename($file);
+            $fileSize = $this->storage->size($file);
+            $filePath = (string)Str::of($file)->replace("$path/", '');
+            $localFilePath = $this->storage->path($file);
+            echo "File $file - {$this->taille_fichier($fileSize)}\n";
+
+            // HASH
+            $startHash = now();
+            echo "Start hash $file\n";
+            set_time_limit(0);
+            $hash = hash_file('sha256', $localFilePath);
+            echo "End hash $file take " . now()->diffAsCarbonInterval($startHash) . "\n";
+
+            if ($this->compressFiles) {
+                // START ZIP
+                $startZip = now();
+                echo "Start compressing $file\n";
+                $zip = new \ZipArchive();
+                $zip->open("$localFilePath.zip", \ZipArchive::CREATE);
+                $zip->addFile($localFilePath);
+                $zip->close();
+                $filePath = "$filePath.zip";
+                echo "End zip $file take " . now()->diffAsCarbonInterval($startZip) . "\n";
+            }
+
             $jsonFileSection = json_encode([
                 'size' => $fileSize,
                 'name' => $fileName,
-                'file' => $file,
+                'path' => $filePath,
+                'url' => $this->storage->url($file),
                 'sha256' => $hash
             ]);
-            Storage::append(
+            $this->storage->append(
                 $manifestFilePath,
-                $key != $fileCount - 1 ?
+                $key != $filesCount - 1 ?
                     "$jsonFileSection," :
                     "$jsonFileSection"
             );
         }
 
-        echo "Take ". now()->diffAsCarbonInterval($startFile) . "\n";
+        echo "Total of files take " . now()->diffAsCarbonInterval($startTime) . "\n";
 
-        Storage::append($manifestFilePath, ']');
+        $this->storage->append($manifestFilePath, ']');
+        if ($this->modpack->manifest) {
+            $this->storage->delete($this->modpack->manifest);
+        }
         $this->modpack->update([
             'manifest' => $manifestFilePath,
             'manifest_last_update' => $now

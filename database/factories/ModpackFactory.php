@@ -8,6 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(Modpack::class, function (Faker $faker) {
     return [
         'name' => "@{$faker->firstName}",
-        'path' => "modpacks/{$faker->firstName}"
+        'disk' => 'modpacks',
+        'path' => $faker->firstName
     ];
 });

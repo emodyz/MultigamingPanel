@@ -51,7 +51,7 @@ return [
         'modpacks' => [
             'driver' => 'local',
             'root' => storage_path('app/modpacks'),
-            'url' => env('APP_URL').'/modpacks',
+            'url' => env('APP_URL').'/downloads',
             'visibility' => 'public',
         ],
 
@@ -87,6 +87,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('downloads') => storage_path('app/modpacks'),
     ],
 
 ];

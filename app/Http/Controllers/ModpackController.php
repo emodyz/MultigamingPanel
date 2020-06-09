@@ -48,10 +48,12 @@ class ModpackController extends Controller
         ]);
 
         $cleanedName = preg_replace("/[^a-zA-Z0-9]+/", "", $request->get('name'));
-        $modpackPath = "modpacks/$cleanedName";
 
         $modpack = Modpack::create(
-            array_merge($request->only(['name']), ['path' => $modpackPath])
+            array_merge([
+                'path' => $cleanedName,
+                'disk' => 'modpacks',
+            ], $request->only(['name']))
         );
 
         if ($request->wantsJson()) {
@@ -63,12 +65,16 @@ class ModpackController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Request $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return string
      */
-    public function show($id)
+    public function show(Request $request, Modpack $modpack)
     {
-        //
+        if (!$modpack->manifest) {
+            abort(400, 'Create update before.');
+        }
+        return Storage::disk($modpack->disk)->get($modpack->manifest);
     }
 
     /**

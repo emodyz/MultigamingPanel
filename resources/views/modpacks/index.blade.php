@@ -33,7 +33,7 @@
                 @foreach($modpacks as $modpack)
                     <tr>
                         <td class="server-name">{{$modpack->name}}</td>
-                        <td class="server-category">{{$modpack->path}}</td>
+                        <td class="server-category">{{\Illuminate\Support\Facades\Storage::disk($modpack->disk)->path($modpack->path)}}</td>
                         <td class="server-price">{{ $modpack->servers->count() }}</td>
                         <td class="server-category">{{$modpack->manifest_last_update}}</td>
                         <td class="server-action">
