@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e983d14d-88d0-4649-b7aa-b14434d92f5f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/UserFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/UserFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/laravel.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/laravel.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,7 +16,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.4">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/symfony/console" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-idn" />
@@ -148,6 +146,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -157,11 +156,41 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RunManager">
-    <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
-      <TestRunner scope="XML" />
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager" selected="PHPUnit.LoginTest">
+    <configuration name="LoginTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\LoginTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Feature/LoginTest.php" scope="Class" />
       <method v="2" />
     </configuration>
+    <configuration name="LoginTest.login_with_wrong_password_must_fail" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\LoginTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Feature/LoginTest.php" method="login_with_wrong_password_must_fail" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="LoginTest.user_can_login" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\LoginTest" file="$PROJECT_DIR$/tests/Feature/LoginTest.php" method="user_can_login" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="PhpUnit" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner configuration_file="$PROJECT_DIR$/phpunit.xml" scope="XML" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="PHPUnit.PhpUnit" />
+      <item itemvalue="PHPUnit.LoginTest.user_can_login" />
+      <item itemvalue="PHPUnit.LoginTest.login_with_wrong_password_must_fail" />
+      <item itemvalue="PHPUnit.LoginTest" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="PHPUnit.LoginTest" />
+        <item itemvalue="PHPUnit.LoginTest.login_with_wrong_password_must_fail" />
+        <item itemvalue="PHPUnit.LoginTest.user_can_login" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -173,10 +202,63 @@
       <updated>1604143691020</updated>
       <workItem from="1604143696409" duration="250000" />
       <workItem from="1604169394039" duration="505000" />
+      <workItem from="1604255867329" duration="3210000" />
     </task>
+    <task id="LOCAL-00001" summary="#7 Add login api routes">
+      <created>1604261276502</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1604261276502</updated>
+    </task>
+    <task id="LOCAL-00002" summary="#7 Add bad request test">
+      <created>1604262384508</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1604262384508</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Add dev actions PR">
+      <created>1604262481301</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1604262481301</updated>
+    </task>
+    <task id="LOCAL-00004" summary="ADD PGSQL">
+      <created>1604262764443</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1604262764443</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Add .env for CI">
+      <created>1604262929161</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1604262929161</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Refresh DB for CI">
+      <created>1604263038585</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1604263038585</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="#7 Add login api routes" />
+    <MESSAGE value="#7 Add bad request test" />
+    <MESSAGE value="Add dev actions PR" />
+    <MESSAGE value="ADD PGSQL" />
+    <MESSAGE value="Add .env for CI" />
+    <MESSAGE value="Refresh DB for CI" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refresh DB for CI" />
   </component>
 </project>
