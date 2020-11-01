@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
-class UserTableSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,8 +17,7 @@ class UserTableSeeder extends Seeder
     public function run()
     {
         tap(User::factory()->create([
-           'email' => 'root@root.com',
-           'password' => Hash::make('root')
+           'email' => 'root@root.com'
         ]), function (User $user) {
             $user->ownedTeams()->save(Team::forceCreate([
                 'user_id' => $user->id,
