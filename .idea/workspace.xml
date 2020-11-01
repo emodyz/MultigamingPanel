@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e983d14d-88d0-4649-b7aa-b14434d92f5f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/MultigamingPanel.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/MultigamingPanel.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,6 +141,7 @@
       <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-iconv" />
       <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/laravel/telescope" />
     </include_path>
   </component>
   <component name="ProjectId" id="1jdpBQXPQ6wxyJF9Aj7Zl2EFbg6" />
@@ -269,7 +275,14 @@
       <option name="project" value="LOCAL" />
       <updated>1604263378865</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="#7 Add forgot password">
+      <created>1604267525760</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1604267525760</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -282,6 +295,7 @@
     <MESSAGE value="ADD PGSQL" />
     <MESSAGE value="Add .env for CI" />
     <MESSAGE value="Refresh DB for CI" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refresh DB for CI" />
+    <MESSAGE value="#7 Add forgot password" />
+    <option name="LAST_COMMIT_MESSAGE" value="#7 Add forgot password" />
   </component>
 </project>

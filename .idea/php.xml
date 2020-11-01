@@ -119,6 +119,7 @@
       <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-iconv" />
       <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/laravel/telescope" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />
