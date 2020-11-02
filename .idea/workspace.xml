@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e983d14d-88d0-4649-b7aa-b14434d92f5f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -219,6 +219,7 @@
       <workItem from="1604143696409" duration="250000" />
       <workItem from="1604169394039" duration="505000" />
       <workItem from="1604255867329" duration="3210000" />
+      <workItem from="1604301978549" duration="104000" />
     </task>
     <task id="LOCAL-00001" summary="#7 Add login api routes">
       <created>1604261276502</created>
