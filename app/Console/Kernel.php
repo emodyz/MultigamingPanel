@@ -25,6 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('telescope:prune --hours=170')->daily();
         // $schedule->command('inspire')->hourly();
         $schedule->job(ProcessServersStatuses::class)
             ->onOneServer()
