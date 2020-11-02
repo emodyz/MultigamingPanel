@@ -10,6 +10,8 @@ class Game extends Model
 {
     use HasFactory;
 
+    protected $keyType = 'string';
+
     protected $fillable = [
         'name',
         'identifier',

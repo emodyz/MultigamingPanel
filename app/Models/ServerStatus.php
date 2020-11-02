@@ -10,6 +10,8 @@ class ServerStatus extends Model
 {
     use HasFactory;
 
+    protected $keyType = 'string';
+
     protected $fillable = [
         'server_id',
         'online',

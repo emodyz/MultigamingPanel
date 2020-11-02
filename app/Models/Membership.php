@@ -12,4 +12,6 @@ class Membership extends JetstreamMembership
      * @var bool
      */
     public $incrementing = true;
+
+    protected $keyType = 'string';
 }
