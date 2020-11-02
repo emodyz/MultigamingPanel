@@ -14,7 +14,13 @@ class AddUuidExtensionToPostgresql extends Migration
      */
     public function up()
     {
-        DB::statement('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
+        $connection = config('database.default');
+
+        $driver = config("database.connections.{$connection}.driver");
+
+        if($driver === 'pgsql') {
+            DB::statement('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
+        }
     }
 
     /**
