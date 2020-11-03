@@ -3,7 +3,8 @@
 
 namespace App\Models\Traits;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
 
 trait HasPrimaryKeyAsUuid
@@ -11,15 +12,18 @@ trait HasPrimaryKeyAsUuid
 
     public static function bootHasPrimaryKeyAsUuid()
     {
-        static::creating(function ($model) {
-            $model->id = Uuid::uuid4();
+        static::creating(function (Model $model) {
+            if (!$model->getKey()) {
+                $model->{$model->getKeyName()} = (string) Str::uuid();
+            }
         });
 
-        static::saving(function ($model) {
-            $original_uuid = $model->getOriginal('id');
-
-            if ($original_uuid !== $model->id) {
-                $model->id = $original_uuid;
+        static::saving(function (Model $model) {
+            $originalKey = $model->getOriginal($model->getKeyName());
+            if (!is_null($originalKey)) {
+                if ($originalKey !== $model->{$model->getKeyName()}) {
+                    $model->{$model->getKeyName()} = $originalKey;
+                }
             }
         });
     }
@@ -27,5 +31,10 @@ trait HasPrimaryKeyAsUuid
     public function getKeyType(): string
     {
         return 'string';
+    }
+
+    public function getIncrementing(): bool
+    {
+        return false;
     }
 }
