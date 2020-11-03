@@ -15,7 +15,7 @@ class CreateServerStatusesTable extends Migration
     public function up()
     {
         Schema::create('server_statuses', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->boolean('online');
             $table->integer('players_max');
             $table->integer('players_online');
