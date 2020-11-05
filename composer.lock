@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d2bb0ad14361033674a5a5101ea28458",
+    "content-hash": "5d790879515b6ce11757b7a2afd47536",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -640,6 +640,66 @@
                 "source": "https://github.com/egulias/EmailValidator/tree/2.1.23"
             },
             "time": "2020-10-31T20:37:35+00:00"
+        },
+        {
+            "name": "emodyz/cerberus",
+            "version": "v0.0.1-alpha",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/emodyz/Cerberus.git",
+                "reference": "0980a7fe8716a6686108503bba69226296ebe16e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/emodyz/Cerberus/zipball/0980a7fe8716a6686108503bba69226296ebe16e",
+                "reference": "0980a7fe8716a6686108503bba69226296ebe16e",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~7|~8"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~5|~6",
+                "phpunit/phpunit": "~9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Emodyz\\Cerberus\\CerberusServiceProvider"
+                    ],
+                    "aliases": {
+                        "Cerberus": "Emodyz\\Cerberus\\Facades\\Cerberus"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Emodyz\\Cerberus\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Saber Nouira",
+                    "email": "contact@emodyz.eu",
+                    "homepage": "https://emodyz.eu"
+                }
+            ],
+            "description": "Hell's Gatekeeper",
+            "homepage": "https://github.com/emodyz/cerberus",
+            "keywords": [
+                "cerberus",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/emodyz/Cerberus/issues",
+                "source": "https://github.com/emodyz/Cerberus/tree/v0.0.1-alpha"
+            },
+            "time": "2020-11-05T08:47:27+00:00"
         },
         {
             "name": "fideloper/proxy",
@@ -8135,7 +8195,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "emodyz/cerberus": 15
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
