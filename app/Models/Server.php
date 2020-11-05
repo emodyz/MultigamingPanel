@@ -46,4 +46,24 @@ class Server extends Model
     {
         return $this->hasMany(ServerStatus::class);
     }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function modpacks(): BelongsToMany
+    {
+        return $this->belongsToMany(Modpack::class);
+    }
+
+    /**
+     * @return string
+     */
+    public function getUpdateHashAttribute(): string
+    {
+        $hash = "";
+        $this->modpacks->each(function (Modpack $modpack) use (&$hash) {
+            $hash .= $modpack->manifest_last_update;
+        });
+        return hash('sha256', $hash);
+    }
 }

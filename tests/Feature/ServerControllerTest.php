@@ -4,13 +4,10 @@ namespace Tests\Feature;
 
 use App\Models\Server;
 use App\Models\ServerStatus;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ServerControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     /**
      * @test
      */

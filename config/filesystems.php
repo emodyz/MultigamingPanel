@@ -65,6 +65,12 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
         ],
 
+        'modpacks' => [
+            'driver' => 'local',
+            'root' => storage_path('app/modpacks'),
+            'url' => env('APP_URL').'/modpacks',
+            'visibility' => 'public',
+        ],
     ],
 
     /*
@@ -80,6 +86,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('modpacks') => storage_path('app/modpacks'),
     ],
 
 ];

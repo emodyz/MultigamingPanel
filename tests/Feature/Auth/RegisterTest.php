@@ -8,8 +8,6 @@ use Tests\TestCase;
 
 class RegisterTest extends TestCase
 {
-    use RefreshDatabase;
-
     const USER_EMAIL = 'foo@bar.com';
     const USER_NAME = 'Foo';
     const USER_PASSWORD = 'SuperPassword1/£';
