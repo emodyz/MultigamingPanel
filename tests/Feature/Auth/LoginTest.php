@@ -10,8 +10,6 @@ use Tests\TestCase;
 
 class LoginTest extends TestCase
 {
-    use RefreshDatabase;
-
     const USER_PASSWORD = 'SuperPassword!1';
 
     /**

@@ -17,18 +17,20 @@
 </template>
 
 <script lang="ts">
-    import AppLayout from '@/Layouts/AppLayout.vue'
-    import Welcome from '@/Jetstream/Welcome.vue'
+import AppLayout from '@/Layouts/AppLayout.vue'
+import Welcome from '@/Jetstream/Welcome.vue'
 
-    import { Vue, Component, Prop, PropSync, Ref } from 'vue-property-decorator'
+import {Component, Vue} from 'vue-property-decorator'
 
-    @Component({
+@Component({
         components: {
             AppLayout,
             Welcome,
         },
     })
     export default class Dashboard extends Vue {
-        //
+        mounted() {
+            console.log('mounted');
+        }
     }
 </script>

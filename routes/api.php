@@ -3,6 +3,8 @@
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\ModpackController;
+use App\Http\Controllers\ModpackServerController;
 use App\Http\Controllers\ServerController;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
@@ -35,5 +37,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 
     // Servers
-    Route::resource('servers', ServerController::class);
+    Route::resource('/servers', ServerController::class);
+    Route::get('/servers/{server}/modpacks', [ServerController::class, 'modpacks']);
+
+    // Modpacks
+    Route::resource('/modpacks', ModpackController::class);
+
+    // Modpack Server
+    Route::post('/modpacks/{modpack}/servers/{server}', [ModpackServerController::class, 'attach']);
+    Route::delete('/modpacks/{modpack}/servers/{server}', [ModpackServerController::class, 'detach']);
 });

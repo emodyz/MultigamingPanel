@@ -10,8 +10,6 @@ use Tests\TestCase;
 
 class ForgotPasswordTest extends TestCase
 {
-    use RefreshDatabase;
-
     /**
      * @test
      */

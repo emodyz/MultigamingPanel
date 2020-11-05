@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(GameSeeder::class);
         $this->call(ServerSeeder::class);
+        $this->call(ModpackSeeder::class);
     }
 }

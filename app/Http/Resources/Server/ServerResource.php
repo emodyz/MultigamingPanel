@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Server;
 
+use App\Http\Resources\GameResource;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ServerResource extends JsonResource
@@ -9,7 +11,7 @@ class ServerResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function toArray($request)
@@ -22,6 +24,7 @@ class ServerResource extends JsonResource
             'logo_url' => $this->logo_url,
             'status' => ServerStatusResource::make($this->status()->latest()->first()),
             'game' => GameResource::make($this->game),
+            'update_hash' => $this->update_hash
         ];
     }
 }

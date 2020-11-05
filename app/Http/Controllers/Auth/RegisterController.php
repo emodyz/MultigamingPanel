@@ -5,15 +5,15 @@ namespace App\Http\Controllers\Auth;
 use App\Actions\Fortify\CreateNewUser;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Laravel\Fortify\Fortify;
 use Symfony\Component\HttpFoundation\Response;
 
 class RegisterController extends Controller
 {
     /**
      * @param Request $request
-     * @return UserResource|\Illuminate\Http\JsonResponse|object
+     * @return UserResource|JsonResponse|object
      */
     public function __invoke(Request $request)
     {

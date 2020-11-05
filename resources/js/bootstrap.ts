@@ -5,6 +5,8 @@
  */
 
 import axios from "axios"
+import Echo from "laravel-echo"
+import Vue from "vue";
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -28,13 +30,19 @@ if (token) {
  * allows your team to easily build robust real-time web applications.
  */
 
-// import Echo from 'laravel-echo';
+// @ts-ignore
+window.Pusher = require('pusher-js');
 
-// window.Pusher = require('pusher-js');
+// @ts-ignore
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: 'app-key',
+    wsHost: window.location.hostname,
+    wsPort: 6001,
+    wssPort: 6001,
+    disableStats: true
+})
 
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     forceTLS: true
-// });
+// @ts-ignore
+Vue.prototype.$echo = window.Echo;
+Vue.prototype.$axios = axios;

@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\ServerResource;
+use App\Http\Resources\Server\ServerModpackResource;
+use App\Http\Resources\Server\ServerResource;
 use App\Models\Server;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 
 class ServerController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection|\Illuminate\Http\Response
+     * @return AnonymousResourceCollection|Response
      */
     public function index()
     {
@@ -23,7 +26,7 @@ class ServerController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -33,8 +36,8 @@ class ServerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -44,8 +47,8 @@ class ServerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Server  $server
-     * @return ServerResource|\Illuminate\Http\Response
+     * @param Server $server
+     * @return ServerResource|Response
      */
     public function show(Server $server)
     {
@@ -55,8 +58,8 @@ class ServerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Server  $server
-     * @return \Illuminate\Http\Response
+     * @param Server $server
+     * @return Response
      */
     public function edit(Server $server)
     {
@@ -66,9 +69,9 @@ class ServerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Server  $server
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Server $server
+     * @return Response
      */
     public function update(Request $request, Server $server)
     {
@@ -78,11 +81,20 @@ class ServerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Server  $server
-     * @return \Illuminate\Http\Response
+     * @param Server $server
+     * @return Response
      */
     public function destroy(Server $server)
     {
         //
+    }
+
+    /**
+     * @param Server $server
+     * @return AnonymousResourceCollection
+     */
+    public function modpacks(Server $server)
+    {
+        return ServerModpackResource::collection($server->modpacks);
     }
 }
