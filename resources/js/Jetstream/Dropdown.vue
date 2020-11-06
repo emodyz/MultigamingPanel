@@ -28,28 +28,39 @@
     </div>
 </template>
 
-<script>
-    export default {
-        props: {
-            align: {
-                default: 'right'
-            },
-            width: {
-                default: '48'
-            },
-            contentClasses: {
-                default: () => ['py-1', 'bg-white']
-            }
-        },
+<script lang="ts">
 
-        data() {
-            return {
-                open: false
-            }
-        },
+    import Component from "vue-class-component";
+    import Vue from "vue";
+
+    const widths: any = {
+      '48': 'w-48'
+    }
+
+    @Component
+    export default class Dropdown extends Vue {
+        open: boolean = false
+
+        contentClasses: any = ['py-1', 'bg-white']
+        align: any = 'right'
+        width: any = '48'
+
+        get widthClass() {
+          return  widths[this.width.toString()]
+        }
+
+        get alignmentClasses() {
+          if (this.align == 'left') {
+            return 'origin-top-left left-0'
+          } else if (this.align == 'right') {
+            return 'origin-top-right right-0'
+          } else {
+            return 'origin-top'
+          }
+        }
 
         created() {
-            const closeOnEscape = (e) => {
+            const closeOnEscape = (e: any) => {
                 if (this.open && e.keyCode === 27) {
                     this.open = false
                 }
@@ -60,24 +71,6 @@
             })
 
             document.addEventListener('keydown', closeOnEscape)
-        },
-
-        computed: {
-            widthClass() {
-                return {
-                    '48': 'w-48',
-                }[this.width.toString()]
-            },
-
-            alignmentClasses() {
-                if (this.align == 'left') {
-                    return 'origin-top-left left-0'
-                } else if (this.align == 'right') {
-                    return 'origin-top-right right-0'
-                } else {
-                    return 'origin-top'
-                }
-            },
         }
     }
 </script>
