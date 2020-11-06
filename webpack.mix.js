@@ -18,5 +18,9 @@ mix.ts('resources/js/app.ts', 'public/js')
         require('postcss-import'),
         require('tailwindcss'),
     ])
+    .babelConfig({
+        plugins: ['@babel/plugin-syntax-dynamic-import'],
+    })
     .webpackConfig(require('./webpack.config'))
+    .version()
     .sourceMaps(productionSourceMaps, 'source-map');

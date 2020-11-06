@@ -34,7 +34,7 @@
                                     v-model="form.password"
                                     @keyup.enter.native="deleteUser" />
 
-                        <jet-input-error :message="form.error('password')" class="mt-2" />
+                        <jet-input-error :message="errorMessages.password" class="mt-2" />
                     </div>
                 </template>
 
@@ -52,58 +52,74 @@
     </jet-action-section>
 </template>
 
-<script>
-    import JetActionSection from '@/Jetstream/ActionSection'
-    import JetDialogModal from '@/Jetstream/DialogModal'
-    import JetDangerButton from '@/Jetstream/DangerButton'
-    import JetInput from '@/Jetstream/Input'
-    import JetInputError from '@/Jetstream/InputError'
-    import JetSecondaryButton from '@/Jetstream/SecondaryButton'
+<script lang="ts">
+    import JetActionSection from '@/Jetstream/ActionSection.vue'
+    import JetDangerButton from '@/Jetstream/DangerButton.vue'
+    import JetDialogModal from '@/Jetstream/DialogModal.vue'
+    import JetInput from '@/Jetstream/Input.vue'
+    import JetInputError from '@/Jetstream/InputError.vue'
+    import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 
-    export default {
+    import { Vue, Component, Prop, PropSync, Ref } from 'vue-property-decorator'
+
+    @Component({
         components: {
             JetActionSection,
             JetDangerButton,
             JetDialogModal,
             JetInput,
             JetInputError,
-            JetSecondaryButton,
-        },
+            JetSecondaryButton
+        }
+    })
+    export default class DeleteUserForm extends Vue {
+        @Ref('password') readonly password!: any
+        @Prop() readonly errors!: Object
 
-        data() {
-            return {
-                confirmingUserDeletion: false,
-                deleting: false,
+        errorMessages = {
+            password: ''
+        }
 
-                form: this.$inertia.form({
-                    '_method': 'DELETE',
-                    password: '',
-                }, {
-                    bag: 'deleteUser'
-                })
-            }
-        },
+        confirmingUserDeletion = false
+        deleting =  false
 
-        methods: {
-            confirmUserDeletion() {
-                this.form.password = '';
+        form = {
+            password: '',
+            processing: false
+        }
 
-                this.confirmingUserDeletion = true;
+        confirmUserDeletion() {
+            this.form.password = '';
 
-                setTimeout(() => {
-                    this.$refs.password.focus()
-                }, 250)
-            },
+            this.confirmingUserDeletion = true;
 
-            deleteUser() {
-                this.form.post(route('current-user.destroy'), {
-                    preserveScroll: true
-                }).then(response => {
-                    if (! this.form.hasErrors()) {
-                        this.confirmingUserDeletion = false;
+            setTimeout(() => {
+                this.password.focus()
+            }, 250)
+        }
+
+        deleteUser() {
+            this.form.processing = true
+            // @ts-ignore
+            this.$inertia.delete(
+                // @ts-ignore
+                route('current-user.destroy'),
+                {
+                    data: this.form,
+                    preserveScroll: true,
+                    onSuccess: (page: any) => {
+                        // @ts-ignore
+                        this.form.processing = false
+                        // @ts-ignore
+                        if (!this.errors.deleteUser) {
+                            this.confirmingUserDeletion = false
+                        } else {
+                            // @ts-ignore
+                            this.errorMessages = this.errors.deleteUser
+                        }
                     }
-                })
-            },
-        },
+                }
+            )
+        }
     }
 </script>

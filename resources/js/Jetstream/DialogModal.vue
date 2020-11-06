@@ -19,30 +19,24 @@
     </modal>
 </template>
 
-<script>
+<script lang="ts">
+    import { Vue, Component, Prop } from 'vue-property-decorator'
     import Modal from './Modal'
 
-    export default {
+    @Component({
         components: {
             Modal,
-        },
-
-        props: {
-            show: {
-                default: false
-            },
-            maxWidth: {
-                default: '2xl'
-            },
-            closeable: {
-                default: true
-            },
-        },
-
-        methods: {
-            close() {
-                this.$emit('close')
-            },
         }
+    })
+    export default class DialogModal extends Vue {
+
+        @Prop({ default: true }) readonly closeable!: boolean
+        @Prop({ default: true }) readonly show!: boolean
+        @Prop({ default: '2xl' }) readonly maxWidth!: string
+
+        close() {
+            this.$emit('close')
+        }
+
     }
 </script>

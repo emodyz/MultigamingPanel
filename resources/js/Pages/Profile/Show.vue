@@ -26,8 +26,8 @@
                 <logout-other-browser-sessions-form :sessions="sessions" class="mt-10 sm:mt-0" />
 
                 <jet-section-border />
-
-                <delete-user-form class="mt-10 sm:mt-0" /> -->
+ -->
+                <delete-user-form :errors="errors" class="mt-10 sm:mt-0" />
             </div>
         </div>
     </app-layout>
@@ -35,25 +35,25 @@
 
 <script lang='ts'>
     import AppLayout from '@/Layouts/AppLayout.vue'
+    import DeleteUserForm from './DeleteUserForm.vue'
     /*
-        import DeleteUserForm from './DeleteUserForm.vue'
-
-        import JetSectionBorder from '@/Jetstream/SectionBorder'
-        import LogoutOtherBrowserSessionsForm from './LogoutOtherBrowserSessionsForm'
-        import TwoFactorAuthenticationForm from './TwoFactorAuthenticationForm'
-        import UpdatePasswordForm from './UpdatePasswordForm'
-        import UpdateProfileInformationForm from './UpdateProfileInformationForm'*/
+            import JetSectionBorder from '@/Jetstream/SectionBorder'
+            import LogoutOtherBrowserSessionsForm from './LogoutOtherBrowserSessionsForm'
+            import TwoFactorAuthenticationForm from './TwoFactorAuthenticationForm'
+            import UpdatePasswordForm from './UpdatePasswordForm'
+            import UpdateProfileInformationForm from './UpdateProfileInformationForm'*/
     import Vue from 'vue'
     import Component from 'vue-class-component'
 
     @Component({
         components: {
             AppLayout,
-            // DeleteUserForm
-        }
+            DeleteUserForm
+        },
+        props: ['sessions', 'errors']
     })
     export default class Show extends Vue {
-
+        //
     }
 
     /*
