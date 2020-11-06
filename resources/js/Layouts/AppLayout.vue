@@ -212,14 +212,16 @@
 
 <script lang="ts">
 
+    import Vue from 'vue'
+    import Component from 'vue-class-component'
+
     import JetApplicationMark from '@/Jetstream/ApplicationMark.vue'
     import JetDropdown from '@/Jetstream/Dropdown.vue'
     import JetDropdownLink from '@/Jetstream/DropdownLink.vue'
     import JetNavLink from '@/Jetstream/NavLink.vue'
     import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink.vue'
 
-    import Vue from 'vue'
-    import Component from 'vue-class-component'
+    import axios from "axios";
 
     @Component({
         components: {

@@ -11,9 +11,12 @@ const mix = require('laravel-mix');
  |
  */
 
+let productionSourceMaps = false;
+
 mix.ts('resources/js/app.ts', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         require('postcss-import'),
         require('tailwindcss'),
     ])
-    .webpackConfig(require('./webpack.config'));
+    .webpackConfig(require('./webpack.config'))
+    .sourceMaps(productionSourceMaps, 'source-map');
