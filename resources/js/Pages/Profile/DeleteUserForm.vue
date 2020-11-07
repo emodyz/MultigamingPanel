@@ -81,7 +81,6 @@
         }
 
         confirmingUserDeletion = false
-        deleting =  false
 
         form = {
             password: '',

@@ -86,84 +86,88 @@
     </jet-action-section>
 </template>
 
-<script>
-    import JetActionSection from '@/Jetstream/ActionSection'
-    import JetButton from '@/Jetstream/Button'
-    import JetConfirmsPassword from '@/Jetstream/ConfirmsPassword'
-    import JetDangerButton from '@/Jetstream/DangerButton'
-    import JetSecondaryButton from '@/Jetstream/SecondaryButton'
+<script lang="ts">
+    import JetActionSection from '@/Jetstream/ActionSection.vue'
+    import JetButton from '@/Jetstream/Button.vue'
+    import JetConfirmsPassword from '@/Jetstream/ConfirmsPassword.vue'
+    import JetDangerButton from '@/Jetstream/DangerButton.vue'
+    import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 
-    export default {
+    import { Vue, Component, Prop, PropSync, Ref } from 'vue-property-decorator'
+
+    import axios from "axios";
+
+    @Component({
         components: {
             JetActionSection,
             JetButton,
             JetConfirmsPassword,
             JetDangerButton,
             JetSecondaryButton,
-        },
+        }
+    })
+    export default class TwoFactorAuthenticationForm extends Vue {
+        @Ref('password') readonly password!: any
+        @Prop() readonly sessions!: any
+        @Prop() readonly errors!: Object
 
-        data() {
-            return {
-                enabling: false,
-                disabling: false,
+        enabling: boolean = false
+        disabling:boolean = false
 
-                qrCode: null,
-                recoveryCodes: [],
-            }
-        },
+        qrCode: any = null
+        recoveryCodes: any = []
 
-        methods: {
-            enableTwoFactorAuthentication() {
-                this.enabling = true
+        get twoFactorEnabled() {
+            // @ts-ignore
+            return ! this.enabling && this.$page.props.user.two_factor_enabled
+        }
 
-                this.$inertia.post('/user/two-factor-authentication', {}, {
-                    preserveScroll: true,
-                }).then(() => {
-                    return Promise.all([
-                        this.showQrCode(),
-                        this.showRecoveryCodes()
-                    ])
-                }).then(() => {
+        enableTwoFactorAuthentication() {
+            this.enabling = true
+
+            // @ts-ignore
+            this.$inertia.post('/user/two-factor-authentication', {}, {
+                preserveScroll: true,
+                onSuccess: async () => {
+                    await this.showQrCode()
+                    await this.showRecoveryCodes()
+                },
+                onFinish: () => {
                     this.enabling = false
+                }
+            })
+        }
+
+        showQrCode() {
+            return axios.get('/user/two-factor-qr-code')
+                .then(response => {
+                    this.qrCode = response.data.svg
                 })
-            },
+        }
 
-            showQrCode() {
-                return axios.get('/user/two-factor-qr-code')
-                        .then(response => {
-                            this.qrCode = response.data.svg
-                        })
-            },
+        showRecoveryCodes() {
+            return axios.get('/user/two-factor-recovery-codes')
+                .then(response => {
+                    this.recoveryCodes = response.data
+                })
+        }
 
-            showRecoveryCodes() {
-                return axios.get('/user/two-factor-recovery-codes')
-                        .then(response => {
-                            this.recoveryCodes = response.data
-                        })
-            },
+        regenerateRecoveryCodes() {
+            axios.post('/user/two-factor-recovery-codes')
+                .then(response => {
+                    this.showRecoveryCodes()
+                })
+        }
 
-            regenerateRecoveryCodes() {
-                axios.post('/user/two-factor-recovery-codes')
-                        .then(response => {
-                            this.showRecoveryCodes()
-                        })
-            },
-
-            disableTwoFactorAuthentication() {
-                this.disabling = true
-
-                this.$inertia.delete('/user/two-factor-authentication', {
-                    preserveScroll: true,
-                }).then(() => {
+        disableTwoFactorAuthentication() {
+            this.disabling = true
+            // @ts-ignore
+            this.$inertia.delete('/user/two-factor-authentication', {
+                preserveScroll: true,
+                onSuccess: () => {
                     this.disabling = false
-                })
-            },
-        },
-
-        computed: {
-            twoFactorEnabled() {
-                return ! this.enabling && this.$page.props.user.two_factor_enabled
-            }
+                }
+            })
         }
     }
 </script>

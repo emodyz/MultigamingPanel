@@ -35,7 +35,79 @@
     </span>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Component, Prop, PropSync, Ref } from 'vue-property-decorator'
+
+import axios from "axios";
+
+import JetButton from './Button.vue'
+import JetDialogModal from './DialogModal.vue'
+import JetInput from './Input.vue'
+import JetInputError from './InputError.vue'
+import JetSecondaryButton from './SecondaryButton.vue'
+
+@Component({
+    components: {
+        JetButton,
+        JetDialogModal,
+        JetInput,
+        JetInputError,
+        JetSecondaryButton,
+    }
+})
+export default class ConfirmsPassword extends Vue {
+    @Ref('password') readonly password!: any
+    @Prop() readonly errors!: Object
+    @Prop({ default: 'Confirm Password' }) readonly title!: string
+    @Prop({ default: 'For your security, please confirm your password to continue.' }) readonly content!: string
+    @Prop({ default: 'Confirm' }) readonly button!: string
+
+    confirmingPassword: boolean = false
+
+    form: any = {
+        password: '',
+        processing: false,
+        error: '',
+    }
+
+    startConfirmingPassword() {
+        this.form.error = '';
+
+        // @ts-ignore
+        axios.get(route('password.confirmation').url()).then(response => {
+            if (response.data.confirmed) {
+                this.$emit('confirmed');
+            } else {
+                this.confirmingPassword = true;
+                this.form.password = '';
+
+                setTimeout(() => {
+                    this.password.focus()
+                }, 250)
+            }
+        })
+    }
+
+    confirmPassword() {
+        this.form.processing = true;
+
+        // @ts-ignore
+        axios.post(route('password.confirm').url(), {
+            password: this.form.password,
+        }).then(response => {
+            this.confirmingPassword = false;
+            this.form.password = '';
+            this.form.error = '';
+            this.form.processing = false;
+
+            this.$nextTick(() => this.$emit('confirmed'));
+        }).catch(error => {
+            this.form.processing = false;
+            this.form.error = error.response.data.errors.password[0];
+        });
+    }
+}
+/*
     import JetButton from './Button'
     import JetDialogModal from './DialogModal'
     import JetInput from './Input'
@@ -113,4 +185,5 @@
             }
         }
     }
+ */
 </script>

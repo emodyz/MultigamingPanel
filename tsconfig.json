@@ -1,13 +1,14 @@
 {
     "compilerOptions": {
         "target": "es5",
+        "strict": true,
         "moduleResolution": "node",
         "experimentalDecorators": true,
         "baseUrl": "./",
         "paths": {
             "@'": ["resources/js"]
         },
-        "module": "commonjs",
+        "module": "es2015",
         "strictNullChecks": false,
         "esModuleInterop": true
     },

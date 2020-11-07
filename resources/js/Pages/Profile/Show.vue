@@ -14,7 +14,7 @@
                 <jet-section-border />
 
                 <update-password-form class="mt-10 sm:mt-0" />
-
+ -->
                 <div v-if="$page.props.jetstream.canManageTwoFactorAuthentication">
                     <jet-section-border />
 
@@ -23,10 +23,10 @@
 
                 <jet-section-border />
 
-                <logout-other-browser-sessions-form :sessions="sessions" class="mt-10 sm:mt-0" />
+                <logout-other-browser-sessions-form :sessions="sessions" :errors="errors" class="mt-10 sm:mt-0" />
 
                 <jet-section-border />
- -->
+
                 <delete-user-form :errors="errors" class="mt-10 sm:mt-0" />
             </div>
         </div>
@@ -36,19 +36,22 @@
 <script lang='ts'>
     import AppLayout from '@/Layouts/AppLayout.vue'
     import DeleteUserForm from './DeleteUserForm.vue'
+    import JetSectionBorder from '@/Jetstream/SectionBorder.vue'
+    import LogoutOtherBrowserSessionsForm from './LogoutOtherBrowserSessionsForm.vue'
+    import TwoFactorAuthenticationForm from './TwoFactorAuthenticationForm.vue'
     /*
-            import JetSectionBorder from '@/Jetstream/SectionBorder'
-            import LogoutOtherBrowserSessionsForm from './LogoutOtherBrowserSessionsForm'
-            import TwoFactorAuthenticationForm from './TwoFactorAuthenticationForm'
-            import UpdatePasswordForm from './UpdatePasswordForm'
-            import UpdateProfileInformationForm from './UpdateProfileInformationForm'*/
+    import UpdatePasswordForm from './UpdatePasswordForm'
+    import UpdateProfileInformationForm from './UpdateProfileInformationForm'*/
     import Vue from 'vue'
     import Component from 'vue-class-component'
 
     @Component({
         components: {
             AppLayout,
-            DeleteUserForm
+            DeleteUserForm,
+            JetSectionBorder,
+            LogoutOtherBrowserSessionsForm,
+            TwoFactorAuthenticationForm,
         },
         props: ['sessions', 'errors']
     })

@@ -68,7 +68,7 @@
                                     v-model="form.password"
                                     @keyup.enter.native="logoutOtherBrowserSessions" />
 
-                        <jet-input-error :message="form.error('password')" class="mt-2" />
+                        <jet-input-error :message="errorMessages.password" class="mt-2" />
                     </div>
                 </template>
 
@@ -86,18 +86,18 @@
     </jet-action-section>
 </template>
 
-<script>
-    import JetActionMessage from '@/Jetstream/ActionMessage'
-    import JetActionSection from '@/Jetstream/ActionSection'
-    import JetButton from '@/Jetstream/Button'
-    import JetDialogModal from '@/Jetstream/DialogModal'
-    import JetInput from '@/Jetstream/Input'
-    import JetInputError from '@/Jetstream/InputError'
-    import JetSecondaryButton from '@/Jetstream/SecondaryButton'
+<script lang="ts">
+    import JetActionMessage from '@/Jetstream/ActionMessage.vue'
+    import JetActionSection from '@/Jetstream/ActionSection.vue'
+    import JetButton from '@/Jetstream/Button.vue'
+    import JetDialogModal from '@/Jetstream/DialogModal.vue'
+    import JetInput from '@/Jetstream/Input.vue'
+    import JetInputError from '@/Jetstream/InputError.vue'
+    import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 
-    export default {
-        props: ['sessions'],
+    import { Vue, Component, Prop, PropSync, Ref } from 'vue-property-decorator'
 
+    @Component({
         components: {
             JetActionMessage,
             JetActionSection,
@@ -106,41 +106,59 @@
             JetInput,
             JetInputError,
             JetSecondaryButton,
-        },
+        }
+    })
+    export default class LogoutOtherBrowserSessionsForm extends Vue {
+        @Ref('password') readonly password!: any
+        @Prop() readonly sessions!: any
+        @Prop() readonly errors!: Object
 
-        data() {
-            return {
-                confirmingLogout: false,
+        confirmingLogout: boolean = false
 
-                form: this.$inertia.form({
-                    '_method': 'DELETE',
-                    password: '',
-                }, {
-                    bag: 'logoutOtherBrowserSessions'
-                })
-            }
-        },
+        errorMessages = {
+            password: ''
+        }
 
-        methods: {
-            confirmLogout() {
-                this.form.password = ''
+        form = {
+            password: '',
+            processing: false,
+            recentlySuccessful: false
+        }
 
-                this.confirmingLogout = true
+        confirmLogout() {
+            this.form.password = ''
 
-                setTimeout(() => {
-                    this.$refs.password.focus()
-                }, 250)
-            },
+            this.confirmingLogout = true
 
-            logoutOtherBrowserSessions() {
-                this.form.post(route('other-browser-sessions.destroy'), {
-                    preserveScroll: true
-                }).then(response => {
-                    if (! this.form.hasErrors()) {
-                        this.confirmingLogout = false
+            setTimeout(() => {
+                this.password.focus()
+            }, 250)
+        }
+
+        logoutOtherBrowserSessions() {
+            this.form.recentlySuccessful = false
+            this.form.processing = true
+            // @ts-ignore
+            this.$inertia.delete(
+                // @ts-ignore
+                route('other-browser-sessions.destroy'),
+                {
+                    data: this.form,
+                    preserveScroll: true,
+                    onSuccess: (page: any) => {
+                        // @ts-ignore
+                        this.form.processing = false
+                        // @ts-ignore
+                        if (!this.errors.logoutOtherBrowserSessions) {
+                            this.confirmingLogout = false
+                            this.form.recentlySuccessful = true
+                        } else {
+                            // @ts-ignore
+                            this.errorMessages = this.errors.logoutOtherBrowserSessions
+                        }
                     }
-                })
-            },
-        },
+                }
+            )
+        }
     }
 </script>
