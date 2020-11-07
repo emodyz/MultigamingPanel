@@ -23,18 +23,19 @@
     </div>
 </template>
 
-<script>
-    import JetSectionTitle from './SectionTitle'
+<script lang="ts">
+    import JetSectionTitle from './SectionTitle.vue'
 
-    export default {
+    import { Vue, Component, Prop, PropSync, Ref } from 'vue-property-decorator'
+
+    @Component({
         components: {
             JetSectionTitle,
-        },
-
-        computed: {
-            hasActions() {
-                return !! this.$slots.actions
-            }
+        }
+    })
+    export default class FormSection extends Vue {
+        get hasActions() {
+            return !! this.$slots.actions
         }
     }
 </script>

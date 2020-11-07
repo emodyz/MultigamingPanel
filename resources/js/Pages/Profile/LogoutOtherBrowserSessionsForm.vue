@@ -111,7 +111,7 @@
     export default class LogoutOtherBrowserSessionsForm extends Vue {
         @Ref('password') readonly password!: any
         @Prop() readonly sessions!: any
-        @Prop() readonly errors!: Object
+        @Prop() readonly errors!: any
 
         confirmingLogout: boolean = false
 
@@ -148,12 +148,10 @@
                     onSuccess: (page: any) => {
                         // @ts-ignore
                         this.form.processing = false
-                        // @ts-ignore
                         if (!this.errors.logoutOtherBrowserSessions) {
                             this.confirmingLogout = false
                             this.form.recentlySuccessful = true
                         } else {
-                            // @ts-ignore
                             this.errorMessages = this.errors.logoutOtherBrowserSessions
                         }
                     }

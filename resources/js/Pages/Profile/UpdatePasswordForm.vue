@@ -12,19 +12,19 @@
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="current_password" value="Current Password" />
                 <jet-input id="current_password" type="password" class="mt-1 block w-full" v-model="form.current_password" ref="current_password" autocomplete="current-password" />
-                <jet-input-error :message="form.error('current_password')" class="mt-2" />
+                <jet-input-error :message="errorMessages.current_password" class="mt-2" />
             </div>
 
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="password" value="New Password" />
                 <jet-input id="password" type="password" class="mt-1 block w-full" v-model="form.password" autocomplete="new-password" />
-                <jet-input-error :message="form.error('password')" class="mt-2" />
+                <jet-input-error :message="errorMessages.password" class="mt-2" />
             </div>
 
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="password_confirmation" value="Confirm Password" />
                 <jet-input id="password_confirmation" type="password" class="mt-1 block w-full" v-model="form.password_confirmation" autocomplete="new-password" />
-                <jet-input-error :message="form.error('password_confirmation')" class="mt-2" />
+                <jet-input-error :message="errorMessages.password_confirmation" class="mt-2" />
             </div>
         </template>
 
@@ -40,15 +40,17 @@
     </jet-form-section>
 </template>
 
-<script>
-    import JetActionMessage from '@/Jetstream/ActionMessage'
-    import JetButton from '@/Jetstream/Button'
-    import JetFormSection from '@/Jetstream/FormSection'
-    import JetInput from '@/Jetstream/Input'
-    import JetInputError from '@/Jetstream/InputError'
-    import JetLabel from '@/Jetstream/Label'
+<script lang="ts">
+    import JetActionMessage from '@/Jetstream/ActionMessage.vue'
+    import JetButton from '@/Jetstream/Button.vue'
+    import JetFormSection from '@/Jetstream/FormSection.vue'
+    import JetInput from '@/Jetstream/Input.vue'
+    import JetInputError from '@/Jetstream/InputError.vue'
+    import JetLabel from '@/Jetstream/Label.vue'
 
-    export default {
+    import { Vue, Component, Prop, PropSync, Ref } from 'vue-property-decorator'
+
+    @Component({
         components: {
             JetActionMessage,
             JetButton,
@@ -56,28 +58,52 @@
             JetInput,
             JetInputError,
             JetLabel,
-        },
+        }
+    })
+    export default class UpdatePasswordForm extends Vue {
+        @Ref('current_password') readonly current_password!: any
+        @Prop() readonly errors!: any
 
-        data() {
-            return {
-                form: this.$inertia.form({
-                    current_password: '',
-                    password: '',
-                    password_confirmation: '',
-                }, {
-                    bag: 'updatePassword',
-                }),
-            }
-        },
+        errorMessages = {
+            password: '',
+            password_confirmation: '',
+            current_password: ''
+        }
 
-        methods: {
-            updatePassword() {
-                this.form.put(route('user-password.update'), {
-                    preserveScroll: true
-                }).then(() => {
-                    this.$refs.current_password.focus()
-                })
-            },
-        },
+        form = {
+            password: '',
+            password_confirmation: '',
+            current_password: '',
+            recentlySuccessful: false,
+            processing: false,
+        }
+
+        updatePassword() {
+            this.form.processing = true
+            this.form.recentlySuccessful = false
+            // @ts-ignore
+            this.$inertia.put(
+                // @ts-ignore
+                route('user-password.update'),
+                this.form,
+                {
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        this.form.processing = false
+                        if (!this.errors.updatePassword) {
+                            this.errorMessages = {
+                                password: '',
+                                password_confirmation: '',
+                                current_password: ''
+                            }
+                            this.form.recentlySuccessful = true
+                        } else {
+                            this.errorMessages = this.errors.updatePassword
+                            this.current_password.focus()
+                        }
+                    }
+                }
+            )
+        }
     }
 </script>

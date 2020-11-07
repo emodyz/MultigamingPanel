@@ -5,8 +5,11 @@
     </label>
 </template>
 
-<script>
-    export default {
-        props: ['value']
+<script lang="ts">
+    import { Vue, Component, Prop, PropSync, Ref } from 'vue-property-decorator'
+
+    @Component
+    export default class Label extends Vue {
+        @Prop() readonly value!: string | number
     }
 </script>

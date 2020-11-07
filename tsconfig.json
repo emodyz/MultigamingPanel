@@ -4,15 +4,16 @@
         "strict": true,
         "moduleResolution": "node",
         "experimentalDecorators": true,
-        "baseUrl": "./",
+        "baseUrl": ".",
         "paths": {
-            "@'": ["resources/js"]
+            "@/*": ["resources/js/*"]
         },
         "module": "es2015",
         "strictNullChecks": false,
         "esModuleInterop": true
     },
     "include": [
-        "resources/js/**/*"
+        "resources/js/**/*",
+        "./*.js"
     ]
 }

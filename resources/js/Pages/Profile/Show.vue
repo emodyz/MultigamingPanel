@@ -8,17 +8,17 @@
 
         <div>
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-                <!--
-                <update-profile-information-form :user="$page.props.user" />
+
+                <update-profile-information-form :errors="errors" :user="$page.props.user" />
 
                 <jet-section-border />
 
-                <update-password-form class="mt-10 sm:mt-0" />
- -->
+                <update-password-form :errors="errors" class="mt-10 sm:mt-0" />
+
                 <div v-if="$page.props.jetstream.canManageTwoFactorAuthentication">
                     <jet-section-border />
 
-                    <two-factor-authentication-form class="mt-10 sm:mt-0" />
+                    <two-factor-authentication-form :errors="errors" class="mt-10 sm:mt-0" />
                 </div>
 
                 <jet-section-border />
@@ -39,9 +39,9 @@
     import JetSectionBorder from '@/Jetstream/SectionBorder.vue'
     import LogoutOtherBrowserSessionsForm from './LogoutOtherBrowserSessionsForm.vue'
     import TwoFactorAuthenticationForm from './TwoFactorAuthenticationForm.vue'
-    /*
-    import UpdatePasswordForm from './UpdatePasswordForm'
-    import UpdateProfileInformationForm from './UpdateProfileInformationForm'*/
+    import UpdatePasswordForm from './UpdatePasswordForm.vue'
+    import UpdateProfileInformationForm from './UpdateProfileInformationForm.vue'
+
     import Vue from 'vue'
     import Component from 'vue-class-component'
 
@@ -52,6 +52,8 @@
             JetSectionBorder,
             LogoutOtherBrowserSessionsForm,
             TwoFactorAuthenticationForm,
+            UpdatePasswordForm,
+            UpdateProfileInformationForm
         },
         props: ['sessions', 'errors']
     })
