@@ -165,6 +165,7 @@
                     preserveScroll: true,
                     onSuccess: () => {
                         this.photoPreview = null
+                        this.form.photo = null
                     }
                 }
             )

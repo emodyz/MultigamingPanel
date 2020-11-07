@@ -21,7 +21,7 @@
 
 <script lang="ts">
     import { Vue, Component, Prop } from 'vue-property-decorator'
-    import Modal from './Modal'
+    import Modal from './Modal.vue'
 
     @Component({
         components: {

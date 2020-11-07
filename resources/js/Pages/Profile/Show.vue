@@ -57,7 +57,7 @@
         },
         props: ['sessions', 'errors']
     })
-    export default class Show extends Vue {
+    export default class ProfileShow extends Vue {
         //
     }
 
