@@ -1,50 +1,26 @@
-<div class="mt-2 bg-gray-dark border-right-0">
-<p align="center"><a href="https://ezgames.fr" target="_blank"><img src="https://ezgames.fr/templates/antler/assets/img/logo.svg" width="250"></a></p>
+<p align="center"><a href="https://ezgames.fr" target="_blank"><img src="data:image/png;base64,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" width="150"></a></p>
 <p align="center">
-<img src="https://github.com/emodyz/MultigamingPanel/workflows/Laravel/badge.svg">
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+<img src="https://github.com/emodyz/MultigamingPanel/workflows/Emodyz%20v6/badge.svg">
 </p>
-</div>
 
+## Launcher v6
 
-## About Laravel
+After long months of waiting,
+here is a new version of the previously proposed launcher.
+This version is an Alpha whose only goal is to analyze the operation and improve it for the next official version.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Here are the features included right out of the box :
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- [x] Compatibility with Arma3 (will evolve with updates)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- [x] Users management
+- [x] Possibility of multiple Mod Pack
+- [x] Automatic multi-thread
+- [x] New technology (Web interface and Launcher)
 
 ## Laravel Sponsors
 
 We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
 
 ## Contributing
 
@@ -61,3 +37,17 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## About US
+
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
