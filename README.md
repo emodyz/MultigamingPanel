@@ -1,14 +1,76 @@
-<div style="background-color:#7A7675;">
-<p align="center"><a href="https://ezgames.fr" target="_blank"><img src="https://ezgames.fr/templates/antler/assets/img/logo.svg" width="250"></a></p>
 <p align="center">
-<img src="https://github.com/emodyz/MultigamingPanel/workflows/Laravel/badge.svg">
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+    <a href="https://ezgames.fr" target="_blank">
+        <img src="https://flashmodz.fr/img/33844530.png" width="150">
+    </a>
 </p>
-</div>
+<p align="center">
+    <img src="https://github.com/emodyz/MultigamingPanel/workflows/Emodyz%20v6/badge.svg">
+</p>
 
-## About Laravel
+## What does this project offer ?
+
+After long months of waiting,
+here is a new version of the previously proposed launcher.
+This version is an Alpha whose only goal is to analyze the operation and improve it for the next official version.
+
+Here are the features included right out of the box :
+
+- [x] Compatibility with Arma3 (will evolve with updates)
+- [x] Users management
+- [x] Possibility of multiple Mod Pack
+- [x] Automatic multi-thread
+- [x] New technology (Web interface and Launcher)
+
+Several other features will be added over time
+
+## How to install this project?
+
+You can easily install the necessary components by following the steps below.
+
+###### Step 1 Clone the repository
+```console
+foo@bar:~$ git clone https://github.com/emodyz/MultigamingPanel.git && cd MultigamingPanel/
+```
+
+###### Step 2 Install Composer, NodeJS & NPM
+The relevant instructions for your Operating System are available here: https://getcomposer.org/download/
+                                                                        https://nodejs.org/en/download/
+
+###### Step 3 Install the relevant dependencies
+```console
+foo@bar:~/MultigamingPanel$ composer install && npm install
+```
+
+###### Step 4 Configure your installation
+```console
+foo@bar:~/MultigamingPanel$ cp .env.example .env && nano .env
+```
+
+###### Step 5 Compile the client-side assets
+```console
+foo@bar:~/MultigamingPanel$ composer install && npm install
+```
+
+###### Step 6 Configure your webserver to point to the public/ sub-directory
+
+## Emodyz Sponsors
+
+You can sponsor us through various means. 
+
+In particular, we offer managed hosting spaces for you. 
+Our objective is twofold, 
+we want to facilitate your technical "server" management and guarantee you the performance required for our products.
+It also helps us financially to finance the various tools we use in order to provide you with more and more features.
+
+## Security Vulnerabilities
+
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+
+## License
+
+The V6 Project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## About US
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
@@ -21,42 +83,3 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 - [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
