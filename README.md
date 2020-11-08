@@ -48,7 +48,7 @@ foo@bar:~/MultigamingPanel$ cp .env.example .env && nano .env
 
 ###### Step 5 Compile the client-side assets
 ```console
-foo@bar:~/MultigamingPanel$ composer install && npm install
+foo@bar:~/MultigamingPanel$ npm run prod
 ```
 
 ###### Step 6 Configure your webserver to point to the public/ sub-directory
