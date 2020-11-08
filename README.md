@@ -1,11 +1,12 @@
+<div style="background-color:#7A7675;">
 <p align="center"><a href="https://ezgames.fr" target="_blank"><img src="https://ezgames.fr/templates/antler/assets/img/logo.svg" width="250"></a></p>
-
 <p align="center">
 <img src="https://github.com/emodyz/MultigamingPanel/workflows/Laravel/badge.svg">
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
+</div>
 
 ## About Laravel
 
