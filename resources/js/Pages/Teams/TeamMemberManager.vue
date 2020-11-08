@@ -24,13 +24,13 @@
                     <div class="col-span-6 sm:col-span-4">
                         <jet-label for="email" value="Email" />
                         <jet-input id="email" type="text" class="mt-1 block w-full" v-model="addTeamMemberForm.email" />
-                        <jet-input-error :message="addTeamMemberForm.error('email')" class="mt-2" />
+                        <jet-input-error :message="addTeamMemberForm.errors.email" class="mt-2" />
                     </div>
 
                     <!-- Role -->
                     <div class="col-span-6 lg:col-span-4" v-if="availableRoles.length > 0">
                         <jet-label for="roles" value="Role" />
-                        <jet-input-error :message="addTeamMemberForm.error('role')" class="mt-2" />
+                        <jet-input-error :message="addTeamMemberForm.errors.role" class="mt-2" />
 
                         <div class="mt-1 border border-gray-200 rounded-lg cursor-pointer">
                             <div class="px-4 py-3"
@@ -215,21 +215,23 @@
     </div>
 </template>
 
-<script>
-    import JetActionMessage from '@/Jetstream/ActionMessage'
-    import JetActionSection from '@/Jetstream/ActionSection'
-    import JetButton from '@/Jetstream/Button'
-    import JetConfirmationModal from '@/Jetstream/ConfirmationModal'
-    import JetDangerButton from '@/Jetstream/DangerButton'
-    import JetDialogModal from '@/Jetstream/DialogModal'
-    import JetFormSection from '@/Jetstream/FormSection'
-    import JetInput from '@/Jetstream/Input'
-    import JetInputError from '@/Jetstream/InputError'
-    import JetLabel from '@/Jetstream/Label'
-    import JetSecondaryButton from '@/Jetstream/SecondaryButton'
-    import JetSectionBorder from '@/Jetstream/SectionBorder'
+<script lang="ts">
+    import JetActionMessage from '@/Jetstream/ActionMessage.vue'
+    import JetActionSection from '@/Jetstream/ActionSection.vue'
+    import JetButton from '@/Jetstream/Button.vue'
+    import JetConfirmationModal from '@/Jetstream/ConfirmationModal.vue'
+    import JetDangerButton from '@/Jetstream/DangerButton.vue'
+    import JetDialogModal from '@/Jetstream/DialogModal.vue'
+    import JetFormSection from '@/Jetstream/FormSection.vue'
+    import JetInput from '@/Jetstream/Input.vue'
+    import JetInputError from '@/Jetstream/InputError.vue'
+    import JetLabel from '@/Jetstream/Label.vue'
+    import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
+    import JetSectionBorder from '@/Jetstream/SectionBorder.vue'
 
-    export default {
+    import { Vue, Component, Prop } from 'vue-property-decorator'
+
+    @Component({
         components: {
             JetActionMessage,
             JetActionSection,
@@ -243,95 +245,125 @@
             JetLabel,
             JetSecondaryButton,
             JetSectionBorder,
-        },
+        }
+    })
+    export default class TeamMemberManager extends Vue {
+        @Prop() team!: any
+        @Prop() availableRoles!: any
+        @Prop() userPermissions!: any
+        @Prop() errors!: any
 
-        props: [
-            'team',
-            'availableRoles',
-            'userPermissions'
-        ],
+        addTeamMemberFormTemplate: any = {
+            email:  '',
+            role: null,
+            processing: false,
+            errors: {
+                email: '',
+                role: ''
+            },
+            recentlySuccessful: false
+        }
+        addTeamMemberForm: any = this.addTeamMemberFormTemplate
 
-        data() {
-            return {
-                addTeamMemberForm: this.$inertia.form({
-                    email: '',
-                    role: null,
-                }, {
-                    bag: 'addTeamMember',
-                    resetOnSuccess: true,
-                }),
-
-                updateRoleForm: this.$inertia.form({
-                    role: null,
-                }, {
-                    bag: 'updateRole',
-                    resetOnSuccess: false,
-                }),
-
-                leaveTeamForm: this.$inertia.form({
-                    //
-                }, {
-                    bag: 'leaveTeam',
-                }),
-
-                removeTeamMemberForm: this.$inertia.form({
-                    //
-                }, {
-                    bag: 'removeTeamMember',
-                }),
-
-                currentlyManagingRole: false,
-                managingRoleFor: null,
-                confirmingLeavingTeam: false,
-                teamMemberBeingRemoved: null,
+        updateRoleForm: any = {
+            role: null,
+            processing: false,
+            errors: {
+                role: ''
             }
-        },
+        }
 
-        methods: {
-            addTeamMember() {
-                this.addTeamMemberForm.post(route('team-members.store', this.team), {
-                    preserveScroll: true
-                });
-            },
+        leaveTeamForm: any = {
+            processing: false,
+            errors: null,
+        }
 
-            manageRole(teamMember) {
-                this.managingRoleFor = teamMember
-                this.updateRoleForm.role = teamMember.membership.role
-                this.currentlyManagingRole = true
-            },
+        removeTeamMemberForm: any = {
+            processing: false,
+            errors: null,
+        }
 
-            updateRole() {
-                this.updateRoleForm.put(route('team-members.update', [this.team, this.managingRoleFor]), {
+        currentlyManagingRole: any = false
+        managingRoleFor: any =  null
+        confirmingLeavingTeam: any =  false
+        teamMemberBeingRemoved: any =  null
+
+        addTeamMember() {
+            this.addTeamMemberForm.processing = true
+            this.addTeamMemberForm.recentlySuccessful = false
+            // @ts-ignore
+            this.$inertia.post(
+                // @ts-ignore
+                route('team-members.store', this.team),
+                this.addTeamMemberForm,
+                {
                     preserveScroll: true,
-                }).then(() => {
-                    this.currentlyManagingRole = false
-                })
-            },
+                    onSuccess: () => {
+                        this.addTeamMemberForm.processing = false
+                        this.addTeamMemberForm.recentlySuccessfulg = false
+                        if (this.addTeamMemberForm.errors.addTeamMember) {
+                            this.addTeamMemberForm.errors = this.addTeamMemberForm.errors.addTeamMember
+                        }
+                    }
+                }
+            )
+        }
 
-            confirmLeavingTeam() {
-                this.confirmingLeavingTeam = true
-            },
+        manageRole(teamMember: any) {
+            this.managingRoleFor = teamMember
+            this.updateRoleForm.role = teamMember.membership.role
+            this.currentlyManagingRole = true
+        }
 
-            leaveTeam() {
-                this.leaveTeamForm.delete(route('team-members.destroy', [this.team, this.$page.props.user]))
-            },
-
-            confirmTeamMemberRemoval(teamMember) {
-                this.teamMemberBeingRemoved = teamMember
-            },
-
-            removeTeamMember() {
-                this.removeTeamMemberForm.delete(route('team-members.destroy', [this.team, this.teamMemberBeingRemoved]), {
+        updateRole() {
+            this.updateRoleForm.processing = true
+            // @ts-ignore
+            this.$inertia.put(
+                // @ts-ignore
+                route('team-members.update', [this.team, this.managingRoleFor]),
+                this.updateRoleForm,
+                {
                     preserveScroll: true,
-                    preserveState: true,
-                }).then(() => {
-                    this.teamMemberBeingRemoved = null
-                })
-            },
+                    onSuccess: () => {
+                        this.updateRoleForm.processing = false
+                        this.currentlyManagingRole = false
+                        if (this.updateRoleForm.errors.updateRole) {
+                            this.updateRoleForm.errors = this.updateRoleForm.errors.updateRole
+                        }
+                    }
+                }
+            )
+        }
 
-            displayableRole(role) {
-                return this.availableRoles.find(r => r.key == role).name
-            },
-        },
+        confirmLeavingTeam() {
+            this.confirmingLeavingTeam = true
+        }
+
+        leaveTeam() {
+            this.leaveTeamForm.processing = true
+            // @ts-ignore
+            this.$inertia.delete(route('team-members.destroy', [this.team, this.$page.props.user]), { onSuccess: () => { this.leaveTeamForm.processing = false } })
+        }
+
+        confirmTeamMemberRemoval(teamMember: any) {
+            this.teamMemberBeingRemoved = teamMember
+        }
+
+        removeTeamMember() {
+            // @ts-ignore
+            this.$inertia.delete(
+                // @ts-ignore
+                route('team-members.destroy', [this.team, this.teamMemberBeingRemoved]),
+                {
+                    onSuccess: () => {
+                        this.removeTeamMemberForm.processing = false
+                        this.teamMemberBeingRemoved = null
+                    }
+                })
+        }
+
+        displayableRole(role: any) {
+            return this.availableRoles.find((r: any) => r.key == role).name
+        }
     }
 </script>

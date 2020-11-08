@@ -25,7 +25,7 @@
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="name" value="Team Name" />
                 <jet-input id="name" type="text" class="mt-1 block w-full" v-model="form.name" autofocus />
-                <jet-input-error :message="form.error('name')" class="mt-2" />
+                <jet-input-error :message="form.errors.name" class="mt-2" />
             </div>
         </template>
 
@@ -41,15 +41,17 @@
     </jet-form-section>
 </template>
 
-<script>
-    import JetActionMessage from '@/Jetstream/ActionMessage'
-    import JetButton from '@/Jetstream/Button'
-    import JetFormSection from '@/Jetstream/FormSection'
-    import JetInput from '@/Jetstream/Input'
-    import JetInputError from '@/Jetstream/InputError'
-    import JetLabel from '@/Jetstream/Label'
+<script lang="ts">
+    import JetActionMessage from '@/Jetstream/ActionMessage.vue'
+    import JetButton from '@/Jetstream/Button.vue'
+    import JetFormSection from '@/Jetstream/FormSection.vue'
+    import JetInput from '@/Jetstream/Input.vue'
+    import JetInputError from '@/Jetstream/InputError.vue'
+    import JetLabel from '@/Jetstream/Label.vue'
 
-    export default {
+    import { Vue, Component, Prop } from 'vue-property-decorator'
+
+    @Component({
         components: {
             JetActionMessage,
             JetButton,
@@ -57,25 +59,39 @@
             JetInput,
             JetInputError,
             JetLabel,
-        },
+        }
+    })
+    export default class CreateTeamForm extends Vue {
+        @Prop() readonly errors!: any
 
-        data() {
-            return {
-                form: this.$inertia.form({
-                    name: '',
-                }, {
-                    bag: 'createTeam',
-                    resetOnSuccess: false,
-                })
+        form: any = {
+            name:  '',
+            processing: false,
+            recentlySuccessful: false,
+            errors: {
+                name: ''
             }
-        },
+        }
 
-        methods: {
-            createTeam() {
-                this.form.post(route('teams.store'), {
-                    preserveScroll: true
-                });
-            },
-        },
+        createTeam() {
+            this.form.processing = true
+            this.form.recentlySuccessful = false
+            // @ts-ignore
+            this.$inertia.post(
+                // @ts-ignore
+                route('teams.store'),
+                this.form,
+                {
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        this.form.processing = false
+                        this.form.recentlySuccessfulg = false
+                        if (this.form.errors.createTeam) {
+                            this.form.errors = this.form.errors.createTeam
+                        }
+                    }
+                }
+            )
+        }
     }
 </script>

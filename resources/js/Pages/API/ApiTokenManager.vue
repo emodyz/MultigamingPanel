@@ -251,6 +251,7 @@
         }
 
         updateApiToken() {
+            this.updateApiTokenForm.processing = true
             // @ts-ignore
             this.$inertia.put(
                 // @ts-ignore
@@ -261,6 +262,7 @@
                     preserveState: true,
                     onSuccess: () => {
                         this.managingPermissionsFor = null
+                        this.updateApiTokenForm.processing = false
                     }
                 }
             )
