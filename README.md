@@ -1,11 +1,13 @@
-<span align="center">
-    <a href="https://ezgames.fr" target="_blank">
-        <img src="https://flashmodz.fr/img/33844530.png" width="150">
-    </a>
-</span><br>
-<span align="center">
-<img src="https://github.com/emodyz/MultigamingPanel/workflows/Emodyz%20v6/badge.svg">
-</span>
+<div style="text-align:center;">
+    <span>
+        <a href="https://ezgames.fr" target="_blank">
+            <img src="https://flashmodz.fr/img/33844530.png" width="150">
+        </a>
+    </span><br>
+    <span style="text-align: center;">
+    <img src="https://github.com/emodyz/MultigamingPanel/workflows/Emodyz%20v6/badge.svg">
+    </span>
+</div>
 
 ## Launcher v6
 
