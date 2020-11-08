@@ -27,13 +27,31 @@ Several other features will be added over time
 
 You can easily install the necessary components by following the steps below.
 
-###### Steps 1
+###### Step 1 Clone the repository
+```console
+foo@bar:~$ git clone https://github.com/emodyz/MultigamingPanel.git && cd MultigamingPanel/
+```
 
-###### Steps 2
+###### Step 2 Install Composer, NodeJS & NPM
+The relevant instructions for your Operating System are available here: https://getcomposer.org/download/
+                                                                        https://nodejs.org/en/download/
 
-###### Steps 3
+###### Step 3 Install the relevant dependencies
+```console
+foo@bar:~/MultigamingPanel$ composer install && npm install
+```
 
-###### Steps 4
+###### Step 4 Configure your installation
+```console
+foo@bar:~/MultigamingPanel$ cp .env.example .env && nano .env
+```
+
+###### Step 5 Compile the client-side assets
+```console
+foo@bar:~/MultigamingPanel$ composer install && npm install
+```
+
+###### Step 6 Configure your webserver to point to the public/ sub-directory
 
 ## Emodyz Sponsors
 
