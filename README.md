@@ -1,4 +1,4 @@
-<div style="background-color:#7A7675;">
+<div class="mt-2 bg-gray-dark border-right-0">
 <p align="center"><a href="https://ezgames.fr" target="_blank"><img src="https://ezgames.fr/templates/antler/assets/img/logo.svg" width="250"></a></p>
 <p align="center">
 <img src="https://github.com/emodyz/MultigamingPanel/workflows/Laravel/badge.svg">
@@ -7,6 +7,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 </div>
+
 
 ## About Laravel
 
