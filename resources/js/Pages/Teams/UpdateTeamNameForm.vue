@@ -33,7 +33,7 @@
                             v-model="form.name"
                             :disabled="! permissions.canUpdateTeam" />
 
-                <jet-input-error :message="form.error('name')" class="mt-2" />
+                <jet-input-error :message="form.errors.name" class="mt-2" />
             </div>
         </template>
 
@@ -49,15 +49,17 @@
     </jet-form-section>
 </template>
 
-<script>
-    import JetActionMessage from '@/Jetstream/ActionMessage'
-    import JetButton from '@/Jetstream/Button'
-    import JetFormSection from '@/Jetstream/FormSection'
-    import JetInput from '@/Jetstream/Input'
-    import JetInputError from '@/Jetstream/InputError'
-    import JetLabel from '@/Jetstream/Label'
+<script lang="ts">
+    import JetActionMessage from '@/Jetstream/ActionMessage.vue'
+    import JetButton from '@/Jetstream/Button.vue'
+    import JetFormSection from '@/Jetstream/FormSection.vue'
+    import JetInput from '@/Jetstream/Input.vue'
+    import JetInputError from '@/Jetstream/InputError.vue'
+    import JetLabel from '@/Jetstream/Label.vue'
 
-    export default {
+    import { Vue, Component, Prop } from 'vue-property-decorator'
+
+    @Component({
         components: {
             JetActionMessage,
             JetButton,
@@ -65,27 +67,38 @@
             JetInput,
             JetInputError,
             JetLabel,
-        },
+        }
+    })
+    export default class UpdateTeamNameForm extends Vue {
+        @Prop() readonly team!: any
+        @Prop() permissions!: any
+        @Prop() readonly errors!: any
 
-        props: ['team', 'permissions'],
-
-        data() {
-            return {
-                form: this.$inertia.form({
-                    name: this.team.name,
-                }, {
-                    bag: 'updateTeamName',
-                    resetOnSuccess: false,
-                })
+        form: any = {
+            name:  this.team.name,
+            processing: false,
+            errors: {
+                name: ''
             }
-        },
+        }
 
-        methods: {
-            updateTeamName() {
-                this.form.put(route('teams.update', this.team), {
-                    preserveScroll: true
-                });
-            },
-        },
+        updateTeamName() {
+            this.form.processing = true
+            // @ts-ignore
+            this.$inertia.put(
+                // @ts-ignore
+                route('teams.update', this.team),
+                this.form,
+                {
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        this.form.processing = false
+                        if (this.form.errors.updateTeamName) {
+                            this.form.errors = this.form.errors.updateTeamName
+                        }
+                    }
+                }
+            )
+        }
     }
 </script>

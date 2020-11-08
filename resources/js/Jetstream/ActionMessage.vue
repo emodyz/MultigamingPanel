@@ -8,8 +8,11 @@
     </div>
 </template>
 
-<script>
-    export default {
-        props: ['on'],
+<script lang="ts">
+    import { Vue, Component, Prop } from 'vue-property-decorator'
+
+    @Component
+    export default class SecondaryButton extends Vue {
+        @Prop() readonly on!: any
     }
 </script>

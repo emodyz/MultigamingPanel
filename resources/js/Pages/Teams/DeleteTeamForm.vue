@@ -43,47 +43,44 @@
     </jet-action-section>
 </template>
 
-<script>
-    import JetActionSection from '@/Jetstream/ActionSection'
-    import JetButton from '@/Jetstream/Button'
-    import JetConfirmationModal from '@/Jetstream/ConfirmationModal'
-    import JetDangerButton from '@/Jetstream/DangerButton'
-    import JetSecondaryButton from '@/Jetstream/SecondaryButton'
+<script lang="ts">
+    import JetActionSection from '@/Jetstream/ActionSection.vue'
+    import JetButton from '@/Jetstream/Button.vue'
+    import JetConfirmationModal from '@/Jetstream/ConfirmationModal.vue'
+    import JetDangerButton from '@/Jetstream/DangerButton.vue'
+    import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 
-    export default {
-        props: ['team'],
+    import { Vue, Component, Prop } from 'vue-property-decorator'
 
+    @Component({
         components: {
             JetActionSection,
             JetButton,
             JetConfirmationModal,
             JetDangerButton,
             JetSecondaryButton,
-        },
+        }
+    })
+    export default class DeleteTeamForm extends Vue {
+        @Prop() readonly team!: any
+        @Prop() readonly errors!: any
 
-        data() {
-            return {
-                confirmingTeamDeletion: false,
-                deleting: false,
+        form: any = {
+            processing: false,
+            errors: null
+        }
 
-                form: this.$inertia.form({
-                    //
-                }, {
-                    bag: 'deleteTeam'
-                })
-            }
-        },
+        confirmingTeamDeletion: any = false
+        deleting: any = false
 
-        methods: {
-            confirmTeamDeletion() {
-                this.confirmingTeamDeletion = true
-            },
+        confirmTeamDeletion() {
+            this.confirmingTeamDeletion = true
+        }
 
-            deleteTeam() {
-                this.form.delete(route('teams.destroy', this.team), {
-                    preserveScroll: true
-                });
-            },
-        },
+        deleteTeam() {
+            this.form.processing = true
+            // @ts-ignore
+            this.$inertia.delete(route('teams.destroy', this.team), { onSuccess: () => { this.form.processing = false } })
+        }
     }
 </script>

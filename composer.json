@@ -10,10 +10,11 @@
     "require": {
         "php": "^7.4|^8.0",
         "austinb/gameq": "^3.0",
+        "emodyz/cerberus": "^0.0.1@alpha",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "inertiajs/inertia-laravel": "^0.2.4",
+        "inertiajs/inertia-laravel": "^v0.3.3",
         "laravel/framework": "^8.12",
         "laravel/jetstream": "^1.5",
         "laravel/sanctum": "^2.6",

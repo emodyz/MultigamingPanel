@@ -28,43 +28,33 @@
     </portal>
 </template>
 
-<script>
-    export default {
-        props: {
-            show: {
-                default: false
-            },
-            maxWidth: {
-                default: '2xl'
-            },
-            closeable: {
-                default: true
-            },
-        },
+<script lang="ts">
+    import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
 
-        methods: {
-            close() {
-                if (this.closeable) {
-                    this.$emit('close')
-                }
-            }
-        },
+    const maxWidths: any = {
+        'sm': 'sm:max-w-sm',
+        'md': 'sm:max-w-md',
+        'lg': 'sm:max-w-lg',
+        'xl': 'sm:max-w-xl',
+        '2xl': 'sm:max-w-2xl',
+    }
 
-        watch: {
-            show: {
-                immediate: true,
-                handler: (show) => {
-                    if (show) {
-                        document.body.style.overflow = 'hidden'
-                    } else {
-                        document.body.style.overflow = null
-                    }
-                }
-            }
-        },
+    @Component
+    export default class Modal extends Vue {
+
+        @Prop({ default: true }) readonly closeable!: boolean
+        @Prop({ default: true }) readonly show!: boolean
+        @Prop({ default: '2xl' }) readonly maxWidth!: string
+
+        @Watch('show', { immediate: true })
+        onShowChanged(val: string, oldVal: string) { document.body.style.overflow = val ? 'hidden' : ''; }
+
+        get maxWidthClass() {
+            return maxWidths[this.maxWidth]
+        }
 
         created() {
-            const closeOnEscape = (e) => {
+            const closeOnEscape = (e: any) => {
                 if (e.key === 'Escape' && this.show) {
                     this.close()
                 }
@@ -75,18 +65,13 @@
             this.$once('hook:destroyed', () => {
                 document.removeEventListener('keydown', closeOnEscape)
             })
-        },
+        }
 
-        computed: {
-            maxWidthClass() {
-                return {
-                    'sm': 'sm:max-w-sm',
-                    'md': 'sm:max-w-md',
-                    'lg': 'sm:max-w-lg',
-                    'xl': 'sm:max-w-xl',
-                    '2xl': 'sm:max-w-2xl',
-                }[this.maxWidth]
+        close() {
+            if (this.closeable) {
+                this.$emit('close')
             }
         }
+
     }
 </script>

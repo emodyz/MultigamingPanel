@@ -13,12 +13,18 @@
     </div>
 </template>
 
-<script>
-    import JetSectionTitle from './SectionTitle'
+<script lang="ts">
+    import Component from "vue-class-component";
+    import Vue from "vue";
 
-    export default {
+    import JetSectionTitle from './SectionTitle.vue'
+
+    @Component({
         components: {
-            JetSectionTitle,
+            JetSectionTitle
         }
+    })
+    export default class ActionSection extends Vue {
+        //
     }
 </script>
