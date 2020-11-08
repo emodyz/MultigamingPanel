@@ -3,12 +3,11 @@
         <img src="https://flashmodz.fr/img/33844530.png" width="150">
     </a>
 </p>
-<br>
 <p align="center">
     <img src="https://github.com/emodyz/MultigamingPanel/workflows/Emodyz%20v6/badge.svg">
 </p>
 
-## Launcher v6
+## What does this project offer ?
 
 After long months of waiting,
 here is a new version of the previously proposed launcher.
@@ -22,17 +21,28 @@ Here are the features included right out of the box :
 - [x] Automatic multi-thread
 - [x] New technology (Web interface and Launcher)
 
-## Laravel Sponsors
+Several other features will be added over time
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## How to install this project?
 
-## Contributing
+You can easily install the necessary components by following the steps below.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+###### Steps 1
 
-## Code of Conduct
+###### Steps 2
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+###### Steps 3
+
+###### Steps 4
+
+## Emodyz Sponsors
+
+You can sponsor us through various means. 
+
+In particular, we offer managed hosting spaces for you. 
+Our objective is twofold, 
+we want to facilitate your technical "server" management and guarantee you the performance required for our products.
+It also helps us financially to finance the various tools we use in order to provide you with more and more features.
 
 ## Security Vulnerabilities
 
@@ -40,7 +50,7 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The V6 Project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 ## About US
 
