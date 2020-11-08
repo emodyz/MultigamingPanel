@@ -93,12 +93,17 @@
     </div>
 </template>
 
-<script>
-    import JetApplicationLogo from '@/Jetstream/ApplicationLogo'
+<script lang="ts">
+    import JetApplicationLogo from '@/Jetstream/ApplicationLogo.vue'
 
-    export default {
+    import { Vue, Component, Prop, PropSync, Ref } from 'vue-property-decorator'
+
+    @Component({
         components: {
             JetApplicationLogo,
-        },
+        }
+    })
+    export default class ApplicationLogo extends Vue {
+        //
     }
 </script>

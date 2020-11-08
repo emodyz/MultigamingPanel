@@ -8,24 +8,28 @@
 
         <div>
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-                <create-team-form />
+                <create-team-form :errors="errors" />
             </div>
         </div>
     </app-layout>
 </template>
 
-<script>
+<script lang="ts">
     import AppLayout from '@/Layouts/AppLayout'
-    import CreateTeamForm from './CreateTeamForm'
+    import CreateTeamForm from './CreateTeamForm.vue'
     import JetSectionBorder from '@/Jetstream/SectionBorder'
 
-    export default {
-        props: ['team'],
+    import { Vue, Component, Prop } from 'vue-property-decorator'
 
+    @Component({
         components: {
             AppLayout,
             CreateTeamForm,
             JetSectionBorder,
-        },
+        }
+    })
+    export default class TeamCreate extends Vue {
+        @Prop() team!: any
+        @Prop() errors!: any
     }
 </script>

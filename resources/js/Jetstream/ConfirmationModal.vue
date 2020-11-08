@@ -27,9 +27,28 @@
     </modal>
 </template>
 
-<script>
-    import Modal from './Modal'
+<script lang="ts">
+    import { Vue, Component, Prop } from 'vue-property-decorator'
+    import Modal from './Modal.vue'
 
+    @Component({
+        components: {
+            Modal,
+        }
+    })
+    export default class ConfirmationModal extends Vue {
+
+        @Prop({ default: true }) readonly closeable!: boolean
+        @Prop({ default: false }) readonly show!: boolean
+        @Prop({ default: '2xl' }) readonly maxWidth!: string
+
+        close() {
+            this.$emit('close')
+        }
+
+    }
+
+    /*
     export default {
         components: {
             Modal,
@@ -52,5 +71,5 @@
                 this.$emit('close')
             },
         }
-    }
+    }*/
 </script>

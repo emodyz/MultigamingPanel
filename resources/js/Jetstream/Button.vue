@@ -4,13 +4,11 @@
     </button>
 </template>
 
-<script>
-    export default {
-        props: {
-            type: {
-                type: String,
-                default: 'submit',
-            },
-        }
-    }
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
+
+@Component
+export default class Button extends Vue {
+    @Prop({ default: 'submit', type: String }) readonly type!: string
+}
 </script>

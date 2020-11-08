@@ -6,8 +6,11 @@
     </div>
 </template>
 
-<script>
-    export default {
-        props: ['message']
+<script lang="ts">
+    import { Vue, Component, Prop } from 'vue-property-decorator'
+
+    @Component
+    export default class InputError extends Vue {
+        @Prop() readonly message!: any
     }
 </script>

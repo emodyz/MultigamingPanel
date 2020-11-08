@@ -16,14 +16,19 @@
     </app-layout>
 </template>
 
-<script>
-    import AppLayout from '@/Layouts/AppLayout'
-    import Welcome from '@/Jetstream/Welcome'
+<script lang="ts">
+    import AppLayout from '@/Layouts/AppLayout.vue'
+    import Welcome from '@/Jetstream/Welcome.vue'
 
-    export default {
+    import { Vue, Component, Prop, PropSync, Ref } from 'vue-property-decorator'
+
+    @Component({
         components: {
             AppLayout,
             Welcome,
         },
+    })
+    export default class Dashboard extends Vue {
+        //
     }
 </script>

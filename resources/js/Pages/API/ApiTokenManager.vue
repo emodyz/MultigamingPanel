@@ -15,7 +15,7 @@
                 <div class="col-span-6 sm:col-span-4">
                     <jet-label for="name" value="Name" />
                     <jet-input id="name" type="text" class="mt-1 block w-full" v-model="createApiTokenForm.name" autofocus />
-                    <jet-input-error :message="createApiTokenForm.error('name')" class="mt-2" />
+                    <jet-input-error :message="createApiTokenForm.errors.name" class="mt-2" />
                 </div>
 
                 <!-- Token Permissions -->
@@ -99,8 +99,8 @@
                     Please copy your new API token. For your security, it won't be shown again.
                 </div>
 
-                <div class="mt-4 bg-gray-100 px-4 py-2 rounded font-mono text-sm text-gray-500" v-if="$page.jetstream.flash.token">
-                    {{ $page.jetstream.flash.token }}
+                <div class="mt-4 bg-gray-100 px-4 py-2 rounded font-mono text-sm text-gray-500" v-if="$page.props.jetstream.flash.token">
+                    {{ $page.props.jetstream.flash.token }}
                 </div>
             </template>
 
@@ -162,7 +162,7 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
     import JetActionMessage from '@/Jetstream/ActionMessage'
     import JetActionSection from '@/Jetstream/ActionSection'
     import JetButton from '@/Jetstream/Button'
@@ -176,7 +176,9 @@
     import JetSecondaryButton from '@/Jetstream/SecondaryButton'
     import JetSectionBorder from '@/Jetstream/SectionBorder'
 
-    export default {
+    import { Vue, Component, Prop } from 'vue-property-decorator'
+
+    @Component({
         components: {
             JetActionMessage,
             JetActionSection,
@@ -190,81 +192,104 @@
             JetLabel,
             JetSecondaryButton,
             JetSectionBorder,
-        },
+        }
+    })
+    export default class ApiTokenManager extends Vue {
+        @Prop() tokens!: any
+        @Prop() availablePermissions!: any
+        @Prop() defaultPermissions!: any
+        @Prop() errors!: any
 
-        props: [
-            'tokens',
-            'availablePermissions',
-            'defaultPermissions',
-        ],
-
-        data() {
-            return {
-                createApiTokenForm: this.$inertia.form({
-                    name: '',
-                    permissions: this.defaultPermissions,
-                }, {
-                    bag: 'createApiToken',
-                    resetOnSuccess: true,
-                }),
-
-                updateApiTokenForm: this.$inertia.form({
-                    permissions: []
-                }, {
-                    resetOnSuccess: false,
-                    bag: 'updateApiToken',
-                }),
-
-                deleteApiTokenForm: this.$inertia.form(),
-
-                displayingToken: false,
-                managingPermissionsFor: null,
-                apiTokenBeingDeleted: null,
+        createApiTokenForm: any = {
+            name: '',
+            permissions: this.defaultPermissions,
+            processing: false,
+            errors: {
+                name: ''
             }
-        },
+        }
 
-        methods: {
-            createApiToken() {
-                this.createApiTokenForm.post(route('api-tokens.store'), {
+        updateApiTokenForm: any = {
+            permissions: [],
+            processing: false,
+            errors: {
+                permissions: ''
+            }
+        }
+
+        deleteApiTokenForm: any = {
+            processing: false
+        }
+
+        displayingToken: boolean = false
+        managingPermissionsFor: any = null
+        apiTokenBeingDeleted: any = null
+
+        createApiToken() {
+            // @ts-ignore
+            this.$inertia.post(
+                // @ts-ignore
+                route('api-tokens.store'),
+                this.createApiTokenForm,
+                {
                     preserveScroll: true,
-                }).then(response => {
-                    if (! this.createApiTokenForm.hasErrors()) {
-                        this.displayingToken = true
+                    onSuccess: () => {
+                        if (!this.errors.createApiToken) {
+                            this.displayingToken = true
+                        } else {
+                            this.createApiTokenForm.errors.name = this.errors.createApiToken.name
+                        }
                     }
-                })
-            },
+                }
+            )
+        }
 
-            manageApiTokenPermissions(token) {
-                this.updateApiTokenForm.permissions = token.abilities
+        manageApiTokenPermissions(token: any) {
+            this.updateApiTokenForm.permissions = token.abilities
 
-                this.managingPermissionsFor = token
-            },
+            this.managingPermissionsFor = token
+        }
 
-            updateApiToken() {
-                this.updateApiTokenForm.put(route('api-tokens.update', this.managingPermissionsFor), {
+        updateApiToken() {
+            this.updateApiTokenForm.processing = true
+            // @ts-ignore
+            this.$inertia.put(
+                // @ts-ignore
+                route('api-tokens.update', this.managingPermissionsFor),
+                this.updateApiTokenForm,
+                {
                     preserveScroll: true,
                     preserveState: true,
-                }).then(response => {
-                    this.managingPermissionsFor = null
-                })
-            },
+                    onSuccess: () => {
+                        this.managingPermissionsFor = null
+                        this.updateApiTokenForm.processing = false
+                    }
+                }
+            )
+        }
 
-            confirmApiTokenDeletion(token) {
-                this.apiTokenBeingDeleted = token
-            },
+        confirmApiTokenDeletion(token: any) {
+            this.apiTokenBeingDeleted = token
+        }
 
-            deleteApiToken() {
-                this.deleteApiTokenForm.delete(route('api-tokens.destroy', this.apiTokenBeingDeleted), {
+        deleteApiToken() {
+            // @ts-ignore
+            this.$inertia.delete(
+                // @ts-ignore
+                route('api-tokens.destroy', this.apiTokenBeingDeleted),
+                {
                     preserveScroll: true,
                     preserveState: true,
-                }).then(() => {
-                    this.apiTokenBeingDeleted = null
-                })
-            },
+                    onSuccess: () => {
+                        this.apiTokenBeingDeleted = null
+                    }
+                }
+            )
+        }
 
-            fromNow(timestamp) {
-                return moment(timestamp).local().fromNow()
-            },
-        },
+        fromNow(timestamp: any) {
+            // @ts-ignore
+            return moment(timestamp).local().fromNow()
+        }
     }
 </script>

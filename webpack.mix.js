@@ -11,9 +11,16 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
+let productionSourceMaps = false;
+
+mix.ts('resources/js/app.ts', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         require('postcss-import'),
         require('tailwindcss'),
     ])
-    .webpackConfig(require('./webpack.config'));
+    .babelConfig({
+        plugins: ['@babel/plugin-syntax-dynamic-import'],
+    })
+    .webpackConfig(require('./webpack.config'))
+    .version()
+    .sourceMaps(productionSourceMaps, 'source-map');
