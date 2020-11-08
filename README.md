@@ -1,13 +1,12 @@
-<div style="text-align:center;">
-    <span>
-        <a href="https://ezgames.fr" target="_blank">
-            <img src="https://flashmodz.fr/img/33844530.png" width="150">
-        </a>
-    </span><br>
-    <span style="text-align: center;">
+<p align="center">
+    <a href="https://ezgames.fr" target="_blank">
+        <img src="https://flashmodz.fr/img/33844530.png" width="150">
+    </a>
+</p>
+<br>
+<p align="center">
     <img src="https://github.com/emodyz/MultigamingPanel/workflows/Emodyz%20v6/badge.svg">
-    </span>
-</div>
+</p>
 
 ## Launcher v6
 
@@ -18,7 +17,6 @@ This version is an Alpha whose only goal is to analyze the operation and improve
 Here are the features included right out of the box :
 
 - [x] Compatibility with Arma3 (will evolve with updates)
-
 - [x] Users management
 - [x] Possibility of multiple Mod Pack
 - [x] Automatic multi-thread
