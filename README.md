@@ -33,8 +33,7 @@ foo@bar:~$ git clone https://github.com/emodyz/MultigamingPanel.git && cd Multig
 ```
 
 ###### Step 2 Install Composer, NodeJS & NPM
-The relevant instructions for your Operating System are available here: https://getcomposer.org/download/
-                                                                        https://nodejs.org/en/download/
+The relevant instructions for your Operating System are available here: https://getcomposer.org/download/ and here: https://nodejs.org/en/download/                                  
 
 ###### Step 3 Install the relevant dependencies
 ```console
@@ -46,9 +45,9 @@ foo@bar:~/MultigamingPanel$ composer install && npm install
 foo@bar:~/MultigamingPanel$ cp .env.example .env && nano .env
 ```
 
-###### Step 5 Compile the client-side assets
+###### Step 5 Compile the client-side assets & initilize your database
 ```console
-foo@bar:~/MultigamingPanel$ npm run prod
+foo@bar:~/MultigamingPanel$ npm run prod && php artisan migrate
 ```
 
 ###### Step 6 Configure your webserver to point to the public/ sub-directory
