@@ -33,8 +33,7 @@ foo@bar:~$ git clone https://github.com/emodyz/MultigamingPanel.git && cd Multig
 ```
 
 ###### Step 2 Install Composer, NodeJS & NPM
-The relevant instructions for your Operating System are available here: https://getcomposer.org/download/
-                                                                        https://nodejs.org/en/download/
+The relevant instructions for your Operating System are available here: https://getcomposer.org/download/ and here: https://nodejs.org/en/download/                                  
 
 ###### Step 3 Install the relevant dependencies
 ```console
@@ -60,4 +59,4 @@ You can sponsor us through various means.
 In particular, we offer managed hosting spaces for you. 
 Our objective is twofold, 
 we want to facilitate your technical "server" management and guarantee you the performance required for our products.
-It also helps us financially to finance the various tools we use in order to provide you with more and more features.
+It also helps us to finance the various tools we use in order to provide you with more and more features.
