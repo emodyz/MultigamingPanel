@@ -165,6 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
+        \Emodyz\Cerberus\CerberusServiceProvider::class,
 
         /*
          * Application Service Providers...

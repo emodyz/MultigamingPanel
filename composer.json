@@ -12,6 +12,7 @@
         "ext-curl": "*",
         "ext-json": "*",
         "austinb/gameq": "^3.0",
+        "emodyz/cerberus": "^0.0.2@alpha",
         "beyondcode/laravel-websockets": "^1.9",
         "emodyz/cerberus": "^0.0.1@alpha",
         "fideloper/proxy": "^4.4",
