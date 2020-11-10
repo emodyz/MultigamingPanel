@@ -10,7 +10,9 @@ return [
         ],
         'admin' => [
             'displayName' => 'Administrator',
-            'can' => []
+            'can' => [
+                'admin-dashboard'
+            ]
         ],
         'default' => [
             'displayName' => 'User',
@@ -21,6 +23,10 @@ return [
         [
             'slug' => '*',
             'description' => 'a user can do everything'
+        ],
+        [
+            'slug' => 'admin-dashboard',
+            'description' => 'a user can view the administration dashboard'
         ],
     ]
 ];

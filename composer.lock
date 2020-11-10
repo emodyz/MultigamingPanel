@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c95ea61c548d34e41f162e7ba4d2c9c4",
+    "content-hash": "05e056de8d1867d37c8513f9adc468c6",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -643,16 +643,16 @@
         },
         {
             "name": "emodyz/cerberus",
-            "version": "v0.0.1-alpha",
+            "version": "v0.0.2-alpha.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/emodyz/Cerberus.git",
-                "reference": "0980a7fe8716a6686108503bba69226296ebe16e"
+                "reference": "cb53a6e254790ef024e3300cc8e6091b1e3e3ce5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/emodyz/Cerberus/zipball/0980a7fe8716a6686108503bba69226296ebe16e",
-                "reference": "0980a7fe8716a6686108503bba69226296ebe16e",
+                "url": "https://api.github.com/repos/emodyz/Cerberus/zipball/cb53a6e254790ef024e3300cc8e6091b1e3e3ce5",
+                "reference": "cb53a6e254790ef024e3300cc8e6091b1e3e3ce5",
                 "shasum": ""
             },
             "require": {
@@ -680,7 +680,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPL-3.0-only"
+                "MIT"
             ],
             "authors": [
                 {
@@ -697,9 +697,9 @@
             ],
             "support": {
                 "issues": "https://github.com/emodyz/Cerberus/issues",
-                "source": "https://github.com/emodyz/Cerberus/tree/v0.0.1-alpha"
+                "source": "https://github.com/emodyz/Cerberus/tree/v0.0.2-alpha.1"
             },
-            "time": "2020-11-05T08:47:27+00:00"
+            "time": "2020-11-10T10:04:05+00:00"
         },
         {
             "name": "fideloper/proxy",
@@ -2378,16 +2378,16 @@
         },
         {
             "name": "opis/closure",
-            "version": "3.6.0",
+            "version": "3.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/opis/closure.git",
-                "reference": "c547f8262a5fa9ff507bd06cc394067b83a75085"
+                "reference": "943b5d70cc5ae7483f6aff6ff43d7e34592ca0f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/opis/closure/zipball/c547f8262a5fa9ff507bd06cc394067b83a75085",
-                "reference": "c547f8262a5fa9ff507bd06cc394067b83a75085",
+                "url": "https://api.github.com/repos/opis/closure/zipball/943b5d70cc5ae7483f6aff6ff43d7e34592ca0f5",
+                "reference": "943b5d70cc5ae7483f6aff6ff43d7e34592ca0f5",
                 "shasum": ""
             },
             "require": {
@@ -2437,9 +2437,9 @@
             ],
             "support": {
                 "issues": "https://github.com/opis/closure/issues",
-                "source": "https://github.com/opis/closure/tree/3.6.0"
+                "source": "https://github.com/opis/closure/tree/3.6.1"
             },
-            "time": "2020-10-11T21:42:15+00:00"
+            "time": "2020-11-07T02:01:34+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
@@ -5640,23 +5640,23 @@
         },
         {
             "name": "voku/portable-ascii",
-            "version": "1.5.3",
+            "version": "1.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/voku/portable-ascii.git",
-                "reference": "25bcbf01678930251fd572891447d9e318a6e2b8"
+                "reference": "87dc337d4200b32717dd3849fea846319e897658"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/voku/portable-ascii/zipball/25bcbf01678930251fd572891447d9e318a6e2b8",
-                "reference": "25bcbf01678930251fd572891447d9e318a6e2b8",
+                "url": "https://api.github.com/repos/voku/portable-ascii/zipball/87dc337d4200b32717dd3849fea846319e897658",
+                "reference": "87dc337d4200b32717dd3849fea846319e897658",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.0.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~6.0 || ~7.0"
+                "phpunit/phpunit": "~6.0 || ~7.0 || ~9.0"
             },
             "suggest": {
                 "ext-intl": "Use Intl for transliterator_transliterate() support"
@@ -5686,7 +5686,7 @@
             ],
             "support": {
                 "issues": "https://github.com/voku/portable-ascii/issues",
-                "source": "https://github.com/voku/portable-ascii/tree/master"
+                "source": "https://github.com/voku/portable-ascii/tree/1.5.4"
             },
             "funding": [
                 {
@@ -5710,7 +5710,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-07-22T23:32:04+00:00"
+            "time": "2020-11-08T21:15:15+00:00"
         }
     ],
     "packages-dev": [
