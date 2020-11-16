@@ -23,6 +23,8 @@ class User extends Authenticatable
     use HasPrimaryKeyAsUuid;
     use HasAuthorizations;
 
+    protected $dateFormat = 'sdf';
+
     /**
      * The attributes that are mass assignable.
      *
