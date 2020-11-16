@@ -3,6 +3,7 @@
         "target": "es5",
         "strict": true,
         "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
         "experimentalDecorators": true,
         "baseUrl": ".",
         "paths": {

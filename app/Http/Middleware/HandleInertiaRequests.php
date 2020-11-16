@@ -22,7 +22,7 @@ class HandleInertiaRequests extends Middleware
      * @param Request $request
      * @return string|null
      */
-    public function version(Request $request)
+    public function version(Request $request): ?string
     {
         return parent::version($request);
     }
@@ -30,12 +30,19 @@ class HandleInertiaRequests extends Middleware
     /**
      * Defines the props that are shared by default.
      *
-     * @see https://inertiajs.com/shared-data
+     * @see https://inertiajs.com/shared-data       q<qq
      * @param Request $request
      * @return array
      */
-    public function share(Request $request)
+    public function share(Request $request): array
     {
+        if($request->user()) {
+            return array_merge(parent::share($request), [
+                'CerberusCan' => config('cerberus.roles.' . $request->user()->role . '.can')
+            ]);
+        }
+
+        //  Unauthenticated request
         return array_merge(parent::share($request), [
             //
         ]);
