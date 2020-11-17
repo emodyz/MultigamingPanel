@@ -13,6 +13,10 @@
         "strictNullChecks": false,
         "esModuleInterop": true
     },
+    "types": [
+        "lodash",
+        "qs"
+    ],
     "include": [
         "resources/js/**/*",
         "./*.js"

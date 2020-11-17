@@ -10,15 +10,17 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
-        "@inertiajs/inertia": "^0.5.1",
-        "@inertiajs/inertia-vue": "^0.4.1",
+        "@inertiajs/inertia": "^0.6.2",
+        "@inertiajs/inertia-vue": "^0.4.2",
+        "@inertiajs/progress": "^0.2.2",
         "@tailwindcss/ui": "^0.6.0",
+        "@types/lodash": "^4.14.165",
+        "@types/qs": "^6.9.5",
         "axios": "^0.19",
         "cross-env": "^7.0",
         "laravel-echo": "^1.9.0",
         "laravel-jetstream": "^0.0.3",
         "laravel-mix": "^5.0.1",
-        "lodash": "^4.17.19",
         "portal-vue": "^2.1.7",
         "postcss-import": "^12.0.1",
         "pusher-js": "^7.0.1",
@@ -32,7 +34,10 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "lodash": "^4.17.20",
         "moment": "^2.29.1",
-        "moment-timezone": "^0.5.32"
+        "moment-timezone": "^0.5.32",
+        "qs": "^6.9.4",
+        "vue-lodash": "^2.1.2"
     }
 }
