@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\HasPrimaryKeyAsUuid;
+use DateTimeInterface;
 use Emodyz\Cerberus\Traits\HasAuthorizations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -23,15 +24,13 @@ class User extends Authenticatable
     use HasPrimaryKeyAsUuid;
     use HasAuthorizations;
 
-    protected $dateFormat = 'sdf';
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name',
+        'email_verified_at',
         'email',
         'password',
     ];
@@ -65,4 +64,10 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /*
+    protected function serializeDate(DateTimeInterface $date): string
+    {
+        return $date->toIso8601String(); // 2019-02-01T03:45:27+00:00
+    }*/
 }

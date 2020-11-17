@@ -10,14 +10,13 @@ use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
-    public function __invoke(): \Inertia\Response
+    public function __invoke(Request $request): \Inertia\Response
     {
+        /*
         $user = \Auth::user();
 
-
-
         if ($user->can('*')) {
-            $users = User::all('id', 'email', 'name', 'profile_photo_path', 'role', 'email_verified_at','created_at');
+            $users = User::select('id', 'email', 'name', 'profile_photo_path', 'role', 'email_verified_at','created_at')->paginate(5);
             return Inertia::render('Admin/Dashboard', [
                 'users' => $users,
             ]);
@@ -30,6 +29,24 @@ class DashboardController extends Controller
 
         return Inertia::render('Admin/Dashboard', [
             'users' => null,
-        ]);
+        ]);*/
+
+        $initialSearch = $request->query('search', '');
+
+        $userQuery = User::query()
+            ->select('id', 'email', 'name', 'profile_photo_path', 'role', 'email_verified_at','created_at')
+            ->when($request->filled('search'),function($query) use ($initialSearch){
+                $query->where('name','LIKE','%'.$initialSearch.'%')
+                    ->orWhere('email','LIKE','%'.$initialSearch.'%')
+                    ->orWhere('role','LIKE','%'.$initialSearch.'%');
+            });
+
+        $users = $userQuery
+            ->paginate(10)
+            ->onEachSide(2)
+            ->appends(request()->only(['search']));
+
+
+        return Inertia::render('Admin/Dashboard',compact('users', 'initialSearch'));
     }
 }
