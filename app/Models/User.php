@@ -30,6 +30,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'name',
         'email_verified_at',
         'email',
         'password',
@@ -64,10 +65,4 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
-
-    /*
-    protected function serializeDate(DateTimeInterface $date): string
-    {
-        return $date->toIso8601String(); // 2019-02-01T03:45:27+00:00
-    }*/
 }
