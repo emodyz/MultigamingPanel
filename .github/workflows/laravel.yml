@@ -1,4 +1,4 @@
-name: Emodyz v6
+name: Build
 
 on:
   push:
