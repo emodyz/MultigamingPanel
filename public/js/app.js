@@ -44855,6 +44855,9 @@ var Button = /** @class */ (function (_super) {
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Prop"])({ default: 'submit', type: String })
     ], Button.prototype, "type", void 0);
+    __decorate([
+        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Prop"])({ default: false, type: Boolean })
+    ], Button.prototype, "disabled", void 0);
     Button = __decorate([
         vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Component"]
     ], Button);
@@ -45852,6 +45855,9 @@ var SecondaryButton = /** @class */ (function (_super) {
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Prop"])({ default: 'button', type: String })
     ], SecondaryButton.prototype, "type", void 0);
+    __decorate([
+        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Prop"])({ default: false, type: Boolean })
+    ], SecondaryButton.prototype, "disabled", void 0);
     SecondaryButton = __decorate([
         vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Component"]
     ], SecondaryButton);
@@ -48135,6 +48141,8 @@ var DataTable = /** @class */ (function (_super) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-property-decorator */ "./node_modules/vue-property-decorator/lib/vue-property-decorator.js");
+/* harmony import */ var _Jetstream_SecondaryButton_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/SecondaryButton.vue */ "./resources/js/Jetstream/SecondaryButton.vue");
+/* harmony import */ var _Jetstream_Button_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/Button.vue */ "./resources/js/Jetstream/Button.vue");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -48155,16 +48163,26 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
+
+
 var Pagination = /** @class */ (function (_super) {
     __extends(Pagination, _super);
     function Pagination() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    Pagination.prototype.created = function () {
+        console.log(this.links);
+    };
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Prop"])()
     ], Pagination.prototype, "links", void 0);
     Pagination = __decorate([
-        vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Component"]
+        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            components: {
+                JetSecondaryButton: _Jetstream_SecondaryButton_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+                JetButton: _Jetstream_Button_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+            }
+        })
     ], Pagination);
     return Pagination;
 }(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Vue"]));
@@ -48754,8 +48772,8 @@ var render = function() {
     "button",
     {
       staticClass:
-        "inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray transition ease-in-out duration-150",
-      attrs: { type: _vm.type }
+        "disabled:cursor-not-allowed disabled:opacity-75 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray transition ease-in-out duration-150",
+      attrs: { disabled: _vm.disabled, type: _vm.type }
     },
     [_vm._t("default")],
     2
@@ -49648,8 +49666,8 @@ var render = function() {
     "button",
     {
       staticClass:
-        "inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150",
-      attrs: { type: _vm.type }
+        "disabled:cursor-not-allowed disabled:opacity-75 inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150",
+      attrs: { disabled: _vm.disabled, type: _vm.type }
     },
     [_vm._t("default")],
     2
@@ -55038,32 +55056,55 @@ var render = function() {
     [
       _vm._l(_vm.links, function(link, key) {
         return [
-          link.url === null
+          link.label === "Next" || link.label === "Previous"
             ? _c(
-                "div",
+                "jet-button",
                 {
                   key: key,
-                  staticClass:
-                    "mr-1 mb-1 px-4 py-3 text-sm border rounded text-gray-400"
+                  staticClass: "mr-1 text-sm",
+                  attrs: { type: "link", disabled: !link.url }
                 },
-                [_vm._v(_vm._s(link.label))]
+                [
+                  link.url
+                    ? _c(
+                        "Inertia-link",
+                        {
+                          attrs: {
+                            "preserve-scroll": "",
+                            "preserve-state": "",
+                            href: link.url ? link.url : "#"
+                          }
+                        },
+                        [_vm._v(_vm._s(link.label))]
+                      )
+                    : _c("span", [_vm._v(_vm._s(link.label))])
+                ],
+                1
               )
             : _c(
-                "Inertia-link",
+                "jet-secondary-button",
                 {
                   key: key,
-                  staticClass:
-                    "mr-1 mb-1 px-4 py-3 text-sm border rounded hover:bg-white focus:border-indigo-500 focus:text-indigo-500",
-                  class: {
-                    "bg-white border-indigo-500 text-indigo-500": link.active
-                  },
-                  attrs: {
-                    "preserve-scroll": "",
-                    "preserve-state": "",
-                    href: link.url
-                  }
+                  staticClass: "mr-1 text-sm",
+                  class: { "border-indigo-500 text-indigo-500": link.active },
+                  attrs: { type: "link", disabled: !link.url }
                 },
-                [_vm._v(_vm._s(link.label))]
+                [
+                  link.url
+                    ? _c(
+                        "Inertia-link",
+                        {
+                          attrs: {
+                            "preserve-scroll": "",
+                            "preserve-state": "",
+                            href: link.url ? link.url : "#"
+                          }
+                        },
+                        [_vm._v(_vm._s(link.label))]
+                      )
+                    : _c("span", [_vm._v(_vm._s(link.label))])
+                ],
+                1
               )
         ]
       })
