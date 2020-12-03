@@ -6,7 +6,7 @@
                         :disabled="!link.url"
                         :key="key"
                         class="mr-1 text-sm">
-                <Inertia-link v-if="link.url" preserve-scroll preserve-state :href="link.url ? link.url : '#'">{{ link.label }}</Inertia-link>
+                <Inertia-link v-if="link.url" preserve-scroll preserve-state :href="link.url">{{ link.label }}</Inertia-link>
                 <span v-else>{{ link.label }}</span>
             </jet-button>
             <jet-secondary-button v-else
@@ -15,7 +15,7 @@
                                   :disabled="!link.url"
                                   :class="{ 'border-indigo-500 text-indigo-500': link.active }"
                                   class="mr-1 text-sm">
-                <Inertia-link v-if="link.url" preserve-scroll preserve-state :href="link.url ? link.url : '#'">{{ link.label }}</Inertia-link>
+                <Inertia-link v-if="link.url" preserve-scroll preserve-state :href="link.url">{{ link.label }}</Inertia-link>
                 <span v-else>{{ link.label }}</span>
             </jet-secondary-button>
         </template>
@@ -37,7 +37,7 @@
         @Prop() readonly links!: Array<any>
 
         created() {
-            console.log(this.links)
+            // console.log(this.links)
         }
     }
 </script>
