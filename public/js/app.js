@@ -48061,6 +48061,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
 /* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _Jetstream_Button_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Jetstream/Button.vue */ "./resources/js/Jetstream/Button.vue");
+/* harmony import */ var _Jetstream_ConfirmationModal_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/Jetstream/ConfirmationModal.vue */ "./resources/js/Jetstream/ConfirmationModal.vue");
+/* harmony import */ var _Jetstream_DangerButton_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/Jetstream/DangerButton.vue */ "./resources/js/Jetstream/DangerButton.vue");
+/* harmony import */ var _Jetstream_SecondaryButton_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/Jetstream/SecondaryButton.vue */ "./resources/js/Jetstream/SecondaryButton.vue");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -48087,6 +48090,10 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+
+
+// TODO: Check permissions before displaying actions
 var DataTable = /** @class */ (function (_super) {
     __extends(DataTable, _super);
     function DataTable() {
@@ -48102,6 +48109,8 @@ var DataTable = /** @class */ (function (_super) {
                 only: [_this.queryParam],
             });
         }, 250);
+        _this.uuidBeingDestroyed = null;
+        _this.destructionInProgress = false;
         return _this;
     }
     DataTable.prototype.goToShow = function (id) {
@@ -48110,8 +48119,10 @@ var DataTable = /** @class */ (function (_super) {
     DataTable.prototype.goToEdit = function (id) {
         _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__["Inertia"].visit(this.actions.baseUrl + "/" + id + "/" + this.actions.edit.path, { preserveScroll: true });
     };
+    DataTable.prototype.initiateDestruction = function (id) {
+        this.uuidBeingDestroyed = id;
+    };
     DataTable.prototype.goToDestroy = function (id) {
-        // TODO: Add confirmation modal
         _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__["Inertia"].delete(this.actions.baseUrl + "/" + id + "/" + (this.actions.show.path ? this.actions.show.path : ''), { preserveScroll: true });
     };
     DataTable.prototype.created = function () {
@@ -48147,6 +48158,9 @@ var DataTable = /** @class */ (function (_super) {
                 jetButton: _Jetstream_Button_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
                 Pagination: _Shared_Pagination_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
                 JetInput: _Jetstream_Input_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+                JetConfirmationModal: _Jetstream_ConfirmationModal_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
+                JetDangerButton: _Jetstream_DangerButton_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
+                JetSecondaryButton: _Jetstream_SecondaryButton_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
             },
         })
     ], DataTable);
@@ -55010,18 +55024,22 @@ var render = function() {
             "tr",
             [
               _vm._l(_vm.headers, function(item) {
-                return _c("th", [
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(item.title) +
-                      "\n                "
-                  )
-                ])
+                return !_vm._.isEmpty(_vm.dataObject.data)
+                  ? _c("th", [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(item.title) +
+                          "\n                "
+                      )
+                    ])
+                  : _vm._e()
               }),
               _vm._v(" "),
-              _vm.actions.enabled
+              _vm.actions.enabled && !_vm._.isEmpty(_vm.dataObject.data)
                 ? _c("th", { staticClass: "px-4 py-2" }, [_vm._v("Actions")])
-                : _vm._e()
+                : _c("th", { staticClass: "px-4 py-2" }, [
+                    _vm._v("Search query")
+                  ])
             ],
             2
           )
@@ -55153,7 +55171,9 @@ var render = function() {
                                       nativeOn: {
                                         click: function($event) {
                                           $event.preventDefault()
-                                          return _vm.goToDestroy(item.id)
+                                          return _vm.initiateDestruction(
+                                            item.id
+                                          )
                                         }
                                       }
                                     },
@@ -55184,6 +55204,75 @@ var render = function() {
       _c("pagination", {
         staticClass: "justify-self-start",
         attrs: { links: _vm.dataObject.links }
+      }),
+      _vm._v(" "),
+      _c("jet-confirmation-modal", {
+        attrs: { show: _vm.uuidBeingDestroyed },
+        on: {
+          close: function($event) {
+            _vm.uuidBeingDestroyed = null
+          }
+        },
+        scopedSlots: _vm._u([
+          {
+            key: "title",
+            fn: function() {
+              return [_vm._v("\n            Delete\n        ")]
+            },
+            proxy: true
+          },
+          {
+            key: "content",
+            fn: function() {
+              return [
+                _vm._v(
+                  "\n            Are you sure you would like to delete this item ?\n            "
+                ),
+                _c("br"),
+                _vm._v(
+                  "\n            #: " +
+                    _vm._s(_vm.uuidBeingDestroyed) +
+                    "\n        "
+                )
+              ]
+            },
+            proxy: true
+          },
+          {
+            key: "footer",
+            fn: function() {
+              return [
+                _c(
+                  "jet-secondary-button",
+                  {
+                    nativeOn: {
+                      click: function($event) {
+                        _vm.uuidBeingDestroyed = null
+                      }
+                    }
+                  },
+                  [_vm._v("\n                Nevermind\n            ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "jet-danger-button",
+                  {
+                    staticClass: "ml-2",
+                    class: { "opacity-25": _vm.destructionInProgress },
+                    attrs: { disabled: _vm.destructionInProgress },
+                    nativeOn: {
+                      click: function($event) {
+                        return _vm.goToDestroy(_vm.uuidBeingDestroyed)
+                      }
+                    }
+                  },
+                  [_vm._v("\n                Delete\n            ")]
+                )
+              ]
+            },
+            proxy: true
+          }
+        ])
       })
     ],
     1

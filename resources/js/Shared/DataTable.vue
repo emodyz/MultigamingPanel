@@ -4,10 +4,11 @@
         <table class="w-full table-auto">
             <thead>
                 <tr>
-                    <th v-for="item in headers">
+                    <th v-if="!(_.isEmpty(dataObject.data))" v-for="item in headers">
                         {{ item.title }}
                     </th>
-                    <th v-if="actions.enabled" class="px-4 py-2">Actions</th>
+                    <th v-if="actions.enabled && !(_.isEmpty(dataObject.data))" class="px-4 py-2">Actions</th>
+                    <th v-else class="px-4 py-2">Search query</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,7 +37,7 @@
                         <jet-button @click.native.prevent="goToEdit(item.id)" v-if="actions.edit.enabled" :class="`text-${actions.edit.color} bg-${actions.edit.bgColor}`">
                             {{ actions.edit.displayName }}
                         </jet-button>
-                        <jet-button @click.native.prevent="goToDestroy(item.id)" v-if="actions.destroy.enabled" :class="`text-${actions.destroy.color} bg-${actions.destroy.bgColor}`">
+                        <jet-button @click.native.prevent="initiateDestruction(item.id)" v-if="actions.destroy.enabled" :class="`text-${actions.destroy.color} bg-${actions.destroy.bgColor}`">
                             {{ actions.destroy.displayName }}
                         </jet-button>
                     </td>
@@ -44,6 +45,29 @@
             </tbody>
         </table>
         <pagination class="justify-self-start" :links="dataObject.links"></pagination>
+
+        <!-- Destroy Action Confirmation Modal -->
+        <jet-confirmation-modal :show="uuidBeingDestroyed" @close="uuidBeingDestroyed = null">
+            <template #title>
+                Delete
+            </template>
+
+            <template #content>
+                Are you sure you would like to delete this item ?
+                <br/>
+                #: {{ uuidBeingDestroyed }}
+            </template>
+
+            <template #footer>
+                <jet-secondary-button @click.native="uuidBeingDestroyed = null">
+                    Nevermind
+                </jet-secondary-button>
+
+                <jet-danger-button class="ml-2" @click.native="goToDestroy(uuidBeingDestroyed)" :class="{ 'opacity-25': destructionInProgress }" :disabled="destructionInProgress">
+                    Delete
+                </jet-danger-button>
+            </template>
+        </jet-confirmation-modal>
     </div>
 </template>
 
@@ -57,12 +81,20 @@ import { Inertia } from "@inertiajs/inertia";
 import debounce from 'lodash/debounce';
 import { stringify } from 'qs';
 import jetButton from "@/Jetstream/Button.vue";
+import JetConfirmationModal from "@/Jetstream/ConfirmationModal.vue";
+import JetDangerButton from "@/Jetstream/DangerButton.vue";
+import JetSecondaryButton from "@/Jetstream/SecondaryButton.vue";
+
+// TODO: Check permissions before displaying actions
 
 @Component({
     components: {
         jetButton,
         Pagination,
         JetInput,
+        JetConfirmationModal,
+        JetDangerButton,
+        JetSecondaryButton
     },
 })
 export default class DataTable extends Vue {
@@ -75,6 +107,8 @@ export default class DataTable extends Vue {
         type: Object,
         default: () => defaultActions
     }) readonly actions!: dataTableActionsOption
+
+
 
     search = this.initialQuery
 
@@ -98,8 +132,14 @@ export default class DataTable extends Vue {
         Inertia.visit(`${this.actions.baseUrl}/${id}/${this.actions.edit.path}`, { preserveScroll: true })
     }
 
+    uuidBeingDestroyed: string | number | null = null
+    destructionInProgress = false
+
+    initiateDestruction(id: string | number) {
+        this.uuidBeingDestroyed = id;
+    }
+
     goToDestroy(id: string | number) {
-        // TODO: Add confirmation modal
         Inertia.delete(`${this.actions.baseUrl}/${id}/${this.actions.show.path ? this.actions.show.path : ''}`, { preserveScroll: true })
     }
 
