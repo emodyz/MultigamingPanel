@@ -46551,6 +46551,13 @@ var AdminDashboard = /** @class */ (function (_super) {
             { title: 'Registered', key: 'created_at', type: 'Date.Formatted' },
             { title: 'Verified', key: 'email_verified_at', type: 'Date.FromNow' },
         ];
+        _this.actions = {
+            enabled: true,
+            baseUrl: "/users",
+            destroy: { displayName: 'Delete', bgColor: "red-500", color: "white", enabled: true },
+            edit: { displayName: 'Edit', bgColor: "blue-500", color: "white", enabled: true, path: "edit" },
+            show: { displayName: 'See', bgColor: "green-500", color: "white", enabled: true }
+        };
         return _this;
     }
     __decorate([
@@ -48053,6 +48060,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash_debounce__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash_debounce__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
 /* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _Jetstream_Button_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Jetstream/Button.vue */ "./resources/js/Jetstream/Button.vue");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -48078,10 +48086,12 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
 var DataTable = /** @class */ (function (_super) {
     __extends(DataTable, _super);
     function DataTable() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.search = _this.initialQuery;
         _this.onSearchChanged = lodash_debounce__WEBPACK_IMPORTED_MODULE_4___default()(function (val, old) {
             var query = Object(qs__WEBPACK_IMPORTED_MODULE_5__["stringify"])({
                 search: val || undefined,
@@ -48092,11 +48102,20 @@ var DataTable = /** @class */ (function (_super) {
                 only: [_this.queryParam],
             });
         }, 250);
-        _this.search = _this.initialSearch;
         return _this;
     }
+    DataTable.prototype.goToShow = function (id) {
+        _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__["Inertia"].visit(this.actions.baseUrl + "/" + id + "/" + (this.actions.show.path ? this.actions.show.path : ''), { preserveScroll: true });
+    };
+    DataTable.prototype.goToEdit = function (id) {
+        _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__["Inertia"].visit(this.actions.baseUrl + "/" + id + "/" + this.actions.edit.path, { preserveScroll: true });
+    };
+    DataTable.prototype.goToDestroy = function (id) {
+        // TODO: Add confirmation modal
+        _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__["Inertia"].delete(this.actions.baseUrl + "/" + id + "/" + (this.actions.show.path ? this.actions.show.path : ''), { preserveScroll: true });
+    };
     DataTable.prototype.created = function () {
-        console.log(this.dataObject);
+        // console.log(this.dataObject)
     };
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_2__["Prop"])()
@@ -48112,13 +48131,20 @@ var DataTable = /** @class */ (function (_super) {
     ], DataTable.prototype, "queryParam", void 0);
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_2__["Prop"])()
-    ], DataTable.prototype, "initialSearch", void 0);
+    ], DataTable.prototype, "initialQuery", void 0);
+    __decorate([
+        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_2__["Prop"])({
+            type: Object,
+            default: function () { return defaultActions; }
+        })
+    ], DataTable.prototype, "actions", void 0);
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_2__["Watch"])('search')
     ], DataTable.prototype, "onSearchChanged", void 0);
     DataTable = __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_2__["Component"])({
             components: {
+                jetButton: _Jetstream_Button_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
                 Pagination: _Shared_Pagination_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
                 JetInput: _Jetstream_Input_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
             },
@@ -48127,6 +48153,37 @@ var DataTable = /** @class */ (function (_super) {
     return DataTable;
 }(vue_property_decorator__WEBPACK_IMPORTED_MODULE_2__["Vue"]));
 /* harmony default export */ __webpack_exports__["default"] = (DataTable);
+var defaultActions = {
+    enabled: false,
+    baseUrl: '',
+    show: {
+        enabled: false,
+        displayName: 'See',
+        permission: '',
+        path: '',
+        icon: '',
+        color: 'white',
+        bgColor: 'green-500',
+    },
+    edit: {
+        enabled: false,
+        displayName: 'Edit',
+        permission: '',
+        path: 'edit',
+        icon: '',
+        color: 'white',
+        bgColor: 'blue-500',
+    },
+    destroy: {
+        enabled: false,
+        displayName: 'Delete',
+        permission: '',
+        path: '',
+        icon: '',
+        color: 'white',
+        bgColor: 'red-500',
+    },
+};
 
 
 /***/ }),
@@ -48171,7 +48228,7 @@ var Pagination = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Pagination.prototype.created = function () {
-        console.log(this.links);
+        // console.log(this.links)
     };
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Prop"])()
@@ -52244,7 +52301,8 @@ var render = function() {
                   "query-param": "users",
                   headers: _vm.headers,
                   "data-object": _vm.users,
-                  "initial-search": _vm.initialSearch
+                  "initial-query": _vm.initialSearch,
+                  actions: _vm.actions
                 }
               })
             ],
@@ -54961,7 +55019,9 @@ var render = function() {
                 ])
               }),
               _vm._v(" "),
-              _c("th", { staticClass: "px-4 py-2" }, [_vm._v("Actions")])
+              _vm.actions.enabled
+                ? _c("th", { staticClass: "px-4 py-2" }, [_vm._v("Actions")])
+                : _vm._e()
             ],
             2
           )
@@ -54969,54 +55029,155 @@ var render = function() {
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.dataObject.data, function(item, index) {
-            return _c(
-              "tr",
-              [
-                _c("th", { attrs: { scope: "row" } }, [
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(index + 1) +
-                      "\n                "
+          [
+            _vm._.isEmpty(_vm.dataObject.data)
+              ? _c("tr", [
+                  _c(
+                    "td",
+                    {
+                      staticClass: "border px-4 py-2 text-center text-gray-500"
+                    },
+                    [_vm._v('No result matching "' + _vm._s(_vm.search) + '"')]
                   )
-                ]),
-                _vm._v(" "),
-                _vm._l(_vm.headers.slice(1), function(ref) {
-                  var key = ref.key
-                  var type = ref.type
-                  return _c("td", { staticClass: "border px-4 py-2" }, [
-                    type === "Date.Formatted"
-                      ? _c("span", [
-                          _vm._v(
-                            "\n                        " +
-                              _vm._s(_vm.$moment(item[key]).format("LLL")) +
-                              "\n                    "
-                          )
+                ])
+              : _vm._l(_vm.dataObject.data, function(item, index) {
+                  return _c(
+                    "tr",
+                    [
+                      _c("th", { attrs: { scope: "row" } }, [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(index + 1) +
+                            "\n                "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.headers.slice(1), function(ref) {
+                        var key = ref.key
+                        var type = ref.type
+                        return _c("td", { staticClass: "border px-4 py-2" }, [
+                          type === "Date.Formatted"
+                            ? _c("span", [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(
+                                      _vm.$moment(item[key]).format("LLL")
+                                    ) +
+                                    "\n                    "
+                                )
+                              ])
+                            : type === "Date.FromNow"
+                            ? _c("span", [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(_vm.$moment(item[key]).fromNow()) +
+                                    "\n                    "
+                                )
+                              ])
+                            : _c("span", [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(item[key]) +
+                                    "\n                    "
+                                )
+                              ])
                         ])
-                      : type === "Date.FromNow"
-                      ? _c("span", [
-                          _vm._v(
-                            "\n                        " +
-                              _vm._s(_vm.$moment(item[key]).fromNow()) +
-                              "\n                    "
+                      }),
+                      _vm._v(" "),
+                      _vm.actions.enabled
+                        ? _c(
+                            "td",
+                            { staticClass: "border px-4 py-2" },
+                            [
+                              _vm.actions.show.enabled
+                                ? _c(
+                                    "jet-button",
+                                    {
+                                      class:
+                                        "text-" +
+                                        _vm.actions.show.color +
+                                        " bg-" +
+                                        _vm.actions.show.bgColor,
+                                      nativeOn: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.goToShow(item.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                        " +
+                                          _vm._s(_vm.actions.show.displayName) +
+                                          "\n                    "
+                                      )
+                                    ]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.actions.edit.enabled
+                                ? _c(
+                                    "jet-button",
+                                    {
+                                      class:
+                                        "text-" +
+                                        _vm.actions.edit.color +
+                                        " bg-" +
+                                        _vm.actions.edit.bgColor,
+                                      nativeOn: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.goToEdit(item.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                        " +
+                                          _vm._s(_vm.actions.edit.displayName) +
+                                          "\n                    "
+                                      )
+                                    ]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.actions.destroy.enabled
+                                ? _c(
+                                    "jet-button",
+                                    {
+                                      class:
+                                        "text-" +
+                                        _vm.actions.destroy.color +
+                                        " bg-" +
+                                        _vm.actions.destroy.bgColor,
+                                      nativeOn: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.goToDestroy(item.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                        " +
+                                          _vm._s(
+                                            _vm.actions.destroy.displayName
+                                          ) +
+                                          "\n                    "
+                                      )
+                                    ]
+                                  )
+                                : _vm._e()
+                            ],
+                            1
                           )
-                        ])
-                      : _c("span", [
-                          _vm._v(
-                            "\n                        " +
-                              _vm._s(item[key]) +
-                              "\n                    "
-                          )
-                        ])
-                  ])
-                }),
-                _vm._v(" "),
-                _c("td", { staticClass: "border px-4 py-2" }, [_vm._v("None")])
-              ],
-              2
-            )
-          }),
-          0
+                        : _vm._e()
+                    ],
+                    2
+                  )
+                })
+          ],
+          2
         )
       ]),
       _vm._v(" "),
@@ -55072,7 +55233,7 @@ var render = function() {
                           attrs: {
                             "preserve-scroll": "",
                             "preserve-state": "",
-                            href: link.url ? link.url : "#"
+                            href: link.url
                           }
                         },
                         [_vm._v(_vm._s(link.label))]
@@ -55097,7 +55258,7 @@ var render = function() {
                           attrs: {
                             "preserve-scroll": "",
                             "preserve-state": "",
-                            href: link.url ? link.url : "#"
+                            href: link.url
                           }
                         },
                         [_vm._v(_vm._s(link.label))]

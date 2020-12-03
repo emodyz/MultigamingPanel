@@ -13,7 +13,8 @@
                                :query-param="'users'"
                                :headers="headers"
                                :data-object="users"
-                               :initial-search="initialSearch"
+                               :initial-query="initialSearch"
+                               :actions="actions"
                                class="w-full p-6"></data-table>
                 </div>
             </div>
@@ -25,7 +26,7 @@
 import AdminLayout from '@/Layouts/AdminLayout.vue'
 import Pagination from "@/Shared/Pagination.vue";
 import JetInput from "@/Jetstream/Input.vue";
-import DataTable from "@/Shared/DataTable.vue";
+import DataTable, {dataTableActionsOption} from "@/Shared/DataTable.vue";
 
 import {Vue, Component, Prop} from 'vue-property-decorator'
 
@@ -51,5 +52,13 @@ export default class AdminDashboard extends Vue {
         { title: 'Registered', key: 'created_at' , type: 'Date.Formatted' },
         { title: 'Verified', key: 'email_verified_at' , type: 'Date.FromNow' },
     ]
+
+    actions: dataTableActionsOption = {
+        enabled: true,
+        baseUrl: "/users",
+        destroy: {displayName: 'Delete', bgColor: "red-500", color: "white", enabled: true},
+        edit: {displayName: 'Edit', bgColor: "blue-500", color: "white", enabled: true, path: "edit"},
+        show: {displayName: 'See', bgColor: "green-500", color: "white", enabled: true}
+    }
 }
 </script>
