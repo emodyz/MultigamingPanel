@@ -15,6 +15,7 @@
                                :data-object="users"
                                :initial-query="initialSearch"
                                :actions="actions"
+                               :user-permissions="UserPermissions"
                                class="w-full p-6"></data-table>
                 </div>
             </div>
@@ -42,7 +43,7 @@ import {Vue, Component, Prop} from 'vue-property-decorator'
 export default class AdminDashboard extends Vue {
     @Prop() readonly users!: null | object
     @Prop() readonly initialSearch!: null | string
-    @Prop() readonly CerberusCan!: Array<string> | null
+    @Prop() readonly UserPermissions!: Array<string> | null
 
     headers: Array<object> = [
         { title: '#', key: 'index', type: null },

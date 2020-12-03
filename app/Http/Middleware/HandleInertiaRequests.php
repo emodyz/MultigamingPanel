@@ -38,7 +38,7 @@ class HandleInertiaRequests extends Middleware
     {
         if($request->user()) {
             return array_merge(parent::share($request), [
-                'CerberusCan' => config('cerberus.roles.' . $request->user()->role . '.can')
+                'UserPermissions' => config('cerberus.roles.' . $request->user()->role . '.can')
             ]);
         }
 

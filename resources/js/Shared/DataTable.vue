@@ -84,8 +84,9 @@ import jetButton from "@/Jetstream/Button.vue";
 import JetConfirmationModal from "@/Jetstream/ConfirmationModal.vue";
 import JetDangerButton from "@/Jetstream/DangerButton.vue";
 import JetSecondaryButton from "@/Jetstream/SecondaryButton.vue";
+import _ from "lodash";
 
-// TODO: Check permissions before displaying actions
+// TODO: Extract interfaces and permission check in their appropriate file
 
 @Component({
     components: {
@@ -98,6 +99,7 @@ import JetSecondaryButton from "@/Jetstream/SecondaryButton.vue";
     },
 })
 export default class DataTable extends Vue {
+    @Prop() readonly UserPermissions!: Array<string> | null
     @Prop() readonly headers!: null | object
     @Prop() readonly dataObject!: null | object
     @Prop() readonly queryUrl: string
@@ -107,8 +109,6 @@ export default class DataTable extends Vue {
         type: Object,
         default: () => defaultActions
     }) readonly actions!: dataTableActionsOption
-
-
 
     search = this.initialQuery
 
@@ -143,8 +143,20 @@ export default class DataTable extends Vue {
         Inertia.delete(`${this.actions.baseUrl}/${id}/${this.actions.show.path ? this.actions.show.path : ''}`, { preserveScroll: true })
     }
 
+    checkPermissions() {
+        if(this.actions.show.enabled && this.actions.show.permission) {
+            !(_.includes(this.UserPermissions, this.actions.show.permission)) && !(_.includes(this.UserPermissions, '*')) ? this.actions.show.enabled = false : null
+        }
+        if(this.actions.edit.enabled && this.actions.edit.permission) {
+            !(_.includes(this.UserPermissions, this.actions.edit.permission)) && !(_.includes(this.UserPermissions, '*')) ? this.actions.edit.enabled = false : null
+        }
+        if(this.actions.destroy.enabled && this.actions.destroy.permission) {
+            !(_.includes(this.UserPermissions, this.actions.destroy.permission)) && !(_.includes(this.UserPermissions, '*')) ? this.actions.destroy.enabled = false : null
+        }
+    }
+
     created() {
-        // console.log(this.dataObject)
+        this.checkPermissions()
     }
 }
 
