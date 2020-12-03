@@ -46568,7 +46568,7 @@ var AdminDashboard = /** @class */ (function (_super) {
     ], AdminDashboard.prototype, "initialSearch", void 0);
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_4__["Prop"])()
-    ], AdminDashboard.prototype, "CerberusCan", void 0);
+    ], AdminDashboard.prototype, "UserPermissions", void 0);
     AdminDashboard = __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_4__["Component"])({
             components: {
@@ -48064,6 +48064,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_ConfirmationModal_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/Jetstream/ConfirmationModal.vue */ "./resources/js/Jetstream/ConfirmationModal.vue");
 /* harmony import */ var _Jetstream_DangerButton_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/Jetstream/DangerButton.vue */ "./resources/js/Jetstream/DangerButton.vue");
 /* harmony import */ var _Jetstream_SecondaryButton_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/Jetstream/SecondaryButton.vue */ "./resources/js/Jetstream/SecondaryButton.vue");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_10__);
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -48083,6 +48085,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -48125,9 +48128,23 @@ var DataTable = /** @class */ (function (_super) {
     DataTable.prototype.goToDestroy = function (id) {
         _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__["Inertia"].delete(this.actions.baseUrl + "/" + id + "/" + (this.actions.show.path ? this.actions.show.path : ''), { preserveScroll: true });
     };
-    DataTable.prototype.created = function () {
-        // console.log(this.dataObject)
+    DataTable.prototype.checkPermissions = function () {
+        if (this.actions.show.enabled && this.actions.show.permission) {
+            !(lodash__WEBPACK_IMPORTED_MODULE_10___default.a.includes(this.UserPermissions, this.actions.show.permission)) && !(lodash__WEBPACK_IMPORTED_MODULE_10___default.a.includes(this.UserPermissions, '*')) ? this.actions.show.enabled = false : null;
+        }
+        if (this.actions.edit.enabled && this.actions.edit.permission) {
+            !(lodash__WEBPACK_IMPORTED_MODULE_10___default.a.includes(this.UserPermissions, this.actions.edit.permission)) && !(lodash__WEBPACK_IMPORTED_MODULE_10___default.a.includes(this.UserPermissions, '*')) ? this.actions.edit.enabled = false : null;
+        }
+        if (this.actions.destroy.enabled && this.actions.destroy.permission) {
+            !(lodash__WEBPACK_IMPORTED_MODULE_10___default.a.includes(this.UserPermissions, this.actions.destroy.permission)) && !(lodash__WEBPACK_IMPORTED_MODULE_10___default.a.includes(this.UserPermissions, '*')) ? this.actions.destroy.enabled = false : null;
+        }
     };
+    DataTable.prototype.created = function () {
+        this.checkPermissions();
+    };
+    __decorate([
+        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_2__["Prop"])()
+    ], DataTable.prototype, "UserPermissions", void 0);
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_2__["Prop"])()
     ], DataTable.prototype, "headers", void 0);
@@ -52316,7 +52333,8 @@ var render = function() {
                   headers: _vm.headers,
                   "data-object": _vm.users,
                   "initial-query": _vm.initialSearch,
-                  actions: _vm.actions
+                  actions: _vm.actions,
+                  "user-permissions": _vm.UserPermissions
                 }
               })
             ],
