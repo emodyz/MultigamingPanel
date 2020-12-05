@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <div>
         <jet-input class="w-1/4" type="search" placeholder="Search..." v-model="search"></jet-input>
         <table class="w-full table-auto">
@@ -45,6 +45,133 @@
             </tbody>
         </table>
         <pagination class="justify-self-start" :links="dataObject.links"></pagination>
+    </div>
+</template>
+-->
+
+<template>
+    <div class="flex flex-col">
+        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                <div class="shadow-md overflow-hidden border-b border-gray-200 sm:rounded-lg divide-y divide-gray-200">
+                    <jet-input class="w-1/3 my-3 mx-6" type="search" placeholder="Search..." v-model="search"></jet-input>
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                        <tr>
+                            <th v-if="!(_.isEmpty(dataObject.data))" v-for="item in headers" scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                {{ item.title }}
+                            </th>
+                            <th v-if="actions.enabled && !(_.isEmpty(dataObject.data))"
+                                scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Actions
+                            </th>
+                            <th v-else class="px-4 py-2">Search query</th>
+                        </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr v-if="_.isEmpty(dataObject.data)">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">No result matching "{{ search }}"</div>
+                                </td>
+                            </tr>
+
+                            <tr v-else v-for="(item, index) in dataObject.data">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" v-for="{ key, type } in headers">
+                                    <span v-if="type === 'Index'" class="text-md text-gray-600">
+                                        {{ index+1 }}
+                                    </span>
+                                    <span v-else-if="type === 'Date.Formatted'">
+                                        {{ $moment(item[key]).format('LLL') }}
+                                    </span>
+                                    <span v-else-if="type === 'Date.FromNow'">
+                                        {{ $moment(item[key]).fromNow() }}
+                                    </span>
+                                    <div v-else-if="type === 'User.Profile'" class="flex items-center">
+                                        <div class="flex-shrink-0 h-10 w-10">
+                                            <img class="h-10 w-10 rounded-full" :src="item.profile_photo_url" :alt="`Avatar of user ${item.name}`">
+                                        </div>
+                                        <div class="ml-4">
+                                            <div class="text-sm font-medium text-gray-900">
+                                                {{ item.name }}
+                                            </div>
+                                            <div class="text-sm text-gray-500">
+                                                {{ item.email }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div v-else-if="type === 'User.Status'">
+                                        <span v-if="item.email_verified_at" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                            Active
+                                        </span>
+                                        <span v-else class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
+                                            Awaiting Email Validation
+                                        </span>
+                                    </div>
+                                    <span v-else>
+                                        {{ item[key] }}
+                                    </span>
+                                </td>
+                                <td v-if="actions.enabled" class="px-6 py-4 whitespace-nowrap text-left text-sm font-medium divide-x divide-gray-200">
+                                    <a @click.prevent="goToShow(item.id)" v-if="actions.show.enabled"
+                                       href="#"
+                                       :class="`text-${actions.show.color} hover:text-${actions.show.hvColor} pr-1`">
+                                        {{ actions.show.displayName }}
+                                    </a>
+                                    <a @click.prevent="goToEdit(item.id)" v-if="actions.edit.enabled"
+                                       href="#"
+                                       :class="`text-${actions.edit.color} hover:text-${actions.edit.hvColor} pl-2 pr-1`">
+                                        {{ actions.edit.displayName }}
+                                    </a>
+                                    <a @click.prevent="initiateDestruction(item.id)" v-if="actions.destroy.enabled"
+                                       href="#"
+                                       :class="`text-${actions.destroy.color} hover:text-${actions.destroy.hvColor} pl-2`">
+                                        {{ actions.destroy.displayName }}
+                                    </a>
+                                </td>
+                            </tr>
+
+                            <!-- <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0 h-10 w-10">
+                                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60" alt="">
+                                        </div>
+                                        <div class="ml-4">
+                                            <div class="text-sm font-medium text-gray-900">
+                                                Jane Cooper
+                                            </div>
+                                            <div class="text-sm text-gray-500">
+                                                jane.cooper@example.com
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">Regional Paradigm Technician</div>
+                                    <div class="text-sm text-gray-500">Optimization</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                        Active
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    Admin
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium divide-x divide-gray-200">
+                                    <a href="#" class="text-green-600 hover:text-green-900 pr-1">Show</a>
+                                    <a href="#" class="text-indigo-600 hover:text-indigo-900 pl-2 pr-1">Edit</a>
+                                    <a href="#" class="text-red-600 hover:text-red-900 pl-2">Delete</a>
+                                </td>
+                            </tr> -->
+
+                        <!-- More rows... -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
         <!-- Destroy Action Confirmation Modal -->
         <jet-confirmation-modal :show="uuidBeingDestroyed" @close="uuidBeingDestroyed = null">
@@ -170,7 +297,7 @@ export interface dataTableActionsOption {
         path?: string,
         icon?: string,
         color?: string,
-        bgColor?: string,
+        hvColor?: string,
     },
     edit: {
         enabled: boolean,
@@ -179,7 +306,7 @@ export interface dataTableActionsOption {
         path?: string,
         icon?: string,
         color?: string,
-        bgColor?: string,
+        hvColor?: string,
     },
     destroy: {
         enabled: boolean,
@@ -188,7 +315,7 @@ export interface dataTableActionsOption {
         path?: string,
         icon?: string,
         color?: string,
-        bgColor?: string,
+        hvColor?: string,
     }
 }
 const defaultActions = {
