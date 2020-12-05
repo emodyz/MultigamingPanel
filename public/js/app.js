@@ -47884,19 +47884,19 @@ var UsersIndex = /** @class */ (function (_super) {
     function UsersIndex() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.headers = [
-            { title: '#', key: 'index', type: null },
-            { title: 'Name', key: 'name', type: null },
-            { title: 'Email', key: 'email', type: null },
-            { title: 'Role', key: 'role', type: null },
+            { title: '#', key: 'index', type: 'Index' },
+            { title: 'Name', key: 'name', type: 'User.Profile' },
+            // { title: 'Email', key: 'email' , type: null },
+            { title: 'Role', key: 'roleName', type: null },
+            { title: 'Status', key: 'email_verified_at', type: 'User.Status' },
             { title: 'Registered', key: 'created_at', type: 'Date.Formatted' },
-            { title: 'Verified', key: 'email_verified_at', type: 'Date.FromNow' },
         ];
         _this.actions = {
             enabled: true,
             baseUrl: "/users",
-            destroy: { displayName: 'Delete', bgColor: "red-500", color: "white", enabled: true },
-            edit: { displayName: 'Edit', bgColor: "blue-500", color: "white", enabled: true, path: "edit" },
-            show: { displayName: 'See', bgColor: "green-500", color: "white", enabled: true }
+            destroy: { displayName: 'Delete', hvColor: "red-900", color: "red-600", enabled: true },
+            edit: { displayName: 'Edit', hvColor: "indigo-900", color: "indigo-600", enabled: true, path: "edit" },
+            show: { displayName: 'See', hvColor: "green-900", color: "green-600", enabled: true }
         };
         return _this;
     }
@@ -54157,30 +54157,25 @@ var render = function() {
     [
       _vm._v(" "),
       _c("div", { staticClass: "py-12" }, [
-        _c("div", { staticClass: "max-w-7xl mx-auto sm:px-6 lg:px-8" }, [
-          _c(
-            "div",
-            {
-              staticClass:
-                "flex items-center justify-center bg-white overflow-hidden shadow-xl sm:rounded-lg"
-            },
-            [
-              _c("data-table", {
-                staticClass: "w-full p-6",
-                attrs: {
-                  "query-url": "/users",
-                  "query-param": "users",
-                  headers: _vm.headers,
-                  "data-object": _vm.users,
-                  "initial-query": _vm.initialSearch,
-                  actions: _vm.actions,
-                  "user-permissions": _vm.UserPermissions
-                }
-              })
-            ],
-            1
-          )
-        ])
+        _c(
+          "div",
+          { staticClass: "max-w-7xl mx-auto sm:px-6 lg:px-8" },
+          [
+            _c("data-table", {
+              staticClass: "w-full p-6",
+              attrs: {
+                "query-url": "/users",
+                "query-param": "users",
+                headers: _vm.headers,
+                "data-object": _vm.users,
+                "initial-query": _vm.initialSearch,
+                actions: _vm.actions,
+                "user-permissions": _vm.UserPermissions
+              }
+            })
+          ],
+          1
+        )
       ])
     ]
   )
@@ -54209,206 +54204,392 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "flex flex-col" },
     [
-      _c("jet-input", {
-        staticClass: "w-1/4",
-        attrs: { type: "search", placeholder: "Search..." },
-        model: {
-          value: _vm.search,
-          callback: function($$v) {
-            _vm.search = $$v
-          },
-          expression: "search"
-        }
-      }),
-      _vm._v(" "),
-      _c("table", { staticClass: "w-full table-auto" }, [
-        _c("thead", [
-          _c(
-            "tr",
-            [
-              _vm._l(_vm.headers, function(item) {
-                return !_vm._.isEmpty(_vm.dataObject.data)
-                  ? _c("th", [
-                      _vm._v(
-                        "\n                    " +
-                          _vm._s(item.title) +
-                          "\n                "
-                      )
-                    ])
-                  : _vm._e()
-              }),
-              _vm._v(" "),
-              _vm.actions.enabled && !_vm._.isEmpty(_vm.dataObject.data)
-                ? _c("th", { staticClass: "px-4 py-2" }, [_vm._v("Actions")])
-                : _c("th", { staticClass: "px-4 py-2" }, [
-                    _vm._v("Search query")
-                  ])
-            ],
-            2
-          )
-        ]),
-        _vm._v(" "),
+      _c("div", { staticClass: "-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8" }, [
         _c(
-          "tbody",
+          "div",
+          {
+            staticClass:
+              "py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8"
+          },
           [
-            _vm._.isEmpty(_vm.dataObject.data)
-              ? _c("tr", [
-                  _c(
-                    "td",
-                    {
-                      staticClass: "border px-4 py-2 text-center text-gray-500"
+            _c(
+              "div",
+              {
+                staticClass:
+                  "shadow-md overflow-hidden border-b border-gray-200 sm:rounded-lg divide-y divide-gray-200"
+              },
+              [
+                _c("jet-input", {
+                  staticClass: "w-1/3 my-3 mx-6",
+                  attrs: { type: "search", placeholder: "Search..." },
+                  model: {
+                    value: _vm.search,
+                    callback: function($$v) {
+                      _vm.search = $$v
                     },
-                    [_vm._v('No result matching "' + _vm._s(_vm.search) + '"')]
-                  )
-                ])
-              : _vm._l(_vm.dataObject.data, function(item, index) {
-                  return _c(
-                    "tr",
-                    [
-                      _c("th", { attrs: { scope: "row" } }, [
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(index + 1) +
-                            "\n                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _vm._l(_vm.headers.slice(1), function(ref) {
-                        var key = ref.key
-                        var type = ref.type
-                        return _c("td", { staticClass: "border px-4 py-2" }, [
-                          type === "Date.Formatted"
-                            ? _c("span", [
-                                _vm._v(
-                                  "\n                        " +
-                                    _vm._s(
-                                      _vm.$moment(item[key]).format("LLL")
-                                    ) +
-                                    "\n                    "
+                    expression: "search"
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "table",
+                  { staticClass: "min-w-full divide-y divide-gray-200" },
+                  [
+                    _c("thead", { staticClass: "bg-gray-50" }, [
+                      _c(
+                        "tr",
+                        [
+                          _vm._l(_vm.headers, function(item) {
+                            return !_vm._.isEmpty(_vm.dataObject.data)
+                              ? _c(
+                                  "th",
+                                  {
+                                    staticClass:
+                                      "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
+                                    attrs: { scope: "col" }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                            " +
+                                        _vm._s(item.title) +
+                                        "\n                        "
+                                    )
+                                  ]
                                 )
+                              : _vm._e()
+                          }),
+                          _vm._v(" "),
+                          _vm.actions.enabled &&
+                          !_vm._.isEmpty(_vm.dataObject.data)
+                            ? _c(
+                                "th",
+                                {
+                                  staticClass:
+                                    "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
+                                  attrs: { scope: "col" }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                            Actions\n                        "
+                                  )
+                                ]
+                              )
+                            : _c("th", { staticClass: "px-4 py-2" }, [
+                                _vm._v("Search query")
                               ])
-                            : type === "Date.FromNow"
-                            ? _c("span", [
-                                _vm._v(
-                                  "\n                        " +
-                                    _vm._s(_vm.$moment(item[key]).fromNow()) +
-                                    "\n                    "
-                                )
-                              ])
-                            : _c("span", [
-                                _vm._v(
-                                  "\n                        " +
-                                    _vm._s(item[key]) +
-                                    "\n                    "
-                                )
-                              ])
-                        ])
-                      }),
-                      _vm._v(" "),
-                      _vm.actions.enabled
-                        ? _c(
-                            "td",
-                            { staticClass: "border px-4 py-2" },
-                            [
-                              _vm.actions.show.enabled
-                                ? _c(
-                                    "jet-button",
-                                    {
-                                      class:
-                                        "text-" +
-                                        _vm.actions.show.color +
-                                        " bg-" +
-                                        _vm.actions.show.bgColor,
-                                      nativeOn: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.goToShow(item.id)
-                                        }
-                                      }
-                                    },
+                        ],
+                        2
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      { staticClass: "bg-white divide-y divide-gray-200" },
+                      [
+                        _vm._.isEmpty(_vm.dataObject.data)
+                          ? _c("tr", [
+                              _c(
+                                "td",
+                                { staticClass: "px-6 py-4 whitespace-nowrap" },
+                                [
+                                  _c(
+                                    "div",
+                                    { staticClass: "text-sm text-gray-900" },
                                     [
                                       _vm._v(
-                                        "\n                        " +
-                                          _vm._s(_vm.actions.show.displayName) +
-                                          "\n                    "
+                                        'No result matching "' +
+                                          _vm._s(_vm.search) +
+                                          '"'
                                       )
                                     ]
                                   )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _vm.actions.edit.enabled
-                                ? _c(
-                                    "jet-button",
-                                    {
-                                      class:
-                                        "text-" +
-                                        _vm.actions.edit.color +
-                                        " bg-" +
-                                        _vm.actions.edit.bgColor,
-                                      nativeOn: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.goToEdit(item.id)
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                        " +
-                                          _vm._s(_vm.actions.edit.displayName) +
-                                          "\n                    "
+                                ]
+                              )
+                            ])
+                          : _vm._l(_vm.dataObject.data, function(item, index) {
+                              return _c(
+                                "tr",
+                                [
+                                  _vm._l(_vm.headers, function(ref) {
+                                    var key = ref.key
+                                    var type = ref.type
+                                    return _c(
+                                      "td",
+                                      {
+                                        staticClass:
+                                          "px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                                      },
+                                      [
+                                        type === "Index"
+                                          ? _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "text-md text-gray-600"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                                    " +
+                                                    _vm._s(index + 1) +
+                                                    "\n                                "
+                                                )
+                                              ]
+                                            )
+                                          : type === "Date.Formatted"
+                                          ? _c("span", [
+                                              _vm._v(
+                                                "\n                                    " +
+                                                  _vm._s(
+                                                    _vm
+                                                      .$moment(item[key])
+                                                      .format("LLL")
+                                                  ) +
+                                                  "\n                                "
+                                              )
+                                            ])
+                                          : type === "Date.FromNow"
+                                          ? _c("span", [
+                                              _vm._v(
+                                                "\n                                    " +
+                                                  _vm._s(
+                                                    _vm
+                                                      .$moment(item[key])
+                                                      .fromNow()
+                                                  ) +
+                                                  "\n                                "
+                                              )
+                                            ])
+                                          : type === "User.Profile"
+                                          ? _c(
+                                              "div",
+                                              {
+                                                staticClass: "flex items-center"
+                                              },
+                                              [
+                                                _c(
+                                                  "div",
+                                                  {
+                                                    staticClass:
+                                                      "flex-shrink-0 h-10 w-10"
+                                                  },
+                                                  [
+                                                    _c("img", {
+                                                      staticClass:
+                                                        "h-10 w-10 rounded-full",
+                                                      attrs: {
+                                                        src:
+                                                          item.profile_photo_url,
+                                                        alt:
+                                                          "Avatar of user " +
+                                                          item.name
+                                                      }
+                                                    })
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "div",
+                                                  { staticClass: "ml-4" },
+                                                  [
+                                                    _c(
+                                                      "div",
+                                                      {
+                                                        staticClass:
+                                                          "text-sm font-medium text-gray-900"
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          "\n                                            " +
+                                                            _vm._s(item.name) +
+                                                            "\n                                        "
+                                                        )
+                                                      ]
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "div",
+                                                      {
+                                                        staticClass:
+                                                          "text-sm text-gray-500"
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          "\n                                            " +
+                                                            _vm._s(item.email) +
+                                                            "\n                                        "
+                                                        )
+                                                      ]
+                                                    )
+                                                  ]
+                                                )
+                                              ]
+                                            )
+                                          : type === "User.Status"
+                                          ? _c("div", [
+                                              item.email_verified_at
+                                                ? _c(
+                                                    "span",
+                                                    {
+                                                      staticClass:
+                                                        "px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        "\n                                        Active\n                                    "
+                                                      )
+                                                    ]
+                                                  )
+                                                : _c(
+                                                    "span",
+                                                    {
+                                                      staticClass:
+                                                        "px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800"
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        "\n                                        Awaiting Email Validation\n                                    "
+                                                      )
+                                                    ]
+                                                  )
+                                            ])
+                                          : _c("span", [
+                                              _vm._v(
+                                                "\n                                    " +
+                                                  _vm._s(item[key]) +
+                                                  "\n                                "
+                                              )
+                                            ])
+                                      ]
+                                    )
+                                  }),
+                                  _vm._v(" "),
+                                  _vm.actions.enabled
+                                    ? _c(
+                                        "td",
+                                        {
+                                          staticClass:
+                                            "px-6 py-4 whitespace-nowrap text-left text-sm font-medium divide-x divide-gray-200"
+                                        },
+                                        [
+                                          _vm.actions.show.enabled
+                                            ? _c(
+                                                "a",
+                                                {
+                                                  class:
+                                                    "text-" +
+                                                    _vm.actions.show.color +
+                                                    " hover:text-" +
+                                                    _vm.actions.show.hvColor +
+                                                    " pr-1",
+                                                  attrs: { href: "#" },
+                                                  on: {
+                                                    click: function($event) {
+                                                      $event.preventDefault()
+                                                      return _vm.goToShow(
+                                                        item.id
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                                    " +
+                                                      _vm._s(
+                                                        _vm.actions.show
+                                                          .displayName
+                                                      ) +
+                                                      "\n                                "
+                                                  )
+                                                ]
+                                              )
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          _vm.actions.edit.enabled
+                                            ? _c(
+                                                "a",
+                                                {
+                                                  class:
+                                                    "text-" +
+                                                    _vm.actions.edit.color +
+                                                    " hover:text-" +
+                                                    _vm.actions.edit.hvColor +
+                                                    " pl-2 pr-1",
+                                                  attrs: { href: "#" },
+                                                  on: {
+                                                    click: function($event) {
+                                                      $event.preventDefault()
+                                                      return _vm.goToEdit(
+                                                        item.id
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                                    " +
+                                                      _vm._s(
+                                                        _vm.actions.edit
+                                                          .displayName
+                                                      ) +
+                                                      "\n                                "
+                                                  )
+                                                ]
+                                              )
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          _vm.actions.destroy.enabled
+                                            ? _c(
+                                                "a",
+                                                {
+                                                  class:
+                                                    "text-" +
+                                                    _vm.actions.destroy.color +
+                                                    " hover:text-" +
+                                                    _vm.actions.destroy
+                                                      .hvColor +
+                                                    " pl-2",
+                                                  attrs: { href: "#" },
+                                                  on: {
+                                                    click: function($event) {
+                                                      $event.preventDefault()
+                                                      return _vm.initiateDestruction(
+                                                        item.id
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                                    " +
+                                                      _vm._s(
+                                                        _vm.actions.destroy
+                                                          .displayName
+                                                      ) +
+                                                      "\n                                "
+                                                  )
+                                                ]
+                                              )
+                                            : _vm._e()
+                                        ]
                                       )
-                                    ]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _vm.actions.destroy.enabled
-                                ? _c(
-                                    "jet-button",
-                                    {
-                                      class:
-                                        "text-" +
-                                        _vm.actions.destroy.color +
-                                        " bg-" +
-                                        _vm.actions.destroy.bgColor,
-                                      nativeOn: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.initiateDestruction(
-                                            item.id
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                        " +
-                                          _vm._s(
-                                            _vm.actions.destroy.displayName
-                                          ) +
-                                          "\n                    "
-                                      )
-                                    ]
-                                  )
-                                : _vm._e()
-                            ],
-                            1
-                          )
-                        : _vm._e()
-                    ],
-                    2
-                  )
-                })
-          ],
-          2
+                                    : _vm._e()
+                                ],
+                                2
+                              )
+                            })
+                      ],
+                      2
+                    )
+                  ]
+                )
+              ],
+              1
+            )
+          ]
         )
       ]),
-      _vm._v(" "),
-      _c("pagination", {
-        staticClass: "justify-self-start",
-        attrs: { links: _vm.dataObject.links }
-      }),
       _vm._v(" "),
       _c("jet-confirmation-modal", {
         attrs: { show: _vm.uuidBeingDestroyed },

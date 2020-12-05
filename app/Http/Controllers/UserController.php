@@ -32,6 +32,10 @@ class UserController extends Controller
             ->onEachSide(2)
             ->appends(request()->only(['search']));
 
+        foreach ($users as $user) {
+            $user->roleName = config('cerberus.roles.' . $user->role . '.displayName');
+        }
+
 
         return Inertia::render('Users/Index',compact('users', 'initialSearch'));
     }
