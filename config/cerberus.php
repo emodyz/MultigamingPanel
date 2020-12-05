@@ -11,8 +11,8 @@ return [
         'admin' => [
             'displayName' => 'Administrator',
             'can' => [
-                'admin-dashboard',
-                'admin-users-index'
+                'dashboard',
+                'users-index'
             ]
         ],
         'default' => [

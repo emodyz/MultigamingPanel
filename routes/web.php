@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ModpackController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,5 +30,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::resource('modpacks', ModpackController::class);
     Route::post('/modpacks/{modpack}/update', [ModpackController::class, 'startUpdate'])->name('modpacks.update.start');
     Route::delete('/modpacks/{modpack}/update', [ModpackController::class, 'cancelUpdate'])->name('modpacks.update.cancel');
+Route::middleware(['auth:sanctum', 'verified', 'cerberus-can:dashboard'])->group(function () {
+    Route::resource('users', UserController::class);
 });
+
 
