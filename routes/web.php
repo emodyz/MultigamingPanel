@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +22,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia\Inertia::render('Dashboard');
 })->name('dashboard');
 
-Route::name('admin.')->prefix('admin')->middleware(['auth:sanctum', 'verified', 'cerberus-can:admin-dashboard'])->group(function () {
-    Route::get('dashboard', \App\Http\Controllers\Admin\DashboardController::class)->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified', 'cerberus-can:dashboard'])->group(function () {
+    Route::resource('users', UserController::class);
 });

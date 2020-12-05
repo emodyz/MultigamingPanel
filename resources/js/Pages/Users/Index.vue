@@ -1,15 +1,15 @@
 <template>
-    <admin-layout>
+    <app-layout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Admin <span class="text-gray-400">/</span> Dashboard
+                Users <span class="text-gray-400">/</span> Index
             </h2>
         </template>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="flex items-center justify-center bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                   <data-table :query-url="'/admin/dashboard'"
+                   <data-table :query-url="'/users'"
                                :query-param="'users'"
                                :headers="headers"
                                :data-object="users"
@@ -20,27 +20,27 @@
                 </div>
             </div>
         </div>
-    </admin-layout>
+    </app-layout>
 </template>
 
 <script lang="ts">
-import AdminLayout from '@/Layouts/AdminLayout.vue'
 import Pagination from "@/Shared/Pagination.vue";
 import JetInput from "@/Jetstream/Input.vue";
 import DataTable, {dataTableActionsOption} from "@/Shared/DataTable.vue";
 
 import {Vue, Component, Prop} from 'vue-property-decorator'
+import AppLayout from "@/Layouts/AppLayout.vue";
 
 
 @Component({
     components: {
+        AppLayout,
         DataTable,
-        AdminLayout,
         Pagination,
         JetInput,
     },
 })
-export default class AdminDashboard extends Vue {
+export default class UsersIndex extends Vue {
     @Prop() readonly users!: null | object
     @Prop() readonly initialSearch!: null | string
     @Prop() readonly UserPermissions!: Array<string> | null
