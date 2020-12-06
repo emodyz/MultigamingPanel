@@ -34,12 +34,13 @@
 </template>
 
 <script lang="ts">
-import Pagination from "@/Shared/Pagination.vue";
+import Pagination from "@/Shared/Pagination/Pagination.vue";
 import JetInput from "@/Jetstream/Input.vue";
-import DataTable, {dataTableActionsOption} from "@/Shared/DataTable.vue";
+import DataTable from "@/Shared/DataTable/DataTable.vue";
 
 import {Vue, Component, Prop} from 'vue-property-decorator'
 import AppLayout from "@/Layouts/AppLayout.vue";
+import {DataTableActionsOptions} from "@/Shared/DataTable/Types/DataTableActionsOptions";
 
 
 @Component({
@@ -64,7 +65,7 @@ export default class UsersIndex extends Vue {
         { title: 'Registered', key: 'created_at' , type: 'Date.Formatted' },
     ]
 
-    actions: dataTableActionsOption = {
+    actions: DataTableActionsOptions = {
         enabled: true,
         baseUrl: "/users",
         destroy: {displayName: 'Delete', hvColor: "red-900", color: "red-600", enabled: true},

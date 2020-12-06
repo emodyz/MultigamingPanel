@@ -22,6 +22,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia\Inertia::render('Dashboard');
 })->name('dashboard');
 
-Route::middleware(['auth:sanctum', 'verified', 'cerberus-can:dashboard'])->group(function () {
+Route::middleware(['auth:sanctum', 'verified', 'can:dashboard,users-index'])->group(function () {
     Route::resource('users', UserController::class);
 });

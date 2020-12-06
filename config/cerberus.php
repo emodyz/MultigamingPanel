@@ -26,8 +26,12 @@ return [
             'description' => 'a user can do everything'
         ],
         [
-            'slug' => 'admin-dashboard',
+            'slug' => 'dashboard',
             'description' => 'a user can view the administration dashboard'
+        ],
+        [
+            'slug' => 'users-index',
+            'description' => 'a user can view a list of all users'
         ],
     ]
 ];
