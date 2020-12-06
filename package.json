@@ -10,6 +10,9 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
+        "autoprefixer": "^9.8.6",
+        "postcss": "^7.0.35",
+        "tailwindcss": "2.0.1-compat",
         "@inertiajs/inertia": "^0.7.0",
         "@inertiajs/inertia-vue": "^0.4.3",
         "@inertiajs/progress": "^0.2.2",
@@ -41,10 +44,5 @@
         "vue-lodash": "^2.1.2",
         "vue-property-decorator": "^9.0.2",
         "vue-template-compiler": "^2.6.10"
-    },
-    "dependencies": {
-        "autoprefixer": "^9.8.6",
-        "postcss": "^7.0.35",
-        "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.1"
     }
 }

@@ -23,14 +23,12 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia\Inertia::render('Dashboard');
 })->name('dashboard');
 
-
 Route::group(['middleware' => 'auth:sanctum'], function () {
 
     // Modpacks
     Route::resource('modpacks', ModpackController::class);
     Route::post('/modpacks/{modpack}/update', [ModpackController::class, 'startUpdate'])->name('modpacks.update.start');
     Route::delete('/modpacks/{modpack}/update', [ModpackController::class, 'cancelUpdate'])->name('modpacks.update.cancel');
-Route::middleware(['auth:sanctum', 'verified', 'cerberus-can:dashboard'])->group(function () {
     Route::resource('users', UserController::class);
 });
 
