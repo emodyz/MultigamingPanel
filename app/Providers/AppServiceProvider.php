@@ -56,7 +56,7 @@ class AppServiceProvider extends ServiceProvider
                     ];
                 }
 
-                public function links($view = null, $data = [])
+                public function links($view = null, $data = []): Collection
                 {
                     $this->appends(Request::all());
 
