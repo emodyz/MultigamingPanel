@@ -24,47 +24,27 @@
                                     <div class="text-sm text-gray-900">No result matching "{{ search }}"</div>
                                 </td>
                             </tr>
-
                             <tr v-else v-for="(item, index) in dataObject.data">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" v-for="{ key, type } in headers">
                                     <span v-if="type === 'Index'" class="text-md text-gray-600">
                                         {{ index+1 }}
                                     </span>
-                                    <span v-else-if="type === 'Date.Formatted'">
-                                        {{ $moment(item[key]).format('LLL') }}
-                                    </span>
-                                    <span v-else-if="type === 'Date.FromNow'">
-                                        {{ $moment(item[key]).fromNow() }}
-                                    </span>
+                                    <dt-date v-else-if="_.startsWith(type, 'Date')" :date="item[key]" :type="type"/>
                                     <dt-user-profile v-else-if="type === 'User.Profile'" :name="item.name" :email="item.email" :profile_photo_url="item.profile_photo_url"/>
-                                    <div v-else-if="type === 'User.Status'">
-                                        <span v-if="item.email_verified_at" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                            Active
-                                        </span>
-                                        <span v-else class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
-                                            Awaiting Email Validation
-                                        </span>
-                                    </div>
+                                    <dt-user-status  v-else-if="type === 'User.Status'" :email_verified_at="item.email_verified_at"/>
                                     <span v-else>
                                         {{ item[key] }}
                                     </span>
                                 </td>
-                                <td v-if="actions.enabled" class="px-6 py-4 whitespace-nowrap text-left text-sm font-medium divide-x divide-gray-200">
-                                    <a @click.prevent="goToShow(item.id)" v-if="actions.show.enabled"
-                                       href="#"
-                                       :class="`text-${actions.show.color} hover:text-${actions.show.hvColor} pr-1`">
-                                        {{ actions.show.displayName }}
-                                    </a>
-                                    <a @click.prevent="goToEdit(item.id)" v-if="actions.edit.enabled"
-                                       href="#"
-                                       :class="`text-${actions.edit.color} hover:text-${actions.edit.hvColor} pl-2 pr-1`">
-                                        {{ actions.edit.displayName }}
-                                    </a>
-                                    <a @click.prevent="initiateDestruction(item.id)" v-if="actions.destroy.enabled"
-                                       href="#"
-                                       :class="`text-${actions.destroy.color} hover:text-${actions.destroy.hvColor} pl-2`">
-                                        {{ actions.destroy.displayName }}
-                                    </a>
+                                <td v-if="actions.enabled" class="px-6 py-4 whitespace-nowrap">
+                                    <dt-actions
+                                        :actions="actions"
+                                        :item="{
+                                            id: item.id,
+                                            type: dataType ? dataType : false,
+                                            metaData: dataType ? initActionsMetaData(item) : null,
+                                        }"
+                                        :user-permissions="UserPermissions"/>
                                 </td>
                             </tr>
                         </tbody>
@@ -72,29 +52,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Destroy Action Confirmation Modal -->
-        <jet-confirmation-modal :show="uuidBeingDestroyed" @close="uuidBeingDestroyed = null">
-            <template #title>
-                Delete
-            </template>
-
-            <template #content>
-                Are you sure you would like to delete this item ?
-                <br/>
-                #: {{ uuidBeingDestroyed }}
-            </template>
-
-            <template #footer>
-                <jet-secondary-button @click.native="uuidBeingDestroyed = null">
-                    Nevermind
-                </jet-secondary-button>
-
-                <jet-danger-button class="ml-2" @click.native="goToDestroy(uuidBeingDestroyed)" :class="{ 'opacity-25': destructionInProgress }" :disabled="destructionInProgress">
-                    Delete
-                </jet-danger-button>
-            </template>
-        </jet-confirmation-modal>
     </div>
 </template>
 
@@ -105,43 +62,36 @@ import _ from 'lodash'
 import { stringify } from 'qs'
 import Pagination from "@/Shared/Pagination/Pagination.vue"
 import JetInput from "@/Jetstream/Input.vue"
-import jetButton from "@/Jetstream/Button.vue"
-import JetConfirmationModal from "@/Jetstream/ConfirmationModal.vue"
-import JetDangerButton from "@/Jetstream/DangerButton.vue"
-import JetSecondaryButton from "@/Jetstream/SecondaryButton.vue"
 import {DataTableActionsOptions} from "@/Shared/DataTable/Types/DataTableActionsOptions"
-import {defaultActionsOptions} from "@/Shared/DataTable/Types/defaults"
-import DtUserProfile from "@/Shared/DataTable/Components/UserProfile.vue";
+import DtUserProfile from "@/Shared/DataTable/Components/UserProfile.vue"
+import DtUserStatus from "@/Shared/DataTable/Components/UserStatus.vue"
+import DtDate from "@/Shared/DataTable/Components/Date.vue"
+import DtActions from "@/Shared/DataTable/Components/Actions.vue"
+import {User} from "@/Shared/DataTable/Types/User";
 
-// TODO: Extract interfaces and permission check in their appropriate file
+// TODO: Extract permissions checks in their appropriate file
 
 @Component({
     components: {
-        jetButton,
         Pagination,
         JetInput,
-        JetConfirmationModal,
-        JetDangerButton,
-        JetSecondaryButton,
-        DtUserProfile
+        DtUserProfile,
+        DtUserStatus,
+        DtDate,
+        DtActions
     },
 })
 export default class DataTable extends Vue {
     @Prop() readonly UserPermissions!: Array<string> | null
-    @Prop() readonly headers!: null | object
-    @Prop() readonly dataObject!: null | object
-    @Prop() readonly queryUrl: string
-    @Prop() readonly queryParam: string
-    @Prop() readonly initialQuery!: null | string
-    @Prop({
-        type: Object,
-        default: () => defaultActionsOptions
-    }) readonly actions!: DataTableActionsOptions
+    @Prop({ type: Array, required: true }) readonly headers!: Array<object>
+    @Prop({ type: Object, required: true }) readonly dataObject!: object
+    @Prop() readonly dataType!: null | string
+    @Prop({ type: String, required: true }) readonly queryUrl: string
+    @Prop({ type: String, required: true }) readonly queryParam: string
+    @Prop({ type: String, default: '' }) readonly initialQuery!: string
+    @Prop({ type: Object }) readonly actions!: DataTableActionsOptions
 
     search = this.initialQuery
-
-    uuidBeingDestroyed: string | number | null = null
-    destructionInProgress = false
 
     @Watch('search')
     onSearchChanged = _.debounce((val, old) => {
@@ -155,36 +105,15 @@ export default class DataTable extends Vue {
         });
     }, 250)
 
-    goToShow(id: string | number) {
-        Inertia.visit(`${this.actions.baseUrl}/${id}/${this.actions.show.path ? this.actions.show.path : ''}`, { preserveScroll: true })
-    }
-
-    goToEdit(id: string | number) {
-        Inertia.visit(`${this.actions.baseUrl}/${id}/${this.actions.edit.path}`, { preserveScroll: true })
-    }
-
-    initiateDestruction(id: string | number) {
-        this.uuidBeingDestroyed = id
-    }
-
-    goToDestroy(id: string | number) {
-        Inertia.delete(`${this.actions.baseUrl}/${id}/${this.actions.show.path ? this.actions.show.path : ''}`, { preserveScroll: true })
-    }
-
-    checkPermissions() {
-        if(this.actions.show.enabled && this.actions.show.permission) {
-            !(_.includes(this.UserPermissions, this.actions.show.permission)) && !(_.includes(this.UserPermissions, '*')) ? this.actions.show.enabled = false : null
-        }
-        if(this.actions.edit.enabled && this.actions.edit.permission) {
-            !(_.includes(this.UserPermissions, this.actions.edit.permission)) && !(_.includes(this.UserPermissions, '*')) ? this.actions.edit.enabled = false : null
-        }
-        if(this.actions.destroy.enabled && this.actions.destroy.permission) {
-            !(_.includes(this.UserPermissions, this.actions.destroy.permission)) && !(_.includes(this.UserPermissions, '*')) ? this.actions.destroy.enabled = false : null
+    initActionsMetaData(item: object): User | object {
+        switch (this.dataType) {
+            case 'Users':
+                return item
         }
     }
 
     created() {
-        this.checkPermissions()
+        // console.log(this.dataObject)
     }
 }
 </script>

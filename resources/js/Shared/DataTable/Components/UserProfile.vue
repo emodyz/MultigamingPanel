@@ -17,8 +17,6 @@
 <script lang="ts">
 import {Vue, Component, Prop} from 'vue-property-decorator'
 
-// TODO: Extract interfaces and permission check in their appropriate file
-
 @Component
 export default class DataTable_UserProfile extends Vue {
     @Prop({ type: String, required: true }) readonly name!: string
