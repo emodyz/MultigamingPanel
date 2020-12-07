@@ -23,6 +23,7 @@
                     :query-param="'users'"
                     :headers="headers"
                     :data-object="users"
+                    data-type="Users"
                     :initial-query="initialSearch"
                     :actions="actions"
                     :user-permissions="UserPermissions"
