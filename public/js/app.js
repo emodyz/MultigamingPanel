@@ -47288,6 +47288,9 @@ var UsersIndex = /** @class */ (function (_super) {
     ], UsersIndex.prototype, "users", void 0);
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_3__["Prop"])()
+    ], UsersIndex.prototype, "totalItemCount", void 0);
+    __decorate([
+        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_3__["Prop"])()
     ], UsersIndex.prototype, "initialSearch", void 0);
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_3__["Prop"])()
@@ -47639,7 +47642,7 @@ var DataTable = /** @class */ (function (_super) {
             _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__["Inertia"].visit(query ? _this.queryUrl + "?" + query : _this.queryUrl, {
                 preserveScroll: true,
                 preserveState: true,
-                only: [_this.queryParam],
+                only: [_this.queryParam, 'totalItemCount'],
             });
         }, 250);
         return _this;
@@ -47651,7 +47654,7 @@ var DataTable = /** @class */ (function (_super) {
         }
     };
     DataTable.prototype.created = function () {
-        // console.log(this.dataObject)
+        console.log(this.dataObject);
     };
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Prop"])()
@@ -47665,6 +47668,9 @@ var DataTable = /** @class */ (function (_super) {
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Prop"])()
     ], DataTable.prototype, "dataType", void 0);
+    __decorate([
+        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Prop"])({ type: Number, required: true })
+    ], DataTable.prototype, "totalItemCount", void 0);
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Prop"])({ type: String, required: true })
     ], DataTable.prototype, "queryUrl", void 0);
@@ -47711,6 +47717,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-property-decorator */ "./node_modules/vue-property-decorator/lib/index.js");
 /* harmony import */ var _Jetstream_SecondaryButton_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/SecondaryButton.vue */ "./resources/js/Jetstream/SecondaryButton.vue");
 /* harmony import */ var _Jetstream_Button_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/Button.vue */ "./resources/js/Jetstream/Button.vue");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_3__);
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -47733,17 +47741,28 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+//TODO: Fix pagination on sm screen size
 var Pagination = /** @class */ (function (_super) {
     __extends(Pagination, _super);
     function Pagination() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.query = qs__WEBPACK_IMPORTED_MODULE_3___default.a.parse(window.location.search.slice(1));
+        _this.pageNumber = _this.query.page;
+        return _this;
     }
     Pagination.prototype.created = function () {
         // console.log(this.links)
     };
     __decorate([
-        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Prop"])()
+        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Prop"])({ type: Array, required: true })
     ], Pagination.prototype, "links", void 0);
+    __decorate([
+        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Prop"])({ type: Number, required: true })
+    ], Pagination.prototype, "totalItemCount", void 0);
+    __decorate([
+        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Prop"])({ type: String, required: true })
+    ], Pagination.prototype, "queryParam", void 0);
     Pagination = __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             components: {
@@ -53767,7 +53786,8 @@ var render = function() {
                 "data-type": "Users",
                 "initial-query": _vm.initialSearch,
                 actions: _vm.actions,
-                "user-permissions": _vm.UserPermissions
+                "user-permissions": _vm.UserPermissions,
+                "total-item-count": _vm.totalItemCount
               }
             })
           ],
@@ -54330,7 +54350,16 @@ var render = function() {
                     2
                   )
                 ]
-              )
+              ),
+              _vm._v(" "),
+              _c("pagination", {
+                staticClass: "px-6 py-3",
+                attrs: {
+                  links: _vm.dataObject.links,
+                  "total-item-count": _vm.totalItemCount,
+                  "query-param": _vm.queryParam
+                }
+              })
             ],
             1
           )
@@ -54363,67 +54392,216 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "mt-6 -mb-1 flex flex-wrap" },
+    {
+      staticClass:
+        "bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6"
+    },
     [
-      _vm._l(_vm.links, function(link, key) {
-        return [
-          link.label === "Next" || link.label === "Previous"
-            ? _c(
-                "jet-button",
-                {
-                  key: key,
-                  staticClass: "mr-1 text-sm",
-                  attrs: { type: "link", disabled: !link.url }
-                },
-                [
-                  link.url
-                    ? _c(
-                        "Inertia-link",
-                        {
-                          attrs: {
-                            "preserve-scroll": "",
-                            "preserve-state": "",
-                            href: link.url
-                          }
-                        },
-                        [_vm._v(_vm._s(link.label))]
-                      )
-                    : _c("span", [_vm._v(_vm._s(link.label))])
-                ],
-                1
-              )
-            : _c(
-                "jet-secondary-button",
-                {
-                  key: key,
-                  staticClass: "mr-1 text-sm",
-                  class: { "border-indigo-500 text-indigo-500": link.active },
-                  attrs: { type: "link", disabled: !link.url }
-                },
-                [
-                  link.url
-                    ? _c(
-                        "Inertia-link",
-                        {
-                          attrs: {
-                            "preserve-scroll": "",
-                            "preserve-state": "",
-                            href: link.url
-                          }
-                        },
-                        [_vm._v(_vm._s(link.label))]
-                      )
-                    : _c("span", [_vm._v(_vm._s(link.label))])
-                ],
-                1
-              )
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            "hidden sm:flex-1 sm:flex sm:items-center sm:justify-between"
+        },
+        [
+          _c("div", [
+            _c("p", { staticClass: "text-sm text-gray-700" }, [
+              _vm._v("\n                Showing\n                "),
+              _c("span", { staticClass: "font-medium" }, [
+                _vm._v(
+                  _vm._s(_vm.pageNumber > 1 ? _vm.pageNumber * 10 - 10 + 1 : 1)
+                )
+              ]),
+              _vm._v("\n                to\n                "),
+              _c("span", { staticClass: "font-medium" }, [
+                _vm._v(
+                  _vm._s(
+                    _vm.pageNumber > 1
+                      ? _vm.pageNumber * 10 > _vm.totalItemCount
+                        ? _vm.totalItemCount
+                        : _vm.pageNumber * 10
+                      : 10 > _vm.totalItemCount
+                      ? _vm.totalItemCount
+                      : 10
+                  )
+                )
+              ]),
+              _vm._v("\n                of\n                "),
+              _c("span", { staticClass: "font-medium" }, [
+                _vm._v(_vm._s(_vm.totalItemCount))
+              ]),
+              _vm._v("\n                results\n            ")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", [
+            _c(
+              "nav",
+              {
+                staticClass: "relative z-0 inline-flex shadow-sm -space-x-px",
+                attrs: { "aria-label": "Pagination" }
+              },
+              [
+                _vm._l(_vm.links, function(link, key) {
+                  return [
+                    link.label === "Previous"
+                      ? _c(
+                          "Inertia-link",
+                          {
+                            key: key,
+                            staticClass:
+                              "relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50",
+                            attrs: {
+                              "preserve-scroll": "",
+                              only: [_vm.queryParam, "page", "totalItemCount"],
+                              href: link.url ? link.url : "#"
+                            }
+                          },
+                          [
+                            _c("span", { staticClass: "sr-only" }, [
+                              _vm._v("Previous")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "svg",
+                              {
+                                staticClass: "h-5 w-5",
+                                attrs: {
+                                  xmlns: "http://www.w3.org/2000/svg",
+                                  viewBox: "0 0 20 20",
+                                  fill: "currentColor",
+                                  "aria-hidden": "true"
+                                }
+                              },
+                              [
+                                _c("path", {
+                                  attrs: {
+                                    "fill-rule": "evenodd",
+                                    d:
+                                      "M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z",
+                                    "clip-rule": "evenodd"
+                                  }
+                                })
+                              ]
+                            )
+                          ]
+                        )
+                      : link.label === "Next"
+                      ? _c(
+                          "Inertia-link",
+                          {
+                            key: key,
+                            staticClass:
+                              "relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50",
+                            attrs: {
+                              "preserve-scroll": "",
+                              only: [_vm.queryParam, "page", "totalItemCount"],
+                              href: link.url ? link.url : "#"
+                            }
+                          },
+                          [
+                            _c("span", { staticClass: "sr-only" }, [
+                              _vm._v("Next")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "svg",
+                              {
+                                staticClass: "h-5 w-5",
+                                attrs: {
+                                  xmlns: "http://www.w3.org/2000/svg",
+                                  viewBox: "0 0 20 20",
+                                  fill: "currentColor",
+                                  "aria-hidden": "true"
+                                }
+                              },
+                              [
+                                _c("path", {
+                                  attrs: {
+                                    "fill-rule": "evenodd",
+                                    d:
+                                      "M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z",
+                                    "clip-rule": "evenodd"
+                                  }
+                                })
+                              ]
+                            )
+                          ]
+                        )
+                      : link.label === "..."
+                      ? _c(
+                          "span",
+                          {
+                            staticClass:
+                              "relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700"
+                          },
+                          [
+                            _vm._v(
+                              "\n                      ...\n                    "
+                            )
+                          ]
+                        )
+                      : _c(
+                          "Inertia-link",
+                          {
+                            key: key,
+                            staticClass:
+                              "relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50",
+                            attrs: {
+                              "preserve-scroll": "",
+                              only: [_vm.queryParam, "page", "totalItemCount"],
+                              href: link.url
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(link.label) +
+                                "\n                    "
+                            )
+                          ]
+                        )
+                  ]
+                })
+              ],
+              2
+            )
+          ])
         ]
-      })
-    ],
-    2
+      )
+    ]
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex-1 flex justify-between sm:hidden" }, [
+      _c(
+        "a",
+        {
+          staticClass:
+            "relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500",
+          attrs: { href: "#" }
+        },
+        [_vm._v("\n            Previous\n        ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass:
+            "ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500",
+          attrs: { href: "#" }
+        },
+        [_vm._v("\n            Next\n        ")]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 

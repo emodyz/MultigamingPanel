@@ -27,6 +27,7 @@
                     :initial-query="initialSearch"
                     :actions="actions"
                     :user-permissions="UserPermissions"
+                    :total-item-count="totalItemCount"
                     class="w-full p-6">
                 </data-table>
             </div>
@@ -54,6 +55,7 @@ import {DataTableActionsOptions} from "@/Shared/DataTable/Types/DataTableActions
 })
 export default class UsersIndex extends Vue {
     @Prop() readonly users!: null | object
+    @Prop() readonly totalItemCount!: null | number
     @Prop() readonly initialSearch!: null | string
     @Prop() readonly UserPermissions!: Array<string> | null
 

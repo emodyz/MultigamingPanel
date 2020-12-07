@@ -49,6 +49,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    <pagination class="px-6 py-3" :links="dataObject.links" :total-item-count="totalItemCount" :query-param="queryParam"></pagination>
                 </div>
             </div>
         </div>
@@ -86,6 +87,7 @@ export default class DataTable extends Vue {
     @Prop({ type: Array, required: true }) readonly headers!: Array<object>
     @Prop({ type: Object, required: true }) readonly dataObject!: object
     @Prop() readonly dataType!: null | string
+    @Prop({ type: Number, required: true }) readonly totalItemCount!: number
     @Prop({ type: String, required: true }) readonly queryUrl: string
     @Prop({ type: String, required: true }) readonly queryParam: string
     @Prop({ type: String, default: '' }) readonly initialQuery!: string
@@ -101,7 +103,7 @@ export default class DataTable extends Vue {
         Inertia.visit(query ? `${this.queryUrl}?${query}` : this.queryUrl, {
             preserveScroll: true,
             preserveState: true,
-            only: [this.queryParam],
+            only: [this.queryParam, 'totalItemCount'],
         });
     }, 250)
 
@@ -113,7 +115,7 @@ export default class DataTable extends Vue {
     }
 
     created() {
-        // console.log(this.dataObject)
+        console.log(this.dataObject)
     }
 }
 </script>
