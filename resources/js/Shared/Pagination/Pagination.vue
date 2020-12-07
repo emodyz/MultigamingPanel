@@ -1,28 +1,4 @@
 <template>
-    <!--
-    <div class="flex flex-wrap">
-        <template v-for="(link, key) in links">
-            <jet-button v-if="link.label === 'Next' || link.label === 'Previous'"
-                        type="link"
-                        :disabled="!link.url"
-                        :key="key"
-                        class="mr-1 text-sm">
-                <Inertia-link v-if="link.url" preserve-scroll :href="link.url">{{ link.label }}</Inertia-link>
-                <span v-else>{{ link.label }}</span>
-            </jet-button>
-            <jet-secondary-button v-else
-                                  :key="key"
-                                  type="link"
-                                  :disabled="!link.url"
-                                  :class="{ 'border-indigo-500 text-indigo-500': link.active }"
-                                  class="mr-1 text-sm">
-                <Inertia-link v-if="link.url" preserve-scroll :href="link.url">{{ link.label }}</Inertia-link>
-                <span v-else>{{ link.label }}</span>
-            </jet-secondary-button>
-        </template>
-    </div>
-    -->
-    <!-- This example requires Tailwind CSS v2.0+ -->
     <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
         <div class="flex-1 flex justify-between sm:hidden">
             <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500">
