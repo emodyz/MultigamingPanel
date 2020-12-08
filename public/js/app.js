@@ -47634,7 +47634,9 @@ var DataTable = /** @class */ (function (_super) {
     __extends(DataTable, _super);
     function DataTable() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.query = qs__WEBPACK_IMPORTED_MODULE_3___default.a.parse(window.location.search.slice(1));
         _this.search = _this.initialQuery;
+        _this.pageNumber = _this.query.page ? _this.query.page : 1;
         _this.onSearchChanged = lodash__WEBPACK_IMPORTED_MODULE_2___default.a.debounce(function (val, old) {
             var query = Object(qs__WEBPACK_IMPORTED_MODULE_3__["stringify"])({
                 search: val || undefined,
@@ -47748,7 +47750,7 @@ var Pagination = /** @class */ (function (_super) {
     function Pagination() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.query = qs__WEBPACK_IMPORTED_MODULE_3___default.a.parse(window.location.search.slice(1));
-        _this.pageNumber = _this.query.page;
+        _this.pageNumber = _this.query.page ? _this.query.page : 1;
         return _this;
     }
     Pagination.prototype.created = function () {
@@ -49740,6 +49742,21 @@ var render = function() {
                     [
                       _vm._v(
                         "\n                            Dashboard\n                        "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "jet-nav-link",
+                    {
+                      attrs: {
+                        href: _vm.route("users.index"),
+                        active: _vm.route().current("users.*")
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Users\n                        "
                       )
                     ]
                   )
@@ -54218,8 +54235,12 @@ var render = function() {
                                 )
                               ]
                             )
-                          : _c("th", { staticClass: "px-4 py-2" }, [
+                          : _vm._.isEmpty(_vm.dataObject.data)
+                          ? _c("th", { staticClass: "px-4 py-2" }, [
                               _vm._v("Search query")
+                            ])
+                          : _c("th", { staticClass: "px-4 py-2" }, [
+                              _vm._v("Page " + _vm._s(_vm.pageNumber))
                             ])
                       ],
                       2
@@ -54230,7 +54251,28 @@ var render = function() {
                     "tbody",
                     { staticClass: "bg-white divide-y divide-gray-200" },
                     [
-                      _vm._.isEmpty(_vm.dataObject.data)
+                      _vm.pageNumber > _vm.dataObject.links.length ||
+                      _vm.pageNumber < 1
+                        ? _c("tr", [
+                            _c(
+                              "td",
+                              { staticClass: "px-6 py-4 whitespace-nowrap" },
+                              [
+                                _c(
+                                  "div",
+                                  { staticClass: "text-sm text-gray-900" },
+                                  [
+                                    _vm._v(
+                                      "Page n° " +
+                                        _vm._s(_vm.pageNumber) +
+                                        " is out of range"
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          ])
+                        : _vm._.isEmpty(_vm.dataObject.data)
                         ? _c("tr", [
                             _c(
                               "td",
@@ -54274,7 +54316,11 @@ var render = function() {
                                             [
                                               _vm._v(
                                                 "\n                                    " +
-                                                  _vm._s(index + 1) +
+                                                  _vm._s(
+                                                    _vm.pageNumber * 10 -
+                                                      10 +
+                                                      (index + 1)
+                                                  ) +
                                                   "\n                                "
                                               )
                                             ]

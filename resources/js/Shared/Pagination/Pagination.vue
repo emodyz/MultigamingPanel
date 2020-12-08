@@ -74,7 +74,7 @@
 
         query = qs.parse(window.location.search.slice(1))
 
-        pageNumber = this.query.page
+        pageNumber = this.query.page ? this.query.page : 1
 
         created() {
             // console.log(this.links)

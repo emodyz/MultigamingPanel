@@ -17,8 +17,9 @@ class UserSeeder extends Seeder
     public function run()
     {
         tap(User::factory()->create([
-           'email' => 'root@root.com',
+            'email' => 'root@root.com',
             'role' => 'owner',
+            'email_verified_at' => now()
         ]), function (User $user) {
             $user->ownedTeams()->save(Team::forceCreate([
                 'user_id' => $user->id,
