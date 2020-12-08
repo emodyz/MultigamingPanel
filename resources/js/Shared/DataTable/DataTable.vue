@@ -15,11 +15,17 @@
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Actions
                             </th>
-                            <th v-else class="px-4 py-2">Search query</th>
+                            <th v-else-if="_.isEmpty(dataObject.data)" class="px-4 py-2">Search query</th>
+                            <th v-else class="px-4 py-2">Page {{ pageNumber }}</th>
                         </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            <tr v-if="_.isEmpty(dataObject.data)">
+                            <tr v-if="pageNumber > dataObject.links.length || pageNumber < 1">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">Page n° {{ pageNumber }} is out of range</div>
+                                </td>
+                            </tr>
+                            <tr v-else-if="_.isEmpty(dataObject.data)">
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">No result matching "{{ search }}"</div>
                                 </td>
@@ -27,7 +33,7 @@
                             <tr v-else v-for="(item, index) in dataObject.data">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" v-for="{ key, type } in headers">
                                     <span v-if="type === 'Index'" class="text-md text-gray-600">
-                                        {{ index+1 }}
+                                        {{ ((pageNumber * 10) - 10) + (index + 1) }}
                                     </span>
                                     <dt-date v-else-if="_.startsWith(type, 'Date')" :date="item[key]" :type="type"/>
                                     <dt-user-profile v-else-if="type === 'User.Profile'" :name="item.name" :email="item.email" :profile_photo_url="item.profile_photo_url"/>
@@ -60,7 +66,7 @@
 import {Vue, Component, Prop, Watch} from 'vue-property-decorator'
 import { Inertia } from "@inertiajs/inertia"
 import _ from 'lodash'
-import { stringify } from 'qs'
+import qs, { stringify } from 'qs'
 import Pagination from "@/Shared/Pagination/Pagination.vue"
 import JetInput from "@/Jetstream/Input.vue"
 import {DataTableActionsOptions} from "@/Shared/DataTable/Types/DataTableActionsOptions"
@@ -69,6 +75,7 @@ import DtUserStatus from "@/Shared/DataTable/Components/UserStatus.vue"
 import DtDate from "@/Shared/DataTable/Components/Date.vue"
 import DtActions from "@/Shared/DataTable/Components/Actions.vue"
 import {User} from "@/Shared/DataTable/Types/User";
+import {PaginatedDate} from "@/Shared/DataTable/Types/PaginatedData";
 
 // TODO: Extract permissions checks in their appropriate file
 
@@ -85,7 +92,7 @@ import {User} from "@/Shared/DataTable/Types/User";
 export default class DataTable extends Vue {
     @Prop() readonly UserPermissions!: Array<string> | null
     @Prop({ type: Array, required: true }) readonly headers!: Array<object>
-    @Prop({ type: Object, required: true }) readonly dataObject!: object
+    @Prop({ type: Object, required: true }) readonly dataObject!: PaginatedDate
     @Prop() readonly dataType!: null | string
     @Prop({ type: Number, required: true }) readonly totalItemCount!: number
     @Prop({ type: String, required: true }) readonly queryUrl: string
@@ -93,7 +100,11 @@ export default class DataTable extends Vue {
     @Prop({ type: String, default: '' }) readonly initialQuery!: string
     @Prop({ type: Object }) readonly actions!: DataTableActionsOptions
 
+    query = qs.parse(window.location.search.slice(1))
+
     search = this.initialQuery
+
+    pageNumber = this.query.page ? this.query.page : 1
 
     @Watch('search')
     onSearchChanged = _.debounce((val, old) => {
