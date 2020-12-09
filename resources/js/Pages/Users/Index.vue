@@ -73,7 +73,7 @@ export default class UsersIndex extends Vue {
         baseUrl: "/users",
         destroy: {displayName: 'Delete', hvColor: "red-900", color: "red-600", enabled: true},
         edit: {displayName: 'Edit', hvColor: "indigo-900", color: "indigo-600", enabled: true, path: "edit"},
-        show: {displayName: 'See', hvColor: "green-900", color: "green-600", enabled: true}
+        show: {displayName: 'See', hvColor: "green-900", color: "green-600", enabled: false}
     }
 }
 </script>

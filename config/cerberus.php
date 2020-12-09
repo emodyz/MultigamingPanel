@@ -33,5 +33,9 @@ return [
             'slug' => 'users-index',
             'description' => 'a user can view a list of all users'
         ],
+        [
+            'slug' => 'users-edit',
+            'description' => 'a user can edit other users'
+        ],
     ]
 ];
