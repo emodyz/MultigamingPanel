@@ -47269,8 +47269,7 @@ var UsersIndex = /** @class */ (function (_super) {
         _this.headers = [
             { title: '#', key: 'index', type: 'Index' },
             { title: 'Name', key: 'name', type: 'User.Profile' },
-            // { title: 'Email', key: 'email' , type: null },
-            { title: 'Role', key: 'roleName', type: null },
+            { title: 'Role', key: 'roleName' },
             { title: 'Status', key: 'email_verified_at', type: 'User.Status' },
             { title: 'Registered', key: 'created_at', type: 'Date.Formatted' },
         ];
@@ -47635,11 +47634,27 @@ var DataTable = /** @class */ (function (_super) {
     function DataTable() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.query = qs__WEBPACK_IMPORTED_MODULE_3___default.a.parse(window.location.search.slice(1));
-        _this.search = _this.initialQuery;
         _this.pageNumber = _this.query.page ? _this.query.page : 1;
+        _this.orderBy = {
+            key: null,
+            direction: 'none'
+        };
+        _this.onOrderByChanged = lodash__WEBPACK_IMPORTED_MODULE_2___default.a.debounce(function (val, old) {
+            var query = Object(qs__WEBPACK_IMPORTED_MODULE_3__["stringify"])({
+                search: _this.search,
+                orderBy: val.key ? val : null,
+            });
+            _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__["Inertia"].visit(query ? _this.queryUrl + "?" + query : _this.queryUrl, {
+                preserveScroll: true,
+                preserveState: true,
+                only: [_this.queryParam, 'totalItemCount'],
+            });
+        }, 250);
+        _this.search = _this.initialQuery;
         _this.onSearchChanged = lodash__WEBPACK_IMPORTED_MODULE_2___default.a.debounce(function (val, old) {
             var query = Object(qs__WEBPACK_IMPORTED_MODULE_3__["stringify"])({
-                search: val || undefined,
+                search: val || null,
+                orderBy: _this.orderBy.key ? _this.orderBy : null,
             });
             _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__["Inertia"].visit(query ? _this.queryUrl + "?" + query : _this.queryUrl, {
                 preserveScroll: true,
@@ -47655,8 +47670,30 @@ var DataTable = /** @class */ (function (_super) {
                 return item;
         }
     };
+    DataTable.prototype.handleOrderBy = function (key) {
+        switch (this.orderBy.direction) {
+            case 'desc':
+                this.orderBy = {
+                    key: key,
+                    direction: 'asc'
+                };
+                break;
+            case 'asc':
+                this.orderBy = {
+                    key: null,
+                    direction: 'none'
+                };
+                break;
+            default:
+                this.orderBy = {
+                    key: key,
+                    direction: 'desc'
+                };
+                break;
+        }
+    };
     DataTable.prototype.created = function () {
-        console.log(this.dataObject);
+        // console.log(this.dataObject)
     };
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Prop"])()
@@ -47685,6 +47722,9 @@ var DataTable = /** @class */ (function (_super) {
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Prop"])({ type: Object })
     ], DataTable.prototype, "actions", void 0);
+    __decorate([
+        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Watch"])('orderBy')
+    ], DataTable.prototype, "onOrderByChanged", void 0);
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Watch"])('search')
     ], DataTable.prototype, "onSearchChanged", void 0);
@@ -54181,7 +54221,7 @@ var render = function() {
             },
             [
               _c("jet-input", {
-                staticClass: "w-1/3 my-3 mx-6",
+                staticClass: "w-1/3 my-3 mx-6 border-gray-200",
                 attrs: { type: "search", placeholder: "Search..." },
                 model: {
                   value: _vm.search,
@@ -54210,11 +54250,85 @@ var render = function() {
                                   attrs: { scope: "col" }
                                 },
                                 [
-                                  _vm._v(
-                                    "\n                            " +
-                                      _vm._s(item.title) +
-                                      "\n                        "
-                                  )
+                                  item.key !== "index"
+                                    ? _c(
+                                        "span",
+                                        {
+                                          staticClass:
+                                            "flex flex-row  hover:cursor-pointer",
+                                          on: {
+                                            click: function($event) {
+                                              $event.preventDefault()
+                                              return _vm.handleOrderBy(item.key)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                " +
+                                              _vm._s(item.title) +
+                                              "\n                                "
+                                          ),
+                                          _vm.orderBy.key === item.key &&
+                                          _vm.orderBy.direction === "desc"
+                                            ? _c(
+                                                "svg",
+                                                {
+                                                  staticClass: "w-4",
+                                                  attrs: {
+                                                    xmlns:
+                                                      "http://www.w3.org/2000/svg",
+                                                    viewBox: "0 0 20 20",
+                                                    fill: "currentColor"
+                                                  }
+                                                },
+                                                [
+                                                  _c("path", {
+                                                    attrs: {
+                                                      "fill-rule": "evenodd",
+                                                      d:
+                                                        "M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z",
+                                                      "clip-rule": "evenodd"
+                                                    }
+                                                  })
+                                                ]
+                                              )
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          _vm.orderBy.key === item.key &&
+                                          _vm.orderBy.direction === "asc"
+                                            ? _c(
+                                                "svg",
+                                                {
+                                                  staticClass: "w-4",
+                                                  attrs: {
+                                                    xmlns:
+                                                      "http://www.w3.org/2000/svg",
+                                                    viewBox: "0 0 20 20",
+                                                    fill: "currentColor"
+                                                  }
+                                                },
+                                                [
+                                                  _c("path", {
+                                                    attrs: {
+                                                      "fill-rule": "evenodd",
+                                                      d:
+                                                        "M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z",
+                                                      "clip-rule": "evenodd"
+                                                    }
+                                                  })
+                                                ]
+                                              )
+                                            : _vm._e()
+                                        ]
+                                      )
+                                    : _c("span", [
+                                        _vm._v(
+                                          "\n                                " +
+                                            _vm._s(item.title) +
+                                            "\n                            "
+                                        )
+                                      ])
                                 ]
                               )
                             : _vm._e()
@@ -54249,7 +54363,7 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "tbody",
-                    { staticClass: "bg-white divide-y divide-gray-200" },
+                    { staticClass: "divide-y divide-gray-200 bg-white" },
                     [
                       _vm.pageNumber > _vm.dataObject.links.length ||
                       _vm.pageNumber < 1
