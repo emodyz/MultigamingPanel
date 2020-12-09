@@ -12,8 +12,8 @@
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 <span @click.prevent="handleOrderBy(item.key)" v-if="item.key !== 'index'" class="flex flex-row  hover:cursor-pointer">
                                     {{ item.title }}
-                                    <svg v-if="orderBy.key === item.key && orderBy.direction === 'desc'" class="w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
-                                    <svg v-if="orderBy.key === item.key && orderBy.direction === 'asc'" class="w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd" /></svg>
+                                    <svg v-show="order.key === item.key && order.direction === 'desc'" class="w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                                    <svg v-show="order.key === item.key && order.direction === 'asc'" class="w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd" /></svg>
                                 </span>
                                 <span v-else>
                                     {{ item.title }}
@@ -114,39 +114,45 @@ export default class DataTable extends Vue {
     @Prop({type: String, default: ''}) readonly initialQuery!: string
     @Prop({type: Object}) readonly actions!: DataTableActionsOptions
 
-    query = qs.parse(window.location.search.slice(1))
+    query: any = qs.parse(window.location.search.slice(1))
 
     pageNumber = this.query.page ? this.query.page : 1
-
-    orderBy: any = {
-        key: null,
-        direction: 'none'
-    }
-    @Watch('orderBy')
-    onOrderByChanged = _.debounce((val, old) => {
-        const query = stringify({
-            search: this.search,
-            orderBy: val.key ? val : null,
-        });
-        Inertia.visit(query ? `${this.queryUrl}?${query}` : this.queryUrl, {
-            preserveScroll: true,
-            preserveState: true,
-            only: [this.queryParam, 'totalItemCount'],
-        });
-    }, 250)
 
     search = this.initialQuery
     @Watch('search')
     onSearchChanged = _.debounce((val, old) => {
+        this.search = val
         const query = stringify({
             search: val || null,
-            orderBy: this.orderBy.key ? this.orderBy : null,
+            // orderBy: this.orderBy.key ? this.orderBy : null,
+            page: this.pageNumber
         });
         Inertia.visit(query ? `${this.queryUrl}?${query}` : this.queryUrl, {
             preserveScroll: true,
             preserveState: true,
             only: [this.queryParam, 'totalItemCount'],
+            onFinish: () => {
+                this.resetOrderBy()
+            }
         });
+    }, 250)
+
+    order: any =  this.query.orderBy ? this.query.orderBy : {key: null, direction: null}
+    // orderBy: any = {key: null, direction: 'none'}
+    @Watch('order')
+    onOrderChanged = _.debounce((val, old) => {
+        if (val !== old) {
+            const orderBy = stringify({
+                search: this.search,
+                orderBy: val.key ? val : null,
+                page: this.pageNumber
+            });
+            Inertia.visit(orderBy ? `${this.queryUrl}?${orderBy}` : this.queryUrl, {
+                preserveScroll: true,
+                preserveState: true,
+                only: [this.queryParam, 'totalItemCount'],
+            });
+        }
     }, 250)
 
     initActionsMetaData(item: object): User | object {
@@ -156,22 +162,26 @@ export default class DataTable extends Vue {
         }
     }
 
+    resetOrderBy() {
+        this.order = {key: null, direction: null}
+    }
+
     handleOrderBy(key: any) {
-        switch (this.orderBy.direction) {
+        switch (this.order.direction) {
             case 'desc':
-                this.orderBy = {
+                this.order = {
                     key: key,
                     direction: 'asc'
                 }
                 break
             case 'asc':
-                this.orderBy = {
+                this.order = {
                     key: null,
                     direction: 'none'
                 }
                 break
             default:
-                this.orderBy = {
+                this.order = {
                     key: key,
                     direction: 'desc'
                 }
@@ -181,6 +191,7 @@ export default class DataTable extends Vue {
 
     created() {
         // console.log(this.dataObject)
+        // console.log(this.query.orderBy['key'])
     }
 }
 </script>

@@ -47635,32 +47635,38 @@ var DataTable = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.query = qs__WEBPACK_IMPORTED_MODULE_3___default.a.parse(window.location.search.slice(1));
         _this.pageNumber = _this.query.page ? _this.query.page : 1;
-        _this.orderBy = {
-            key: null,
-            direction: 'none'
-        };
-        _this.onOrderByChanged = lodash__WEBPACK_IMPORTED_MODULE_2___default.a.debounce(function (val, old) {
-            var query = Object(qs__WEBPACK_IMPORTED_MODULE_3__["stringify"])({
-                search: _this.search,
-                orderBy: val.key ? val : null,
-            });
-            _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__["Inertia"].visit(query ? _this.queryUrl + "?" + query : _this.queryUrl, {
-                preserveScroll: true,
-                preserveState: true,
-                only: [_this.queryParam, 'totalItemCount'],
-            });
-        }, 250);
         _this.search = _this.initialQuery;
         _this.onSearchChanged = lodash__WEBPACK_IMPORTED_MODULE_2___default.a.debounce(function (val, old) {
+            _this.search = val;
             var query = Object(qs__WEBPACK_IMPORTED_MODULE_3__["stringify"])({
                 search: val || null,
-                orderBy: _this.orderBy.key ? _this.orderBy : null,
+                // orderBy: this.orderBy.key ? this.orderBy : null,
+                page: _this.pageNumber
             });
             _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__["Inertia"].visit(query ? _this.queryUrl + "?" + query : _this.queryUrl, {
                 preserveScroll: true,
                 preserveState: true,
                 only: [_this.queryParam, 'totalItemCount'],
+                onFinish: function () {
+                    _this.resetOrderBy();
+                }
             });
+        }, 250);
+        _this.order = _this.query.orderBy ? _this.query.orderBy : { key: null, direction: null };
+        // orderBy: any = {key: null, direction: 'none'}
+        _this.onOrderChanged = lodash__WEBPACK_IMPORTED_MODULE_2___default.a.debounce(function (val, old) {
+            if (val !== old) {
+                var orderBy = Object(qs__WEBPACK_IMPORTED_MODULE_3__["stringify"])({
+                    search: _this.search,
+                    orderBy: val.key ? val : null,
+                    page: _this.pageNumber
+                });
+                _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__["Inertia"].visit(orderBy ? _this.queryUrl + "?" + orderBy : _this.queryUrl, {
+                    preserveScroll: true,
+                    preserveState: true,
+                    only: [_this.queryParam, 'totalItemCount'],
+                });
+            }
         }, 250);
         return _this;
     }
@@ -47670,22 +47676,25 @@ var DataTable = /** @class */ (function (_super) {
                 return item;
         }
     };
+    DataTable.prototype.resetOrderBy = function () {
+        this.order = { key: null, direction: null };
+    };
     DataTable.prototype.handleOrderBy = function (key) {
-        switch (this.orderBy.direction) {
+        switch (this.order.direction) {
             case 'desc':
-                this.orderBy = {
+                this.order = {
                     key: key,
                     direction: 'asc'
                 };
                 break;
             case 'asc':
-                this.orderBy = {
+                this.order = {
                     key: null,
                     direction: 'none'
                 };
                 break;
             default:
-                this.orderBy = {
+                this.order = {
                     key: key,
                     direction: 'desc'
                 };
@@ -47694,6 +47703,7 @@ var DataTable = /** @class */ (function (_super) {
     };
     DataTable.prototype.created = function () {
         // console.log(this.dataObject)
+        // console.log(this.query.orderBy['key'])
     };
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Prop"])()
@@ -47723,11 +47733,11 @@ var DataTable = /** @class */ (function (_super) {
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Prop"])({ type: Object })
     ], DataTable.prototype, "actions", void 0);
     __decorate([
-        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Watch"])('orderBy')
-    ], DataTable.prototype, "onOrderByChanged", void 0);
-    __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Watch"])('search')
     ], DataTable.prototype, "onSearchChanged", void 0);
+    __decorate([
+        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Watch"])('order')
+    ], DataTable.prototype, "onOrderChanged", void 0);
     DataTable = __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             components: {
@@ -54269,57 +54279,77 @@ var render = function() {
                                               _vm._s(item.title) +
                                               "\n                                "
                                           ),
-                                          _vm.orderBy.key === item.key &&
-                                          _vm.orderBy.direction === "desc"
-                                            ? _c(
-                                                "svg",
+                                          _c(
+                                            "svg",
+                                            {
+                                              directives: [
                                                 {
-                                                  staticClass: "w-4",
-                                                  attrs: {
-                                                    xmlns:
-                                                      "http://www.w3.org/2000/svg",
-                                                    viewBox: "0 0 20 20",
-                                                    fill: "currentColor"
-                                                  }
-                                                },
-                                                [
-                                                  _c("path", {
-                                                    attrs: {
-                                                      "fill-rule": "evenodd",
-                                                      d:
-                                                        "M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z",
-                                                      "clip-rule": "evenodd"
-                                                    }
-                                                  })
-                                                ]
-                                              )
-                                            : _vm._e(),
+                                                  name: "show",
+                                                  rawName: "v-show",
+                                                  value:
+                                                    _vm.order.key ===
+                                                      item.key &&
+                                                    _vm.order.direction ===
+                                                      "desc",
+                                                  expression:
+                                                    "order.key === item.key && order.direction === 'desc'"
+                                                }
+                                              ],
+                                              staticClass: "w-4",
+                                              attrs: {
+                                                xmlns:
+                                                  "http://www.w3.org/2000/svg",
+                                                viewBox: "0 0 20 20",
+                                                fill: "currentColor"
+                                              }
+                                            },
+                                            [
+                                              _c("path", {
+                                                attrs: {
+                                                  "fill-rule": "evenodd",
+                                                  d:
+                                                    "M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z",
+                                                  "clip-rule": "evenodd"
+                                                }
+                                              })
+                                            ]
+                                          ),
                                           _vm._v(" "),
-                                          _vm.orderBy.key === item.key &&
-                                          _vm.orderBy.direction === "asc"
-                                            ? _c(
-                                                "svg",
+                                          _c(
+                                            "svg",
+                                            {
+                                              directives: [
                                                 {
-                                                  staticClass: "w-4",
-                                                  attrs: {
-                                                    xmlns:
-                                                      "http://www.w3.org/2000/svg",
-                                                    viewBox: "0 0 20 20",
-                                                    fill: "currentColor"
-                                                  }
-                                                },
-                                                [
-                                                  _c("path", {
-                                                    attrs: {
-                                                      "fill-rule": "evenodd",
-                                                      d:
-                                                        "M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z",
-                                                      "clip-rule": "evenodd"
-                                                    }
-                                                  })
-                                                ]
-                                              )
-                                            : _vm._e()
+                                                  name: "show",
+                                                  rawName: "v-show",
+                                                  value:
+                                                    _vm.order.key ===
+                                                      item.key &&
+                                                    _vm.order.direction ===
+                                                      "asc",
+                                                  expression:
+                                                    "order.key === item.key && order.direction === 'asc'"
+                                                }
+                                              ],
+                                              staticClass: "w-4",
+                                              attrs: {
+                                                xmlns:
+                                                  "http://www.w3.org/2000/svg",
+                                                viewBox: "0 0 20 20",
+                                                fill: "currentColor"
+                                              }
+                                            },
+                                            [
+                                              _c("path", {
+                                                attrs: {
+                                                  "fill-rule": "evenodd",
+                                                  d:
+                                                    "M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z",
+                                                  "clip-rule": "evenodd"
+                                                }
+                                              })
+                                            ]
+                                          )
                                         ]
                                       )
                                     : _c("span", [
@@ -54615,7 +54645,13 @@ var render = function() {
                               "relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50",
                             attrs: {
                               "preserve-scroll": "",
-                              only: [_vm.queryParam, "page", "totalItemCount"],
+                              "preserve-state": "",
+                              only: [
+                                _vm.queryParam,
+                                "orderBy",
+                                "page",
+                                "totalItemCount"
+                              ],
                               href: link.url ? link.url : "#"
                             }
                           },
@@ -54657,7 +54693,13 @@ var render = function() {
                               "relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50",
                             attrs: {
                               "preserve-scroll": "",
-                              only: [_vm.queryParam, "page", "totalItemCount"],
+                              "preserve-state": "",
+                              only: [
+                                _vm.queryParam,
+                                "orderBy",
+                                "page",
+                                "totalItemCount"
+                              ],
                               href: link.url ? link.url : "#"
                             }
                           },
@@ -54711,7 +54753,13 @@ var render = function() {
                               "relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50",
                             attrs: {
                               "preserve-scroll": "",
-                              only: [_vm.queryParam, "page", "totalItemCount"],
+                              "preserve-state": "",
+                              only: [
+                                _vm.queryParam,
+                                "orderBy",
+                                "page",
+                                "totalItemCount"
+                              ],
                               href: link.url
                             }
                           },

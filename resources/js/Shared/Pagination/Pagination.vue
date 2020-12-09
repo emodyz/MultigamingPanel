@@ -23,7 +23,7 @@
             <div>
                 <nav class="relative z-0 inline-flex shadow-sm -space-x-px" aria-label="Pagination">
                     <template v-for="(link, key) in links">
-                        <Inertia-link preserve-scroll :only="[queryParam, 'page', 'totalItemCount']" v-if="link.label === 'Previous'" :href="link.url ? link.url : '#'" :key="key" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                        <Inertia-link preserve-scroll preserve-state :only="[queryParam, 'orderBy', 'page', 'totalItemCount']" v-if="link.label === 'Previous'" :href="link.url ? link.url : '#'" :key="key" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
                             <span class="sr-only">Previous</span>
                             <!-- Heroicon name: chevron-left -->
                             <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -31,7 +31,7 @@
                             </svg>
                         </Inertia-link>
 
-                        <Inertia-link preserve-scroll :only="[queryParam, 'page', 'totalItemCount']" v-else-if="link.label === 'Next'" :href="link.url ? link.url : '#'" :key="key" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                        <Inertia-link preserve-scroll preserve-state :only="[queryParam, 'orderBy', 'page', 'totalItemCount']" v-else-if="link.label === 'Next'" :href="link.url ? link.url : '#'" :key="key" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
                             <span class="sr-only">Next</span>
                             <!-- Heroicon name: chevron-right -->
                             <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -43,7 +43,7 @@
                           ...
                         </span>
 
-                        <Inertia-link v-else preserve-scroll :only="[queryParam, 'page', 'totalItemCount']" :href="link.url" :key="key" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                        <Inertia-link v-else preserve-scroll preserve-state :only="[queryParam, 'orderBy', 'page', 'totalItemCount']" :href="link.url" :key="key" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
                             {{ link.label }}
                         </Inertia-link>
                     </template>
