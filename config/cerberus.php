@@ -37,5 +37,9 @@ return [
             'slug' => 'users-edit',
             'description' => 'a user can edit other users'
         ],
+        [
+            'slug' => 'users-destroy',
+            'description' => 'a user can delete other users'
+        ],
     ]
 ];

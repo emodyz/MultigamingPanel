@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Emodyz\Users\EditUser;
-use App\Actions\Emodyz\Users\EditUserProfile;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -98,7 +98,9 @@ class UserController extends Controller
             abort(403);
         }
 
-        return Inertia::render('Users/Edit',compact('user'));
+        $userBeingEdited = $user;
+
+        return Inertia::render('Users/Edit',compact('userBeingEdited'));
     }
 
     /**
@@ -121,10 +123,29 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      *
      * @param User $user
-     * @return Response
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws Exception
      */
-    public function destroy(User $user): Response
+    public function destroy(User $user, Request $request): RedirectResponse
     {
-        //
+        if ($request->user()->cannot('users-destroy')) {
+            abort(403);
+        }
+
+        $user->delete();
+
+        return back(303)->with('status', 'user-deleted');
+    }
+
+    public function destroyAvatar(User $user, Request $request): RedirectResponse
+    {
+        if ($request->user()->cannot('users-edit')) {
+            abort(403);
+        }
+
+        $user->deleteProfilePhoto();
+
+        return back(303)->with('status', 'profile-photo-deleted');
     }
 }

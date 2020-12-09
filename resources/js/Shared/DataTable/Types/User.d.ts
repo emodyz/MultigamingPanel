@@ -7,5 +7,5 @@ export interface User {
     profile_photo_path: string | null
     profile_photo_url: string | null
     role: string
-    roleName: string
+    roleName?: string
 }

@@ -29,7 +29,7 @@
                         </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200 bg-white">
-                        <tr v-if="pageNumber > dataObject.links.length || pageNumber < 1">
+                        <tr v-if="pageNumber > (totalItemCount / 10) + 10 || pageNumber < 1">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">Page n° {{ pageNumber }} is out of range</div>
                             </td>
@@ -51,8 +51,8 @@
                                 <dt-user-status v-else-if="type === 'User.Status'"
                                                 :email_verified_at="item.email_verified_at"/>
                                 <span v-else>
-                                        {{ item[key] }}
-                                    </span>
+                                    {{ item[key] }}
+                                </span>
                             </td>
                             <td v-if="actions.enabled" class="px-6 py-4 whitespace-nowrap">
                                 <dt-actions
@@ -92,6 +92,7 @@ import {PaginatedDate} from "@/Shared/DataTable/Types/PaginatedData";
 import {DataTableHeader} from "@/Shared/DataTable/Types/DataTableHeader";
 
 // TODO: Extract permissions checks in their appropriate file
+// TODO: Use Dynamic components
 
 @Component({
     components: {
@@ -177,7 +178,7 @@ export default class DataTable extends Vue {
             case 'asc':
                 this.order = {
                     key: null,
-                    direction: 'none'
+                    direction: null
                 }
                 break
             default:
