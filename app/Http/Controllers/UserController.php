@@ -17,6 +17,9 @@ class UserController extends Controller
      */
     public function index(Request $request): \Inertia\Response
     {
+
+        $orderBy = $request->query('orderBy');
+
         $initialSearch = $request->query('search', '');
 
         $userQuery = User::query()
@@ -25,6 +28,11 @@ class UserController extends Controller
                 $query->where('name','LIKE','%'.$initialSearch.'%')
                     ->orWhere('email','LIKE','%'.$initialSearch.'%')
                     ->orWhere('role','LIKE','%'.$initialSearch.'%');
+            })
+            ->when($request->filled('orderBy'),function($query) use ($orderBy){
+                $orderByKey = $orderBy['key'];
+                $orderByDirection = $orderBy['direction'];
+                $query->orderBy($orderByKey === 'roleName' ? 'role' : $orderByKey, $orderByDirection);
             });
 
         $users = $userQuery

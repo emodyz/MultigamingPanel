@@ -58,13 +58,12 @@ module.exports = {
     },
 
     variants: {
-        opacity: ['responsive', 'hover', 'focus', 'disabled'],
-        cursor: ['hover', 'focus', 'disabled'],
         extend: {
-            backgroundColor: ['group-focus', 'active'],
+            backgroundColor: ['group-focus', 'active', 'even', 'odd'],
             borderColor: ['group-focus'],
             boxShadow: ['group-focus'],
-            opacity: ['group-focus'],
+            opacity: ['group-focus', 'disabled'],
+            cursor: ['hover', 'focus', 'disabled'],
             textColor: ['group-focus', 'active'],
             textDecoration: ['group-focus'],
             fontWeight: ['hover', 'focus']

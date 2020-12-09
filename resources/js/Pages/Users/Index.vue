@@ -43,6 +43,7 @@ import DataTable from "@/Shared/DataTable/DataTable.vue";
 import {Vue, Component, Prop} from 'vue-property-decorator'
 import AppLayout from "@/Layouts/AppLayout.vue";
 import {DataTableActionsOptions} from "@/Shared/DataTable/Types/DataTableActionsOptions";
+import {DataTableHeader} from "@/Shared/DataTable/Types/DataTableHeader";
 
 
 @Component({
@@ -59,11 +60,10 @@ export default class UsersIndex extends Vue {
     @Prop() readonly initialSearch!: null | string
     @Prop() readonly UserPermissions!: Array<string> | null
 
-    headers: Array<object> = [
+    headers: Array<DataTableHeader> = [
         { title: '#', key: 'index', type: 'Index' },
         { title: 'Name', key: 'name' , type: 'User.Profile' },
-        // { title: 'Email', key: 'email' , type: null },
-        { title: 'Role', key: 'roleName' , type: null },
+        { title: 'Role', key: 'roleName'},
         { title: 'Status', key: 'email_verified_at' , type: 'User.Status' },
         { title: 'Registered', key: 'created_at' , type: 'Date.Formatted' },
     ]
