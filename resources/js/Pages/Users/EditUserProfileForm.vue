@@ -103,6 +103,7 @@ export default class EditUserProfileForm extends Vue {
     form: any = {
         name: this.user.name,
         email: this.user.email,
+        role: this.user.role,
         photo: null,
         recentlySuccessful: false,
         processing: false,
@@ -161,7 +162,7 @@ export default class EditUserProfileForm extends Vue {
         // @ts-ignore
         this.$inertia.delete(
             // @ts-ignore
-            route('current-user-photo.destroy'),
+            route('users.destroy.avatar', this.user),
             {
                 preserveScroll: true,
                 onSuccess: () => {

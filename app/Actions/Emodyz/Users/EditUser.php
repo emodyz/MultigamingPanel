@@ -24,6 +24,7 @@ class EditUser
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+            'role' => ['required', 'string', 'max:255', new RoleExists()],
             'photo' => ['nullable', 'image', 'max:1024'],
         ])->validateWithBag('editUserProfile');
 

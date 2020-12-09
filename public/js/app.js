@@ -47221,28 +47221,28 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
-var UsersIndex = /** @class */ (function (_super) {
-    __extends(UsersIndex, _super);
-    function UsersIndex() {
+var UsersEdit = /** @class */ (function (_super) {
+    __extends(UsersEdit, _super);
+    function UsersEdit() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Prop"])()
-    ], UsersIndex.prototype, "user", void 0);
+    ], UsersEdit.prototype, "userBeingEdited", void 0);
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Prop"])()
-    ], UsersIndex.prototype, "errors", void 0);
-    UsersIndex = __decorate([
+    ], UsersEdit.prototype, "errors", void 0);
+    UsersEdit = __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             components: {
                 AppLayout: _Layouts_AppLayout_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
                 EditUserProfileForm: _Pages_Users_EditUserProfileForm_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
             },
         })
-    ], UsersIndex);
-    return UsersIndex;
+    ], UsersEdit);
+    return UsersEdit;
 }(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Vue"]));
-/* harmony default export */ __webpack_exports__["default"] = (UsersIndex);
+/* harmony default export */ __webpack_exports__["default"] = (UsersEdit);
 
 
 /***/ }),
@@ -47301,6 +47301,7 @@ var EditUserProfileForm = /** @class */ (function (_super) {
         _this.form = {
             name: _this.user.name,
             email: _this.user.email,
+            role: _this.user.role,
             photo: null,
             recentlySuccessful: false,
             processing: false,
@@ -47353,7 +47354,7 @@ var EditUserProfileForm = /** @class */ (function (_super) {
         // @ts-ignore
         this.$inertia.delete(
         // @ts-ignore
-        route('current-user-photo.destroy'), {
+        route('users.destroy.avatar', this.user), {
             preserveScroll: true,
             onSuccess: function () {
                 _this.photoPreview = null;
@@ -47543,7 +47544,14 @@ var DataTable_Actions = /** @class */ (function (_super) {
         this.uuidBeingDestroyed = id;
     };
     DataTable_Actions.prototype.goToDestroy = function (id) {
-        _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__["Inertia"].delete(this.actions.baseUrl + "/" + id + "/" + (this.actions.show.path ? this.actions.show.path : ''), { preserveScroll: true });
+        var _this = this;
+        _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__["Inertia"].delete(this.actions.baseUrl + "/" + id + "/" + (this.actions.destroy.path ? this.actions.destroy.path : ''), {
+            preserveScroll: true,
+            onSuccess: function () {
+                _this.uuidBeingDestroyed = null;
+                _this.destructionInProgress = false;
+            }
+        });
     };
     DataTable_Actions.prototype.checkPermissions = function () {
         if (this.actions.show.enabled && this.actions.show.permission) {
@@ -47795,6 +47803,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 // TODO: Extract permissions checks in their appropriate file
+// TODO: Use Dynamic components
 var DataTable = /** @class */ (function (_super) {
     __extends(DataTable, _super);
     function DataTable() {
@@ -47856,7 +47865,7 @@ var DataTable = /** @class */ (function (_super) {
             case 'asc':
                 this.order = {
                     key: null,
-                    direction: 'none'
+                    direction: null
                 };
                 break;
             default:
@@ -53993,7 +54002,9 @@ var render = function() {
                 [
                   _vm._v("\n            Users "),
                   _c("span", { staticClass: "text-gray-400" }, [_vm._v("/")]),
-                  _vm._v(" Edit / " + _vm._s(_vm.user.name) + "\n        ")
+                  _vm._v(
+                    " Edit / " + _vm._s(_vm.userBeingEdited.name) + "\n        "
+                  )
                 ]
               )
             ]
@@ -54010,7 +54021,7 @@ var render = function() {
           { staticClass: "max-w-7xl mx-auto sm:px-6 lg:px-8" },
           [
             _c("edit-user-profile-form", {
-              attrs: { errors: _vm.errors, user: _vm.user }
+              attrs: { errors: _vm.errors, user: _vm.userBeingEdited }
             })
           ],
           1
@@ -54873,7 +54884,7 @@ var render = function() {
                     "tbody",
                     { staticClass: "divide-y divide-gray-200 bg-white" },
                     [
-                      _vm.pageNumber > _vm.dataObject.links.length ||
+                      _vm.pageNumber > _vm.totalItemCount / 10 + 10 ||
                       _vm.pageNumber < 1
                         ? _c("tr", [
                             _c(
@@ -54972,9 +54983,9 @@ var render = function() {
                                           })
                                         : _c("span", [
                                             _vm._v(
-                                              "\n                                    " +
+                                              "\n                                " +
                                                 _vm._s(item[key]) +
-                                                "\n                                "
+                                                "\n                            "
                                             )
                                           ])
                                     ],
@@ -55123,7 +55134,6 @@ var render = function() {
                               "relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50",
                             attrs: {
                               "preserve-scroll": "",
-                              "preserve-state": "",
                               only: [
                                 _vm.queryParam,
                                 "orderBy",
@@ -55171,7 +55181,6 @@ var render = function() {
                               "relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50",
                             attrs: {
                               "preserve-scroll": "",
-                              "preserve-state": "",
                               only: [
                                 _vm.queryParam,
                                 "orderBy",
@@ -55229,9 +55238,9 @@ var render = function() {
                             key: key,
                             staticClass:
                               "relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50",
+                            class: { "bg-gray-100": link.active },
                             attrs: {
                               "preserve-scroll": "",
-                              "preserve-state": "",
                               only: [
                                 _vm.queryParam,
                                 "orderBy",

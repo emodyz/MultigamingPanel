@@ -94,7 +94,14 @@ export default class DataTable_Actions extends Vue {
     }
 
     goToDestroy(id: string | number) {
-        Inertia.delete(`${this.actions.baseUrl}/${id}/${this.actions.show.path ? this.actions.show.path : ''}`, { preserveScroll: true })
+        Inertia.delete(`${this.actions.baseUrl}/${id}/${this.actions.destroy.path ? this.actions.destroy.path : ''}`,
+            {
+                preserveScroll: true,
+                onSuccess: () => {
+                    this.uuidBeingDestroyed = null
+                    this.destructionInProgress = false
+                }
+            })
     }
 
     checkPermissions() {
