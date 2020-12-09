@@ -7,7 +7,7 @@
         </a>
         <a @click.prevent="goToEdit(item.id)" v-if="actions.edit.enabled"
            href="#"
-           :class="`text-${actions.edit.color} hover:text-${actions.edit.hvColor} pl-2 pr-1`">
+           :class="`text-${actions.edit.color} hover:text-${actions.edit.hvColor} ${actions.show.enabled ? 'pl-2' : ''} pr-1`">
             {{ actions.edit.displayName }}
         </a>
         <a @click.prevent="initiateDestruction(item.id)" v-if="actions.destroy.enabled"

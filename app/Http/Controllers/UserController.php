@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Emodyz\Users\EditUser;
+use App\Actions\Emodyz\Users\EditUserProfile;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -46,7 +50,6 @@ class UserController extends Controller
             $user->roleName = config('cerberus.roles.' . $user->role . '.displayName');
         }
 
-
         return Inertia::render('Users/Index',compact('users', 'initialSearch', 'totalItemCount'));
     }
 
@@ -86,11 +89,16 @@ class UserController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param User $user
-     * @return Response
+     * @param Request $request
+     * @return \Inertia\Response
      */
-    public function edit(User $user): Response
+    public function edit(User $user, Request $request): \Inertia\Response
     {
-        //
+        if ($request->user()->cannot('users-edit')) {
+            abort(403);
+        }
+
+        return Inertia::render('Users/Edit',compact('user'));
     }
 
     /**
@@ -98,11 +106,15 @@ class UserController extends Controller
      *
      * @param Request $request
      * @param User $user
-     * @return Response
+     * @param EditUser $editor
+     * @return RedirectResponse
+     * @throws ValidationException
      */
-    public function update(Request $request, User $user): Response
+    public function update(Request $request, User $user, EditUser $editor): RedirectResponse
     {
-        //
+        $editor->editUserProfile($user, $request->all());
+
+        return back()->with('status', 'profile-information-updated');
     }
 
     /**

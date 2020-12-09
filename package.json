@@ -40,5 +40,8 @@
         "vue-lodash": "^2.1.2",
         "vue-property-decorator": "^9.0.2",
         "vue-template-compiler": "^2.6.10"
+    },
+    "dependencies": {
+        "object-to-formdata": "^4.1.0"
     }
 }
