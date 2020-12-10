@@ -25,4 +25,5 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::middleware(['auth:sanctum', 'verified', 'can:dashboard,users-index'])->group(function () {
     Route::resource('users', UserController::class);
     route::delete('users/{user}/avatar', [UserController::class, 'destroyAvatar'])->name('users.destroy.avatar');
+    route::put('users/{user}/account', [UserController::class, 'updateAccount'])->name('users.update.account');
 });

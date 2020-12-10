@@ -100,7 +100,9 @@ class UserController extends Controller
 
         $userBeingEdited = $user;
 
-        return Inertia::render('Users/Edit',compact('userBeingEdited'));
+        $roles = collect(config('cerberus.roles'));
+
+        return Inertia::render('Users/Edit',compact('userBeingEdited', 'roles'));
     }
 
     /**
@@ -114,10 +116,32 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user, EditUser $editor): RedirectResponse
     {
+        if ($request->user()->cannot('users-edit')) {
+            abort(403);
+        }
+
         $editor->editUserProfile($user, $request->all());
 
         return back()->with('status', 'profile-information-updated');
     }
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param User $user
+     * @param EditUser $editor
+     * @return RedirectResponse
+     * @throws ValidationException
+     */
+    public function updateAccount(Request $request, User $user, EditUser $editor): RedirectResponse
+    {
+        $editor->editUserAccount($user, $request->all());
+
+        return back()->with('status', 'profile-information-updated');
+    }
+
 
     /**
      * Remove the specified resource from storage.

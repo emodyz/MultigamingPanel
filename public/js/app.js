@@ -47199,6 +47199,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-property-decorator */ "./node_modules/vue-property-decorator/lib/index.js");
 /* harmony import */ var _Layouts_AppLayout_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Layouts/AppLayout.vue */ "./resources/js/Layouts/AppLayout.vue");
 /* harmony import */ var _Pages_Users_EditUserProfileForm_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Pages/Users/EditUserProfileForm.vue */ "./resources/js/Pages/Users/EditUserProfileForm.vue");
+/* harmony import */ var _Pages_Users_EditUserAccountForm_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Pages/Users/EditUserAccountForm.vue */ "./resources/js/Pages/Users/EditUserAccountForm.vue");
+/* harmony import */ var _Jetstream_SectionBorder_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Jetstream/SectionBorder.vue */ "./resources/js/Jetstream/SectionBorder.vue");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -47221,14 +47223,24 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+
 var UsersEdit = /** @class */ (function (_super) {
     __extends(UsersEdit, _super);
     function UsersEdit() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    UsersEdit.prototype.created = function () {
+    };
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Prop"])()
     ], UsersEdit.prototype, "userBeingEdited", void 0);
+    __decorate([
+        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Prop"])()
+    ], UsersEdit.prototype, "UserPermissions", void 0);
+    __decorate([
+        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Prop"])()
+    ], UsersEdit.prototype, "roles", void 0);
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Prop"])()
     ], UsersEdit.prototype, "errors", void 0);
@@ -47236,13 +47248,126 @@ var UsersEdit = /** @class */ (function (_super) {
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             components: {
                 AppLayout: _Layouts_AppLayout_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-                EditUserProfileForm: _Pages_Users_EditUserProfileForm_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+                EditUserProfileForm: _Pages_Users_EditUserProfileForm_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+                EditUserAccountForm: _Pages_Users_EditUserAccountForm_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+                JetSectionBorder: _Jetstream_SectionBorder_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
             },
         })
     ], UsersEdit);
     return UsersEdit;
 }(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Vue"]));
 /* harmony default export */ __webpack_exports__["default"] = (UsersEdit);
+
+
+/***/ }),
+
+/***/ "./node_modules/ts-loader/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Users/EditUserAccountForm.vue?vue&type=script&lang=ts&":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/ts-loader??ref--5!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/Users/EditUserAccountForm.vue?vue&type=script&lang=ts& ***!
+  \**********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Jetstream_Button_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Jetstream/Button.vue */ "./resources/js/Jetstream/Button.vue");
+/* harmony import */ var _Jetstream_FormSection_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/FormSection.vue */ "./resources/js/Jetstream/FormSection.vue");
+/* harmony import */ var _Jetstream_Input_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/Input.vue */ "./resources/js/Jetstream/Input.vue");
+/* harmony import */ var _Jetstream_InputError_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Jetstream/InputError.vue */ "./resources/js/Jetstream/InputError.vue");
+/* harmony import */ var _Jetstream_Label_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Jetstream/Label.vue */ "./resources/js/Jetstream/Label.vue");
+/* harmony import */ var _Jetstream_ActionMessage_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Jetstream/ActionMessage.vue */ "./resources/js/Jetstream/ActionMessage.vue");
+/* harmony import */ var _Jetstream_SecondaryButton_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Jetstream/SecondaryButton.vue */ "./resources/js/Jetstream/SecondaryButton.vue");
+/* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-property-decorator */ "./node_modules/vue-property-decorator/lib/index.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+
+var EditUserProfileForm = /** @class */ (function (_super) {
+    __extends(EditUserProfileForm, _super);
+    function EditUserProfileForm() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.form = {
+            email: _this.user.email,
+            role: _this.user.role,
+            recentlySuccessful: false,
+            processing: false,
+        };
+        _this.errorMessages = {
+            email: '',
+            role: '',
+            photo: ''
+        };
+        return _this;
+    }
+    EditUserProfileForm.prototype.editUserAccount = function () {
+        var _this = this;
+        this.form.processing = false;
+        this.form.recentlySuccessful = false;
+        // @ts-ignore
+        this.$inertia.put(
+        // @ts-ignore
+        route('users.update.account', this.user.id), this.form, {
+            preserveScroll: true,
+            resetOnSuccess: false,
+            onSuccess: function () {
+                _this.form.processing = false;
+                if (!_this.errors.editUserAccount) {
+                    _this.form.recentlySuccessful = true;
+                }
+                else {
+                    _this.errorMessages = _this.errors.editUserAccount;
+                }
+            }
+        });
+    };
+    __decorate([
+        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__["Prop"])()
+    ], EditUserProfileForm.prototype, "user", void 0);
+    __decorate([
+        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__["Prop"])()
+    ], EditUserProfileForm.prototype, "roles", void 0);
+    __decorate([
+        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__["Prop"])()
+    ], EditUserProfileForm.prototype, "errors", void 0);
+    EditUserProfileForm = __decorate([
+        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__["Component"])({
+            components: {
+                JetActionMessage: _Jetstream_ActionMessage_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+                JetButton: _Jetstream_Button_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+                JetFormSection: _Jetstream_FormSection_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+                JetInput: _Jetstream_Input_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+                JetInputError: _Jetstream_InputError_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+                JetLabel: _Jetstream_Label_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+                JetSecondaryButton: _Jetstream_SecondaryButton_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+            }
+        })
+    ], EditUserProfileForm);
+    return EditUserProfileForm;
+}(vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__["Vue"]));
+/* harmony default export */ __webpack_exports__["default"] = (EditUserProfileForm);
 
 
 /***/ }),
@@ -47300,15 +47425,12 @@ var EditUserProfileForm = /** @class */ (function (_super) {
         _this.photoPreview = null;
         _this.form = {
             name: _this.user.name,
-            email: _this.user.email,
-            role: _this.user.role,
             photo: null,
             recentlySuccessful: false,
             processing: false,
         };
         _this.errorMessages = {
             name: '',
-            email: '',
             photo: ''
         };
         return _this;
@@ -54022,13 +54144,197 @@ var render = function() {
           [
             _c("edit-user-profile-form", {
               attrs: { errors: _vm.errors, user: _vm.userBeingEdited }
-            })
+            }),
+            _vm._v(" "),
+            _c("jet-section-border"),
+            _vm._v(" "),
+            _vm._.includes(_vm.UserPermissions, "users-edit-account") ||
+            _vm._.includes(_vm.UserPermissions, "*")
+              ? _c("edit-user-account-form", {
+                  staticClass: "mt-10 sm:mt-0",
+                  attrs: {
+                    errors: _vm.errors,
+                    user: _vm.userBeingEdited,
+                    roles: _vm.roles
+                  }
+                })
+              : _vm._e()
           ],
           1
         )
       ])
     ]
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Users/EditUserAccountForm.vue?vue&type=template&id=15c3fddc&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/Users/EditUserAccountForm.vue?vue&type=template&id=15c3fddc& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("jet-form-section", {
+    on: { submitted: _vm.editUserAccount },
+    scopedSlots: _vm._u([
+      {
+        key: "title",
+        fn: function() {
+          return [_vm._v("\n        Account Information\n    ")]
+        },
+        proxy: true
+      },
+      {
+        key: "description",
+        fn: function() {
+          return [
+            _vm._v(
+              "\n        Edit " +
+                _vm._s(_vm.user.name) +
+                "'s account information.\n    "
+            )
+          ]
+        },
+        proxy: true
+      },
+      {
+        key: "form",
+        fn: function() {
+          return [
+            _c(
+              "div",
+              { staticClass: "col-span-6 sm:col-span-4" },
+              [
+                _c("jet-label", { attrs: { for: "email", value: "Email" } }),
+                _vm._v(" "),
+                _c("jet-input", {
+                  staticClass: "mt-1 block w-full",
+                  attrs: { id: "email", type: "email" },
+                  model: {
+                    value: _vm.form.email,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "email", $$v)
+                    },
+                    expression: "form.email"
+                  }
+                }),
+                _vm._v(" "),
+                _c("jet-input-error", {
+                  staticClass: "mt-2",
+                  attrs: { message: _vm.errorMessages.email }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-span-6 sm:col-span-4" },
+              [
+                _c("jet-label", { attrs: { for: "role", value: "Role" } }),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.role,
+                        expression: "form.role"
+                      }
+                    ],
+                    staticClass:
+                      "mt-1 block w-full rounded-md shadow-sm form-input",
+                    attrs: { name: "role", id: "role" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.form,
+                          "role",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "option",
+                      { attrs: { value: "", disabled: "", selected: "" } },
+                      [_vm._v("Choose a role")]
+                    ),
+                    _vm._v(" "),
+                    _vm._l(_vm.roles, function(item, index) {
+                      return _c("option", { domProps: { value: index } }, [
+                        _vm._v(_vm._s(item.displayName))
+                      ])
+                    })
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c("jet-input-error", {
+                  staticClass: "mt-2",
+                  attrs: { message: _vm.errorMessages.role }
+                })
+              ],
+              1
+            )
+          ]
+        },
+        proxy: true
+      },
+      {
+        key: "actions",
+        fn: function() {
+          return [
+            _c(
+              "jet-action-message",
+              {
+                staticClass: "mr-3",
+                attrs: { on: _vm.form.recentlySuccessful }
+              },
+              [_vm._v("\n            Saved.\n        ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "jet-button",
+              {
+                class: { "opacity-25": _vm.form.processing },
+                attrs: { disabled: _vm.form.processing }
+              },
+              [_vm._v("\n            Save\n        ")]
+            )
+          ]
+        },
+        proxy: true
+      }
+    ])
+  })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -54069,7 +54375,7 @@ var render = function() {
             _vm._v(
               "\n        Edit " +
                 _vm._s(_vm.user.name) +
-                "'s profile information and email address.\n    "
+                "'s profile information.\n    "
             )
           ]
         },
@@ -54213,32 +54519,6 @@ var render = function() {
                 _c("jet-input-error", {
                   staticClass: "mt-2",
                   attrs: { message: _vm.errorMessages.name }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-span-6 sm:col-span-4" },
-              [
-                _c("jet-label", { attrs: { for: "email", value: "Email" } }),
-                _vm._v(" "),
-                _c("jet-input", {
-                  staticClass: "mt-1 block w-full",
-                  attrs: { id: "email", type: "email" },
-                  model: {
-                    value: _vm.form.email,
-                    callback: function($$v) {
-                      _vm.$set(_vm.form, "email", $$v)
-                    },
-                    expression: "form.email"
-                  }
-                }),
-                _vm._v(" "),
-                _c("jet-input-error", {
-                  staticClass: "mt-2",
-                  attrs: { message: _vm.errorMessages.email }
                 })
               ],
               1
@@ -69756,6 +70036,8 @@ var map = {
 	"./Teams/UpdateTeamNameForm.vue": "./resources/js/Pages/Teams/UpdateTeamNameForm.vue",
 	"./Users/Edit": "./resources/js/Pages/Users/Edit.vue",
 	"./Users/Edit.vue": "./resources/js/Pages/Users/Edit.vue",
+	"./Users/EditUserAccountForm": "./resources/js/Pages/Users/EditUserAccountForm.vue",
+	"./Users/EditUserAccountForm.vue": "./resources/js/Pages/Users/EditUserAccountForm.vue",
 	"./Users/EditUserProfileForm": "./resources/js/Pages/Users/EditUserProfileForm.vue",
 	"./Users/EditUserProfileForm.vue": "./resources/js/Pages/Users/EditUserProfileForm.vue",
 	"./Users/Index": "./resources/js/Pages/Users/Index.vue",
@@ -70883,6 +71165,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_vue_vue_type_template_id_42efdfba___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_vue_vue_type_template_id_42efdfba___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Users/EditUserAccountForm.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/Pages/Users/EditUserAccountForm.vue ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _EditUserAccountForm_vue_vue_type_template_id_15c3fddc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditUserAccountForm.vue?vue&type=template&id=15c3fddc& */ "./resources/js/Pages/Users/EditUserAccountForm.vue?vue&type=template&id=15c3fddc&");
+/* harmony import */ var _EditUserAccountForm_vue_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditUserAccountForm.vue?vue&type=script&lang=ts& */ "./resources/js/Pages/Users/EditUserAccountForm.vue?vue&type=script&lang=ts&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _EditUserAccountForm_vue_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _EditUserAccountForm_vue_vue_type_template_id_15c3fddc___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _EditUserAccountForm_vue_vue_type_template_id_15c3fddc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Pages/Users/EditUserAccountForm.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Users/EditUserAccountForm.vue?vue&type=script&lang=ts&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/Pages/Users/EditUserAccountForm.vue?vue&type=script&lang=ts& ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_ts_loader_index_js_ref_5_node_modules_vue_loader_lib_index_js_vue_loader_options_EditUserAccountForm_vue_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/ts-loader??ref--5!../../../../node_modules/vue-loader/lib??vue-loader-options!./EditUserAccountForm.vue?vue&type=script&lang=ts& */ "./node_modules/ts-loader/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Users/EditUserAccountForm.vue?vue&type=script&lang=ts&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_ts_loader_index_js_ref_5_node_modules_vue_loader_lib_index_js_vue_loader_options_EditUserAccountForm_vue_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Users/EditUserAccountForm.vue?vue&type=template&id=15c3fddc&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/Pages/Users/EditUserAccountForm.vue?vue&type=template&id=15c3fddc& ***!
+  \*****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditUserAccountForm_vue_vue_type_template_id_15c3fddc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./EditUserAccountForm.vue?vue&type=template&id=15c3fddc& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Users/EditUserAccountForm.vue?vue&type=template&id=15c3fddc&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditUserAccountForm_vue_vue_type_template_id_15c3fddc___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditUserAccountForm_vue_vue_type_template_id_15c3fddc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

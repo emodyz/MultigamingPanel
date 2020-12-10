@@ -35,7 +35,11 @@ return [
         ],
         [
             'slug' => 'users-edit',
-            'description' => 'a user can edit other users'
+            'description' => 'a user can edit another user\'s profile'
+        ],
+        [
+            'slug' => 'users-edit-account',
+            'description' => 'a user can edit another user\'s account'
         ],
         [
             'slug' => 'users-destroy',

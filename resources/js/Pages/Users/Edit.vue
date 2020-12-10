@@ -7,7 +7,10 @@
         </template>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <edit-user-profile-form :errors="errors" :user="userBeingEdited"></edit-user-profile-form>
+                <edit-user-profile-form :errors="errors" :user="userBeingEdited"/>
+                <jet-section-border />
+                <!-- TODO: Extract permission checks -->
+                <edit-user-account-form v-if="_.includes(UserPermissions, 'users-edit-account') || _.includes(UserPermissions, '*')" :errors="errors" :user="userBeingEdited" :roles="roles" class="mt-10 sm:mt-0"/>
             </div>
         </div>
     </app-layout>
@@ -19,16 +22,25 @@ import {Vue, Component, Prop} from 'vue-property-decorator'
 import AppLayout from "@/Layouts/AppLayout.vue";
 import {User} from "@/Shared/DataTable/Types/User";
 import EditUserProfileForm from "@/Pages/Users/EditUserProfileForm.vue";
+import EditUserAccountForm from "@/Pages/Users/EditUserAccountForm.vue";
+import JetSectionBorder from "@/Jetstream/SectionBorder.vue";
 
 
 @Component({
     components: {
         AppLayout,
-        EditUserProfileForm
+        EditUserProfileForm,
+        EditUserAccountForm,
+        JetSectionBorder
     },
 })
 export default class UsersEdit extends Vue {
     @Prop() readonly userBeingEdited!: User
+    @Prop() readonly UserPermissions!: Array<string>
+    @Prop() readonly roles!: any
     @Prop() readonly errors!: any
+
+    created() {
+    }
 }
 </script>
