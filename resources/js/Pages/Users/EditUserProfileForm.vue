@@ -5,7 +5,7 @@
         </template>
 
         <template #description>
-            Edit {{ user.name }}'s profile information and email address.
+            Edit {{ user.name }}'s profile information.
         </template>
 
         <template #form>
@@ -46,13 +46,6 @@
                 <jet-label for="name" value="Name" />
                 <jet-input id="name" type="text" class="mt-1 block w-full" v-model="form.name" autocomplete="name" />
                 <jet-input-error :message="errorMessages.name" class="mt-2" />
-            </div>
-
-            <!-- Email -->
-            <div class="col-span-6 sm:col-span-4">
-                <jet-label for="email" value="Email" />
-                <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" />
-                <jet-input-error :message="errorMessages.email" class="mt-2" />
             </div>
         </template>
 
@@ -102,8 +95,6 @@ export default class EditUserProfileForm extends Vue {
 
     form: any = {
         name: this.user.name,
-        email: this.user.email,
-        role: this.user.role,
         photo: null,
         recentlySuccessful: false,
         processing: false,
@@ -111,7 +102,6 @@ export default class EditUserProfileForm extends Vue {
 
     errorMessages = {
         name: '',
-        email: '',
         photo: ''
     }
 

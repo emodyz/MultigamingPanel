@@ -31,6 +31,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::delete('/modpacks/{modpack}/update', [ModpackController::class, 'cancelUpdate'])->name('modpacks.update.cancel');
     Route::resource('users', UserController::class);
     route::delete('users/{user}/avatar', [UserController::class, 'destroyAvatar'])->name('users.destroy.avatar');
+    route::put('users/{user}/account', [UserController::class, 'updateAccount'])->name('users.update.account');
 });
 
 
