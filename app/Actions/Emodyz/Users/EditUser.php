@@ -22,7 +22,7 @@ class EditUser
     public function editUserProfile(User $user, array $input)
     {
         Validator::make($input, [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'min:4', 'max:255'],
             'photo' => ['nullable', 'image', 'max:1024'],
         ])->validateWithBag('editUserProfile');
 

@@ -7,10 +7,10 @@
         </template>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <edit-user-profile-form :errors="errors" :user="userBeingEdited"/>
+                <edit-user-profile-form :user="userBeingEdited"/>
                 <jet-section-border />
                 <!-- TODO: Extract permission checks -->
-                <edit-user-account-form v-if="_.includes(UserPermissions, 'users-edit-account') || _.includes(UserPermissions, '*')" :errors="errors" :user="userBeingEdited" :roles="roles" class="mt-10 sm:mt-0"/>
+                <edit-user-account-form v-if="_.includes(UserPermissions, 'users-edit-account') || _.includes(UserPermissions, '*')" :user="userBeingEdited" :roles="roles" class="mt-10 sm:mt-0"/>
             </div>
         </div>
     </app-layout>
@@ -38,7 +38,6 @@ export default class UsersEdit extends Vue {
     @Prop() readonly userBeingEdited!: User
     @Prop() readonly UserPermissions!: Array<string>
     @Prop() readonly roles!: any
-    @Prop() readonly errors!: any
 
     created() {
     }

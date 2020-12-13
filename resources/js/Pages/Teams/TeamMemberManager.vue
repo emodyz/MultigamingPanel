@@ -24,13 +24,13 @@
                     <div class="col-span-6 sm:col-span-4">
                         <jet-label for="email" value="Email" />
                         <jet-input id="email" type="text" class="mt-1 block w-full" v-model="addTeamMemberForm.email" />
-                        <jet-input-error :message="addTeamMemberForm.errors.email" class="mt-2" />
+                        <jet-input-error v-if="!addTeamMemberForm.recentlySuccessful" :message="addTeamMemberForm.errors.email" class="mt-2" />
                     </div>
 
                     <!-- Role -->
                     <div class="col-span-6 lg:col-span-4" v-if="availableRoles.length > 0">
                         <jet-label for="roles" value="Role" />
-                        <jet-input-error :message="addTeamMemberForm.errors.role" class="mt-2" />
+                        <jet-input-error v-if="!addTeamMemberForm.recentlySuccessful" :message="addTeamMemberForm.errors.role" class="mt-2" />
 
                         <div class="mt-1 border border-gray-200 rounded-lg cursor-pointer">
                             <div class="px-4 py-3"
@@ -251,7 +251,6 @@
         @Prop() team!: any
         @Prop() availableRoles!: any
         @Prop() userPermissions!: any
-        @Prop() errors!: any
 
         addTeamMemberFormTemplate: any = {
             email:  '',
@@ -300,9 +299,12 @@
                     preserveScroll: true,
                     onSuccess: () => {
                         this.addTeamMemberForm.processing = false
-                        this.addTeamMemberForm.recentlySuccessfulg = false
-                        if (this.addTeamMemberForm.errors.addTeamMember) {
-                            this.addTeamMemberForm.errors = this.addTeamMemberForm.errors.addTeamMember
+                        // @ts-ignore
+                        if(!this.$page.props.errors.addTeamMember) {
+                            this.addTeamMemberForm.recentlySuccessful = true
+                        } else {
+                            // @ts-ignore
+                            this.addTeamMemberForm.errors = this.$page.props.errors.addTeamMember
                         }
                     }
                 }

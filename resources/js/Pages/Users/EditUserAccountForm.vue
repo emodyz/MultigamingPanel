@@ -13,7 +13,7 @@
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="email" value="Email" />
                 <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" />
-                <jet-input-error :message="errorMessages.email" class="mt-2" />
+                <jet-input-error v-if="!form.recentlySuccessful" :message="errorMessages.email" class="mt-2" />
             </div>
 
             <!-- Role -->
@@ -23,7 +23,7 @@
                     <option value="" disabled selected>Choose a role</option>
                     <option v-for="(item, index) in roles" :value="index">{{ item.displayName }}</option>
                 </select>
-                <jet-input-error :message="errorMessages.role" class="mt-2" />
+                <jet-input-error v-if="!form.recentlySuccessful" :message="errorMessages.role" class="mt-2" />
             </div>
         </template>
 
@@ -66,7 +66,6 @@ import {User} from "@/Shared/DataTable/Types/User";
 export default class EditUserProfileForm extends Vue {
     @Prop() readonly user!: User
     @Prop() readonly roles!: any
-    @Prop() readonly errors!: any
 
     form: any = {
         email: this.user.email,
@@ -95,10 +94,12 @@ export default class EditUserProfileForm extends Vue {
                 resetOnSuccess: false,
                 onSuccess: () => {
                     this.form.processing = false
-                    if (!this.errors.editUserAccount) {
+                    // @ts-ignore
+                    if (!this.$page.props.errors.editUserAccount) {
                         this.form.recentlySuccessful = true
                     } else {
-                        this.errorMessages = this.errors.editUserAccount
+                        // @ts-ignore
+                        this.errorMessages = this.$page.props.errors.editUserAccount
                     }
                 }
             }

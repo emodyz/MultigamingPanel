@@ -25,7 +25,7 @@
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="name" value="Team Name" />
                 <jet-input id="name" type="text" class="mt-1 block w-full" v-model="form.name" autofocus />
-                <jet-input-error :message="form.errors.name" class="mt-2" />
+                <jet-input-error v-if="!form.recentlySuccessful" :message="form.errors.name" class="mt-2" />
             </div>
         </template>
 
@@ -62,7 +62,6 @@
         }
     })
     export default class CreateTeamForm extends Vue {
-        @Prop() readonly errors!: any
 
         form: any = {
             name:  '',
@@ -85,9 +84,13 @@
                     preserveScroll: true,
                     onSuccess: () => {
                         this.form.processing = false
-                        this.form.recentlySuccessfulg = false
-                        if (this.form.errors.createTeam) {
-                            this.form.errors = this.form.errors.createTeam
+                        // @ts-ignore
+                        if(!this.$page.props.errors.createTeam) {
+                            this.form.recentlySuccessfulg = true
+                            this.form.name = ''
+                        } else {
+                            // @ts-ignore
+                            this.form.errors = this.$page.props.errors.createTeam
                         }
                     }
                 }

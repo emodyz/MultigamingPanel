@@ -63,7 +63,6 @@
     })
     export default class DeleteTeamForm extends Vue {
         @Prop() readonly team!: any
-        @Prop() readonly errors!: any
 
         form: any = {
             processing: false,

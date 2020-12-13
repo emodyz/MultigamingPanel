@@ -15,7 +15,7 @@
                 <div class="col-span-6 sm:col-span-4">
                     <jet-label for="name" value="Name" />
                     <jet-input id="name" type="text" class="mt-1 block w-full" v-model="createApiTokenForm.name" autofocus />
-                    <jet-input-error :message="createApiTokenForm.errors.name" class="mt-2" />
+                    <jet-input-error v-if="!createApiTokenForm.recentlySuccessful" :message="createApiTokenForm.errors.name" class="mt-2" />
                 </div>
 
                 <!-- Token Permissions -->
@@ -163,18 +163,18 @@
 </template>
 
 <script lang="ts">
-    import JetActionMessage from '@/Jetstream/ActionMessage'
-    import JetActionSection from '@/Jetstream/ActionSection'
-    import JetButton from '@/Jetstream/Button'
-    import JetConfirmationModal from '@/Jetstream/ConfirmationModal'
-    import JetDangerButton from '@/Jetstream/DangerButton'
-    import JetDialogModal from '@/Jetstream/DialogModal'
-    import JetFormSection from '@/Jetstream/FormSection'
-    import JetInput from '@/Jetstream/Input'
-    import JetInputError from '@/Jetstream/InputError'
-    import JetLabel from '@/Jetstream/Label'
-    import JetSecondaryButton from '@/Jetstream/SecondaryButton'
-    import JetSectionBorder from '@/Jetstream/SectionBorder'
+    import JetActionMessage from '@/Jetstream/ActionMessage.vue'
+    import JetActionSection from '@/Jetstream/ActionSection.vue'
+    import JetButton from '@/Jetstream/Button.vue'
+    import JetConfirmationModal from '@/Jetstream/ConfirmationModal.vue'
+    import JetDangerButton from '@/Jetstream/DangerButton.vue'
+    import JetDialogModal from '@/Jetstream/DialogModal.vue'
+    import JetFormSection from '@/Jetstream/FormSection.vue'
+    import JetInput from '@/Jetstream/Input.vue'
+    import JetInputError from '@/Jetstream/InputError.vue'
+    import JetLabel from '@/Jetstream/Label.vue'
+    import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
+    import JetSectionBorder from '@/Jetstream/SectionBorder.vue'
 
     import { Vue, Component, Prop } from 'vue-property-decorator'
 
@@ -198,12 +198,12 @@
         @Prop() tokens!: any
         @Prop() availablePermissions!: any
         @Prop() defaultPermissions!: any
-        @Prop() errors!: any
 
         createApiTokenForm: any = {
             name: '',
             permissions: this.defaultPermissions,
             processing: false,
+            recentlySuccessful: false,
             errors: {
                 name: ''
             }
@@ -212,6 +212,7 @@
         updateApiTokenForm: any = {
             permissions: [],
             processing: false,
+            recentlySuccessful: false,
             errors: {
                 permissions: ''
             }
@@ -226,6 +227,7 @@
         apiTokenBeingDeleted: any = null
 
         createApiToken() {
+            this.createApiTokenForm.recentlySuccessful = false
             // @ts-ignore
             this.$inertia.post(
                 // @ts-ignore
@@ -234,10 +236,15 @@
                 {
                     preserveScroll: true,
                     onSuccess: () => {
-                        if (!this.errors.createApiToken) {
+                        // @ts-ignore
+                        if (!this.$page.props.errors.createApiToken) {
                             this.displayingToken = true
+                            this.createApiTokenForm.recentlySuccessful = true
+                            this.createApiTokenForm.name = ''
+                            this.createApiTokenForm.permissions = this.defaultPermissions
                         } else {
-                            this.createApiTokenForm.errors.name = this.errors.createApiToken.name
+                            // @ts-ignore
+                            this.createApiTokenForm.errors.name = this.$page.props.errors.createApiToken.name
                         }
                     }
                 }

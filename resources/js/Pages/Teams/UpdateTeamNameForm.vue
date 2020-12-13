@@ -33,7 +33,7 @@
                             v-model="form.name"
                             :disabled="! permissions.canUpdateTeam" />
 
-                <jet-input-error :message="form.errors.name" class="mt-2" />
+                <jet-input-error v-if="!form.recentlySuccessful" :message="form.errors.name" class="mt-2" />
             </div>
         </template>
 
@@ -77,6 +77,7 @@
         form: any = {
             name:  this.team.name,
             processing: false,
+            recentlySuccessful: false,
             errors: {
                 name: ''
             }
@@ -84,6 +85,7 @@
 
         updateTeamName() {
             this.form.processing = true
+            this.form.recentlySuccessful = false
             // @ts-ignore
             this.$inertia.put(
                 // @ts-ignore
@@ -93,8 +95,12 @@
                     preserveScroll: true,
                     onSuccess: () => {
                         this.form.processing = false
-                        if (this.form.errors.updateTeamName) {
-                            this.form.errors = this.form.errors.updateTeamName
+                        // @ts-ignore
+                        if (!this.$page.props.errors.updateTeamName) {
+                            this.form.recentlySuccessful = true
+                        } else {
+                            // @ts-ignore
+                            this.form.errors = this.$page.props.errors.updateTeamName
                         }
                     }
                 }

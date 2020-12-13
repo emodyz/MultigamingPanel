@@ -45519,18 +45519,18 @@ export default {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Jetstream_ActionMessage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Jetstream/ActionMessage */ "./resources/js/Jetstream/ActionMessage.vue");
-/* harmony import */ var _Jetstream_ActionSection__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/ActionSection */ "./resources/js/Jetstream/ActionSection.vue");
-/* harmony import */ var _Jetstream_Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/Button */ "./resources/js/Jetstream/Button.vue");
-/* harmony import */ var _Jetstream_ConfirmationModal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Jetstream/ConfirmationModal */ "./resources/js/Jetstream/ConfirmationModal.vue");
-/* harmony import */ var _Jetstream_DangerButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Jetstream/DangerButton */ "./resources/js/Jetstream/DangerButton.vue");
-/* harmony import */ var _Jetstream_DialogModal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Jetstream/DialogModal */ "./resources/js/Jetstream/DialogModal.vue");
-/* harmony import */ var _Jetstream_FormSection__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Jetstream/FormSection */ "./resources/js/Jetstream/FormSection.vue");
-/* harmony import */ var _Jetstream_Input__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/Jetstream/Input */ "./resources/js/Jetstream/Input.vue");
-/* harmony import */ var _Jetstream_InputError__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/Jetstream/InputError */ "./resources/js/Jetstream/InputError.vue");
-/* harmony import */ var _Jetstream_Label__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/Jetstream/Label */ "./resources/js/Jetstream/Label.vue");
-/* harmony import */ var _Jetstream_SecondaryButton__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/Jetstream/SecondaryButton */ "./resources/js/Jetstream/SecondaryButton.vue");
-/* harmony import */ var _Jetstream_SectionBorder__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/Jetstream/SectionBorder */ "./resources/js/Jetstream/SectionBorder.vue");
+/* harmony import */ var _Jetstream_ActionMessage_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Jetstream/ActionMessage.vue */ "./resources/js/Jetstream/ActionMessage.vue");
+/* harmony import */ var _Jetstream_ActionSection_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/ActionSection.vue */ "./resources/js/Jetstream/ActionSection.vue");
+/* harmony import */ var _Jetstream_Button_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/Button.vue */ "./resources/js/Jetstream/Button.vue");
+/* harmony import */ var _Jetstream_ConfirmationModal_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Jetstream/ConfirmationModal.vue */ "./resources/js/Jetstream/ConfirmationModal.vue");
+/* harmony import */ var _Jetstream_DangerButton_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Jetstream/DangerButton.vue */ "./resources/js/Jetstream/DangerButton.vue");
+/* harmony import */ var _Jetstream_DialogModal_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Jetstream/DialogModal.vue */ "./resources/js/Jetstream/DialogModal.vue");
+/* harmony import */ var _Jetstream_FormSection_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Jetstream/FormSection.vue */ "./resources/js/Jetstream/FormSection.vue");
+/* harmony import */ var _Jetstream_Input_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/Jetstream/Input.vue */ "./resources/js/Jetstream/Input.vue");
+/* harmony import */ var _Jetstream_InputError_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/Jetstream/InputError.vue */ "./resources/js/Jetstream/InputError.vue");
+/* harmony import */ var _Jetstream_Label_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/Jetstream/Label.vue */ "./resources/js/Jetstream/Label.vue");
+/* harmony import */ var _Jetstream_SecondaryButton_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/Jetstream/SecondaryButton.vue */ "./resources/js/Jetstream/SecondaryButton.vue");
+/* harmony import */ var _Jetstream_SectionBorder_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/Jetstream/SectionBorder.vue */ "./resources/js/Jetstream/SectionBorder.vue");
 /* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vue-property-decorator */ "./node_modules/vue-property-decorator/lib/index.js");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -45572,6 +45572,7 @@ var ApiTokenManager = /** @class */ (function (_super) {
             name: '',
             permissions: _this.defaultPermissions,
             processing: false,
+            recentlySuccessful: false,
             errors: {
                 name: ''
             }
@@ -45579,6 +45580,7 @@ var ApiTokenManager = /** @class */ (function (_super) {
         _this.updateApiTokenForm = {
             permissions: [],
             processing: false,
+            recentlySuccessful: false,
             errors: {
                 permissions: ''
             }
@@ -45593,17 +45595,23 @@ var ApiTokenManager = /** @class */ (function (_super) {
     }
     ApiTokenManager.prototype.createApiToken = function () {
         var _this = this;
+        this.createApiTokenForm.recentlySuccessful = false;
         // @ts-ignore
         this.$inertia.post(
         // @ts-ignore
         route('api-tokens.store'), this.createApiTokenForm, {
             preserveScroll: true,
             onSuccess: function () {
-                if (!_this.errors.createApiToken) {
+                // @ts-ignore
+                if (!_this.$page.props.errors.createApiToken) {
                     _this.displayingToken = true;
+                    _this.createApiTokenForm.recentlySuccessful = true;
+                    _this.createApiTokenForm.name = '';
+                    _this.createApiTokenForm.permissions = _this.defaultPermissions;
                 }
                 else {
-                    _this.createApiTokenForm.errors.name = _this.errors.createApiToken.name;
+                    // @ts-ignore
+                    _this.createApiTokenForm.errors.name = _this.$page.props.errors.createApiToken.name;
                 }
             }
         });
@@ -45656,24 +45664,21 @@ var ApiTokenManager = /** @class */ (function (_super) {
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_12__["Prop"])()
     ], ApiTokenManager.prototype, "defaultPermissions", void 0);
-    __decorate([
-        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_12__["Prop"])()
-    ], ApiTokenManager.prototype, "errors", void 0);
     ApiTokenManager = __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_12__["Component"])({
             components: {
-                JetActionMessage: _Jetstream_ActionMessage__WEBPACK_IMPORTED_MODULE_0__["default"],
-                JetActionSection: _Jetstream_ActionSection__WEBPACK_IMPORTED_MODULE_1__["default"],
-                JetButton: _Jetstream_Button__WEBPACK_IMPORTED_MODULE_2__["default"],
-                JetConfirmationModal: _Jetstream_ConfirmationModal__WEBPACK_IMPORTED_MODULE_3__["default"],
-                JetDangerButton: _Jetstream_DangerButton__WEBPACK_IMPORTED_MODULE_4__["default"],
-                JetDialogModal: _Jetstream_DialogModal__WEBPACK_IMPORTED_MODULE_5__["default"],
-                JetFormSection: _Jetstream_FormSection__WEBPACK_IMPORTED_MODULE_6__["default"],
-                JetInput: _Jetstream_Input__WEBPACK_IMPORTED_MODULE_7__["default"],
-                JetInputError: _Jetstream_InputError__WEBPACK_IMPORTED_MODULE_8__["default"],
-                JetLabel: _Jetstream_Label__WEBPACK_IMPORTED_MODULE_9__["default"],
-                JetSecondaryButton: _Jetstream_SecondaryButton__WEBPACK_IMPORTED_MODULE_10__["default"],
-                JetSectionBorder: _Jetstream_SectionBorder__WEBPACK_IMPORTED_MODULE_11__["default"],
+                JetActionMessage: _Jetstream_ActionMessage_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+                JetActionSection: _Jetstream_ActionSection_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+                JetButton: _Jetstream_Button_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+                JetConfirmationModal: _Jetstream_ConfirmationModal_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+                JetDangerButton: _Jetstream_DangerButton_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+                JetDialogModal: _Jetstream_DialogModal_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+                JetFormSection: _Jetstream_FormSection_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+                JetInput: _Jetstream_Input_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
+                JetInputError: _Jetstream_InputError_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
+                JetLabel: _Jetstream_Label_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
+                JetSecondaryButton: _Jetstream_SecondaryButton_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
+                JetSectionBorder: _Jetstream_SectionBorder_vue__WEBPACK_IMPORTED_MODULE_11__["default"],
             }
         })
     ], ApiTokenManager);
@@ -45734,9 +45739,6 @@ var TokenIndex = /** @class */ (function (_super) {
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_3__["Prop"])()
     ], TokenIndex.prototype, "defaultPermissions", void 0);
-    __decorate([
-        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_3__["Prop"])()
-    ], TokenIndex.prototype, "errors", void 0);
     TokenIndex = __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_3__["Component"])({
             components: {
@@ -45749,21 +45751,6 @@ var TokenIndex = /** @class */ (function (_super) {
     return TokenIndex;
 }(vue_property_decorator__WEBPACK_IMPORTED_MODULE_3__["Vue"]));
 /* harmony default export */ __webpack_exports__["default"] = (TokenIndex);
-/*
-export default {
-    props: [
-        'tokens',
-        'availablePermissions',
-        'defaultPermissions',
-        'errors'
-    ],
-
-    components: {
-        ApiTokenManager,
-        AppLayout,
-        JetSectionBorder,
-    },
-}*/
 
 
 /***/ }),
@@ -45874,7 +45861,8 @@ var DeleteUserForm = /** @class */ (function (_super) {
         _this.confirmingUserDeletion = false;
         _this.form = {
             password: '',
-            processing: false
+            processing: false,
+            recentlySuccessful: false
         };
         return _this;
     }
@@ -45889,6 +45877,7 @@ var DeleteUserForm = /** @class */ (function (_super) {
     DeleteUserForm.prototype.deleteUser = function () {
         var _this = this;
         this.form.processing = true;
+        this.form.recentlySuccessful = false;
         // @ts-ignore
         this.$inertia.delete(
         // @ts-ignore
@@ -45899,12 +45888,13 @@ var DeleteUserForm = /** @class */ (function (_super) {
                 // @ts-ignore
                 _this.form.processing = false;
                 // @ts-ignore
-                if (!_this.errors.deleteUser) {
+                if (!_this.$page.props.errors.deleteUser) {
                     _this.confirmingUserDeletion = false;
+                    _this.form.recentlySuccessful = true;
                 }
                 else {
                     // @ts-ignore
-                    _this.errorMessages = _this.errors.deleteUser;
+                    _this.errorMessages = _this.$page.props.errors.deleteUser;
                 }
             }
         });
@@ -45912,9 +45902,6 @@ var DeleteUserForm = /** @class */ (function (_super) {
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_6__["Ref"])('password')
     ], DeleteUserForm.prototype, "password", void 0);
-    __decorate([
-        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_6__["Prop"])()
-    ], DeleteUserForm.prototype, "errors", void 0);
     DeleteUserForm = __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_6__["Component"])({
             components: {
@@ -46014,11 +46001,13 @@ var LogoutOtherBrowserSessionsForm = /** @class */ (function (_super) {
             onSuccess: function (page) {
                 // @ts-ignore
                 _this.form.processing = false;
-                if (!_this.errors.logoutOtherBrowserSessions) {
+                // @ts-ignore
+                if (!_this.$page.props.errors.logoutOtherBrowserSessions) {
                     _this.confirmingLogout = false;
                     _this.form.recentlySuccessful = true;
                 }
                 else {
+                    // @ts-ignore
                     _this.errorMessages = _this.errors.logoutOtherBrowserSessions;
                 }
             }
@@ -46030,9 +46019,6 @@ var LogoutOtherBrowserSessionsForm = /** @class */ (function (_super) {
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__["Prop"])()
     ], LogoutOtherBrowserSessionsForm.prototype, "sessions", void 0);
-    __decorate([
-        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__["Prop"])()
-    ], LogoutOtherBrowserSessionsForm.prototype, "errors", void 0);
     LogoutOtherBrowserSessionsForm = __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__["Component"])({
             components: {
@@ -46115,28 +46101,12 @@ var ProfileShow = /** @class */ (function (_super) {
                 UpdatePasswordForm: _UpdatePasswordForm_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
                 UpdateProfileInformationForm: _UpdateProfileInformationForm_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
             },
-            props: ['sessions', 'errors']
+            props: ['sessions']
         })
     ], ProfileShow);
     return ProfileShow;
 }(vue__WEBPACK_IMPORTED_MODULE_7__["default"]));
 /* harmony default export */ __webpack_exports__["default"] = (ProfileShow);
-/*
-
-export default {
-    props: ['sessions'],
-
-    components: {
-        AppLayout,
-        DeleteUserForm,
-        /*
-        JetSectionBorder,
-        LogoutOtherBrowserSessionsForm,
-        TwoFactorAuthenticationForm,
-        UpdatePasswordForm,
-        UpdateProfileInformationForm,*/
-/* },
-}*/
 
 
 /***/ }),
@@ -46392,7 +46362,8 @@ var UpdatePasswordForm = /** @class */ (function (_super) {
             preserveScroll: true,
             onSuccess: function () {
                 _this.form.processing = false;
-                if (!_this.errors.updatePassword) {
+                // @ts-ignore
+                if (!_this.$page.props.errors.updatePassword) {
                     _this.errorMessages = {
                         password: '',
                         password_confirmation: '',
@@ -46401,7 +46372,8 @@ var UpdatePasswordForm = /** @class */ (function (_super) {
                     _this.form.recentlySuccessful = true;
                 }
                 else {
-                    _this.errorMessages = _this.errors.updatePassword;
+                    // @ts-ignore
+                    _this.errorMessages = _this.$page.props.errors.updatePassword;
                     _this.current_password.focus();
                 }
             }
@@ -46410,9 +46382,6 @@ var UpdatePasswordForm = /** @class */ (function (_super) {
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_6__["Ref"])('current_password')
     ], UpdatePasswordForm.prototype, "current_password", void 0);
-    __decorate([
-        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_6__["Prop"])()
-    ], UpdatePasswordForm.prototype, "errors", void 0);
     UpdatePasswordForm = __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_6__["Component"])({
             components: {
@@ -46512,12 +46481,14 @@ var UpdateProfileInformationForm = /** @class */ (function (_super) {
             resetOnSuccess: false,
             onSuccess: function () {
                 _this.form.processing = false;
-                if (!_this.errors.updateProfileInformation) {
+                // @ts-ignore
+                if (!_this.$page.props.errors.updateProfileInformation) {
                     _this.photoPreview = null;
                     _this.form.recentlySuccessful = true;
                 }
                 else {
-                    _this.errorMessages = _this.errors.updateProfileInformation;
+                    // @ts-ignore
+                    _this.errorMessages = _this.$page.props.errors.updateProfileInformation;
                 }
             }
         });
@@ -46584,9 +46555,9 @@ var UpdateProfileInformationForm = /** @class */ (function (_super) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
+/* harmony import */ var _Layouts_AppLayout_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AppLayout.vue */ "./resources/js/Layouts/AppLayout.vue");
 /* harmony import */ var _CreateTeamForm_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateTeamForm.vue */ "./resources/js/Pages/Teams/CreateTeamForm.vue");
-/* harmony import */ var _Jetstream_SectionBorder__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/SectionBorder */ "./resources/js/Jetstream/SectionBorder.vue");
+/* harmony import */ var _Jetstream_SectionBorder_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/SectionBorder.vue */ "./resources/js/Jetstream/SectionBorder.vue");
 /* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-property-decorator */ "./node_modules/vue-property-decorator/lib/index.js");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -46619,15 +46590,12 @@ var TeamCreate = /** @class */ (function (_super) {
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_3__["Prop"])()
     ], TeamCreate.prototype, "team", void 0);
-    __decorate([
-        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_3__["Prop"])()
-    ], TeamCreate.prototype, "errors", void 0);
     TeamCreate = __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_3__["Component"])({
             components: {
-                AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__["default"],
+                AppLayout: _Layouts_AppLayout_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
                 CreateTeamForm: _CreateTeamForm_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-                JetSectionBorder: _Jetstream_SectionBorder__WEBPACK_IMPORTED_MODULE_2__["default"],
+                JetSectionBorder: _Jetstream_SectionBorder_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
             }
         })
     ], TeamCreate);
@@ -46705,16 +46673,18 @@ var CreateTeamForm = /** @class */ (function (_super) {
             preserveScroll: true,
             onSuccess: function () {
                 _this.form.processing = false;
-                _this.form.recentlySuccessfulg = false;
-                if (_this.form.errors.createTeam) {
-                    _this.form.errors = _this.form.errors.createTeam;
+                // @ts-ignore
+                if (!_this.$page.props.errors.createTeam) {
+                    _this.form.recentlySuccessfulg = true;
+                    _this.form.name = '';
+                }
+                else {
+                    // @ts-ignore
+                    _this.form.errors = _this.$page.props.errors.createTeam;
                 }
             }
         });
     };
-    __decorate([
-        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_6__["Prop"])()
-    ], CreateTeamForm.prototype, "errors", void 0);
     CreateTeamForm = __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_6__["Component"])({
             components: {
@@ -46798,9 +46768,6 @@ var DeleteTeamForm = /** @class */ (function (_super) {
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_5__["Prop"])()
     ], DeleteTeamForm.prototype, "team", void 0);
-    __decorate([
-        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_5__["Prop"])()
-    ], DeleteTeamForm.prototype, "errors", void 0);
     DeleteTeamForm = __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_5__["Component"])({
             components: {
@@ -46873,9 +46840,6 @@ var TeamShow = /** @class */ (function (_super) {
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_5__["Prop"])()
     ], TeamShow.prototype, "permissions", void 0);
-    __decorate([
-        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_5__["Prop"])()
-    ], TeamShow.prototype, "errors", void 0);
     TeamShow = __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_5__["Component"])({
             components: {
@@ -46995,9 +46959,13 @@ var TeamMemberManager = /** @class */ (function (_super) {
             preserveScroll: true,
             onSuccess: function () {
                 _this.addTeamMemberForm.processing = false;
-                _this.addTeamMemberForm.recentlySuccessfulg = false;
-                if (_this.addTeamMemberForm.errors.addTeamMember) {
-                    _this.addTeamMemberForm.errors = _this.addTeamMemberForm.errors.addTeamMember;
+                // @ts-ignore
+                if (!_this.$page.props.errors.addTeamMember) {
+                    _this.addTeamMemberForm.recentlySuccessful = true;
+                }
+                else {
+                    // @ts-ignore
+                    _this.addTeamMemberForm.errors = _this.$page.props.errors.addTeamMember;
                 }
             }
         });
@@ -47060,9 +47028,6 @@ var TeamMemberManager = /** @class */ (function (_super) {
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_12__["Prop"])()
     ], TeamMemberManager.prototype, "userPermissions", void 0);
-    __decorate([
-        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_12__["Prop"])()
-    ], TeamMemberManager.prototype, "errors", void 0);
     TeamMemberManager = __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_12__["Component"])({
             components: {
@@ -47137,6 +47102,7 @@ var UpdateTeamNameForm = /** @class */ (function (_super) {
         _this.form = {
             name: _this.team.name,
             processing: false,
+            recentlySuccessful: false,
             errors: {
                 name: ''
             }
@@ -47146,6 +47112,7 @@ var UpdateTeamNameForm = /** @class */ (function (_super) {
     UpdateTeamNameForm.prototype.updateTeamName = function () {
         var _this = this;
         this.form.processing = true;
+        this.form.recentlySuccessful = false;
         // @ts-ignore
         this.$inertia.put(
         // @ts-ignore
@@ -47153,8 +47120,13 @@ var UpdateTeamNameForm = /** @class */ (function (_super) {
             preserveScroll: true,
             onSuccess: function () {
                 _this.form.processing = false;
-                if (_this.form.errors.updateTeamName) {
-                    _this.form.errors = _this.form.errors.updateTeamName;
+                // @ts-ignore
+                if (!_this.$page.props.errors.updateTeamName) {
+                    _this.form.recentlySuccessful = true;
+                }
+                else {
+                    // @ts-ignore
+                    _this.form.errors = _this.$page.props.errors.updateTeamName;
                 }
             }
         });
@@ -47241,9 +47213,6 @@ var UsersEdit = /** @class */ (function (_super) {
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Prop"])()
     ], UsersEdit.prototype, "roles", void 0);
-    __decorate([
-        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Prop"])()
-    ], UsersEdit.prototype, "errors", void 0);
     UsersEdit = __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             components: {
@@ -47334,11 +47303,13 @@ var EditUserProfileForm = /** @class */ (function (_super) {
             resetOnSuccess: false,
             onSuccess: function () {
                 _this.form.processing = false;
-                if (!_this.errors.editUserAccount) {
+                // @ts-ignore
+                if (!_this.$page.props.errors.editUserAccount) {
                     _this.form.recentlySuccessful = true;
                 }
                 else {
-                    _this.errorMessages = _this.errors.editUserAccount;
+                    // @ts-ignore
+                    _this.errorMessages = _this.$page.props.errors.editUserAccount;
                 }
             }
         });
@@ -47349,9 +47320,6 @@ var EditUserProfileForm = /** @class */ (function (_super) {
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__["Prop"])()
     ], EditUserProfileForm.prototype, "roles", void 0);
-    __decorate([
-        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__["Prop"])()
-    ], EditUserProfileForm.prototype, "errors", void 0);
     EditUserProfileForm = __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__["Component"])({
             components: {
@@ -47450,12 +47418,14 @@ var EditUserProfileForm = /** @class */ (function (_super) {
             resetOnSuccess: false,
             onSuccess: function () {
                 _this.form.processing = false;
-                if (!_this.errors.editUserProfile) {
+                // @ts-ignore
+                if (!_this.$page.props.errors.editUserProfile) {
                     _this.photoPreview = null;
                     _this.form.recentlySuccessful = true;
                 }
                 else {
-                    _this.errorMessages = _this.errors.editUserProfile;
+                    // @ts-ignore
+                    _this.errorMessages = _this.$page.props.errors.editUserProfile;
                 }
             }
         });
@@ -47490,9 +47460,6 @@ var EditUserProfileForm = /** @class */ (function (_super) {
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__["Prop"])()
     ], EditUserProfileForm.prototype, "user", void 0);
-    __decorate([
-        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__["Prop"])()
-    ], EditUserProfileForm.prototype, "errors", void 0);
     EditUserProfileForm = __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__["Component"])({
             components: {
@@ -47571,6 +47538,10 @@ var UsersIndex = /** @class */ (function (_super) {
         };
         return _this;
     }
+    UsersIndex.prototype.created = function () {
+        // @ts-ignore
+        console.log(this.$page);
+    };
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_3__["Prop"])()
     ], UsersIndex.prototype, "users", void 0);
@@ -50807,10 +50778,12 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _c("jet-input-error", {
-                      staticClass: "mt-2",
-                      attrs: { message: _vm.createApiTokenForm.errors.name }
-                    })
+                    !_vm.createApiTokenForm.recentlySuccessful
+                      ? _c("jet-input-error", {
+                          staticClass: "mt-2",
+                          attrs: { message: _vm.createApiTokenForm.errors.name }
+                        })
+                      : _vm._e()
                   ],
                   1
                 ),
@@ -51420,8 +51393,7 @@ var render = function() {
               attrs: {
                 tokens: _vm.tokens,
                 "available-permissions": _vm.availablePermissions,
-                "default-permissions": _vm.defaultPermissions,
-                errors: _vm.errors
+                "default-permissions": _vm.defaultPermissions
               }
             })
           ],
@@ -51618,10 +51590,12 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
-                          _c("jet-input-error", {
-                            staticClass: "mt-2",
-                            attrs: { message: _vm.errorMessages.password }
-                          })
+                          !_vm.form.recentlySuccessful
+                            ? _c("jet-input-error", {
+                                staticClass: "mt-2",
+                                attrs: { message: _vm.errorMessages.password }
+                              })
+                            : _vm._e()
                         ],
                         1
                       )
@@ -51944,10 +51918,12 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
-                          _c("jet-input-error", {
-                            staticClass: "mt-2",
-                            attrs: { message: _vm.errorMessages.password }
-                          })
+                          !_vm.form.recentlySuccessful
+                            ? _c("jet-input-error", {
+                                staticClass: "mt-2",
+                                attrs: { message: _vm.errorMessages.password }
+                              })
+                            : _vm._e()
                         ],
                         1
                       )
@@ -52058,15 +52034,12 @@ var render = function() {
           { staticClass: "max-w-7xl mx-auto py-10 sm:px-6 lg:px-8" },
           [
             _c("update-profile-information-form", {
-              attrs: { errors: _vm.errors, user: _vm.$page.props.user }
+              attrs: { user: _vm.$page.props.user }
             }),
             _vm._v(" "),
             _c("jet-section-border"),
             _vm._v(" "),
-            _c("update-password-form", {
-              staticClass: "mt-10 sm:mt-0",
-              attrs: { errors: _vm.errors }
-            }),
+            _c("update-password-form", { staticClass: "mt-10 sm:mt-0" }),
             _vm._v(" "),
             _vm.$page.props.jetstream.canManageTwoFactorAuthentication
               ? _c(
@@ -52075,8 +52048,7 @@ var render = function() {
                     _c("jet-section-border"),
                     _vm._v(" "),
                     _c("two-factor-authentication-form", {
-                      staticClass: "mt-10 sm:mt-0",
-                      attrs: { errors: _vm.errors }
+                      staticClass: "mt-10 sm:mt-0"
                     })
                   ],
                   1
@@ -52087,15 +52059,12 @@ var render = function() {
             _vm._v(" "),
             _c("logout-other-browser-sessions-form", {
               staticClass: "mt-10 sm:mt-0",
-              attrs: { sessions: _vm.sessions, errors: _vm.errors }
+              attrs: { sessions: _vm.sessions }
             }),
             _vm._v(" "),
             _c("jet-section-border"),
             _vm._v(" "),
-            _c("delete-user-form", {
-              staticClass: "mt-10 sm:mt-0",
-              attrs: { errors: _vm.errors }
-            })
+            _c("delete-user-form", { staticClass: "mt-10 sm:mt-0" })
           ],
           1
         )
@@ -52438,10 +52407,12 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _c("jet-input-error", {
-                  staticClass: "mt-2",
-                  attrs: { message: _vm.errorMessages.password }
-                })
+                !_vm.form.recentlySuccessful
+                  ? _c("jet-input-error", {
+                      staticClass: "mt-2",
+                      attrs: { message: _vm.errorMessages.password }
+                    })
+                  : _vm._e()
               ],
               1
             ),
@@ -52473,10 +52444,14 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _c("jet-input-error", {
-                  staticClass: "mt-2",
-                  attrs: { message: _vm.errorMessages.password_confirmation }
-                })
+                !_vm.form.recentlySuccessful
+                  ? _c("jet-input-error", {
+                      staticClass: "mt-2",
+                      attrs: {
+                        message: _vm.errorMessages.password_confirmation
+                      }
+                    })
+                  : _vm._e()
               ],
               1
             )
@@ -52663,10 +52638,12 @@ var render = function() {
                         )
                       : _vm._e(),
                     _vm._v(" "),
-                    _c("jet-input-error", {
-                      staticClass: "mt-2",
-                      attrs: { message: _vm.errorMessages.photo }
-                    })
+                    !_vm.form.recentlySuccessful
+                      ? _c("jet-input-error", {
+                          staticClass: "mt-2",
+                          attrs: { message: _vm.errorMessages.photo }
+                        })
+                      : _vm._e()
                   ],
                   1
                 )
@@ -52690,10 +52667,12 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _c("jet-input-error", {
-                  staticClass: "mt-2",
-                  attrs: { message: _vm.errorMessages.name }
-                })
+                !_vm.form.recentlySuccessful
+                  ? _c("jet-input-error", {
+                      staticClass: "mt-2",
+                      attrs: { message: _vm.errorMessages.name }
+                    })
+                  : _vm._e()
               ],
               1
             ),
@@ -52716,10 +52695,12 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _c("jet-input-error", {
-                  staticClass: "mt-2",
-                  attrs: { message: _vm.errorMessages.email }
-                })
+                !_vm.form.recentlySuccessful
+                  ? _c("jet-input-error", {
+                      staticClass: "mt-2",
+                      attrs: { message: _vm.errorMessages.email }
+                    })
+                  : _vm._e()
               ],
               1
             )
@@ -52805,7 +52786,7 @@ var render = function() {
         _c(
           "div",
           { staticClass: "max-w-7xl mx-auto py-10 sm:px-6 lg:px-8" },
-          [_c("create-team-form", { attrs: { errors: _vm.errors } })],
+          [_c("create-team-form")],
           1
         )
       ])
@@ -52904,10 +52885,12 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _c("jet-input-error", {
-                  staticClass: "mt-2",
-                  attrs: { message: _vm.form.errors.name }
-                })
+                !_vm.form.recentlySuccessful
+                  ? _c("jet-input-error", {
+                      staticClass: "mt-2",
+                      attrs: { message: _vm.form.errors.name }
+                    })
+                  : _vm._e()
               ],
               1
             )
@@ -53141,11 +53124,7 @@ var render = function() {
           { staticClass: "max-w-7xl mx-auto py-10 sm:px-6 lg:px-8" },
           [
             _c("update-team-name-form", {
-              attrs: {
-                errors: _vm.errors,
-                team: _vm.team,
-                permissions: _vm.permissions
-              }
+              attrs: { team: _vm.team, permissions: _vm.permissions }
             }),
             _vm._v(" "),
             _c("team-member-manager", {
@@ -53153,8 +53132,7 @@ var render = function() {
               attrs: {
                 team: _vm.team,
                 "available-roles": _vm.availableRoles,
-                "user-permissions": _vm.permissions,
-                errors: _vm.errors
+                "user-permissions": _vm.permissions
               }
             }),
             _vm._v(" "),
@@ -53164,7 +53142,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("delete-team-form", {
                     staticClass: "mt-10 sm:mt-0",
-                    attrs: { team: _vm.team, errors: _vm.errors }
+                    attrs: { team: _vm.team }
                   })
                 ]
               : _vm._e()
@@ -53272,12 +53250,15 @@ var render = function() {
                                 }
                               }),
                               _vm._v(" "),
-                              _c("jet-input-error", {
-                                staticClass: "mt-2",
-                                attrs: {
-                                  message: _vm.addTeamMemberForm.errors.email
-                                }
-                              })
+                              !_vm.addTeamMemberForm.recentlySuccessful
+                                ? _c("jet-input-error", {
+                                    staticClass: "mt-2",
+                                    attrs: {
+                                      message:
+                                        _vm.addTeamMemberForm.errors.email
+                                    }
+                                  })
+                                : _vm._e()
                             ],
                             1
                           ),
@@ -53291,12 +53272,15 @@ var render = function() {
                                     attrs: { for: "roles", value: "Role" }
                                   }),
                                   _vm._v(" "),
-                                  _c("jet-input-error", {
-                                    staticClass: "mt-2",
-                                    attrs: {
-                                      message: _vm.addTeamMemberForm.errors.role
-                                    }
-                                  }),
+                                  !_vm.addTeamMemberForm.recentlySuccessful
+                                    ? _c("jet-input-error", {
+                                        staticClass: "mt-2",
+                                        attrs: {
+                                          message:
+                                            _vm.addTeamMemberForm.errors.role
+                                        }
+                                      })
+                                    : _vm._e(),
                                   _vm._v(" "),
                                   _c(
                                     "div",
@@ -53465,7 +53449,7 @@ var render = function() {
                   ],
                   null,
                   false,
-                  1929310223
+                  4108431343
                 )
               })
             ],
@@ -54041,10 +54025,12 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
-                  _c("jet-input-error", {
-                    staticClass: "mt-2",
-                    attrs: { message: _vm.form.errors.name }
-                  })
+                  !_vm.form.recentlySuccessful
+                    ? _c("jet-input-error", {
+                        staticClass: "mt-2",
+                        attrs: { message: _vm.form.errors.name }
+                      })
+                    : _vm._e()
                 ],
                 1
               )
@@ -54143,7 +54129,7 @@ var render = function() {
           { staticClass: "max-w-7xl mx-auto sm:px-6 lg:px-8" },
           [
             _c("edit-user-profile-form", {
-              attrs: { errors: _vm.errors, user: _vm.userBeingEdited }
+              attrs: { user: _vm.userBeingEdited }
             }),
             _vm._v(" "),
             _c("jet-section-border"),
@@ -54152,11 +54138,7 @@ var render = function() {
             _vm._.includes(_vm.UserPermissions, "*")
               ? _c("edit-user-account-form", {
                   staticClass: "mt-10 sm:mt-0",
-                  attrs: {
-                    errors: _vm.errors,
-                    user: _vm.userBeingEdited,
-                    roles: _vm.roles
-                  }
+                  attrs: { user: _vm.userBeingEdited, roles: _vm.roles }
                 })
               : _vm._e()
           ],
@@ -54233,10 +54215,12 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _c("jet-input-error", {
-                  staticClass: "mt-2",
-                  attrs: { message: _vm.errorMessages.email }
-                })
+                !_vm.form.recentlySuccessful
+                  ? _c("jet-input-error", {
+                      staticClass: "mt-2",
+                      attrs: { message: _vm.errorMessages.email }
+                    })
+                  : _vm._e()
               ],
               1
             ),
@@ -54297,10 +54281,12 @@ var render = function() {
                   2
                 ),
                 _vm._v(" "),
-                _c("jet-input-error", {
-                  staticClass: "mt-2",
-                  attrs: { message: _vm.errorMessages.role }
-                })
+                !_vm.form.recentlySuccessful
+                  ? _c("jet-input-error", {
+                      staticClass: "mt-2",
+                      attrs: { message: _vm.errorMessages.role }
+                    })
+                  : _vm._e()
               ],
               1
             )
@@ -54489,10 +54475,12 @@ var render = function() {
                         )
                       : _vm._e(),
                     _vm._v(" "),
-                    _c("jet-input-error", {
-                      staticClass: "mt-2",
-                      attrs: { message: _vm.errorMessages.photo }
-                    })
+                    !_vm.form.recentlySuccessful
+                      ? _c("jet-input-error", {
+                          staticClass: "mt-2",
+                          attrs: { message: _vm.errorMessages.photo }
+                        })
+                      : _vm._e()
                   ],
                   1
                 )
@@ -54516,10 +54504,12 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _c("jet-input-error", {
-                  staticClass: "mt-2",
-                  attrs: { message: _vm.errorMessages.name }
-                })
+                !_vm.form.recentlySuccessful
+                  ? _c("jet-input-error", {
+                      staticClass: "mt-2",
+                      attrs: { message: _vm.errorMessages.name }
+                    })
+                  : _vm._e()
               ],
               1
             )
@@ -55228,13 +55218,13 @@ var render = function() {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                                    " +
+                                                "\n                                " +
                                                   _vm._s(
                                                     _vm.pageNumber * 10 -
                                                       10 +
                                                       (index + 1)
                                                   ) +
-                                                  "\n                                "
+                                                  "\n                            "
                                               )
                                             ]
                                           )
