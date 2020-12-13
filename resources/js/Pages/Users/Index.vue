@@ -65,5 +65,10 @@ export default class UsersIndex extends Vue {
         edit: {displayName: 'Edit', hvColor: "indigo-900", color: "indigo-600", enabled: true, path: "edit"},
         show: {displayName: 'See', hvColor: "green-900", color: "green-600", enabled: false}
     }
+
+    created() {
+        // @ts-ignore
+        console.log(this.$page)
+    }
 }
 </script>

@@ -9,25 +9,25 @@
         <div>
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
 
-                <update-profile-information-form :errors="errors" :user="$page.props.user" />
+                <update-profile-information-form :user="$page.props.user" />
 
                 <jet-section-border />
 
-                <update-password-form :errors="errors" class="mt-10 sm:mt-0" />
+                <update-password-form class="mt-10 sm:mt-0" />
 
                 <div v-if="$page.props.jetstream.canManageTwoFactorAuthentication">
                     <jet-section-border />
 
-                    <two-factor-authentication-form :errors="errors" class="mt-10 sm:mt-0" />
+                    <two-factor-authentication-form class="mt-10 sm:mt-0" />
                 </div>
 
                 <jet-section-border />
 
-                <logout-other-browser-sessions-form :sessions="sessions" :errors="errors" class="mt-10 sm:mt-0" />
+                <logout-other-browser-sessions-form :sessions="sessions" class="mt-10 sm:mt-0" />
 
                 <jet-section-border />
 
-                <delete-user-form :errors="errors" class="mt-10 sm:mt-0" />
+                <delete-user-form class="mt-10 sm:mt-0" />
             </div>
         </div>
     </app-layout>
@@ -55,26 +55,9 @@
             UpdatePasswordForm,
             UpdateProfileInformationForm
         },
-        props: ['sessions', 'errors']
+        props: ['sessions']
     })
     export default class ProfileShow extends Vue {
         //
     }
-
-    /*
-
-    export default {
-        props: ['sessions'],
-
-        components: {
-            AppLayout,
-            DeleteUserForm,
-            /*
-            JetSectionBorder,
-            LogoutOtherBrowserSessionsForm,
-            TwoFactorAuthenticationForm,
-            UpdatePasswordForm,
-            UpdateProfileInformationForm,*/
-       /* },
-    }*/
 </script>

@@ -42,9 +42,9 @@
                         <tr v-else v-for="(item, index) in dataObject.data">
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
                                 v-for="{ key, type } in headers">
-                                    <span v-if="type === 'Index'" class="text-md text-gray-600">
-                                        {{ ((pageNumber * 10) - 10) + (index + 1) }}
-                                    </span>
+                                <span v-if="type === 'Index'" class="text-md text-gray-600">
+                                    {{ ((pageNumber * 10) - 10) + (index + 1) }}
+                                </span>
                                 <dt-date v-else-if="_.startsWith(type, 'Date')" :date="item[key]" :type="type"/>
                                 <dt-user-profile v-else-if="type === 'User.Profile'" :name="item.name"
                                                  :email="item.email" :profile_photo_url="item.profile_photo_url"/>

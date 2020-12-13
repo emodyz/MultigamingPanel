@@ -34,7 +34,7 @@
                                     v-model="form.password"
                                     @keyup.enter.native="deleteUser" />
 
-                        <jet-input-error :message="errorMessages.password" class="mt-2" />
+                        <jet-input-error v-if="!form.recentlySuccessful" :message="errorMessages.password" class="mt-2" />
                     </div>
                 </template>
 
@@ -74,7 +74,6 @@
     })
     export default class DeleteUserForm extends Vue {
         @Ref('password') readonly password!: any
-        @Prop() readonly errors!: Object
 
         errorMessages = {
             password: ''
@@ -84,13 +83,14 @@
 
         form = {
             password: '',
-            processing: false
+            processing: false,
+            recentlySuccessful: false
         }
 
         confirmUserDeletion() {
-            this.form.password = '';
+            this.form.password = ''
 
-            this.confirmingUserDeletion = true;
+            this.confirmingUserDeletion = true
 
             setTimeout(() => {
                 this.password.focus()
@@ -99,6 +99,7 @@
 
         deleteUser() {
             this.form.processing = true
+            this.form.recentlySuccessful = false
             // @ts-ignore
             this.$inertia.delete(
                 // @ts-ignore
@@ -110,11 +111,12 @@
                         // @ts-ignore
                         this.form.processing = false
                         // @ts-ignore
-                        if (!this.errors.deleteUser) {
+                        if (!this.$page.props.errors.deleteUser) {
                             this.confirmingUserDeletion = false
+                            this.form.recentlySuccessful = true
                         } else {
                             // @ts-ignore
-                            this.errorMessages = this.errors.deleteUser
+                            this.errorMessages = this.$page.props.errors.deleteUser
                         }
                     }
                 }

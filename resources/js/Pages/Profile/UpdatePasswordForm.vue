@@ -18,13 +18,13 @@
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="password" value="New Password" />
                 <jet-input id="password" type="password" class="mt-1 block w-full" v-model="form.password" autocomplete="new-password" />
-                <jet-input-error :message="errorMessages.password" class="mt-2" />
+                <jet-input-error v-if="!form.recentlySuccessful" :message="errorMessages.password" class="mt-2" />
             </div>
 
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="password_confirmation" value="Confirm Password" />
                 <jet-input id="password_confirmation" type="password" class="mt-1 block w-full" v-model="form.password_confirmation" autocomplete="new-password" />
-                <jet-input-error :message="errorMessages.password_confirmation" class="mt-2" />
+                <jet-input-error v-if="!form.recentlySuccessful" :message="errorMessages.password_confirmation" class="mt-2" />
             </div>
         </template>
 
@@ -62,7 +62,6 @@
     })
     export default class UpdatePasswordForm extends Vue {
         @Ref('current_password') readonly current_password!: any
-        @Prop() readonly errors!: any
 
         errorMessages = {
             password: '',
@@ -90,7 +89,8 @@
                     preserveScroll: true,
                     onSuccess: () => {
                         this.form.processing = false
-                        if (!this.errors.updatePassword) {
+                        // @ts-ignore
+                        if (!this.$page.props.errors.updatePassword) {
                             this.errorMessages = {
                                 password: '',
                                 password_confirmation: '',
@@ -98,7 +98,8 @@
                             }
                             this.form.recentlySuccessful = true
                         } else {
-                            this.errorMessages = this.errors.updatePassword
+                            // @ts-ignore
+                            this.errorMessages = this.$page.props.errors.updatePassword
                             this.current_password.focus()
                         }
                     }

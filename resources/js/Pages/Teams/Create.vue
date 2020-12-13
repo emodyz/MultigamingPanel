@@ -8,16 +8,16 @@
 
         <div>
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-                <create-team-form :errors="errors" />
+                <create-team-form/>
             </div>
         </div>
     </app-layout>
 </template>
 
 <script lang="ts">
-    import AppLayout from '@/Layouts/AppLayout'
+    import AppLayout from '@/Layouts/AppLayout.vue'
     import CreateTeamForm from './CreateTeamForm.vue'
-    import JetSectionBorder from '@/Jetstream/SectionBorder'
+    import JetSectionBorder from '@/Jetstream/SectionBorder.vue'
 
     import { Vue, Component, Prop } from 'vue-property-decorator'
 
@@ -30,6 +30,5 @@
     })
     export default class TeamCreate extends Vue {
         @Prop() team!: any
-        @Prop() errors!: any
     }
 </script>

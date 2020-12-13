@@ -8,18 +8,17 @@
 
         <div>
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-                <update-team-name-form :errors="errors" :team="team" :permissions="permissions" />
+                <update-team-name-form :team="team" :permissions="permissions" />
 
                 <team-member-manager class="mt-10 sm:mt-0"
                             :team="team"
                             :available-roles="availableRoles"
-                            :user-permissions="permissions"
-                            :errors="errors" />
+                            :user-permissions="permissions"/>
 
                 <template v-if="permissions.canDeleteTeam && ! team.personal_team">
                     <jet-section-border />
 
-                    <delete-team-form class="mt-10 sm:mt-0" :team="team" :errors="errors" />
+                    <delete-team-form class="mt-10 sm:mt-0" :team="team"/>
                 </template>
             </div>
         </div>
@@ -48,6 +47,5 @@
         @Prop() team!: any
         @Prop() availableRoles!: any
         @Prop() permissions!: any
-        @Prop() errors!: any
     }
 </script>

@@ -38,14 +38,14 @@
                     Remove Photo
                 </jet-secondary-button>
 
-                <jet-input-error :message="errorMessages.photo" class="mt-2" />
+                <jet-input-error v-if="!form.recentlySuccessful" :message="errorMessages.photo" class="mt-2" />
             </div>
 
             <!-- Name -->
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="name" value="Name" />
                 <jet-input id="name" type="text" class="mt-1 block w-full" v-model="form.name" autocomplete="name" />
-                <jet-input-error :message="errorMessages.name" class="mt-2" />
+                <jet-input-error v-if="!form.recentlySuccessful" :message="errorMessages.name" class="mt-2" />
             </div>
         </template>
 
@@ -89,7 +89,6 @@ import {User} from "@/Shared/DataTable/Types/User";
 export default class EditUserProfileForm extends Vue {
     @Ref('photo') readonly photo!: any
     @Prop() readonly user!: User
-    @Prop() readonly errors!: any
 
     photoPreview: any = null
 
@@ -123,11 +122,13 @@ export default class EditUserProfileForm extends Vue {
                 resetOnSuccess: false,
                 onSuccess: () => {
                     this.form.processing = false
-                    if (!this.errors.editUserProfile) {
+                    // @ts-ignore
+                    if (!this.$page.props.errors.editUserProfile) {
                         this.photoPreview = null
                         this.form.recentlySuccessful = true
                     } else {
-                        this.errorMessages = this.errors.editUserProfile
+                        // @ts-ignore
+                        this.errorMessages = this.$page.props.errors.editUserProfile
                     }
                 }
             }

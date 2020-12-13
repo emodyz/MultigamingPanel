@@ -68,7 +68,7 @@
                                     v-model="form.password"
                                     @keyup.enter.native="logoutOtherBrowserSessions" />
 
-                        <jet-input-error :message="errorMessages.password" class="mt-2" />
+                        <jet-input-error v-if="!form.recentlySuccessful" :message="errorMessages.password" class="mt-2" />
                     </div>
                 </template>
 
@@ -111,7 +111,6 @@
     export default class LogoutOtherBrowserSessionsForm extends Vue {
         @Ref('password') readonly password!: any
         @Prop() readonly sessions!: any
-        @Prop() readonly errors!: any
 
         confirmingLogout: boolean = false
 
@@ -148,10 +147,12 @@
                     onSuccess: (page: any) => {
                         // @ts-ignore
                         this.form.processing = false
-                        if (!this.errors.logoutOtherBrowserSessions) {
+                        // @ts-ignore
+                        if (!this.$page.props.errors.logoutOtherBrowserSessions) {
                             this.confirmingLogout = false
                             this.form.recentlySuccessful = true
                         } else {
+                            // @ts-ignore
                             this.errorMessages = this.errors.logoutOtherBrowserSessions
                         }
                     }
