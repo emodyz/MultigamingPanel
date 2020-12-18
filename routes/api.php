@@ -36,4 +36,15 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // Servers
     Route::resource('servers', ServerController::class);
+
+    /**
+     * Cerberus
+     * todo: move this in a controller located inside the cerberus package!
+     */
+
+    Route::get('cerberus/authorizations', fn() => response()->json(config('cerberus.authorizations')))->name('cerberus.authorizations');
+    Route::get('cerberus/authorizations/check/{ability}', function (Request $request, $ability) {
+        return 'lol';
+        // return response()->json($request->user()->can($ability));
+    })->name('cerberus.authorizations.check');
 });

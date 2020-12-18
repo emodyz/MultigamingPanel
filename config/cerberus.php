@@ -12,7 +12,8 @@ return [
             'displayName' => 'Administrator',
             'can' => [
                 'dashboard',
-                'users-index'
+                'users-index',
+                'users-edit'
             ]
         ],
         'default' => [

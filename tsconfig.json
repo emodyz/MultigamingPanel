@@ -11,7 +11,8 @@
         },
         "module": "es2015",
         "strictNullChecks": false,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "lib": ["dom", "esNext"]
     },
     "types": [
         "lodash",
