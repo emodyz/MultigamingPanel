@@ -1,0 +1,5 @@
+webpack.config.js
+webpack.mix.js
+tailwind.config.js
+vendor/
+node_modules/
