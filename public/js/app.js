@@ -47510,7 +47510,7 @@ var UsersIndex = /** @class */ (function (_super) {
     }
     UsersIndex.prototype.created = function () {
         // @ts-ignore
-        console.log(this.$page);
+        // console.log(this.$page)
     };
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_3__["Prop"])()
@@ -48056,7 +48056,7 @@ var Pagination = /** @class */ (function (_super) {
         return _this;
     }
     Pagination.prototype.created = function () {
-        console.log(this.links);
+        // console.log(this.links)
     };
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Prop"])({
