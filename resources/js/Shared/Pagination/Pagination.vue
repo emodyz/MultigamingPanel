@@ -145,7 +145,7 @@ export default class Pagination extends Vue {
   pageNumber = this.query.page ? this.query.page : 1
 
   created() {
-    console.log(this.links)
+    // console.log(this.links)
   }
 }
 </script>
