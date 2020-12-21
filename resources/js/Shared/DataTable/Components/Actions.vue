@@ -135,15 +135,12 @@ export default class DataTable_Actions extends Vue {
 
     async checkPermissions() {
       if (this.actions.show.enabled && this.actions.show.permission) {
-        // eslint-disable-next-line no-unused-expressions
         this.actions.show.enabled = await this.Cerberus.can(this.actions.show.permission)
       }
       if (this.actions.edit.enabled && this.actions.edit.permission) {
-        // eslint-disable-next-line no-unused-expressions
         this.actions.edit.enabled = await this.Cerberus.can(this.actions.edit.permission)
       }
       if (this.actions.destroy.enabled && this.actions.destroy.permission) {
-        // eslint-disable-next-line no-unused-expressions
         this.actions.destroy.enabled = await this.Cerberus.can(this.actions.destroy.permission)
       }
     }

@@ -168,7 +168,6 @@ import { User } from '@/Shared/DataTable/Types/User.d.ts'
 import { PaginatedDate } from '@/Shared/DataTable/Types/PaginatedData.d.ts'
 import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader.d.ts'
 
-// TODO: Extract permissions checks in their appropriate file
 // TODO: Use Dynamic components
 
 @Component({
