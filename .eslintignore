@@ -1,5 +1,5 @@
 webpack.config.js
 webpack.mix.js
-tailwind.config.js.back
+tailwind.config.js
 vendor/
 node_modules/

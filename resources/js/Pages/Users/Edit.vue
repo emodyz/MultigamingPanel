@@ -7,15 +7,16 @@
     </template>
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <edit-user-profile-form :user="userBeingEdited" />
-        <jet-section-border />
-        <!-- TODO: Extract permission checks -->
-        <edit-user-account-form
-          v-if="can('users-edit-account')"
-          :user="userBeingEdited"
-          :roles="roles"
-          class="mt-10 sm:mt-0"
-        />
+        <edit-user-profile-form v-if="canEditProfile" :user="userBeingEdited"/>
+        <div v-if="canEditAccount">
+          <jet-section-border/>
+          <!-- TODO: Extract permission checks -->
+          <edit-user-account-form
+              :user="userBeingEdited"
+              :roles="roles"
+              class="mt-10 sm:mt-0"
+          />
+        </div>
       </div>
     </div>
   </app-layout>
@@ -29,7 +30,7 @@ import { User } from '@/Shared/DataTable/Types/User.d.ts'
 import EditUserProfileForm from '@/Pages/Users/EditUserProfileForm.vue'
 import EditUserAccountForm from '@/Pages/Users/EditUserAccountForm.vue'
 import JetSectionBorder from '@/Jetstream/SectionBorder.vue'
-import { hasAuthorizationTo } from '@/Shared/Helpers/cerberus.ts'
+import CerberusService from '@/Shared/Services/cerberus.service.ts'
 
 @Component({
   components: {
@@ -40,15 +41,19 @@ import { hasAuthorizationTo } from '@/Shared/Helpers/cerberus.ts'
   },
 })
 export default class UsersEdit extends Vue {
-    @Prop() readonly userBeingEdited!: User
+  @Prop() readonly userBeingEdited!: User
 
-    @Prop() readonly UserPermissions!: Array<string>
+  @Prop() readonly roles!: any
 
-    @Prop() readonly roles!: any
+  Cerberus = new CerberusService()
 
-    can = hasAuthorizationTo
+  canEditProfile = false
 
-    created() {
-    }
+  canEditAccount = false
+
+  async created() {
+    this.canEditProfile = await this.Cerberus.can('users-edit')
+    this.canEditAccount = await this.Cerberus.can('users-edit-account')
+  }
 }
 </script>

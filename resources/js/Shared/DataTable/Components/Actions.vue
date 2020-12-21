@@ -3,7 +3,7 @@
     <a
       v-if="actions.show.enabled"
       href="#"
-      :class="`text-${actions.show.color} hover:text-${actions.show.hvColor} pr-1`"
+      class="text-green-600 hover:text-green-900 pr-1"
       @click.prevent="goToShow(item.id)"
     >
       {{ actions.show.displayName }}
@@ -11,7 +11,8 @@
     <a
       v-if="actions.edit.enabled"
       href="#"
-      :class="`text-${actions.edit.color} hover:text-${actions.edit.hvColor} ${actions.show.enabled ? 'pl-2' : ''} pr-1`"
+      :class="`${actions.show.enabled ? 'pl-2' : ''} pr-1`"
+      class="text-indigo-600 hover:text-indigo-900"
       @click.prevent="goToEdit(item.id)"
     >
       {{ actions.edit.displayName }}
@@ -19,7 +20,8 @@
     <a
       v-if="actions.destroy.enabled"
       href="#"
-      :class="`text-${actions.destroy.color} hover:text-${actions.destroy.hvColor} pl-2`"
+      :class="`pl-2`"
+      class="text-red-600 hover:text-red-900"
       @click.prevent="initiateDestruction(item.id)"
     >
       {{ actions.destroy.displayName }}
@@ -75,12 +77,13 @@ import { defaultActionsOptions } from '@/Shared/DataTable/Types/defaults.ts'
 import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions.d.ts'
 import { DataTableActionsItem } from '@/Shared/DataTable/Types/DataTableActionsItem.d.ts'
 import { Inertia } from '@inertiajs/inertia'
-import _ from 'lodash'
+// import _ from 'lodash'
 import jetButton from '@/Jetstream/Button.vue'
 import JetDangerButton from '@/Jetstream/DangerButton.vue'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 import JetConfirmationModal from '@/Jetstream/ConfirmationModal.vue'
 import DtUserProfile from '@/Shared/DataTable/Components/UserProfile.vue'
+import CerberusService from '@/Shared/Services/cerberus.service.ts'
 
 @Component({
   components: {
@@ -95,8 +98,6 @@ import DtUserProfile from '@/Shared/DataTable/Components/UserProfile.vue'
 export default class DataTable_Actions extends Vue {
     @Prop({ type: Object, required: true }) readonly item!: DataTableActionsItem
 
-    @Prop({ required: true }) readonly UserPermissions!: Array<string> | null
-
     @Prop({
       type: Object,
       required: true,
@@ -106,6 +107,8 @@ export default class DataTable_Actions extends Vue {
     uuidBeingDestroyed: string | number | null = null
 
     destructionInProgress = false
+
+    Cerberus = new CerberusService()
 
     goToShow(id: string | number) {
       Inertia.visit(`${this.actions.baseUrl}/${id}/${this.actions.show.path ? this.actions.show.path : ''}`, { preserveScroll: true })
@@ -130,18 +133,18 @@ export default class DataTable_Actions extends Vue {
         })
     }
 
-    checkPermissions() {
+    async checkPermissions() {
       if (this.actions.show.enabled && this.actions.show.permission) {
         // eslint-disable-next-line no-unused-expressions
-        !(_.includes(this.UserPermissions, this.actions.show.permission)) && !(_.includes(this.UserPermissions, '*')) ? this.actions.show.enabled = false : null
+        this.actions.show.enabled = await this.Cerberus.can(this.actions.show.permission)
       }
       if (this.actions.edit.enabled && this.actions.edit.permission) {
         // eslint-disable-next-line no-unused-expressions
-        !(_.includes(this.UserPermissions, this.actions.edit.permission)) && !(_.includes(this.UserPermissions, '*')) ? this.actions.edit.enabled = false : null
+        this.actions.edit.enabled = await this.Cerberus.can(this.actions.edit.permission)
       }
       if (this.actions.destroy.enabled && this.actions.destroy.permission) {
         // eslint-disable-next-line no-unused-expressions
-        !(_.includes(this.UserPermissions, this.actions.destroy.permission)) && !(_.includes(this.UserPermissions, '*')) ? this.actions.destroy.enabled = false : null
+        this.actions.destroy.enabled = await this.Cerberus.can(this.actions.destroy.permission)
       }
     }
 

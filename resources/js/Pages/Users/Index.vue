@@ -16,7 +16,6 @@
           data-type="Users"
           :initial-query="initialSearch"
           :actions="actions"
-          :user-permissions="UserPermissions"
           :total-item-count="totalItemCount"
           class="w-full p-6"
         />
@@ -50,8 +49,6 @@ export default class UsersIndex extends Vue {
 
     @Prop() readonly initialSearch!: null | string
 
-    @Prop() readonly UserPermissions!: Array<string> | null
-
     headers: Array<DataTableHeader> = [
       { title: '#', key: 'index', type: 'Index' },
       { title: 'Name', key: 'name', type: 'User.Profile' },
@@ -64,13 +61,13 @@ export default class UsersIndex extends Vue {
       enabled: true,
       baseUrl: '/users',
       destroy: {
-        displayName: 'Delete', hvColor: 'red-900', color: 'red-600', enabled: true,
+        displayName: 'Delete', enabled: true, permission: 'users-destroy',
       },
       edit: {
-        displayName: 'Edit', hvColor: 'indigo-900', color: 'indigo-600', enabled: true, path: 'edit',
+        displayName: 'Edit', enabled: true, path: 'edit', permission: 'users-edit',
       },
       show: {
-        displayName: 'See', hvColor: 'green-900', color: 'green-600', enabled: false,
+        displayName: 'See', enabled: false,
       },
     }
 
