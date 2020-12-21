@@ -1,9 +1,10 @@
 const path = require('path');
 
 module.exports = {
+    stats: 'normal',
     resolve: {
         alias: {
-            vue$: path.resolve('vue/dist/vue.runtime.esm.js'),
+            // vue$: path.resolve('vue/dist/vue.runtime.esm.js'),
             '@': path.resolve('resources/js'),
         },
     },

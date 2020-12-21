@@ -8,12 +8,12 @@
     ],
     "license": "MIT",
     "require": {
+        "php": "^8.0",
         "php": "^7.4|^8.0",
         "ext-curl": "*",
         "ext-json": "*",
         "austinb/gameq": "^3.0",
         "emodyz/cerberus": "^v0.0.2-alpha.2",
-        "emodyz/cerberus": "^0.0.2@alpha",
         "beyondcode/laravel-websockets": "^1.9",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",

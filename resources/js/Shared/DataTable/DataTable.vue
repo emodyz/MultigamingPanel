@@ -133,7 +133,6 @@
                       type: dataType ? dataType : false,
                       metaData: dataType ? initActionsMetaData(item) : null,
                     }"
-                    :user-permissions="UserPermissions"
                   />
                 </td>
               </tr>
@@ -183,8 +182,6 @@ import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader.d.ts'
   },
 })
 export default class DataTable extends Vue {
-    @Prop() readonly UserPermissions!: Array<string> | null
-
     @Prop({ type: Array, required: true }) readonly headers!: Array<DataTableHeader>
 
     @Prop({ type: Object, required: true }) readonly dataObject!: PaginatedDate

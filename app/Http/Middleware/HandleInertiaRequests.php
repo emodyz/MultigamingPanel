@@ -36,11 +36,12 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        /*
         if($request->user()) {
             return array_merge(parent::share($request), [
                 'UserPermissions' => config('cerberus.roles.' . $request->user()->role . '.can')
             ]);
-        }
+        }*/
 
         //  Unauthenticated request
         return array_merge(parent::share($request), [

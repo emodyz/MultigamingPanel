@@ -14,9 +14,13 @@ import VueLodash from 'vue-lodash'
 import { InertiaProgress } from '@inertiajs/progress'
 
 Moment.locale(document.documentElement.lang)
-Moment.tz.setDefault(document.querySelector('meta[name="timezone"]').getAttribute('content'))
+Moment.tz.setDefault(document.querySelector('meta[name="timezone"]')
+  .getAttribute('content'))
 
-Vue.use(VueLodash, { name: 'custom', lodash })
+Vue.use(VueLodash, {
+  name: 'custom',
+  lodash,
+})
 
 InertiaProgress.init({
   // The delay after which the progress bar will
