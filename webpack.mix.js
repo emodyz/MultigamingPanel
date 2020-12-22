@@ -16,6 +16,7 @@ let productionSourceMaps = false;
 mix.typeScript('resources/js/app.ts', 'public/js')
   .vue({version: 2})
   .postCss('resources/css/app.css', 'public/css', [
+    require('autoprefixer'),
     require('tailwindcss')('./tailwind.config.js')
   ])
   .webpackConfig(require('./webpack.config'))

@@ -2,6 +2,14 @@
  * @license MIT */
 
 /*!
+ * Pusher JavaScript Library v7.0.2
+ * https://pusher.com/
+ *
+ * Copyright 2020, Pusher
+ * Released under the MIT licence.
+ */
+
+/*!
  * Vue.js v2.6.12
  * (c) 2014-2020 Evan You
  * Released under the MIT License.

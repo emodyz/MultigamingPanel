@@ -28,6 +28,6 @@ class UserSeeder extends Seeder
             ]));
         });
 
-        User::factory()->count(rand(30, 1000))->create();
+        User::factory()->count(rand(30, 500))->create();
     }
 }

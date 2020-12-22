@@ -5,8 +5,8 @@
  */
 
 import axios from 'axios'
-import Echo from "laravel-echo"
-import Vue from "vue";
+import Echo from 'laravel-echo'
+import Vue from 'vue'
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 
@@ -31,18 +31,18 @@ if (token) {
  */
 
 // @ts-ignore
-window.Pusher = require('pusher-js');
+window.Pusher = require('pusher-js')
 
 // @ts-ignore
 window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: 'app-key',
-    wsHost: window.location.hostname,
-    wsPort: 6001,
-    wssPort: 6001,
-    disableStats: true
+  broadcaster: 'pusher',
+  key: 'app-key',
+  wsHost: window.location.hostname,
+  wsPort: 6001,
+  wssPort: 6001,
+  disableStats: true,
 })
 
 // @ts-ignore
-Vue.prototype.$echo = window.Echo;
-Vue.prototype.$axios = axios;
+Vue.prototype.$echo = window.Echo
+Vue.prototype.$axios = axios

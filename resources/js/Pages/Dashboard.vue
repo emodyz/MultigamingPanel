@@ -30,9 +30,9 @@ import {
         Welcome,
       },
     })
-    export default class Dashboard extends Vue {
-        mounted() {
-            console.log('mounted');
-        }
-    }
+export default class Dashboard extends Vue {
+  mounted() {
+    console.log('mounted')
+  }
+}
 </script>
