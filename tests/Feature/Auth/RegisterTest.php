@@ -9,7 +9,7 @@ use Tests\TestCase;
 class RegisterTest extends TestCase
 {
     const USER_EMAIL = 'foo@bar.com';
-    const USER_NAME = 'Foo';
+    const USER_NAME = 'FooBar';
     const USER_PASSWORD = 'SuperPassword1/£';
 
     /**
