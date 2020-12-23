@@ -159,14 +159,14 @@ import _ from 'lodash'
 import qs, { stringify } from 'qs'
 import Pagination from '@/Shared/Pagination/Pagination.vue'
 import JetInput from '@/Jetstream/Input.vue'
-import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions.d.ts'
+import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions'
 import DtUserProfile from '@/Shared/DataTable/Components/UserProfile.vue'
 import DtUserStatus from '@/Shared/DataTable/Components/UserStatus.vue'
 import DtDate from '@/Shared/DataTable/Components/Date.vue'
 import DtActions from '@/Shared/DataTable/Components/Actions.vue'
-import { User } from '@/Shared/DataTable/Types/User.d.ts'
-import { PaginatedDate } from '@/Shared/DataTable/Types/PaginatedData.d.ts'
-import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader.d.ts'
+import { User } from '@/Shared/DataTable/Types/User'
+import { PaginatedDate } from '@/Shared/DataTable/Types/PaginatedData'
+import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader'
 
 // TODO: Use Dynamic components
 

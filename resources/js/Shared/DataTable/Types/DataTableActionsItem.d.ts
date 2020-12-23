@@ -1,4 +1,4 @@
-import { User } from '@/Shared/DataTable/Types/User.d.ts'
+import { User } from '@/Shared/DataTable/Types/User'
 
 export interface DataTableActionsItem {
     id: string | number

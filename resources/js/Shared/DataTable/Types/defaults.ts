@@ -1,4 +1,4 @@
-import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions.d.ts'
+import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions'
 
 // eslint-disable-next-line import/prefer-default-export
 export const defaultActionsOptions: DataTableActionsOptions = {

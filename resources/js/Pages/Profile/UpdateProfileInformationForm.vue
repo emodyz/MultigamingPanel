@@ -145,7 +145,7 @@ import {
   Vue, Component, Prop, Ref,
 } from 'vue-property-decorator'
 
-import { objectToFormData } from '@/Shared/Helpers/objectToFormData.ts'
+import { objectToFormData } from '@/Shared/Helpers/objectToFormData'
 
     @Component({
       components: {

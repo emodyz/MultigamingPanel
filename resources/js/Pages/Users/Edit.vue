@@ -26,11 +26,11 @@
 
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import AppLayout from '@/Layouts/AppLayout.vue'
-import { User } from '@/Shared/DataTable/Types/User.d.ts'
+import { User } from '@/Shared/DataTable/Types/User'
 import EditUserProfileForm from '@/Pages/Users/EditUserProfileForm.vue'
 import EditUserAccountForm from '@/Pages/Users/EditUserAccountForm.vue'
 import JetSectionBorder from '@/Jetstream/SectionBorder.vue'
-import CerberusService from '@/Shared/Services/cerberus.service.ts'
+import CerberusService from '@/Shared/Services/cerberus.service'
 
 @Component({
   components: {

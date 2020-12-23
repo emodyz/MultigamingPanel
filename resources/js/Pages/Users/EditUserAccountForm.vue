@@ -92,7 +92,7 @@ import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 
 import { Vue, Component, Prop } from 'vue-property-decorator'
 
-import { User } from '@/Shared/DataTable/Types/User.d.ts'
+import { User } from '@/Shared/DataTable/Types/User'
 
 @Component({
   components: {

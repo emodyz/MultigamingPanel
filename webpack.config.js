@@ -7,6 +7,7 @@ module.exports = {
             // vue$: path.resolve('vue/dist/vue.runtime.esm.js'),
             '@': path.resolve('resources/js'),
         },
+        extensions: ['.js', '.vue', '.ts', '.d.ts']
     },
     module: {
         rules: [

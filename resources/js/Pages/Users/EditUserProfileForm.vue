@@ -126,8 +126,8 @@ import {
   Vue, Component, Prop, Ref,
 } from 'vue-property-decorator'
 
-import { objectToFormData } from '@/Shared/Helpers/objectToFormData.ts'
-import { User } from '@/Shared/DataTable/Types/User.d.ts'
+import { objectToFormData } from '@/Shared/Helpers/objectToFormData'
+import { User } from '@/Shared/DataTable/Types/User'
 
 @Component({
   components: {

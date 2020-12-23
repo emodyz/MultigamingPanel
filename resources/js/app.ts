@@ -1,6 +1,5 @@
-import './bootstrap.ts'
+import './bootstrap'
 
-// eslint-disable-next-line import/no-unresolved
 import Vue from 'vue'
 import { App, plugin } from '@inertiajs/inertia-vue'
 import PortalVue from 'portal-vue'

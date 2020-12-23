@@ -31,8 +31,8 @@ import DataTable from '@/Shared/DataTable/DataTable.vue'
 
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import AppLayout from '@/Layouts/AppLayout.vue'
-import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions.d.ts'
-import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader.d.ts'
+import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions'
+import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader'
 
 @Component({
   components: {

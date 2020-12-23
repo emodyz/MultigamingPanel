@@ -73,9 +73,9 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import { defaultActionsOptions } from '@/Shared/DataTable/Types/defaults.ts'
-import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions.d.ts'
-import { DataTableActionsItem } from '@/Shared/DataTable/Types/DataTableActionsItem.d.ts'
+import { defaultActionsOptions } from '@/Shared/DataTable/Types/defaults'
+import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions'
+import { DataTableActionsItem } from '@/Shared/DataTable/Types/DataTableActionsItem'
 import { Inertia } from '@inertiajs/inertia'
 // import _ from 'lodash'
 import jetButton from '@/Jetstream/Button.vue'
@@ -83,7 +83,7 @@ import JetDangerButton from '@/Jetstream/DangerButton.vue'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 import JetConfirmationModal from '@/Jetstream/ConfirmationModal.vue'
 import DtUserProfile from '@/Shared/DataTable/Components/UserProfile.vue'
-import CerberusService from '@/Shared/Services/cerberus.service.ts'
+import CerberusService from '@/Shared/Services/cerberus.service'
 
 @Component({
   components: {

@@ -1,4 +1,4 @@
-import { User } from '@/Shared/DataTable/Types/User.d.ts'
+import { User } from '@/Shared/DataTable/Types/User'
 
 interface Link {
     url: string | null
