@@ -33,7 +33,7 @@
                             </th>
                         </tr>
                         </thead>
-                        <tbody v-for="modpack of modpacks" class="bg-white divide-y divide-gray-200">
+                        <tbody :key="modpack.name" v-for="modpack of modpacks" class="bg-white divide-y divide-gray-200">
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
@@ -129,34 +129,33 @@
 
 <script lang="ts">
 import AppLayout from '@/Layouts/AppLayout.vue'
-import JetNavLink from "@/Jetstream/NavLink.vue";
-import JetLabel from "@/Jetstream/Label.vue";
-import JetInput from "@/Jetstream/Input.vue";
-import JetInputError from "@/Jetstream/InputError.vue";
-import JetConfirmationModal from "@/Jetstream/ConfirmationModal.vue";
-import JetSecondaryButton from "@/Jetstream/SecondaryButton.vue";
-import JetDangerButton from "@/Jetstream/DangerButton.vue";
+import JetNavLink from '@/Jetstream/NavLink.vue'
+import JetLabel from '@/Jetstream/Label.vue'
+import JetInput from '@/Jetstream/Input.vue'
+import JetInputError from '@/Jetstream/InputError.vue'
+import JetConfirmationModal from '@/Jetstream/ConfirmationModal.vue'
+import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
+import JetDangerButton from '@/Jetstream/DangerButton.vue'
 
-import {Component, Prop, Vue} from 'vue-property-decorator'
-import Input from "@/Jetstream/Input.vue";
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
-    components: {
-        Input,
-        AppLayout,
-        JetNavLink,
-        JetLabel,
-        JetInput,
-        JetInputError,
-        JetConfirmationModal,
-        JetSecondaryButton,
-        JetDangerButton
-    },
+  components: {
+    AppLayout,
+    JetNavLink,
+    JetLabel,
+    JetInput,
+    JetInputError,
+    JetConfirmationModal,
+    JetSecondaryButton,
+    JetDangerButton,
+  },
 })
 export default class Dashboard extends Vue {
     @Prop() modpacks!: any;
 
     deleteModpackId: string = null;
+
     processing = false;
 
     name: string = null;
@@ -175,58 +174,60 @@ export default class Dashboard extends Vue {
      * @return Formatted string.
      */
     humanFileSize(bytes: number, si = false, dp = 1) {
-        const thresh = si ? 1000 : 1024;
+      const thresh = si ? 1000 : 1024
 
-        if (Math.abs(bytes) < thresh) {
-            return bytes + ' B';
-        }
+      if (Math.abs(bytes) < thresh) {
+        return `${bytes} B`
+      }
 
-        const units = si
-            ? ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
-            : ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
-        let u = -1;
-        const r = 10 ** dp;
+      const units = si
+        ? ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+        : ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']
+      let u = -1
+      const r = 10 ** dp
 
-        do {
-            bytes /= thresh;
-            ++u;
-        } while (Math.round(Math.abs(bytes) * r) / r >= thresh && u < units.length - 1);
+      do {
+        // eslint-disable-next-line no-param-reassign
+        bytes /= thresh
+        // eslint-disable-next-line no-plusplus
+        ++u
+      } while (Math.round(Math.abs(bytes) * r) / r >= thresh && u < units.length - 1)
 
-
-        return bytes.toFixed(dp) + ' ' + units[u];
+      return `${bytes.toFixed(dp)} ${units[u]}`
     }
 
     async deleteModpack() {
-        this.processing = true;
-        try {
-            await this.$axios.delete(
-                // @ts-ignore
-                route('modpacks.destroy', this.deleteModpackId)
-            );
-            this.$inertia.reload({only: ['modpacks']});
-        } catch (e) {
-        }
-        this.processing = false;
-        this.deleteModpackId = null;
+      this.processing = true
+      try {
+        await this.$axios.delete(
+          // @ts-ignore
+          route('modpacks.destroy', this.deleteModpackId),
+        )
+        this.$inertia.reload({ only: ['modpacks'] })
+      } catch (e) {
+        console.error(e)
+      }
+      this.processing = false
+      this.deleteModpackId = null
     }
 
     async createModpack() {
-        this.processing = true;
-        try {
-            await this.$axios.post(
-                // @ts-ignore
-                route('modpacks.store'),
-                {
-                    name: this.name
-                }
-            );
-            this.$inertia.reload({only: ['modpacks']});
-        } catch (e) {
-        }
+      this.processing = true
+      try {
+        await this.$axios.post(
+          // @ts-ignore
+          route('modpacks.store'),
+          {
+            name: this.name,
+          },
+        )
+        this.$inertia.reload({ only: ['modpacks'] })
+      } catch (e) {
+        console.error(e)
+      }
 
-        this.processing = false;
+      this.processing = false
     }
-
 }
 </script>
 

@@ -13,14 +13,15 @@ const mix = require('laravel-mix');
 
 let productionSourceMaps = false;
 
-mix.ts('resources/js/app.ts', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        require('postcss-import'),
-        require('tailwindcss'),
-    ])
-    .babelConfig({
-        plugins: ['@babel/plugin-syntax-dynamic-import'],
-    })
-    .webpackConfig(require('./webpack.config'))
-    .version()
-    .sourceMaps(productionSourceMaps, 'source-map');
+mix.typeScript('resources/js/app.ts', 'public/js')
+  .vue({version: 2})
+  .postCss('resources/css/app.css', 'public/css', [
+    require('autoprefixer'),
+    require('tailwindcss')('./tailwind.config.js')
+  ])
+  .webpackConfig(require('./webpack.config'))
+  .babelConfig({
+    plugins: ['@babel/plugin-syntax-dynamic-import'],
+  })
+  .version()
+  .sourceMaps(productionSourceMaps, 'source-map')

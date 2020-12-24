@@ -3,6 +3,7 @@
         "target": "es5",
         "strict": true,
         "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
         "experimentalDecorators": true,
         "baseUrl": ".",
         "paths": {
@@ -10,8 +11,13 @@
         },
         "module": "es2015",
         "strictNullChecks": false,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "lib": ["dom", "esNext"]
     },
+    "types": [
+        "lodash",
+        "qs"
+    ],
     "include": [
         "resources/js/**/*",
         "./*.js"

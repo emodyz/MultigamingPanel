@@ -29,7 +29,6 @@
                             </div>
                         </div>
 
-
                         <jet-secondary-button v-if="!inProgress" class="w-full" @click.native="startUpdate">
                             Update Now
                         </jet-secondary-button>
@@ -47,69 +46,76 @@
 <script lang="ts">
 import AppLayout from '@/Layouts/AppLayout.vue'
 
-import JetSecondaryButton from "@/Jetstream/SecondaryButton.vue";
-import JetDangerButton from "@/Jetstream/DangerButton.vue";
+import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
+import JetDangerButton from '@/Jetstream/DangerButton.vue'
 
-
-import {Component, Prop, Vue} from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
-    components: {
-        AppLayout,
-        JetSecondaryButton,
-        JetDangerButton
-    },
+  components: {
+    AppLayout,
+    JetSecondaryButton,
+    JetDangerButton,
+  },
 })
 export default class Dashboard extends Vue {
     @Prop() modpack!: any;
 
     progress: number = 0;
+
     inProgress: boolean = false;
 
     modpackUpdateLoading: boolean = false;
 
     mounted() {
-        if (this.modpack.batch !== null) {
-            this.inProgress = true;
-            this.progress = this.modpack.batch.progress;
-        }
+      if (this.modpack.batch !== null) {
+        this.inProgress = true
+        this.progress = this.modpack.batch.progress
+      }
 
-        this.$echo.private(`modpacks.${this.modpack.id}`)
-            .listen('Modpack\\ModpackProcessStarted', (e: any) => {
-                this.progress = 0;
-                this.inProgress = true;
-            }).listen('Modpack\\ModpackProcessProgress', (e: any) => {
-            this.progress = e.progress;
+      this.$echo.private(`modpacks.${this.modpack.id}`)
+        // eslint-disable-next-line no-unused-vars
+        .listen('Modpack\\ModpackProcessStarted', (e: any) => {
+          this.progress = 0
+          this.inProgress = true
+        }).listen('Modpack\\ModpackProcessProgress', (e: any) => {
+          this.progress = e.progress
+        // eslint-disable-next-line no-unused-vars
         }).listen('Modpack\\ModpackProcessDone', (e: any) => {
-            this.inProgress = false;
-        }).listen('Modpack\\ModpackProcessFailed', (e: any) => {
-            this.inProgress = false;
-        }).listen('Modpack\\ModpackProcessCanceled', (e: any) => {
-            this.inProgress = false;
-        });
+          this.inProgress = false
+        })
+        // eslint-disable-next-line no-unused-vars
+        .listen('Modpack\\ModpackProcessFailed', (e: any) => {
+          this.inProgress = false
+        })
+        // eslint-disable-next-line no-unused-vars
+        .listen('Modpack\\ModpackProcessCanceled', (e: any) => {
+          this.inProgress = false
+        })
     }
 
     async startUpdate() {
-        this.modpackUpdateLoading = true;
-        try {
-            await this.$axios.post(
-                // @ts-ignore
-                route('modpacks.update.start', this.modpack.id),
-                {}
-            )
-        } catch (e) {
-        }
-        this.modpackUpdateLoading = false;
+      this.modpackUpdateLoading = true
+      try {
+        await this.$axios.post(
+          // @ts-ignore
+          route('modpacks.update.start', this.modpack.id),
+          {},
+        )
+      } catch (e) {
+        console.error(e)
+      }
+      this.modpackUpdateLoading = false
     }
 
     async cancelUpdate() {
-        this.modpackUpdateLoading = true;
-        await this.$axios.delete(
-            // @ts-ignore
-            route('modpacks.update.cancel', this.modpack.id),
-            {}
-        )
-        this.modpackUpdateLoading = false;
+      this.modpackUpdateLoading = true
+      await this.$axios.delete(
+        // @ts-ignore
+        route('modpacks.update.cancel', this.modpack.id),
+        {},
+      )
+      this.modpackUpdateLoading = false
     }
 }
 </script>

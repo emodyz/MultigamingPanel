@@ -3,7 +3,10 @@
 namespace App\Models;
 
 use App\Models\Traits\HasPrimaryKeyAsUuid;
+use DateTimeInterface;
+use Emodyz\Cerberus\Traits\HasAuthorizations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -20,6 +23,8 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
     use HasPrimaryKeyAsUuid;
+    use HasAuthorizations;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -28,6 +33,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'email_verified_at',
         'email',
         'password',
     ];
