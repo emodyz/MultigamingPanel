@@ -72,7 +72,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Component, Prop, Mixins } from 'vue-property-decorator'
 import { defaultActionsOptions } from '@/Shared/DataTable/Types/defaults'
 import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions'
 import { DataTableActionsItem } from '@/Shared/DataTable/Types/DataTableActionsItem'
@@ -83,7 +83,7 @@ import JetDangerButton from '@/Jetstream/DangerButton.vue'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 import JetConfirmationModal from '@/Jetstream/ConfirmationModal.vue'
 import DtUserProfile from '@/Shared/DataTable/Components/UserProfile.vue'
-import CerberusService from '@/Shared/Services/cerberus.service'
+import Cerberus from '@/Mixins/Cerberus'
 
 @Component({
   components: {
@@ -95,7 +95,7 @@ import CerberusService from '@/Shared/Services/cerberus.service'
   },
 })
 // eslint-disable-next-line camelcase
-export default class DataTable_Actions extends Vue {
+export default class DataTable_Actions extends Mixins(Cerberus) {
     @Prop({ type: Object, required: true }) readonly item!: DataTableActionsItem
 
     @Prop({
@@ -107,8 +107,6 @@ export default class DataTable_Actions extends Vue {
     uuidBeingDestroyed: string | number | null = null
 
     destructionInProgress = false
-
-    Cerberus = new CerberusService()
 
     goToShow(id: string | number) {
       Inertia.visit(`${this.actions.baseUrl}/${id}/${this.actions.show.path ? this.actions.show.path : ''}`, { preserveScroll: true })

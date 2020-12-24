@@ -103,12 +103,9 @@
                 >
                   {{ ((pageNumber * 10) - 10) + (index + 1) }}
                 </span>
-                <component :key="key" v-else-if="!_.isNull(type)"
+                <component :key="key" v-else-if="type !== ''"
                            :is="getRowComponent(type)"
                            v-bind="{...getRowComponentProps(item, type, key)}"/>
-                <span v-else>
-                    {{ item[key] }}
-                </span>
               </td>
               <td
                   v-if="actions.enabled"
@@ -151,6 +148,7 @@ import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActio
 import DtUserProfile from '@/Shared/DataTable/Components/UserProfile.vue'
 import DtUserStatus from '@/Shared/DataTable/Components/UserStatus.vue'
 import DtDate from '@/Shared/DataTable/Components/Date.vue'
+import DtDefaultRow from '@/Shared/DataTable/Components/DefaultRow.vue'
 import DtActions from '@/Shared/DataTable/Components/Actions.vue'
 import { User } from '@/Shared/DataTable/Types/User'
 import { PaginatedDate } from '@/Shared/DataTable/Types/PaginatedData'
@@ -165,6 +163,7 @@ import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader'
     DtUserProfile,
     DtUserStatus,
     DtDate,
+    DtDefaultRow,
     DtActions,
   },
 })
@@ -299,7 +298,7 @@ export default class DataTable extends Vue {
       case 'User.Status':
         return 'DtUserStatus'
       default:
-        return ''
+        return 'DtDefaultRow'
     }
   }
 
@@ -319,7 +318,7 @@ export default class DataTable extends Vue {
       case 'DtUserStatus':
         return { email_verified_at: _item.email_verified_at }
       default:
-        return {}
+        return { data: _item[key] }
     }
   }
 
