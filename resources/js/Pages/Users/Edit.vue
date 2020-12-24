@@ -24,13 +24,13 @@
 
 <script lang="ts">
 
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Mixins, Component, Prop } from 'vue-property-decorator'
 import AppLayout from '@/Layouts/AppLayout.vue'
 import { User } from '@/Shared/DataTable/Types/User'
 import EditUserProfileForm from '@/Pages/Users/EditUserProfileForm.vue'
 import EditUserAccountForm from '@/Pages/Users/EditUserAccountForm.vue'
 import JetSectionBorder from '@/Jetstream/SectionBorder.vue'
-import CerberusService from '@/Shared/Services/cerberus.service'
+import Cerberus from '@/Mixins/Cerberus'
 
 @Component({
   components: {
@@ -40,12 +40,10 @@ import CerberusService from '@/Shared/Services/cerberus.service'
     JetSectionBorder,
   },
 })
-export default class UsersEdit extends Vue {
+export default class UsersEdit extends Mixins(Cerberus) {
   @Prop() readonly userBeingEdited!: User
 
   @Prop() readonly roles!: any
-
-  Cerberus = new CerberusService()
 
   canEditProfile = false
 

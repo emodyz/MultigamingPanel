@@ -9146,7 +9146,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Pages_Users_EditUserProfileForm_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Pages/Users/EditUserProfileForm.vue */ "./resources/js/Pages/Users/EditUserProfileForm.vue");
 /* harmony import */ var _Pages_Users_EditUserAccountForm_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Pages/Users/EditUserAccountForm.vue */ "./resources/js/Pages/Users/EditUserAccountForm.vue");
 /* harmony import */ var _Jetstream_SectionBorder_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Jetstream/SectionBorder.vue */ "./resources/js/Jetstream/SectionBorder.vue");
-/* harmony import */ var _Shared_Services_cerberus_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Shared/Services/cerberus.service */ "./resources/js/Shared/Services/cerberus.service.ts");
+/* harmony import */ var _Mixins_Cerberus__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Mixins/Cerberus */ "./resources/js/Mixins/Cerberus.ts");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var __extends = undefined && undefined.__extends || function () {
@@ -9343,7 +9343,6 @@ function (_super) {
   function UsersEdit() {
     var _this = _super !== null && _super.apply(this, arguments) || this;
 
-    _this.Cerberus = new _Shared_Services_cerberus_service__WEBPACK_IMPORTED_MODULE_5__.default();
     _this.canEditProfile = false;
     _this.canEditAccount = false;
     return _this;
@@ -9391,7 +9390,7 @@ function (_super) {
     }
   })], UsersEdit);
   return UsersEdit;
-}(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Vue);
+}((0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Mixins)(_Mixins_Cerberus__WEBPACK_IMPORTED_MODULE_5__.default));
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UsersEdit);
 
