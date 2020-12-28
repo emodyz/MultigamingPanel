@@ -203,16 +203,13 @@ export default class LogoutOtherBrowserSessionsForm extends Mixins(Route) {
             {
               data: this.form,
               preserveScroll: true,
-              // eslint-disable-next-line no-unused-vars
               onSuccess: (page: any) => {
                 this.form.processing = false
-                // @ts-ignore
-                if (!this.$page.props.errors.logoutOtherBrowserSessions) {
+                if (!page.props.errors.logoutOtherBrowserSessions) {
                   this.confirmingLogout = false
                   this.form.recentlySuccessful = true
                 } else {
-                  // @ts-ignore
-                  this.errorMessages = this.errors.logoutOtherBrowserSessions
+                  this.errorMessages = page.props.errors.logoutOtherBrowserSessions
                 }
               },
             },

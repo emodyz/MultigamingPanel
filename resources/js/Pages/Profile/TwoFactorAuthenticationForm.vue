@@ -152,7 +152,6 @@ export default class TwoFactorAuthenticationForm extends Vue {
         enableTwoFactorAuthentication() {
           this.enabling = true
 
-          // @ts-ignore
           this.$inertia.post('/user/two-factor-authentication', {}, {
             preserveScroll: true,
             onSuccess: async () => {

@@ -314,16 +314,14 @@ export default class ApiTokenManager extends Mixins(Route) {
             this.createApiTokenForm,
             {
               preserveScroll: true,
-              onSuccess: () => {
-                // @ts-ignore
-                if (!this.$page.props.errors.createApiToken) {
+              onSuccess: (page: any) => {
+                if (!page.props.errors.createApiToken) {
                   this.displayingToken = true
                   this.createApiTokenForm.recentlySuccessful = true
                   this.createApiTokenForm.name = ''
                   this.createApiTokenForm.permissions = this.defaultPermissions
                 } else {
-                  // @ts-ignore
-                  this.createApiTokenForm.errors.name = this.$page.props.errors.createApiToken.name
+                  this.createApiTokenForm.errors.name = page.props.errors.createApiToken.name
                 }
               },
             },

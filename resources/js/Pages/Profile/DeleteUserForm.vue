@@ -124,16 +124,13 @@ export default class DeleteUserForm extends Mixins(Route) {
             {
               data: this.form,
               preserveScroll: true,
-              // eslint-disable-next-line no-unused-vars
               onSuccess: (page: any) => {
                 this.form.processing = false
-                // @ts-ignore
-                if (!this.$page.props.errors.deleteUser) {
+                if (!page.props.errors.deleteUser) {
                   this.confirmingUserDeletion = false
                   this.form.recentlySuccessful = true
                 } else {
-                  // @ts-ignore
-                  this.errorMessages = this.$page.props.errors.deleteUser
+                  this.errorMessages = page.props.errors.deleteUser
                 }
               },
             },

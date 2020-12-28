@@ -399,14 +399,12 @@ export default class TeamMemberManager extends Mixins(Route) {
             this.addTeamMemberForm,
             {
               preserveScroll: true,
-              onSuccess: () => {
+              onSuccess: (page: any) => {
                 this.addTeamMemberForm.processing = false
-                // @ts-ignore
-                if (!this.$page.props.errors.addTeamMember) {
+                if (!page.props.errors.addTeamMember) {
                   this.addTeamMemberForm.recentlySuccessful = true
                 } else {
-                  // @ts-ignore
-                  this.addTeamMemberForm.errors = this.$page.props.errors.addTeamMember
+                  this.addTeamMemberForm.errors = page.props.errors.addTeamMember
                 }
               },
             },

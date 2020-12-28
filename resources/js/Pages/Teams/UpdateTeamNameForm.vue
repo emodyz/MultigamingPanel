@@ -118,14 +118,12 @@ export default class UpdateTeamNameForm extends Mixins(Route) {
             this.form,
             {
               preserveScroll: true,
-              onSuccess: () => {
+              onSuccess: (page: any) => {
                 this.form.processing = false
-                // @ts-ignore
-                if (!this.$page.props.errors.updateTeamName) {
+                if (!page.props.errors.updateTeamName) {
                   this.form.recentlySuccessful = true
                 } else {
-                  // @ts-ignore
-                  this.form.errors = this.$page.props.errors.updateTeamName
+                  this.form.errors = page.props.errors.updateTeamName
                 }
               },
             },

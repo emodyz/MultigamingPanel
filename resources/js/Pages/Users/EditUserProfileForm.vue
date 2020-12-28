@@ -174,15 +174,13 @@ export default class EditUserProfileForm extends Mixins(Route) {
         {
           preserveScroll: true,
           resetOnSuccess: false,
-          onSuccess: () => {
+          onSuccess: (page: any) => {
             this.form.processing = false
-            // @ts-ignore
-            if (!this.$page.props.errors.editUserProfile) {
+            if (!page.props.errors.editUserProfile) {
               this.photoPreview = null
               this.form.recentlySuccessful = true
             } else {
-              // @ts-ignore
-              this.errorMessages = this.$page.props.errors.editUserProfile
+              this.errorMessages = page.props.errors.editUserProfile
             }
           },
         },

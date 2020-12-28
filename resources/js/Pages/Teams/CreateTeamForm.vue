@@ -100,20 +100,19 @@ export default class CreateTeamForm extends Mixins(Route) {
   createTeam() {
     this.form.processing = true
     this.form.recentlySuccessful = false
+
     this.$inertia.post(
       this.route('teams.store'),
       this.form,
       {
         preserveScroll: true,
-        onSuccess: () => {
+        onSuccess: (page: any) => {
           this.form.processing = false
-          // @ts-ignore
-          if (!this.$page.props.errors.createTeam) {
-            this.form.recentlySuccessfulg = true
+          if (!page.props.errors.createTeam) {
+            this.form.recentlySuccessful = true
             this.form.name = ''
           } else {
-            // @ts-ignore
-            this.form.errors = this.$page.props.errors.createTeam
+            this.form.errors = page.props.errors.createTeam
           }
         },
       },

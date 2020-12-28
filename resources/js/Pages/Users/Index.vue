@@ -72,8 +72,7 @@ export default class UsersIndex extends Vue {
     }
 
     created() {
-      // @ts-ignore
-      // console.log(this.$page)
+      //
     }
 }
 </script>

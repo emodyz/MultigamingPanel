@@ -196,15 +196,13 @@ export default class UpdateProfileInformationForm extends Mixins(Route) {
             {
               preserveScroll: true,
               resetOnSuccess: false,
-              onSuccess: () => {
+              onSuccess: (page: any) => {
                 this.form.processing = false
-                // @ts-ignore
-                if (!this.$page.props.errors.updateProfileInformation) {
+                if (!page.props.errors.updateProfileInformation) {
                   this.photoPreview = null
                   this.form.recentlySuccessful = true
                 } else {
-                  // @ts-ignore
-                  this.errorMessages = this.$page.props.errors.updateProfileInformation
+                  this.errorMessages = page.props.errors.updateProfileInformation
                 }
               },
             },

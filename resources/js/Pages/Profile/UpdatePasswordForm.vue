@@ -133,10 +133,9 @@ export default class UpdatePasswordForm extends Mixins(Route) {
             this.form,
             {
               preserveScroll: true,
-              onSuccess: () => {
+              onSuccess: (page: any) => {
                 this.form.processing = false
-                // @ts-ignore
-                if (!this.$page.props.errors.updatePassword) {
+                if (!page.props.errors.updatePassword) {
                   this.errorMessages = {
                     password: '',
                     password_confirmation: '',
@@ -144,8 +143,7 @@ export default class UpdatePasswordForm extends Mixins(Route) {
                   }
                   this.form.recentlySuccessful = true
                 } else {
-                  // @ts-ignore
-                  this.errorMessages = this.$page.props.errors.updatePassword
+                  this.errorMessages = page.props.errors.updatePassword
                   this.current_password.focus()
                 }
               },

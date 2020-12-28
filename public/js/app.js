@@ -6368,16 +6368,14 @@ function (_super) {
     this.createApiTokenForm.recentlySuccessful = false;
     this.$inertia.post(this.route('api-tokens.store'), this.createApiTokenForm, {
       preserveScroll: true,
-      onSuccess: function onSuccess() {
-        // @ts-ignore
-        if (!_this.$page.props.errors.createApiToken) {
+      onSuccess: function onSuccess(page) {
+        if (!page.props.errors.createApiToken) {
           _this.displayingToken = true;
           _this.createApiTokenForm.recentlySuccessful = true;
           _this.createApiTokenForm.name = '';
           _this.createApiTokenForm.permissions = _this.defaultPermissions;
         } else {
-          // @ts-ignore
-          _this.createApiTokenForm.errors.name = _this.$page.props.errors.createApiToken.name;
+          _this.createApiTokenForm.errors.name = page.props.errors.createApiToken.name;
         }
       }
     });
@@ -7425,16 +7423,14 @@ function (_super) {
     this.$inertia["delete"](this.route('current-user.destroy'), {
       data: this.form,
       preserveScroll: true,
-      // eslint-disable-next-line no-unused-vars
       onSuccess: function onSuccess(page) {
-        _this.form.processing = false; // @ts-ignore
+        _this.form.processing = false;
 
-        if (!_this.$page.props.errors.deleteUser) {
+        if (!page.props.errors.deleteUser) {
           _this.confirmingUserDeletion = false;
           _this.form.recentlySuccessful = true;
         } else {
-          // @ts-ignore
-          _this.errorMessages = _this.$page.props.errors.deleteUser;
+          _this.errorMessages = page.props.errors.deleteUser;
         }
       }
     });
@@ -7565,16 +7561,14 @@ function (_super) {
     this.$inertia["delete"](this.route('other-browser-sessions.destroy'), {
       data: this.form,
       preserveScroll: true,
-      // eslint-disable-next-line no-unused-vars
       onSuccess: function onSuccess(page) {
-        _this.form.processing = false; // @ts-ignore
+        _this.form.processing = false;
 
-        if (!_this.$page.props.errors.logoutOtherBrowserSessions) {
+        if (!page.props.errors.logoutOtherBrowserSessions) {
           _this.confirmingLogout = false;
           _this.form.recentlySuccessful = true;
         } else {
-          // @ts-ignore
-          _this.errorMessages = _this.errors.logoutOtherBrowserSessions;
+          _this.errorMessages = page.props.errors.logoutOtherBrowserSessions;
         }
       }
     });
@@ -7931,8 +7925,7 @@ function (_super) {
   TwoFactorAuthenticationForm.prototype.enableTwoFactorAuthentication = function () {
     var _this = this;
 
-    this.enabling = true; // @ts-ignore
-
+    this.enabling = true;
     this.$inertia.post('/user/two-factor-authentication', {}, {
       preserveScroll: true,
       onSuccess: function onSuccess() {
@@ -8123,10 +8116,10 @@ function (_super) {
     this.form.recentlySuccessful = false;
     this.$inertia.put(this.route('user-password.update'), this.form, {
       preserveScroll: true,
-      onSuccess: function onSuccess() {
-        _this.form.processing = false; // @ts-ignore
+      onSuccess: function onSuccess(page) {
+        _this.form.processing = false;
 
-        if (!_this.$page.props.errors.updatePassword) {
+        if (!page.props.errors.updatePassword) {
           _this.errorMessages = {
             password: '',
             password_confirmation: '',
@@ -8134,8 +8127,7 @@ function (_super) {
           };
           _this.form.recentlySuccessful = true;
         } else {
-          // @ts-ignore
-          _this.errorMessages = _this.$page.props.errors.updatePassword;
+          _this.errorMessages = page.props.errors.updatePassword;
 
           _this.current_password.focus();
         }
@@ -8269,15 +8261,14 @@ function (_super) {
     this.$inertia.post(this.route('user-profile-information.update'), (0,_Shared_Helpers_objectToFormData__WEBPACK_IMPORTED_MODULE_8__.objectToFormData)(this.form, 'PUT'), {
       preserveScroll: true,
       resetOnSuccess: false,
-      onSuccess: function onSuccess() {
-        _this.form.processing = false; // @ts-ignore
+      onSuccess: function onSuccess(page) {
+        _this.form.processing = false;
 
-        if (!_this.$page.props.errors.updateProfileInformation) {
+        if (!page.props.errors.updateProfileInformation) {
           _this.photoPreview = null;
           _this.form.recentlySuccessful = true;
         } else {
-          // @ts-ignore
-          _this.errorMessages = _this.$page.props.errors.updateProfileInformation;
+          _this.errorMessages = page.props.errors.updateProfileInformation;
         }
       }
     });
@@ -8510,15 +8501,14 @@ function (_super) {
     this.form.recentlySuccessful = false;
     this.$inertia.post(this.route('teams.store'), this.form, {
       preserveScroll: true,
-      onSuccess: function onSuccess() {
-        _this.form.processing = false; // @ts-ignore
+      onSuccess: function onSuccess(page) {
+        _this.form.processing = false;
 
-        if (!_this.$page.props.errors.createTeam) {
-          _this.form.recentlySuccessfulg = true;
+        if (!page.props.errors.createTeam) {
+          _this.form.recentlySuccessful = true;
           _this.form.name = '';
         } else {
-          // @ts-ignore
-          _this.form.errors = _this.$page.props.errors.createTeam;
+          _this.form.errors = page.props.errors.createTeam;
         }
       }
     });
@@ -8874,14 +8864,13 @@ function (_super) {
     this.addTeamMemberForm.recentlySuccessful = false;
     this.$inertia.post(this.route('team-members.store', this.team), this.addTeamMemberForm, {
       preserveScroll: true,
-      onSuccess: function onSuccess() {
-        _this.addTeamMemberForm.processing = false; // @ts-ignore
+      onSuccess: function onSuccess(page) {
+        _this.addTeamMemberForm.processing = false;
 
-        if (!_this.$page.props.errors.addTeamMember) {
+        if (!page.props.errors.addTeamMember) {
           _this.addTeamMemberForm.recentlySuccessful = true;
         } else {
-          // @ts-ignore
-          _this.addTeamMemberForm.errors = _this.$page.props.errors.addTeamMember;
+          _this.addTeamMemberForm.errors = page.props.errors.addTeamMember;
         }
       }
     });
@@ -9068,14 +9057,13 @@ function (_super) {
     this.form.recentlySuccessful = false;
     this.$inertia.put(this.route('teams.update', this.team), this.form, {
       preserveScroll: true,
-      onSuccess: function onSuccess() {
-        _this.form.processing = false; // @ts-ignore
+      onSuccess: function onSuccess(page) {
+        _this.form.processing = false;
 
-        if (!_this.$page.props.errors.updateTeamName) {
+        if (!page.props.errors.updateTeamName) {
           _this.form.recentlySuccessful = true;
         } else {
-          // @ts-ignore
-          _this.form.errors = _this.$page.props.errors.updateTeamName;
+          _this.form.errors = page.props.errors.updateTeamName;
         }
       }
     });
@@ -9470,14 +9458,13 @@ function (_super) {
     this.$inertia.put(this.route('users.update.account', this.user.id), this.form, {
       preserveScroll: true,
       resetOnSuccess: false,
-      onSuccess: function onSuccess() {
-        _this.form.processing = false; // @ts-ignore
+      onSuccess: function onSuccess(page) {
+        _this.form.processing = false;
 
-        if (!_this.$page.props.errors.editUserAccount) {
+        if (!page.props.errors.editUserAccount) {
           _this.form.recentlySuccessful = true;
         } else {
-          // @ts-ignore
-          _this.errorMessages = _this.$page.props.errors.editUserAccount;
+          _this.errorMessages = page.props.errors.editUserAccount;
         }
       }
     });
@@ -9610,15 +9597,14 @@ function (_super) {
     this.$inertia.post(this.route('users.update', this.user.id), (0,_Shared_Helpers_objectToFormData__WEBPACK_IMPORTED_MODULE_8__.objectToFormData)(this.form, 'PUT'), {
       preserveScroll: true,
       resetOnSuccess: false,
-      onSuccess: function onSuccess() {
-        _this.form.processing = false; // @ts-ignore
+      onSuccess: function onSuccess(page) {
+        _this.form.processing = false;
 
-        if (!_this.$page.props.errors.editUserProfile) {
+        if (!page.props.errors.editUserProfile) {
           _this.photoPreview = null;
           _this.form.recentlySuccessful = true;
         } else {
-          // @ts-ignore
-          _this.errorMessages = _this.$page.props.errors.editUserProfile;
+          _this.errorMessages = page.props.errors.editUserProfile;
         }
       }
     });
@@ -9784,8 +9770,7 @@ function (_super) {
     return _this;
   }
 
-  UsersIndex.prototype.created = function () {// @ts-ignore
-    // console.log(this.$page)
+  UsersIndex.prototype.created = function () {//
   };
 
   __decorate([(0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_3__.Prop)()], UsersIndex.prototype, "users", void 0);
