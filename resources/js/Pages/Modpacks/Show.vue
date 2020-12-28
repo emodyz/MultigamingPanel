@@ -49,7 +49,8 @@ import AppLayout from '@/Layouts/AppLayout.vue'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 import JetDangerButton from '@/Jetstream/DangerButton.vue'
 
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Mixins } from 'vue-property-decorator'
+import Route from '@/Mixins/Route'
 
 @Component({
   components: {
@@ -58,7 +59,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
     JetDangerButton,
   },
 })
-export default class Dashboard extends Vue {
+export default class Dashboard extends Mixins(Route) {
     @Prop() modpack!: any;
 
     progress: number = 0;
@@ -98,8 +99,7 @@ export default class Dashboard extends Vue {
       this.modpackUpdateLoading = true
       try {
         await this.$axios.post(
-          // @ts-ignore
-          route('modpacks.update.start', this.modpack.id),
+          this.route('modpacks.update.start', this.modpack.id),
           {},
         )
       } catch (e) {
@@ -111,8 +111,7 @@ export default class Dashboard extends Vue {
     async cancelUpdate() {
       this.modpackUpdateLoading = true
       await this.$axios.delete(
-        // @ts-ignore
-        route('modpacks.update.cancel', this.modpack.id),
+        this.route('modpacks.update.cancel', this.modpack.id),
         {},
       )
       this.modpackUpdateLoading = false

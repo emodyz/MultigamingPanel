@@ -251,7 +251,8 @@ import JetLabel from '@/Jetstream/Label.vue'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 import JetSectionBorder from '@/Jetstream/SectionBorder.vue'
 
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Mixins, Component, Prop } from 'vue-property-decorator'
+import Route from '@/Mixins/Route'
 
     @Component({
       components: {
@@ -269,7 +270,7 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
         JetSectionBorder,
       },
     })
-export default class ApiTokenManager extends Vue {
+export default class ApiTokenManager extends Mixins(Route) {
         @Prop() tokens!: any
 
         @Prop() availablePermissions!: any
@@ -307,11 +308,9 @@ export default class ApiTokenManager extends Vue {
 
         createApiToken() {
           this.createApiTokenForm.recentlySuccessful = false
-          // @ts-ignore
+
           this.$inertia.post(
-            // @ts-ignore
-            // eslint-disable-next-line no-undef
-            route('api-tokens.store'),
+            this.route('api-tokens.store'),
             this.createApiTokenForm,
             {
               preserveScroll: true,
@@ -339,10 +338,9 @@ export default class ApiTokenManager extends Vue {
 
         updateApiToken() {
           this.updateApiTokenForm.processing = true
-          // @ts-ignore
+
           this.$inertia.put(
-            // @ts-ignore
-            route('api-tokens.update', this.managingPermissionsFor),
+            this.route('api-tokens.update', this.managingPermissionsFor),
             this.updateApiTokenForm,
             {
               preserveScroll: true,
@@ -360,10 +358,8 @@ export default class ApiTokenManager extends Vue {
         }
 
         deleteApiToken() {
-          // @ts-ignore
           this.$inertia.delete(
-            // @ts-ignore
-            route('api-tokens.destroy', this.apiTokenBeingDeleted),
+            this.route('api-tokens.destroy', this.apiTokenBeingDeleted),
             {
               preserveScroll: true,
               preserveState: true,

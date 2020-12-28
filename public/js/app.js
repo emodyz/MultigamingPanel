@@ -953,6 +953,7 @@ module.exports = function transformData(data, headers, fns) {
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
+/* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
 
 
 var utils = __webpack_require__(/*! ./utils */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/utils.js");
@@ -2758,6 +2759,7 @@ module.exports = function transformData(data, headers, fns) {
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
+/* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
 
 
 var utils = __webpack_require__(/*! ./utils */ "./node_modules/axios/lib/utils.js");
@@ -3710,6 +3712,79 @@ function (_super) {
 
 /***/ }),
 
+/***/ "./resources/js/Mixins/Route.ts":
+/*!**************************************!*\
+  !*** ./resources/js/Mixins/Route.ts ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-property-decorator */ "./node_modules/vue-property-decorator/lib/index.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var __extends = undefined && undefined.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) {
+        if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+      }
+    };
+
+    return _extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    _extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
+  var c = arguments.length,
+      r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+      d;
+  if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+    if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  }
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+var Route =
+/** @class */
+function (_super) {
+  __extends(Route, _super);
+
+  function Route() {
+    var _this = _super !== null && _super.apply(this, arguments) || this; // @ts-ignore
+
+
+    _this.route = window.route;
+    return _this;
+  }
+
+  Route = __decorate([vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Component], Route);
+  return Route;
+}(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Vue);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Route);
+
+/***/ }),
+
 /***/ "./resources/js/Shared/DataTable/Types/defaults.ts":
 /*!*********************************************************!*\
   !*** ./resources/js/Shared/DataTable/Types/defaults.ts ***!
@@ -4121,13 +4196,6 @@ _inertiajs_progress__WEBPACK_IMPORTED_MODULE_6__.InertiaProgress.init({
   includeCSS: true,
   // Whether the NProgress spinner will be shown.
   showSpinner: false
-}); // @ts-ignore
-// eslint-disable-next-line no-undef
-
-vue__WEBPACK_IMPORTED_MODULE_7__.default.mixin({
-  methods: {
-    route: route
-  }
 });
 vue__WEBPACK_IMPORTED_MODULE_7__.default.mixin({
   methods: {
@@ -4703,11 +4771,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-property-decorator */ "./node_modules/vue-property-decorator/lib/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _Button_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Button.vue */ "./resources/js/Jetstream/Button.vue");
-/* harmony import */ var _DialogModal_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./DialogModal.vue */ "./resources/js/Jetstream/DialogModal.vue");
-/* harmony import */ var _Input_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Input.vue */ "./resources/js/Jetstream/Input.vue");
-/* harmony import */ var _InputError_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./InputError.vue */ "./resources/js/Jetstream/InputError.vue");
-/* harmony import */ var _SecondaryButton_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./SecondaryButton.vue */ "./resources/js/Jetstream/SecondaryButton.vue");
+/* harmony import */ var _Mixins_Route__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Mixins/Route */ "./resources/js/Mixins/Route.ts");
+/* harmony import */ var _Button_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Button.vue */ "./resources/js/Jetstream/Button.vue");
+/* harmony import */ var _DialogModal_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./DialogModal.vue */ "./resources/js/Jetstream/DialogModal.vue");
+/* harmony import */ var _Input_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Input.vue */ "./resources/js/Jetstream/Input.vue");
+/* harmony import */ var _InputError_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./InputError.vue */ "./resources/js/Jetstream/InputError.vue");
+/* harmony import */ var _SecondaryButton_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./SecondaryButton.vue */ "./resources/js/Jetstream/SecondaryButton.vue");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var __extends = undefined && undefined.__extends || function () {
@@ -4754,6 +4823,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
 
 
 
+
 var ConfirmsPassword =
 /** @class */
 function (_super) {
@@ -4774,10 +4844,8 @@ function (_super) {
   ConfirmsPassword.prototype.startConfirmingPassword = function () {
     var _this = this;
 
-    this.form.error = ''; // @ts-ignore
-    // eslint-disable-next-line no-undef
-
-    axios__WEBPACK_IMPORTED_MODULE_1___default().get(route('password.confirmation').url()).then(function (response) {
+    this.form.error = '';
+    axios__WEBPACK_IMPORTED_MODULE_1___default().get(this.route('password.confirmation').url()).then(function (response) {
       if (response.data.confirmed) {
         _this.$emit('confirmed');
       } else {
@@ -4793,12 +4861,11 @@ function (_super) {
   ConfirmsPassword.prototype.confirmPassword = function () {
     var _this = this;
 
-    this.form.processing = true; // @ts-ignore
-    // eslint-disable-next-line no-undef
-
-    axios__WEBPACK_IMPORTED_MODULE_1___default().post(route('password.confirm').url(), {
+    this.form.processing = true;
+    axios__WEBPACK_IMPORTED_MODULE_1___default().post(this.route('password.confirm').url(), {
       password: this.form.password
-    }).then(function (response) {
+    }) // eslint-disable-next-line no-unused-vars
+    .then(function (response) {
       _this.confirmingPassword = false;
       _this.form.password = '';
       _this.form.error = '';
@@ -4831,96 +4898,17 @@ function (_super) {
 
   ConfirmsPassword = __decorate([(0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Component)({
     components: {
-      JetButton: _Button_vue__WEBPACK_IMPORTED_MODULE_2__.default,
-      JetDialogModal: _DialogModal_vue__WEBPACK_IMPORTED_MODULE_3__.default,
-      JetInput: _Input_vue__WEBPACK_IMPORTED_MODULE_4__.default,
-      JetInputError: _InputError_vue__WEBPACK_IMPORTED_MODULE_5__.default,
-      JetSecondaryButton: _SecondaryButton_vue__WEBPACK_IMPORTED_MODULE_6__.default
+      JetButton: _Button_vue__WEBPACK_IMPORTED_MODULE_3__.default,
+      JetDialogModal: _DialogModal_vue__WEBPACK_IMPORTED_MODULE_4__.default,
+      JetInput: _Input_vue__WEBPACK_IMPORTED_MODULE_5__.default,
+      JetInputError: _InputError_vue__WEBPACK_IMPORTED_MODULE_6__.default,
+      JetSecondaryButton: _SecondaryButton_vue__WEBPACK_IMPORTED_MODULE_7__.default
     }
   })], ConfirmsPassword);
   return ConfirmsPassword;
-}(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Vue);
+}((0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Mixins)(_Mixins_Route__WEBPACK_IMPORTED_MODULE_2__.default));
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ConfirmsPassword);
-/*
-    import JetButton from './Button'
-    import JetDialogModal from './DialogModal'
-    import JetInput from './Input'
-    import JetInputError from './InputError'
-    import JetSecondaryButton from './SecondaryButton'
-
-    export default {
-        props: {
-            title: {
-                default: 'Confirm Password',
-            },
-            content: {
-                default: 'For your security, please confirm your password to continue.',
-            },
-            button: {
-                default: 'Confirm',
-            }
-        },
-
-        components: {
-            JetButton,
-            JetDialogModal,
-            JetInput,
-            JetInputError,
-            JetSecondaryButton,
-        },
-
-        data() {
-            return {
-                confirmingPassword: false,
-
-                form: this.$inertia.form({
-                    password: '',
-                    error: '',
-                }, {
-                    bag: 'confirmPassword',
-                })
-            }
-        },
-
-        methods: {
-            startConfirmingPassword() {
-                this.form.error = '';
-
-                axios.get(route('password.confirmation').url()).then(response => {
-                    if (response.data.confirmed) {
-                        this.$emit('confirmed');
-                    } else {
-                        this.confirmingPassword = true;
-                        this.form.password = '';
-
-                        setTimeout(() => {
-                            this.$refs.password.focus()
-                        }, 250)
-                    }
-                })
-            },
-
-            confirmPassword() {
-                this.form.processing = true;
-
-                axios.post(route('password.confirm').url(), {
-                    password: this.form.password,
-                }).then(response => {
-                    this.confirmingPassword = false;
-                    this.form.password = '';
-                    this.form.error = '';
-                    this.form.processing = false;
-
-                    this.$nextTick(() => this.$emit('confirmed'));
-                }).catch(error => {
-                    this.form.processing = false;
-                    this.form.error = error.response.data.errors.password[0];
-                });
-            }
-        }
-    }
- */
 
 /***/ }),
 
@@ -6171,6 +6159,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_ResponsiveNavLink_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Jetstream/ResponsiveNavLink.vue */ "./resources/js/Jetstream/ResponsiveNavLink.vue");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _Mixins_Route__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/Mixins/Route */ "./resources/js/Mixins/Route.ts");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var __extends = undefined && undefined.__extends || function () {
@@ -6217,6 +6206,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
 
 
 
+
 var AppLayout =
 /** @class */
 function (_super) {
@@ -6230,9 +6220,7 @@ function (_super) {
   }
 
   AppLayout.prototype.switchToTeam = function (team) {
-    // @ts-ignore
-    // eslint-disable-next-line no-undef
-    this.$inertia.put(route('current-team.update'), {
+    this.$inertia.put(this.route('current-team.update'), {
       team_id: team.id
     }, {
       preserveState: false
@@ -6240,9 +6228,7 @@ function (_super) {
   };
 
   AppLayout.prototype.logout = function () {
-    // @ts-ignore
-    // eslint-disable-next-line no-undef
-    axios__WEBPACK_IMPORTED_MODULE_6___default().post(route('logout').url()) // eslint-disable-next-line no-unused-vars
+    axios__WEBPACK_IMPORTED_MODULE_6___default().post(this.route('logout').url()) // eslint-disable-next-line no-unused-vars
     .then(function (response) {
       window.location.href = '/';
     });
@@ -6258,7 +6244,7 @@ function (_super) {
     }
   })], AppLayout);
   return AppLayout;
-}(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Vue);
+}((0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Mixins)(_Mixins_Route__WEBPACK_IMPORTED_MODULE_7__.default));
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AppLayout);
 
@@ -6288,6 +6274,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_SecondaryButton_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/Jetstream/SecondaryButton.vue */ "./resources/js/Jetstream/SecondaryButton.vue");
 /* harmony import */ var _Jetstream_SectionBorder_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/Jetstream/SectionBorder.vue */ "./resources/js/Jetstream/SectionBorder.vue");
 /* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vue-property-decorator */ "./node_modules/vue-property-decorator/lib/index.js");
+/* harmony import */ var _Mixins_Route__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/Mixins/Route */ "./resources/js/Mixins/Route.ts");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var __extends = undefined && undefined.__extends || function () {
@@ -6325,6 +6312,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
   }
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -6377,11 +6365,8 @@ function (_super) {
   ApiTokenManager.prototype.createApiToken = function () {
     var _this = this;
 
-    this.createApiTokenForm.recentlySuccessful = false; // @ts-ignore
-
-    this.$inertia.post( // @ts-ignore
-    // eslint-disable-next-line no-undef
-    route('api-tokens.store'), this.createApiTokenForm, {
+    this.createApiTokenForm.recentlySuccessful = false;
+    this.$inertia.post(this.route('api-tokens.store'), this.createApiTokenForm, {
       preserveScroll: true,
       onSuccess: function onSuccess() {
         // @ts-ignore
@@ -6406,10 +6391,8 @@ function (_super) {
   ApiTokenManager.prototype.updateApiToken = function () {
     var _this = this;
 
-    this.updateApiTokenForm.processing = true; // @ts-ignore
-
-    this.$inertia.put( // @ts-ignore
-    route('api-tokens.update', this.managingPermissionsFor), this.updateApiTokenForm, {
+    this.updateApiTokenForm.processing = true;
+    this.$inertia.put(this.route('api-tokens.update', this.managingPermissionsFor), this.updateApiTokenForm, {
       preserveScroll: true,
       preserveState: true,
       onSuccess: function onSuccess() {
@@ -6424,11 +6407,9 @@ function (_super) {
   };
 
   ApiTokenManager.prototype.deleteApiToken = function () {
-    var _this = this; // @ts-ignore
+    var _this = this;
 
-
-    this.$inertia["delete"]( // @ts-ignore
-    route('api-tokens.destroy', this.apiTokenBeingDeleted), {
+    this.$inertia["delete"](this.route('api-tokens.destroy', this.apiTokenBeingDeleted), {
       preserveScroll: true,
       preserveState: true,
       onSuccess: function onSuccess() {
@@ -6465,7 +6446,7 @@ function (_super) {
     }
   })], ApiTokenManager);
   return ApiTokenManager;
-}(vue_property_decorator__WEBPACK_IMPORTED_MODULE_12__.Vue);
+}((0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_12__.Mixins)(_Mixins_Route__WEBPACK_IMPORTED_MODULE_13__.default));
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ApiTokenManager);
 
@@ -6660,6 +6641,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_SecondaryButton_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Jetstream/SecondaryButton.vue */ "./resources/js/Jetstream/SecondaryButton.vue");
 /* harmony import */ var _Jetstream_DangerButton_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/Jetstream/DangerButton.vue */ "./resources/js/Jetstream/DangerButton.vue");
 /* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue-property-decorator */ "./node_modules/vue-property-decorator/lib/index.js");
+/* harmony import */ var _Mixins_Route__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/Mixins/Route */ "./resources/js/Mixins/Route.ts");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var __extends = undefined && undefined.__extends || function () {
@@ -6840,6 +6822,7 @@ var __generator = undefined && undefined.__generator || function (thisArg, body)
     };
   }
 };
+
 
 
 
@@ -6922,8 +6905,7 @@ function (_super) {
 
             return [4
             /*yield*/
-            , this.$axios["delete"]( // @ts-ignore
-            route('modpacks.destroy', this.deleteModpackId))];
+            , this.$axios["delete"](this.route('modpacks.destroy', this.deleteModpackId))];
 
           case 2:
             _a.sent();
@@ -6967,8 +6949,7 @@ function (_super) {
 
             return [4
             /*yield*/
-            , this.$axios.post( // @ts-ignore
-            route('modpacks.store'), {
+            , this.$axios.post(this.route('modpacks.store'), {
               name: this.name
             })];
 
@@ -7014,7 +6995,7 @@ function (_super) {
     }
   })], Dashboard);
   return Dashboard;
-}(vue_property_decorator__WEBPACK_IMPORTED_MODULE_8__.Vue);
+}((0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_8__.Mixins)(_Mixins_Route__WEBPACK_IMPORTED_MODULE_9__.default));
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Dashboard);
 
@@ -7035,6 +7016,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_SecondaryButton_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/SecondaryButton.vue */ "./resources/js/Jetstream/SecondaryButton.vue");
 /* harmony import */ var _Jetstream_DangerButton_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/DangerButton.vue */ "./resources/js/Jetstream/DangerButton.vue");
 /* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-property-decorator */ "./node_modules/vue-property-decorator/lib/index.js");
+/* harmony import */ var _Mixins_Route__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Mixins/Route */ "./resources/js/Mixins/Route.ts");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var __extends = undefined && undefined.__extends || function () {
@@ -7221,6 +7203,7 @@ var __generator = undefined && undefined.__generator || function (thisArg, body)
 
 
 
+
 var Dashboard =
 /** @class */
 function (_super) {
@@ -7274,8 +7257,7 @@ function (_super) {
 
             return [4
             /*yield*/
-            , this.$axios.post( // @ts-ignore
-            route('modpacks.update.start', this.modpack.id), {})];
+            , this.$axios.post(this.route('modpacks.update.start', this.modpack.id), {})];
 
           case 2:
             _a.sent();
@@ -7309,8 +7291,7 @@ function (_super) {
             this.modpackUpdateLoading = true;
             return [4
             /*yield*/
-            , this.$axios["delete"]( // @ts-ignore
-            route('modpacks.update.cancel', this.modpack.id), {})];
+            , this.$axios["delete"](this.route('modpacks.update.cancel', this.modpack.id), {})];
 
           case 1:
             _a.sent();
@@ -7334,7 +7315,7 @@ function (_super) {
     }
   })], Dashboard);
   return Dashboard;
-}(vue_property_decorator__WEBPACK_IMPORTED_MODULE_3__.Vue);
+}((0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_3__.Mixins)(_Mixins_Route__WEBPACK_IMPORTED_MODULE_4__.default));
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Dashboard);
 
@@ -7358,6 +7339,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_InputError_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Jetstream/InputError.vue */ "./resources/js/Jetstream/InputError.vue");
 /* harmony import */ var _Jetstream_SecondaryButton_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Jetstream/SecondaryButton.vue */ "./resources/js/Jetstream/SecondaryButton.vue");
 /* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-property-decorator */ "./node_modules/vue-property-decorator/lib/index.js");
+/* harmony import */ var _Mixins_Route__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/Mixins/Route */ "./resources/js/Mixins/Route.ts");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var __extends = undefined && undefined.__extends || function () {
@@ -7395,6 +7377,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
   }
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -7438,15 +7421,12 @@ function (_super) {
     var _this = this;
 
     this.form.processing = true;
-    this.form.recentlySuccessful = false; // @ts-ignore
-
-    this.$inertia["delete"]( // @ts-ignore
-    route('current-user.destroy'), {
+    this.form.recentlySuccessful = false;
+    this.$inertia["delete"](this.route('current-user.destroy'), {
       data: this.form,
       preserveScroll: true,
       // eslint-disable-next-line no-unused-vars
       onSuccess: function onSuccess(page) {
-        // @ts-ignore
         _this.form.processing = false; // @ts-ignore
 
         if (!_this.$page.props.errors.deleteUser) {
@@ -7473,7 +7453,7 @@ function (_super) {
     }
   })], DeleteUserForm);
   return DeleteUserForm;
-}(vue_property_decorator__WEBPACK_IMPORTED_MODULE_6__.Vue);
+}((0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_6__.Mixins)(_Mixins_Route__WEBPACK_IMPORTED_MODULE_7__.default));
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DeleteUserForm);
 
@@ -7498,6 +7478,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_InputError_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Jetstream/InputError.vue */ "./resources/js/Jetstream/InputError.vue");
 /* harmony import */ var _Jetstream_SecondaryButton_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Jetstream/SecondaryButton.vue */ "./resources/js/Jetstream/SecondaryButton.vue");
 /* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-property-decorator */ "./node_modules/vue-property-decorator/lib/index.js");
+/* harmony import */ var _Mixins_Route__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/Mixins/Route */ "./resources/js/Mixins/Route.ts");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var __extends = undefined && undefined.__extends || function () {
@@ -7535,6 +7516,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
   }
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -7579,15 +7561,12 @@ function (_super) {
     var _this = this;
 
     this.form.recentlySuccessful = false;
-    this.form.processing = true; // @ts-ignore
-
-    this.$inertia["delete"]( // @ts-ignore
-    route('other-browser-sessions.destroy'), {
+    this.form.processing = true;
+    this.$inertia["delete"](this.route('other-browser-sessions.destroy'), {
       data: this.form,
       preserveScroll: true,
       // eslint-disable-next-line no-unused-vars
       onSuccess: function onSuccess(page) {
-        // @ts-ignore
         _this.form.processing = false; // @ts-ignore
 
         if (!_this.$page.props.errors.logoutOtherBrowserSessions) {
@@ -7617,7 +7596,7 @@ function (_super) {
     }
   })], LogoutOtherBrowserSessionsForm);
   return LogoutOtherBrowserSessionsForm;
-}(vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__.Vue);
+}((0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__.Mixins)(_Mixins_Route__WEBPACK_IMPORTED_MODULE_8__.default));
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LogoutOtherBrowserSessionsForm);
 
@@ -8066,6 +8045,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_InputError_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Jetstream/InputError.vue */ "./resources/js/Jetstream/InputError.vue");
 /* harmony import */ var _Jetstream_Label_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Jetstream/Label.vue */ "./resources/js/Jetstream/Label.vue");
 /* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-property-decorator */ "./node_modules/vue-property-decorator/lib/index.js");
+/* harmony import */ var _Mixins_Route__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/Mixins/Route */ "./resources/js/Mixins/Route.ts");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var __extends = undefined && undefined.__extends || function () {
@@ -8103,6 +8083,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
   }
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -8139,10 +8120,8 @@ function (_super) {
     var _this = this;
 
     this.form.processing = true;
-    this.form.recentlySuccessful = false; // @ts-ignore
-
-    this.$inertia.put( // @ts-ignore
-    route('user-password.update'), this.form, {
+    this.form.recentlySuccessful = false;
+    this.$inertia.put(this.route('user-password.update'), this.form, {
       preserveScroll: true,
       onSuccess: function onSuccess() {
         _this.form.processing = false; // @ts-ignore
@@ -8177,7 +8156,7 @@ function (_super) {
     }
   })], UpdatePasswordForm);
   return UpdatePasswordForm;
-}(vue_property_decorator__WEBPACK_IMPORTED_MODULE_6__.Vue);
+}((0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_6__.Mixins)(_Mixins_Route__WEBPACK_IMPORTED_MODULE_7__.default));
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UpdatePasswordForm);
 
@@ -8203,6 +8182,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_SecondaryButton_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Jetstream/SecondaryButton.vue */ "./resources/js/Jetstream/SecondaryButton.vue");
 /* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-property-decorator */ "./node_modules/vue-property-decorator/lib/index.js");
 /* harmony import */ var _Shared_Helpers_objectToFormData__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/Shared/Helpers/objectToFormData */ "./resources/js/Shared/Helpers/objectToFormData.ts");
+/* harmony import */ var _Mixins_Route__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/Mixins/Route */ "./resources/js/Mixins/Route.ts");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var __extends = undefined && undefined.__extends || function () {
@@ -8240,6 +8220,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
   }
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -8283,11 +8264,9 @@ function (_super) {
 
     if (this.photo.files[0]) {
       this.form.photo = this.photo.files[0];
-    } // @ts-ignore
+    }
 
-
-    this.$inertia.post( // @ts-ignore
-    route('user-profile-information.update'), (0,_Shared_Helpers_objectToFormData__WEBPACK_IMPORTED_MODULE_8__.objectToFormData)(this.form, 'PUT'), {
+    this.$inertia.post(this.route('user-profile-information.update'), (0,_Shared_Helpers_objectToFormData__WEBPACK_IMPORTED_MODULE_8__.objectToFormData)(this.form, 'PUT'), {
       preserveScroll: true,
       resetOnSuccess: false,
       onSuccess: function onSuccess() {
@@ -8321,11 +8300,9 @@ function (_super) {
   };
 
   UpdateProfileInformationForm.prototype.deletePhoto = function () {
-    var _this = this; // @ts-ignore
+    var _this = this;
 
-
-    this.$inertia["delete"]( // @ts-ignore
-    route('current-user-photo.destroy'), {
+    this.$inertia["delete"](this.route('current-user-photo.destroy'), {
       preserveScroll: true,
       onSuccess: function onSuccess() {
         _this.photoPreview = null;
@@ -8352,7 +8329,7 @@ function (_super) {
     }
   })], UpdateProfileInformationForm);
   return UpdateProfileInformationForm;
-}(vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__.Vue);
+}((0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__.Mixins)(_Mixins_Route__WEBPACK_IMPORTED_MODULE_9__.default));
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UpdateProfileInformationForm);
 
@@ -8459,6 +8436,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_InputError_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Jetstream/InputError.vue */ "./resources/js/Jetstream/InputError.vue");
 /* harmony import */ var _Jetstream_Label_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Jetstream/Label.vue */ "./resources/js/Jetstream/Label.vue");
 /* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-property-decorator */ "./node_modules/vue-property-decorator/lib/index.js");
+/* harmony import */ var _Mixins_Route__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/Mixins/Route */ "./resources/js/Mixins/Route.ts");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var __extends = undefined && undefined.__extends || function () {
@@ -8496,6 +8474,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
   }
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -8528,10 +8507,8 @@ function (_super) {
     var _this = this;
 
     this.form.processing = true;
-    this.form.recentlySuccessful = false; // @ts-ignore
-
-    this.$inertia.post( // @ts-ignore
-    route('teams.store'), this.form, {
+    this.form.recentlySuccessful = false;
+    this.$inertia.post(this.route('teams.store'), this.form, {
       preserveScroll: true,
       onSuccess: function onSuccess() {
         _this.form.processing = false; // @ts-ignore
@@ -8558,7 +8535,7 @@ function (_super) {
     }
   })], CreateTeamForm);
   return CreateTeamForm;
-}(vue_property_decorator__WEBPACK_IMPORTED_MODULE_6__.Vue);
+}((0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_6__.Mixins)(_Mixins_Route__WEBPACK_IMPORTED_MODULE_7__.default));
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreateTeamForm);
 
@@ -8581,6 +8558,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_DangerButton_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Jetstream/DangerButton.vue */ "./resources/js/Jetstream/DangerButton.vue");
 /* harmony import */ var _Jetstream_SecondaryButton_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Jetstream/SecondaryButton.vue */ "./resources/js/Jetstream/SecondaryButton.vue");
 /* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-property-decorator */ "./node_modules/vue-property-decorator/lib/index.js");
+/* harmony import */ var _Mixins_Route__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Mixins/Route */ "./resources/js/Mixins/Route.ts");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var __extends = undefined && undefined.__extends || function () {
@@ -8626,6 +8604,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
 
 
 
+
 var DeleteTeamForm =
 /** @class */
 function (_super) {
@@ -8650,9 +8629,8 @@ function (_super) {
   DeleteTeamForm.prototype.deleteTeam = function () {
     var _this = this;
 
-    this.form.processing = true; // @ts-ignore
-
-    this.$inertia["delete"](route('teams.destroy', this.team), {
+    this.form.processing = true;
+    this.$inertia["delete"](this.route('teams.destroy', this.team), {
       onSuccess: function onSuccess() {
         _this.form.processing = false;
       }
@@ -8671,7 +8649,7 @@ function (_super) {
     }
   })], DeleteTeamForm);
   return DeleteTeamForm;
-}(vue_property_decorator__WEBPACK_IMPORTED_MODULE_5__.Vue);
+}((0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_5__.Mixins)(_Mixins_Route__WEBPACK_IMPORTED_MODULE_6__.default));
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DeleteTeamForm);
 
@@ -8794,6 +8772,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_SecondaryButton_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/Jetstream/SecondaryButton.vue */ "./resources/js/Jetstream/SecondaryButton.vue");
 /* harmony import */ var _Jetstream_SectionBorder_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/Jetstream/SectionBorder.vue */ "./resources/js/Jetstream/SectionBorder.vue");
 /* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vue-property-decorator */ "./node_modules/vue-property-decorator/lib/index.js");
+/* harmony import */ var _Mixins_Route__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/Mixins/Route */ "./resources/js/Mixins/Route.ts");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var __extends = undefined && undefined.__extends || function () {
@@ -8831,6 +8810,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
   }
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -8891,10 +8871,8 @@ function (_super) {
     var _this = this;
 
     this.addTeamMemberForm.processing = true;
-    this.addTeamMemberForm.recentlySuccessful = false; // @ts-ignore
-
-    this.$inertia.post( // @ts-ignore
-    route('team-members.store', this.team), this.addTeamMemberForm, {
+    this.addTeamMemberForm.recentlySuccessful = false;
+    this.$inertia.post(this.route('team-members.store', this.team), this.addTeamMemberForm, {
       preserveScroll: true,
       onSuccess: function onSuccess() {
         _this.addTeamMemberForm.processing = false; // @ts-ignore
@@ -8918,10 +8896,8 @@ function (_super) {
   TeamMemberManager.prototype.updateRole = function () {
     var _this = this;
 
-    this.updateRoleForm.processing = true; // @ts-ignore
-
-    this.$inertia.put( // @ts-ignore
-    route('team-members.update', [this.team, this.managingRoleFor]), this.updateRoleForm, {
+    this.updateRoleForm.processing = true;
+    this.$inertia.put(this.route('team-members.update', [this.team, this.managingRoleFor]), this.updateRoleForm, {
       preserveScroll: true,
       onSuccess: function onSuccess() {
         _this.updateRoleForm.processing = false;
@@ -8943,7 +8919,7 @@ function (_super) {
 
     this.leaveTeamForm.processing = true; // @ts-ignore
 
-    this.$inertia["delete"](route('team-members.destroy', [this.team, this.$page.props.user]), {
+    this.$inertia["delete"](this.route('team-members.destroy', [this.team, this.$page.props.user]), {
       onSuccess: function onSuccess() {
         _this.leaveTeamForm.processing = false;
       }
@@ -8955,11 +8931,9 @@ function (_super) {
   };
 
   TeamMemberManager.prototype.removeTeamMember = function () {
-    var _this = this; // @ts-ignore
+    var _this = this;
 
-
-    this.$inertia["delete"]( // @ts-ignore
-    route('team-members.destroy', [this.team, this.teamMemberBeingRemoved]), {
+    this.$inertia["delete"](this.route('team-members.destroy', [this.team, this.teamMemberBeingRemoved]), {
       onSuccess: function onSuccess() {
         _this.removeTeamMemberForm.processing = false;
         _this.teamMemberBeingRemoved = null;
@@ -8996,7 +8970,7 @@ function (_super) {
     }
   })], TeamMemberManager);
   return TeamMemberManager;
-}(vue_property_decorator__WEBPACK_IMPORTED_MODULE_12__.Vue);
+}((0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_12__.Mixins)(_Mixins_Route__WEBPACK_IMPORTED_MODULE_13__.default));
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TeamMemberManager);
 
@@ -9020,6 +8994,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_InputError_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Jetstream/InputError.vue */ "./resources/js/Jetstream/InputError.vue");
 /* harmony import */ var _Jetstream_Label_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Jetstream/Label.vue */ "./resources/js/Jetstream/Label.vue");
 /* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-property-decorator */ "./node_modules/vue-property-decorator/lib/index.js");
+/* harmony import */ var _Mixins_Route__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/Mixins/Route */ "./resources/js/Mixins/Route.ts");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var __extends = undefined && undefined.__extends || function () {
@@ -9066,6 +9041,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
 
 
 
+
 var UpdateTeamNameForm =
 /** @class */
 function (_super) {
@@ -9089,10 +9065,8 @@ function (_super) {
     var _this = this;
 
     this.form.processing = true;
-    this.form.recentlySuccessful = false; // @ts-ignore
-
-    this.$inertia.put( // @ts-ignore
-    route('teams.update', this.team), this.form, {
+    this.form.recentlySuccessful = false;
+    this.$inertia.put(this.route('teams.update', this.team), this.form, {
       preserveScroll: true,
       onSuccess: function onSuccess() {
         _this.form.processing = false; // @ts-ignore
@@ -9124,7 +9098,7 @@ function (_super) {
     }
   })], UpdateTeamNameForm);
   return UpdateTeamNameForm;
-}(vue_property_decorator__WEBPACK_IMPORTED_MODULE_6__.Vue);
+}((0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_6__.Mixins)(_Mixins_Route__WEBPACK_IMPORTED_MODULE_7__.default));
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UpdateTeamNameForm);
 
@@ -9147,6 +9121,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Pages_Users_EditUserAccountForm_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Pages/Users/EditUserAccountForm.vue */ "./resources/js/Pages/Users/EditUserAccountForm.vue");
 /* harmony import */ var _Jetstream_SectionBorder_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Jetstream/SectionBorder.vue */ "./resources/js/Jetstream/SectionBorder.vue");
 /* harmony import */ var _Mixins_Cerberus__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Mixins/Cerberus */ "./resources/js/Mixins/Cerberus.ts");
+/* harmony import */ var _Mixins_Route__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Mixins/Route */ "./resources/js/Mixins/Route.ts");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var __extends = undefined && undefined.__extends || function () {
@@ -9335,6 +9310,7 @@ var __generator = undefined && undefined.__generator || function (thisArg, body)
 
 
 
+
 var UsersEdit =
 /** @class */
 function (_super) {
@@ -9390,7 +9366,7 @@ function (_super) {
     }
   })], UsersEdit);
   return UsersEdit;
-}((0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Mixins)(_Mixins_Cerberus__WEBPACK_IMPORTED_MODULE_5__.default));
+}((0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Mixins)(_Mixins_Cerberus__WEBPACK_IMPORTED_MODULE_5__.default, _Mixins_Route__WEBPACK_IMPORTED_MODULE_6__.default));
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UsersEdit);
 
@@ -9415,6 +9391,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_ActionMessage_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Jetstream/ActionMessage.vue */ "./resources/js/Jetstream/ActionMessage.vue");
 /* harmony import */ var _Jetstream_SecondaryButton_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Jetstream/SecondaryButton.vue */ "./resources/js/Jetstream/SecondaryButton.vue");
 /* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-property-decorator */ "./node_modules/vue-property-decorator/lib/index.js");
+/* harmony import */ var _Mixins_Route__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/Mixins/Route */ "./resources/js/Mixins/Route.ts");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var __extends = undefined && undefined.__extends || function () {
@@ -9452,6 +9429,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
   }
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -9488,10 +9466,8 @@ function (_super) {
     var _this = this;
 
     this.form.processing = false;
-    this.form.recentlySuccessful = false; // @ts-ignore
-
-    this.$inertia.put( // @ts-ignore
-    route('users.update.account', this.user.id), this.form, {
+    this.form.recentlySuccessful = false;
+    this.$inertia.put(this.route('users.update.account', this.user.id), this.form, {
       preserveScroll: true,
       resetOnSuccess: false,
       onSuccess: function onSuccess() {
@@ -9523,7 +9499,7 @@ function (_super) {
     }
   })], EditUserProfileForm);
   return EditUserProfileForm;
-}(vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__.Vue);
+}((0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__.Mixins)(_Mixins_Route__WEBPACK_IMPORTED_MODULE_8__.default));
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EditUserProfileForm);
 
@@ -9549,6 +9525,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_SecondaryButton_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Jetstream/SecondaryButton.vue */ "./resources/js/Jetstream/SecondaryButton.vue");
 /* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-property-decorator */ "./node_modules/vue-property-decorator/lib/index.js");
 /* harmony import */ var _Shared_Helpers_objectToFormData__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/Shared/Helpers/objectToFormData */ "./resources/js/Shared/Helpers/objectToFormData.ts");
+/* harmony import */ var _Mixins_Route__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/Mixins/Route */ "./resources/js/Mixins/Route.ts");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var __extends = undefined && undefined.__extends || function () {
@@ -9586,6 +9563,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
   }
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -9627,11 +9605,9 @@ function (_super) {
 
     if (this.photo.files[0]) {
       this.form.photo = this.photo.files[0];
-    } // @ts-ignore
+    }
 
-
-    this.$inertia.post( // @ts-ignore
-    route('users.update', this.user.id), (0,_Shared_Helpers_objectToFormData__WEBPACK_IMPORTED_MODULE_8__.objectToFormData)(this.form, 'PUT'), {
+    this.$inertia.post(this.route('users.update', this.user.id), (0,_Shared_Helpers_objectToFormData__WEBPACK_IMPORTED_MODULE_8__.objectToFormData)(this.form, 'PUT'), {
       preserveScroll: true,
       resetOnSuccess: false,
       onSuccess: function onSuccess() {
@@ -9665,11 +9641,9 @@ function (_super) {
   };
 
   EditUserProfileForm.prototype.deletePhoto = function () {
-    var _this = this; // @ts-ignore
+    var _this = this;
 
-
-    this.$inertia["delete"]( // @ts-ignore
-    route('users.destroy.avatar', this.user), {
+    this.$inertia["delete"](this.route('users.destroy.avatar', this.user), {
       preserveScroll: true,
       onSuccess: function onSuccess() {
         _this.photoPreview = null;
@@ -9694,7 +9668,7 @@ function (_super) {
     }
   })], EditUserProfileForm);
   return EditUserProfileForm;
-}(vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__.Vue);
+}((0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__.Mixins)(_Mixins_Route__WEBPACK_IMPORTED_MODULE_9__.default));
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EditUserProfileForm);
 
@@ -10890,7 +10864,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.progress-animation[data-v-edea838a] {\n    transition: width 200ms;\n}\n", "",{"version":3,"sources":["webpack://./resources/js/Pages/Modpacks/Show.vue"],"names":[],"mappings":";AA2HA;IACA,uBAAA;AACA","sourcesContent":["<template>\n    <app-layout>\n        <template #header>\n            <h2 class=\"font-semibold text-xl text-gray-800 leading-tight\">\n                Modpack: {{ modpack.name }}\n            </h2>\n        </template>\n\n        <div class=\"py-12\">\n            <div class=\"flex flex-row flex-wrap max-w-7xl mx-auto sm:px-6 lg:px-8\">\n                <div class=\"p-2 w-2/3\">\n                    <div class=\"bg-white overflow-hidden shadow-xl rounded-lg p-4\">\n                        Name: {{ modpack.name }}\n                    </div>\n                </div>\n                <div class=\"p-2 w-1/3\">\n                    <div class=\"bg-white overflow-hidden shadow-xl rounded-lg p-4\">\n                        <div class=\"h-10 mb-2\">\n                            <span class=\"font-semibold \">\n                                You can run an update of this modpack below !\n                            </span>\n                        </div>\n\n                        <div class=\"relative pt-1\">\n                            <div v-if=\"inProgress\" class=\"overflow-hidden h-2 mb-4 text-xs flex rounded bg-pink-200\">\n                                <div\n                                    class=\"shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-pink-500 progress-animation\"\n                                    v-bind:style=\"{ width: progress + '%' }\"></div>\n                            </div>\n                        </div>\n\n                        <jet-secondary-button v-if=\"!inProgress\" class=\"w-full\" @click.native=\"startUpdate\">\n                            Update Now\n                        </jet-secondary-button>\n\n                        <jet-danger-button v-if=\"inProgress\" class=\"w-full\" @click.native=\"cancelUpdate\">\n                            Cancel update\n                        </jet-danger-button>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </app-layout>\n</template>\n\n<script lang=\"ts\">\nimport AppLayout from '@/Layouts/AppLayout.vue'\n\nimport JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'\nimport JetDangerButton from '@/Jetstream/DangerButton.vue'\n\nimport { Component, Prop, Vue } from 'vue-property-decorator'\n\n@Component({\n  components: {\n    AppLayout,\n    JetSecondaryButton,\n    JetDangerButton,\n  },\n})\nexport default class Dashboard extends Vue {\n    @Prop() modpack!: any;\n\n    progress: number = 0;\n\n    inProgress: boolean = false;\n\n    modpackUpdateLoading: boolean = false;\n\n    mounted() {\n      if (this.modpack.batch !== null) {\n        this.inProgress = true\n        this.progress = this.modpack.batch.progress\n      }\n\n      this.$echo.private(`modpacks.${this.modpack.id}`)\n        // eslint-disable-next-line no-unused-vars\n        .listen('Modpack\\\\ModpackProcessStarted', (e: any) => {\n          this.progress = 0\n          this.inProgress = true\n        }).listen('Modpack\\\\ModpackProcessProgress', (e: any) => {\n          this.progress = e.progress\n        // eslint-disable-next-line no-unused-vars\n        }).listen('Modpack\\\\ModpackProcessDone', (e: any) => {\n          this.inProgress = false\n        })\n        // eslint-disable-next-line no-unused-vars\n        .listen('Modpack\\\\ModpackProcessFailed', (e: any) => {\n          this.inProgress = false\n        })\n        // eslint-disable-next-line no-unused-vars\n        .listen('Modpack\\\\ModpackProcessCanceled', (e: any) => {\n          this.inProgress = false\n        })\n    }\n\n    async startUpdate() {\n      this.modpackUpdateLoading = true\n      try {\n        await this.$axios.post(\n          // @ts-ignore\n          route('modpacks.update.start', this.modpack.id),\n          {},\n        )\n      } catch (e) {\n        console.error(e)\n      }\n      this.modpackUpdateLoading = false\n    }\n\n    async cancelUpdate() {\n      this.modpackUpdateLoading = true\n      await this.$axios.delete(\n        // @ts-ignore\n        route('modpacks.update.cancel', this.modpack.id),\n        {},\n      )\n      this.modpackUpdateLoading = false\n    }\n}\n</script>\n\n<style scoped>\n.progress-animation {\n    transition: width 200ms;\n}\n</style>\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.progress-animation[data-v-edea838a] {\n    transition: width 200ms;\n}\n", "",{"version":3,"sources":["webpack://./resources/js/Pages/Modpacks/Show.vue"],"names":[],"mappings":";AA0HA;IACA,uBAAA;AACA","sourcesContent":["<template>\n    <app-layout>\n        <template #header>\n            <h2 class=\"font-semibold text-xl text-gray-800 leading-tight\">\n                Modpack: {{ modpack.name }}\n            </h2>\n        </template>\n\n        <div class=\"py-12\">\n            <div class=\"flex flex-row flex-wrap max-w-7xl mx-auto sm:px-6 lg:px-8\">\n                <div class=\"p-2 w-2/3\">\n                    <div class=\"bg-white overflow-hidden shadow-xl rounded-lg p-4\">\n                        Name: {{ modpack.name }}\n                    </div>\n                </div>\n                <div class=\"p-2 w-1/3\">\n                    <div class=\"bg-white overflow-hidden shadow-xl rounded-lg p-4\">\n                        <div class=\"h-10 mb-2\">\n                            <span class=\"font-semibold \">\n                                You can run an update of this modpack below !\n                            </span>\n                        </div>\n\n                        <div class=\"relative pt-1\">\n                            <div v-if=\"inProgress\" class=\"overflow-hidden h-2 mb-4 text-xs flex rounded bg-pink-200\">\n                                <div\n                                    class=\"shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-pink-500 progress-animation\"\n                                    v-bind:style=\"{ width: progress + '%' }\"></div>\n                            </div>\n                        </div>\n\n                        <jet-secondary-button v-if=\"!inProgress\" class=\"w-full\" @click.native=\"startUpdate\">\n                            Update Now\n                        </jet-secondary-button>\n\n                        <jet-danger-button v-if=\"inProgress\" class=\"w-full\" @click.native=\"cancelUpdate\">\n                            Cancel update\n                        </jet-danger-button>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </app-layout>\n</template>\n\n<script lang=\"ts\">\nimport AppLayout from '@/Layouts/AppLayout.vue'\n\nimport JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'\nimport JetDangerButton from '@/Jetstream/DangerButton.vue'\n\nimport { Component, Prop, Mixins } from 'vue-property-decorator'\nimport Route from '@/Mixins/Route'\n\n@Component({\n  components: {\n    AppLayout,\n    JetSecondaryButton,\n    JetDangerButton,\n  },\n})\nexport default class Dashboard extends Mixins(Route) {\n    @Prop() modpack!: any;\n\n    progress: number = 0;\n\n    inProgress: boolean = false;\n\n    modpackUpdateLoading: boolean = false;\n\n    mounted() {\n      if (this.modpack.batch !== null) {\n        this.inProgress = true\n        this.progress = this.modpack.batch.progress\n      }\n\n      this.$echo.private(`modpacks.${this.modpack.id}`)\n        // eslint-disable-next-line no-unused-vars\n        .listen('Modpack\\\\ModpackProcessStarted', (e: any) => {\n          this.progress = 0\n          this.inProgress = true\n        }).listen('Modpack\\\\ModpackProcessProgress', (e: any) => {\n          this.progress = e.progress\n        // eslint-disable-next-line no-unused-vars\n        }).listen('Modpack\\\\ModpackProcessDone', (e: any) => {\n          this.inProgress = false\n        })\n        // eslint-disable-next-line no-unused-vars\n        .listen('Modpack\\\\ModpackProcessFailed', (e: any) => {\n          this.inProgress = false\n        })\n        // eslint-disable-next-line no-unused-vars\n        .listen('Modpack\\\\ModpackProcessCanceled', (e: any) => {\n          this.inProgress = false\n        })\n    }\n\n    async startUpdate() {\n      this.modpackUpdateLoading = true\n      try {\n        await this.$axios.post(\n          this.route('modpacks.update.start', this.modpack.id),\n          {},\n        )\n      } catch (e) {\n        console.error(e)\n      }\n      this.modpackUpdateLoading = false\n    }\n\n    async cancelUpdate() {\n      this.modpackUpdateLoading = true\n      await this.$axios.delete(\n        this.route('modpacks.update.cancel', this.modpack.id),\n        {},\n      )\n      this.modpackUpdateLoading = false\n    }\n}\n</script>\n\n<style scoped>\n.progress-animation {\n    transition: width 200ms;\n}\n</style>\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -53157,6 +53131,200 @@ exports.PortalTarget = PortalTarget;
 exports.MountingPortal = MountingPortal;
 exports.Wormhole = wormhole;
 //# sourceMappingURL=portal-vue.common.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/process/browser.js":
+/*!*****************************************!*\
+  !*** ./node_modules/process/browser.js ***!
+  \*****************************************/
+/***/ ((module) => {
+
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
 
 
 /***/ }),

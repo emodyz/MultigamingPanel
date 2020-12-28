@@ -81,7 +81,8 @@ import JetInput from '@/Jetstream/Input.vue'
 import JetInputError from '@/Jetstream/InputError.vue'
 import JetLabel from '@/Jetstream/Label.vue'
 
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Component, Prop, Mixins } from 'vue-property-decorator'
+import Route from '@/Mixins/Route'
 
     @Component({
       components: {
@@ -93,7 +94,7 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
         JetLabel,
       },
     })
-export default class UpdateTeamNameForm extends Vue {
+export default class UpdateTeamNameForm extends Mixins(Route) {
         @Prop() readonly team!: any
 
         @Prop() permissions!: any
@@ -112,10 +113,8 @@ export default class UpdateTeamNameForm extends Vue {
         updateTeamName() {
           this.form.processing = true
           this.form.recentlySuccessful = false
-          // @ts-ignore
           this.$inertia.put(
-            // @ts-ignore
-            route('teams.update', this.team),
+            this.route('teams.update', this.team),
             this.form,
             {
               preserveScroll: true,

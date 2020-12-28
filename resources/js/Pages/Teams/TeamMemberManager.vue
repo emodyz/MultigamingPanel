@@ -326,7 +326,8 @@ import JetLabel from '@/Jetstream/Label.vue'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 import JetSectionBorder from '@/Jetstream/SectionBorder.vue'
 
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Mixins, Component, Prop } from 'vue-property-decorator'
+import Route from '@/Mixins/Route'
 
     @Component({
       components: {
@@ -344,7 +345,7 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
         JetSectionBorder,
       },
     })
-export default class TeamMemberManager extends Vue {
+export default class TeamMemberManager extends Mixins(Route) {
         @Prop() team!: any
 
         @Prop() availableRoles!: any
@@ -393,10 +394,8 @@ export default class TeamMemberManager extends Vue {
         addTeamMember() {
           this.addTeamMemberForm.processing = true
           this.addTeamMemberForm.recentlySuccessful = false
-          // @ts-ignore
           this.$inertia.post(
-            // @ts-ignore
-            route('team-members.store', this.team),
+            this.route('team-members.store', this.team),
             this.addTeamMemberForm,
             {
               preserveScroll: true,
@@ -422,10 +421,8 @@ export default class TeamMemberManager extends Vue {
 
         updateRole() {
           this.updateRoleForm.processing = true
-          // @ts-ignore
           this.$inertia.put(
-            // @ts-ignore
-            route('team-members.update', [this.team, this.managingRoleFor]),
+            this.route('team-members.update', [this.team, this.managingRoleFor]),
             this.updateRoleForm,
             {
               preserveScroll: true,
@@ -447,7 +444,7 @@ export default class TeamMemberManager extends Vue {
         leaveTeam() {
           this.leaveTeamForm.processing = true
           // @ts-ignore
-          this.$inertia.delete(route('team-members.destroy', [this.team, this.$page.props.user]), { onSuccess: () => { this.leaveTeamForm.processing = false } })
+          this.$inertia.delete(this.route('team-members.destroy', [this.team, this.$page.props.user]), { onSuccess: () => { this.leaveTeamForm.processing = false } })
         }
 
         confirmTeamMemberRemoval(teamMember: any) {
@@ -455,10 +452,8 @@ export default class TeamMemberManager extends Vue {
         }
 
         removeTeamMember() {
-          // @ts-ignore
           this.$inertia.delete(
-            // @ts-ignore
-            route('team-members.destroy', [this.team, this.teamMemberBeingRemoved]),
+            this.route('team-members.destroy', [this.team, this.teamMemberBeingRemoved]),
             {
               onSuccess: () => {
                 this.removeTeamMemberForm.processing = false

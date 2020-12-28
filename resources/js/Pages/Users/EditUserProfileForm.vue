@@ -123,11 +123,12 @@ import JetActionMessage from '@/Jetstream/ActionMessage.vue'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 
 import {
-  Vue, Component, Prop, Ref,
+  Component, Prop, Ref, Mixins,
 } from 'vue-property-decorator'
 
 import { objectToFormData } from '@/Shared/Helpers/objectToFormData'
 import { User } from '@/Shared/DataTable/Types/User'
+import Route from '@/Mixins/Route'
 
 @Component({
   components: {
@@ -140,7 +141,7 @@ import { User } from '@/Shared/DataTable/Types/User'
     JetSecondaryButton,
   },
 })
-export default class EditUserProfileForm extends Vue {
+export default class EditUserProfileForm extends Mixins(Route) {
     @Ref('photo') readonly photo!: any
 
     @Prop() readonly user!: User
@@ -167,10 +168,8 @@ export default class EditUserProfileForm extends Vue {
         this.form.photo = this.photo.files[0]
       }
 
-      // @ts-ignore
       this.$inertia.post(
-        // @ts-ignore
-        route('users.update', this.user.id),
+        this.route('users.update', this.user.id),
         objectToFormData(this.form, 'PUT'),
         {
           preserveScroll: true,
@@ -205,10 +204,8 @@ export default class EditUserProfileForm extends Vue {
     }
 
     deletePhoto() {
-      // @ts-ignore
       this.$inertia.delete(
-        // @ts-ignore
-        route('users.destroy.avatar', this.user),
+        this.route('users.destroy.avatar', this.user),
         {
           preserveScroll: true,
           onSuccess: () => {

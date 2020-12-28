@@ -58,7 +58,8 @@ import JetConfirmationModal from '@/Jetstream/ConfirmationModal.vue'
 import JetDangerButton from '@/Jetstream/DangerButton.vue'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Mixins, Component, Prop } from 'vue-property-decorator'
+import Route from '@/Mixins/Route'
 
     @Component({
       components: {
@@ -69,7 +70,7 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
         JetSecondaryButton,
       },
     })
-export default class DeleteTeamForm extends Vue {
+export default class DeleteTeamForm extends Mixins(Route) {
         @Prop() readonly team!: any
 
         form: any = {
@@ -87,8 +88,7 @@ export default class DeleteTeamForm extends Vue {
 
         deleteTeam() {
           this.form.processing = true
-          // @ts-ignore
-          this.$inertia.delete(route('teams.destroy', this.team), { onSuccess: () => { this.form.processing = false } })
+          this.$inertia.delete(this.route('teams.destroy', this.team), { onSuccess: () => { this.form.processing = false } })
         }
 }
 </script>

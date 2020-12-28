@@ -153,8 +153,9 @@ import JetInputError from '@/Jetstream/InputError.vue'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 
 import {
-  Vue, Component, Prop, Ref,
+  Mixins, Component, Prop, Ref,
 } from 'vue-property-decorator'
+import Route from '@/Mixins/Route'
 
     @Component({
       components: {
@@ -167,7 +168,7 @@ import {
         JetSecondaryButton,
       },
     })
-export default class LogoutOtherBrowserSessionsForm extends Vue {
+export default class LogoutOtherBrowserSessionsForm extends Mixins(Route) {
         @Ref('password') readonly password!: any
 
         @Prop() readonly sessions!: any
@@ -197,16 +198,13 @@ export default class LogoutOtherBrowserSessionsForm extends Vue {
         logoutOtherBrowserSessions() {
           this.form.recentlySuccessful = false
           this.form.processing = true
-          // @ts-ignore
           this.$inertia.delete(
-            // @ts-ignore
-            route('other-browser-sessions.destroy'),
+            this.route('other-browser-sessions.destroy'),
             {
               data: this.form,
               preserveScroll: true,
               // eslint-disable-next-line no-unused-vars
               onSuccess: (page: any) => {
-                // @ts-ignore
                 this.form.processing = false
                 // @ts-ignore
                 if (!this.$page.props.errors.logoutOtherBrowserSessions) {
