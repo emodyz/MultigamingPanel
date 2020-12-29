@@ -33,6 +33,7 @@ if (token) {
 // @ts-ignore
 window.Pusher = require('pusher-js')
 
+/*
 // @ts-ignore
 window.Echo = new Echo({
   broadcaster: 'pusher',
@@ -41,6 +42,14 @@ window.Echo = new Echo({
   wsPort: 6001,
   wssPort: 6001,
   disableStats: true,
+}) */
+
+// @ts-ignore
+window.Echo = new Echo({
+  broadcaster: 'pusher',
+  key: process.env.MIX_PUSHER_APP_KEY,
+  cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+  forceTLS: true,
 })
 
 // @ts-ignore

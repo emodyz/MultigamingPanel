@@ -4263,15 +4263,24 @@ if (token) {
 // @ts-ignore
 
 
-window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js"); // @ts-ignore
-
-window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_1__.default({
+window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
+/*
+// @ts-ignore
+window.Echo = new Echo({
   broadcaster: 'pusher',
   key: 'app-key',
   wsHost: window.location.hostname,
   wsPort: 6001,
   wssPort: 6001,
-  disableStats: true
+  disableStats: true,
+}) */
+// @ts-ignore
+
+window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_1__.default({
+  broadcaster: 'pusher',
+  key: "95a0578db73c0fdab888",
+  cluster: "eu",
+  forceTLS: true
 }); // @ts-ignore
 
 vue__WEBPACK_IMPORTED_MODULE_2__.default.prototype.$echo = window.Echo;
