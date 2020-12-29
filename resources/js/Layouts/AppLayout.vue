@@ -331,7 +331,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+import { Component, Mixins } from 'vue-property-decorator'
 
 import JetApplicationMark from '@/Jetstream/ApplicationMark.vue'
 import JetDropdown from '@/Jetstream/Dropdown.vue'
@@ -340,6 +340,7 @@ import JetNavLink from '@/Jetstream/NavLink.vue'
 import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink.vue'
 
 import axios from 'axios'
+import Route from '@/Mixins/Route'
 
 @Component({
   components: {
@@ -350,13 +351,11 @@ import axios from 'axios'
     JetResponsiveNavLink,
   },
 })
-export default class AppLayout extends Vue {
+export default class AppLayout extends Mixins(Route) {
   showingNavigationDropdown: boolean = false
 
   switchToTeam(team: any) {
-    // @ts-ignore
-    // eslint-disable-next-line no-undef
-    this.$inertia.put(route('current-team.update'), {
+    this.$inertia.put(this.route('current-team.update'), {
       team_id: team.id,
     }, {
       preserveState: false,
@@ -364,9 +363,7 @@ export default class AppLayout extends Vue {
   }
 
   logout() {
-    // @ts-ignore
-    // eslint-disable-next-line no-undef
-    axios.post(route('logout')
+    axios.post(this.route('logout')
       .url())
       // eslint-disable-next-line no-unused-vars
       .then((response) => {

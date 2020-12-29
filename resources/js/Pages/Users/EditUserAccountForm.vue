@@ -90,9 +90,10 @@ import JetLabel from '@/Jetstream/Label.vue'
 import JetActionMessage from '@/Jetstream/ActionMessage.vue'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Mixins, Component, Prop } from 'vue-property-decorator'
 
 import { User } from '@/Shared/DataTable/Types/User'
+import Route from '@/Mixins/Route'
 
 @Component({
   components: {
@@ -105,7 +106,7 @@ import { User } from '@/Shared/DataTable/Types/User'
     JetSecondaryButton,
   },
 })
-export default class EditUserProfileForm extends Vue {
+export default class EditUserProfileForm extends Mixins(Route) {
     @Prop() readonly user!: User
 
     @Prop() readonly roles!: any
@@ -127,22 +128,18 @@ export default class EditUserProfileForm extends Vue {
       this.form.processing = false
       this.form.recentlySuccessful = false
 
-      // @ts-ignore
       this.$inertia.put(
-        // @ts-ignore
-        route('users.update.account', this.user.id),
+        this.route('users.update.account', this.user.id),
         this.form,
         {
           preserveScroll: true,
           resetOnSuccess: false,
-          onSuccess: () => {
+          onSuccess: (page: any) => {
             this.form.processing = false
-            // @ts-ignore
-            if (!this.$page.props.errors.editUserAccount) {
+            if (!page.props.errors.editUserAccount) {
               this.form.recentlySuccessful = true
             } else {
-              // @ts-ignore
-              this.errorMessages = this.$page.props.errors.editUserAccount
+              this.errorMessages = page.props.errors.editUserAccount
             }
           },
         },

@@ -94,8 +94,9 @@ import JetInputError from '@/Jetstream/InputError.vue'
 import JetLabel from '@/Jetstream/Label.vue'
 
 import {
-  Vue, Component, Ref,
+  Mixins, Component, Ref,
 } from 'vue-property-decorator'
+import Route from '@/Mixins/Route'
 
     @Component({
       components: {
@@ -107,7 +108,7 @@ import {
         JetLabel,
       },
     })
-export default class UpdatePasswordForm extends Vue {
+export default class UpdatePasswordForm extends Mixins(Route) {
         @Ref('current_password') readonly current_password!: any
 
         errorMessages = {
@@ -127,17 +128,14 @@ export default class UpdatePasswordForm extends Vue {
         updatePassword() {
           this.form.processing = true
           this.form.recentlySuccessful = false
-          // @ts-ignore
           this.$inertia.put(
-            // @ts-ignore
-            route('user-password.update'),
+            this.route('user-password.update'),
             this.form,
             {
               preserveScroll: true,
-              onSuccess: () => {
+              onSuccess: (page: any) => {
                 this.form.processing = false
-                // @ts-ignore
-                if (!this.$page.props.errors.updatePassword) {
+                if (!page.props.errors.updatePassword) {
                   this.errorMessages = {
                     password: '',
                     password_confirmation: '',
@@ -145,8 +143,7 @@ export default class UpdatePasswordForm extends Vue {
                   }
                   this.form.recentlySuccessful = true
                 } else {
-                  // @ts-ignore
-                  this.errorMessages = this.$page.props.errors.updatePassword
+                  this.errorMessages = page.props.errors.updatePassword
                   this.current_password.focus()
                 }
               },

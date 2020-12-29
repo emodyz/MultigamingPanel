@@ -137,7 +137,8 @@ import JetConfirmationModal from '@/Jetstream/ConfirmationModal.vue'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 import JetDangerButton from '@/Jetstream/DangerButton.vue'
 
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Mixins } from 'vue-property-decorator'
+import Route from '@/Mixins/Route'
 
 @Component({
   components: {
@@ -151,7 +152,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
     JetDangerButton,
   },
 })
-export default class Dashboard extends Vue {
+export default class Dashboard extends Mixins(Route) {
     @Prop() modpacks!: any;
 
     deleteModpackId: string = null;
@@ -200,8 +201,7 @@ export default class Dashboard extends Vue {
       this.processing = true
       try {
         await this.$axios.delete(
-          // @ts-ignore
-          route('modpacks.destroy', this.deleteModpackId),
+          this.route('modpacks.destroy', this.deleteModpackId),
         )
         this.$inertia.reload({ only: ['modpacks'] })
       } catch (e) {
@@ -215,8 +215,7 @@ export default class Dashboard extends Vue {
       this.processing = true
       try {
         await this.$axios.post(
-          // @ts-ignore
-          route('modpacks.store'),
+          this.route('modpacks.store'),
           {
             name: this.name,
           },

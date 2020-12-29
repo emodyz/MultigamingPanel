@@ -74,7 +74,8 @@ import JetInput from '@/Jetstream/Input.vue'
 import JetInputError from '@/Jetstream/InputError.vue'
 import JetLabel from '@/Jetstream/Label.vue'
 
-import { Vue, Component } from 'vue-property-decorator'
+import { Mixins, Component } from 'vue-property-decorator'
+import Route from '@/Mixins/Route'
 
 @Component({
   components: {
@@ -86,7 +87,7 @@ import { Vue, Component } from 'vue-property-decorator'
     JetLabel,
   },
 })
-export default class CreateTeamForm extends Vue {
+export default class CreateTeamForm extends Mixins(Route) {
   form: any = {
     name: '',
     processing: false,
@@ -99,22 +100,19 @@ export default class CreateTeamForm extends Vue {
   createTeam() {
     this.form.processing = true
     this.form.recentlySuccessful = false
-    // @ts-ignore
+
     this.$inertia.post(
-      // @ts-ignore
-      route('teams.store'),
+      this.route('teams.store'),
       this.form,
       {
         preserveScroll: true,
-        onSuccess: () => {
+        onSuccess: (page: any) => {
           this.form.processing = false
-          // @ts-ignore
-          if (!this.$page.props.errors.createTeam) {
-            this.form.recentlySuccessfulg = true
+          if (!page.props.errors.createTeam) {
+            this.form.recentlySuccessful = true
             this.form.name = ''
           } else {
-            // @ts-ignore
-            this.form.errors = this.$page.props.errors.createTeam
+            this.form.errors = page.props.errors.createTeam
           }
         },
       },

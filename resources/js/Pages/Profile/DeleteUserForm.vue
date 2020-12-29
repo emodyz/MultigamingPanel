@@ -77,8 +77,9 @@ import JetInputError from '@/Jetstream/InputError.vue'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 
 import {
-  Vue, Component, Ref,
+  Mixins, Component, Ref,
 } from 'vue-property-decorator'
+import Route from '@/Mixins/Route'
 
     @Component({
       components: {
@@ -90,7 +91,7 @@ import {
         JetSecondaryButton,
       },
     })
-export default class DeleteUserForm extends Vue {
+export default class DeleteUserForm extends Mixins(Route) {
         @Ref('password') readonly password!: any
 
         errorMessages = {
@@ -118,24 +119,18 @@ export default class DeleteUserForm extends Vue {
         deleteUser() {
           this.form.processing = true
           this.form.recentlySuccessful = false
-          // @ts-ignore
           this.$inertia.delete(
-            // @ts-ignore
-            route('current-user.destroy'),
+            this.route('current-user.destroy'),
             {
               data: this.form,
               preserveScroll: true,
-              // eslint-disable-next-line no-unused-vars
               onSuccess: (page: any) => {
-                // @ts-ignore
                 this.form.processing = false
-                // @ts-ignore
-                if (!this.$page.props.errors.deleteUser) {
+                if (!page.props.errors.deleteUser) {
                   this.confirmingUserDeletion = false
                   this.form.recentlySuccessful = true
                 } else {
-                  // @ts-ignore
-                  this.errorMessages = this.$page.props.errors.deleteUser
+                  this.errorMessages = page.props.errors.deleteUser
                 }
               },
             },

@@ -36,9 +36,6 @@ InertiaProgress.init({
   showSpinner: false,
 })
 
-// @ts-ignore
-// eslint-disable-next-line no-undef
-Vue.mixin({ methods: { route } })
 Vue.mixin({ methods: { $moment: Moment } })
 Vue.use(plugin)
 Vue.use(PortalVue)

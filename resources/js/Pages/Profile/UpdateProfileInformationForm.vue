@@ -142,10 +142,11 @@ import JetActionMessage from '@/Jetstream/ActionMessage.vue'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 
 import {
-  Vue, Component, Prop, Ref,
+  Mixins, Component, Prop, Ref,
 } from 'vue-property-decorator'
 
 import { objectToFormData } from '@/Shared/Helpers/objectToFormData'
+import Route from '@/Mixins/Route'
 
     @Component({
       components: {
@@ -158,7 +159,7 @@ import { objectToFormData } from '@/Shared/Helpers/objectToFormData'
         JetSecondaryButton,
       },
     })
-export default class UpdateProfileInformationForm extends Vue {
+export default class UpdateProfileInformationForm extends Mixins(Route) {
         @Ref('photo') readonly photo!: any
 
         @Prop() readonly user!: any
@@ -189,23 +190,19 @@ export default class UpdateProfileInformationForm extends Vue {
             this.form.photo = this.photo.files[0]
           }
 
-          // @ts-ignore
           this.$inertia.post(
-            // @ts-ignore
-            route('user-profile-information.update'),
+            this.route('user-profile-information.update'),
             objectToFormData(this.form, 'PUT'),
             {
               preserveScroll: true,
               resetOnSuccess: false,
-              onSuccess: () => {
+              onSuccess: (page: any) => {
                 this.form.processing = false
-                // @ts-ignore
-                if (!this.$page.props.errors.updateProfileInformation) {
+                if (!page.props.errors.updateProfileInformation) {
                   this.photoPreview = null
                   this.form.recentlySuccessful = true
                 } else {
-                  // @ts-ignore
-                  this.errorMessages = this.$page.props.errors.updateProfileInformation
+                  this.errorMessages = page.props.errors.updateProfileInformation
                 }
               },
             },
@@ -227,10 +224,8 @@ export default class UpdateProfileInformationForm extends Vue {
         }
 
         deletePhoto() {
-          // @ts-ignore
           this.$inertia.delete(
-            // @ts-ignore
-            route('current-user-photo.destroy'),
+            this.route('current-user-photo.destroy'),
             {
               preserveScroll: true,
               onSuccess: () => {
