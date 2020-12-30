@@ -59,7 +59,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Mixins } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import { defaultActionsOptions } from '@/Shared/DataTable/Types/defaults'
 import { Action, DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions'
 import { DataTableActionsItem } from '@/Shared/DataTable/Types/DataTableActionsItem'
@@ -69,7 +69,6 @@ import JetDangerButton from '@/Jetstream/DangerButton.vue'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 import JetConfirmationModal from '@/Jetstream/ConfirmationModal.vue'
 import DtUserProfile from '@/Shared/DataTable/Components/UserProfile.vue'
-import Cerberus from '@/Mixins/Cerberus'
 
 @Component({
   components: {
@@ -81,7 +80,7 @@ import Cerberus from '@/Mixins/Cerberus'
   },
 })
 // eslint-disable-next-line camelcase
-export default class DataTable_Actions extends Mixins(Cerberus) {
+export default class DataTable_Actions extends Vue {
   @Prop({
     type: Object,
     required: true,
@@ -135,24 +134,6 @@ export default class DataTable_Actions extends Mixins(Cerberus) {
       default:
         this.goToShow(_action)
     }
-  }
-
-  // TODO: move this to the parent data-table
-  /*
-  async checkPermissions() {
-    if (this.actions.show.enabled && this.actions.show.permission) {
-      this.actions.show.enabled = await this.Cerberus.can(this.actions.show.permission)
-    }
-    if (this.actions.edit.enabled && this.actions.edit.permission) {
-      this.actions.edit.enabled = await this.Cerberus.can(this.actions.edit.permission)
-    }
-    if (this.actions.destroy.enabled && this.actions.destroy.permission) {
-      this.actions.destroy.enabled = await this.Cerberus.can(this.actions.destroy.permission)
-    }
-  } */
-
-  created() {
-    // this.checkPermissions()
   }
 }
 </script>

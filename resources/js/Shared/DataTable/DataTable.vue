@@ -137,7 +137,7 @@
 
 <script lang="ts">
 import {
-  Vue, Component, Prop, Watch,
+  Mixins, Component, Prop, Watch,
 } from 'vue-property-decorator'
 import { Inertia } from '@inertiajs/inertia'
 import _ from 'lodash'
@@ -153,6 +153,7 @@ import DtActions from '@/Shared/DataTable/Components/Actions.vue'
 import { User } from '@/Shared/DataTable/Types/User'
 import { PaginatedDate } from '@/Shared/DataTable/Types/PaginatedData'
 import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader'
+import Cerberus from '@/Mixins/Cerberus'
 
 @Component({
   components: {
@@ -165,7 +166,7 @@ import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader'
     DtActions,
   },
 })
-export default class DataTable extends Vue {
+export default class DataTable extends Mixins(Cerberus) {
   @Prop({
     type: Array,
     required: true,
@@ -320,8 +321,18 @@ export default class DataTable extends Vue {
     }
   }
 
+  checkActionsPermissions() {
+    this.actions.actions.forEach(async (item) => {
+      if (item.enabled && !_.isEmpty(item.permission)) {
+        const i = this.actions.actions.indexOf(item)
+        this.actions.actions[i].enabled = await this.Cerberus.can(item.permission)
+      }
+    })
+  }
+
   // eslint-disable-next-line class-methods-use-this
   created() {
+    this.checkActionsPermissions()
     // console.log(this.dataObject)
     // console.log(this.query.orderBy['key'])
   }

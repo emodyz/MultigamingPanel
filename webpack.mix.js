@@ -1,4 +1,4 @@
-const mix = require('laravel-mix');
+const mix = require('laravel-mix')
 
 /*
  |--------------------------------------------------------------------------
@@ -11,17 +11,18 @@ const mix = require('laravel-mix');
  |
  */
 
-let productionSourceMaps = false;
+let productionSourceMaps = false
 
 mix.typeScript('resources/js/app.ts', 'public/js')
-  .vue({version: 2})
-  .postCss('resources/css/app.css', 'public/css', [
-    require('autoprefixer'),
-    require('tailwindcss')('./tailwind.config.js')
-  ])
-  .webpackConfig(require('./webpack.config'))
-  .babelConfig({
-    plugins: ['@babel/plugin-syntax-dynamic-import'],
-  })
-  .version()
-  .sourceMaps(productionSourceMaps, 'source-map')
+    .vue({ version: 2 })
+    .postCss('resources/css/app.css', 'public/css', [
+        require('autoprefixer'),
+        require('tailwindcss')('./tailwind.config.js')
+    ])
+    .webpackConfig(require('./webpack.config'))
+    .babelConfig({
+        plugins: ['@babel/plugin-syntax-dynamic-import'],
+    })
+    .version()
+    .extract()
+    .sourceMaps(productionSourceMaps, 'source-map')
