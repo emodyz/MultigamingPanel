@@ -1,10 +1,10 @@
 <template>
-  <input
+  <textarea
       ref="input"
       class="form-input rounded-md shadow-sm"
       :value="value"
       @input="$emit('input', $event.target.value)"
-  >
+  />
 </template>
 
 <script lang="ts">
@@ -13,7 +13,7 @@ import {
 } from 'vue-property-decorator'
 
 @Component
-export default class Input extends Vue {
+export default class InputArea extends Vue {
   @Prop({ default: 'button' }) readonly value!: any
 
   @Ref('input') readonly input!: HTMLInputElement
