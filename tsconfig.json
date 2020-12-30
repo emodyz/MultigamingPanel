@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "target": "es5",
+        "target": "es6",
         "strict": true,
         "moduleResolution": "node",
         "allowSyntheticDefaultImports": true,
@@ -9,7 +9,7 @@
         "paths": {
             "@/*": ["resources/js/*"]
         },
-        "module": "es2015",
+        "module": "esnext",
         "strictNullChecks": false,
         "esModuleInterop": true,
         "lib": ["dom", "esNext"]
