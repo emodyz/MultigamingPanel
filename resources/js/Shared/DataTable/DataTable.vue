@@ -112,7 +112,7 @@
                   class="px-6 py-4 whitespace-nowrap"
               >
                 <dt-actions
-                    :actions="actions"
+                    :actions-options="actions"
                     :item="{
                       id: item.id,
                       type: dataType ? dataType : false,
@@ -153,8 +153,6 @@ import DtActions from '@/Shared/DataTable/Components/Actions.vue'
 import { User } from '@/Shared/DataTable/Types/User'
 import { PaginatedDate } from '@/Shared/DataTable/Types/PaginatedData'
 import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader'
-
-// TODO: Use Dynamic components
 
 @Component({
   components: {

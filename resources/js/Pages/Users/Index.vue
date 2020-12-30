@@ -60,15 +60,17 @@ export default class UsersIndex extends Vue {
     actions: DataTableActionsOptions = {
       enabled: true,
       baseUrl: '/users',
-      destroy: {
-        displayName: 'Delete', enabled: true, permission: 'users-destroy',
-      },
-      edit: {
-        displayName: 'Edit', enabled: true, path: 'edit', permission: 'users-edit',
-      },
-      show: {
-        displayName: 'See', enabled: false,
-      },
+      actions: [
+        {
+          displayName: 'See', enabled: false, type: 'show',
+        },
+        {
+          displayName: 'Edit', enabled: true, path: 'edit', permission: 'users-edit', type: 'edit', class: 'text-indigo-600 hover:text-indigo-900',
+        },
+        {
+          displayName: 'Delete', enabled: true, permission: 'users-destroy', type: 'destroy', class: 'text-red-600 hover:text-red-900',
+        },
+      ],
     }
 
     created() {

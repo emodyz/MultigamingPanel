@@ -1,36 +1,23 @@
 <template>
-  <div class="text-left text-sm font-medium divide-x divide-gray-200">
-    <a
-      v-if="actions.show.enabled"
-      href="#"
-      class="text-green-600 hover:text-green-900 pr-1"
-      @click.prevent="goToShow(item.id)"
-    >
-      {{ actions.show.displayName }}
-    </a>
-    <a
-      v-if="actions.edit.enabled"
-      href="#"
-      :class="`${actions.show.enabled ? 'pl-2' : ''} pr-1`"
-      class="text-indigo-600 hover:text-indigo-900"
-      @click.prevent="goToEdit(item.id)"
-    >
-      {{ actions.edit.displayName }}
-    </a>
-    <a
-      v-if="actions.destroy.enabled"
-      href="#"
-      :class="`pl-2`"
-      class="text-red-600 hover:text-red-900"
-      @click.prevent="initiateDestruction(item.id)"
-    >
-      {{ actions.destroy.displayName }}
-    </a>
-
+  <div class="text-left text-sm font-medium">
+    <div class="divide-x divide-gray-200">
+      <template v-for="action in actionsOptions.actions">
+        <a
+            v-if="action.enabled"
+            :key="action.displayName"
+            href="#"
+            class="px-1"
+            :class="action.class"
+            @click.prevent="goTo(action)"
+        >
+          {{ action.displayName }}
+        </a>
+      </template>
+    </div>
     <!-- Destroy Action Confirmation Modal -->
     <jet-confirmation-modal
-      :show="uuidBeingDestroyed"
-      @close="uuidBeingDestroyed = null"
+        :show="uuidBeingDestroyed"
+        @close="uuidBeingDestroyed = null"
     >
       <template #title>
         Delete
@@ -40,10 +27,10 @@
         <div v-if="item.type === 'Users'">
           <span class="text-md">Are you sure you would like to delete this user ?</span>
           <dt-user-profile
-            class="my-4"
-            :email="item.metaData.email"
-            :name="item.metaData.name"
-            :profile_photo_url="item.metaData.profile_photo_url"
+              class="my-4"
+              :email="item.metaData.email"
+              :name="item.metaData.name"
+              :profile_photo_url="item.metaData.profile_photo_url"
           />
         </div>
         <div v-else>
@@ -59,10 +46,10 @@
         </jet-secondary-button>
 
         <jet-danger-button
-          class="ml-2"
-          :class="{ 'opacity-25': destructionInProgress }"
-          :disabled="destructionInProgress"
-          @click.native="goToDestroy(uuidBeingDestroyed)"
+            class="ml-2"
+            :class="{ 'opacity-25': destructionInProgress }"
+            :disabled="destructionInProgress"
+            @click.native="goToDestroy(actionUsedToDestroy)"
         >
           Delete
         </jet-danger-button>
@@ -74,10 +61,9 @@
 <script lang="ts">
 import { Component, Prop, Mixins } from 'vue-property-decorator'
 import { defaultActionsOptions } from '@/Shared/DataTable/Types/defaults'
-import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions'
+import { Action, DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions'
 import { DataTableActionsItem } from '@/Shared/DataTable/Types/DataTableActionsItem'
 import { Inertia } from '@inertiajs/inertia'
-// import _ from 'lodash'
 import jetButton from '@/Jetstream/Button.vue'
 import JetDangerButton from '@/Jetstream/DangerButton.vue'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
@@ -96,55 +82,77 @@ import Cerberus from '@/Mixins/Cerberus'
 })
 // eslint-disable-next-line camelcase
 export default class DataTable_Actions extends Mixins(Cerberus) {
-    @Prop({ type: Object, required: true }) readonly item!: DataTableActionsItem
+  @Prop({
+    type: Object,
+    required: true,
+  }) readonly item!: DataTableActionsItem
 
-    @Prop({
-      type: Object,
-      required: true,
-      default: () => defaultActionsOptions,
-    }) readonly actions!: DataTableActionsOptions
+  @Prop({
+    type: Object,
+    required: true,
+    default: () => defaultActionsOptions,
+  }) readonly actionsOptions!: DataTableActionsOptions
 
-    uuidBeingDestroyed: string | number | null = null
+  uuidBeingDestroyed: string | number | null = null
 
-    destructionInProgress = false
+  actionUsedToDestroy?: Action
 
-    goToShow(id: string | number) {
-      Inertia.visit(`${this.actions.baseUrl}/${id}/${this.actions.show.path ? this.actions.show.path : ''}`, { preserveScroll: true })
+  destructionInProgress = false
+
+  goToShow(_action: Action) {
+    Inertia.visit(`${this.actionsOptions.baseUrl}/${this.item.id}/${_action.path ? _action.path : ''}`, { preserveScroll: true })
+  }
+
+  goToEdit(_action: Action) {
+    Inertia.visit(`${this.actionsOptions.baseUrl}/${this.item.id}/${_action.path}`, { preserveScroll: true })
+  }
+
+  initiateDestruction(_action: Action) {
+    this.uuidBeingDestroyed = this.item.id
+    this.actionUsedToDestroy = _action
+  }
+
+  goToDestroy(_action: Action) {
+    Inertia.delete(`${this.actionsOptions.baseUrl}/${this.item.id}/${_action.path ? _action.path : ''}`,
+      {
+        preserveScroll: true,
+        onSuccess: () => {
+          this.uuidBeingDestroyed = null
+          this.actionUsedToDestroy = null
+          this.destructionInProgress = false
+        },
+      })
+  }
+
+  goTo(_action: Action) {
+    switch (_action.type) {
+      case 'edit':
+        this.goToEdit(_action)
+        break
+      case 'destroy':
+        this.initiateDestruction(_action)
+        break
+      default:
+        this.goToShow(_action)
     }
+  }
 
-    goToEdit(id: string | number) {
-      Inertia.visit(`${this.actions.baseUrl}/${id}/${this.actions.edit.path}`, { preserveScroll: true })
+  // TODO: move this to the parent data-table
+  /*
+  async checkPermissions() {
+    if (this.actions.show.enabled && this.actions.show.permission) {
+      this.actions.show.enabled = await this.Cerberus.can(this.actions.show.permission)
     }
+    if (this.actions.edit.enabled && this.actions.edit.permission) {
+      this.actions.edit.enabled = await this.Cerberus.can(this.actions.edit.permission)
+    }
+    if (this.actions.destroy.enabled && this.actions.destroy.permission) {
+      this.actions.destroy.enabled = await this.Cerberus.can(this.actions.destroy.permission)
+    }
+  } */
 
-    initiateDestruction(id: string | number) {
-      this.uuidBeingDestroyed = id
-    }
-
-    goToDestroy(id: string | number) {
-      Inertia.delete(`${this.actions.baseUrl}/${id}/${this.actions.destroy.path ? this.actions.destroy.path : ''}`,
-        {
-          preserveScroll: true,
-          onSuccess: () => {
-            this.uuidBeingDestroyed = null
-            this.destructionInProgress = false
-          },
-        })
-    }
-
-    async checkPermissions() {
-      if (this.actions.show.enabled && this.actions.show.permission) {
-        this.actions.show.enabled = await this.Cerberus.can(this.actions.show.permission)
-      }
-      if (this.actions.edit.enabled && this.actions.edit.permission) {
-        this.actions.edit.enabled = await this.Cerberus.can(this.actions.edit.permission)
-      }
-      if (this.actions.destroy.enabled && this.actions.destroy.permission) {
-        this.actions.destroy.enabled = await this.Cerberus.can(this.actions.destroy.permission)
-      }
-    }
-
-    created() {
-      this.checkPermissions()
-    }
+  created() {
+    // this.checkPermissions()
+  }
 }
 </script>

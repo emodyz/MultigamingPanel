@@ -3800,24 +3800,28 @@ __webpack_require__.r(__webpack_exports__);
 var defaultActionsOptions = {
   enabled: false,
   baseUrl: '',
-  show: {
+  actions: [{
     enabled: false,
     displayName: 'See',
     permission: '',
-    path: ''
-  },
-  edit: {
+    path: '',
+    type: 'show',
+    "class": 'text-green-600 hover:text-green-900'
+  }, {
     enabled: false,
     displayName: 'Edit',
     permission: '',
-    path: 'edit'
-  },
-  destroy: {
+    path: 'edit',
+    type: 'edit',
+    "class": 'text-indigo-600 hover:text-indigo-900'
+  }, {
     enabled: false,
     displayName: 'Delete',
     permission: '',
-    path: ''
-  }
+    path: '',
+    type: 'destroy',
+    "class": 'text-red-600 hover:text-red-900'
+  }]
 };
 
 /***/ }),
@@ -9760,21 +9764,24 @@ function (_super) {
     _this.actions = {
       enabled: true,
       baseUrl: '/users',
-      destroy: {
-        displayName: 'Delete',
-        enabled: true,
-        permission: 'users-destroy'
-      },
-      edit: {
+      actions: [{
+        displayName: 'See',
+        enabled: false,
+        type: 'show'
+      }, {
         displayName: 'Edit',
         enabled: true,
         path: 'edit',
-        permission: 'users-edit'
-      },
-      show: {
-        displayName: 'See',
-        enabled: false
-      }
+        permission: 'users-edit',
+        type: 'edit',
+        "class": 'text-indigo-600 hover:text-indigo-900'
+      }, {
+        displayName: 'Delete',
+        enabled: true,
+        permission: 'users-destroy',
+        type: 'destroy',
+        "class": 'text-red-600 hover:text-red-900'
+      }]
     };
     return _this;
   }
@@ -9861,152 +9868,8 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function (resolve) {
-      resolve(value);
-    });
-  }
-
-  return new (P || (P = Promise))(function (resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-
-var __generator = undefined && undefined.__generator || function (thisArg, body) {
-  var _ = {
-    label: 0,
-    sent: function sent() {
-      if (t[0] & 1) throw t[1];
-      return t[1];
-    },
-    trys: [],
-    ops: []
-  },
-      f,
-      y,
-      t,
-      g;
-  return g = {
-    next: verb(0),
-    "throw": verb(1),
-    "return": verb(2)
-  }, typeof Symbol === "function" && (g[Symbol.iterator] = function () {
-    return this;
-  }), g;
-
-  function verb(n) {
-    return function (v) {
-      return step([n, v]);
-    };
-  }
-
-  function step(op) {
-    if (f) throw new TypeError("Generator is already executing.");
-
-    while (_) {
-      try {
-        if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-        if (y = 0, t) op = [op[0] & 2, t.value];
-
-        switch (op[0]) {
-          case 0:
-          case 1:
-            t = op;
-            break;
-
-          case 4:
-            _.label++;
-            return {
-              value: op[1],
-              done: false
-            };
-
-          case 5:
-            _.label++;
-            y = op[1];
-            op = [0];
-            continue;
-
-          case 7:
-            op = _.ops.pop();
-
-            _.trys.pop();
-
-            continue;
-
-          default:
-            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
-              _ = 0;
-              continue;
-            }
-
-            if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
-              _.label = op[1];
-              break;
-            }
-
-            if (op[0] === 6 && _.label < t[1]) {
-              _.label = t[1];
-              t = op;
-              break;
-            }
-
-            if (t && _.label < t[2]) {
-              _.label = t[2];
-
-              _.ops.push(op);
-
-              break;
-            }
-
-            if (t[2]) _.ops.pop();
-
-            _.trys.pop();
-
-            continue;
-        }
-
-        op = body.call(thisArg, _);
-      } catch (e) {
-        op = [6, e];
-        y = 0;
-      } finally {
-        f = t = 0;
-      }
-    }
-
-    if (op[0] & 5) throw op[1];
-    return {
-      value: op[0] ? op[1] : void 0,
-      done: true
-    };
-  }
-};
 
 
-
- // import _ from 'lodash'
 
 
 
@@ -10029,90 +9892,66 @@ function (_super) {
     return _this;
   }
 
-  DataTable_Actions.prototype.goToShow = function (id) {
-    _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia.visit(this.actions.baseUrl + "/" + id + "/" + (this.actions.show.path ? this.actions.show.path : ''), {
+  DataTable_Actions.prototype.goToShow = function (_action) {
+    _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia.visit(this.actionsOptions.baseUrl + "/" + this.item.id + "/" + (_action.path ? _action.path : ''), {
       preserveScroll: true
     });
   };
 
-  DataTable_Actions.prototype.goToEdit = function (id) {
-    _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia.visit(this.actions.baseUrl + "/" + id + "/" + this.actions.edit.path, {
+  DataTable_Actions.prototype.goToEdit = function (_action) {
+    _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia.visit(this.actionsOptions.baseUrl + "/" + this.item.id + "/" + _action.path, {
       preserveScroll: true
     });
   };
 
-  DataTable_Actions.prototype.initiateDestruction = function (id) {
-    this.uuidBeingDestroyed = id;
+  DataTable_Actions.prototype.initiateDestruction = function (_action) {
+    this.uuidBeingDestroyed = this.item.id;
+    this.actionUsedToDestroy = _action;
   };
 
-  DataTable_Actions.prototype.goToDestroy = function (id) {
+  DataTable_Actions.prototype.goToDestroy = function (_action) {
     var _this = this;
 
-    _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia.delete(this.actions.baseUrl + "/" + id + "/" + (this.actions.destroy.path ? this.actions.destroy.path : ''), {
+    _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia.delete(this.actionsOptions.baseUrl + "/" + this.item.id + "/" + (_action.path ? _action.path : ''), {
       preserveScroll: true,
       onSuccess: function onSuccess() {
         _this.uuidBeingDestroyed = null;
+        _this.actionUsedToDestroy = null;
         _this.destructionInProgress = false;
       }
     });
   };
 
-  DataTable_Actions.prototype.checkPermissions = function () {
-    return __awaiter(this, void 0, void 0, function () {
-      var _a, _b, _c;
+  DataTable_Actions.prototype.goTo = function (_action) {
+    switch (_action.type) {
+      case 'edit':
+        this.goToEdit(_action);
+        break;
 
-      return __generator(this, function (_d) {
-        switch (_d.label) {
-          case 0:
-            if (!(this.actions.show.enabled && this.actions.show.permission)) return [3
-            /*break*/
-            , 2];
-            _a = this.actions.show;
-            return [4
-            /*yield*/
-            , this.Cerberus.can(this.actions.show.permission)];
+      case 'destroy':
+        this.initiateDestruction(_action);
+        break;
 
-          case 1:
-            _a.enabled = _d.sent();
-            _d.label = 2;
+      default:
+        this.goToShow(_action);
+    }
+  }; // TODO: move this to the parent data-table
 
-          case 2:
-            if (!(this.actions.edit.enabled && this.actions.edit.permission)) return [3
-            /*break*/
-            , 4];
-            _b = this.actions.edit;
-            return [4
-            /*yield*/
-            , this.Cerberus.can(this.actions.edit.permission)];
+  /*
+  async checkPermissions() {
+    if (this.actions.show.enabled && this.actions.show.permission) {
+      this.actions.show.enabled = await this.Cerberus.can(this.actions.show.permission)
+    }
+    if (this.actions.edit.enabled && this.actions.edit.permission) {
+      this.actions.edit.enabled = await this.Cerberus.can(this.actions.edit.permission)
+    }
+    if (this.actions.destroy.enabled && this.actions.destroy.permission) {
+      this.actions.destroy.enabled = await this.Cerberus.can(this.actions.destroy.permission)
+    }
+  } */
 
-          case 3:
-            _b.enabled = _d.sent();
-            _d.label = 4;
 
-          case 4:
-            if (!(this.actions.destroy.enabled && this.actions.destroy.permission)) return [3
-            /*break*/
-            , 6];
-            _c = this.actions.destroy;
-            return [4
-            /*yield*/
-            , this.Cerberus.can(this.actions.destroy.permission)];
-
-          case 5:
-            _c.enabled = _d.sent();
-            _d.label = 6;
-
-          case 6:
-            return [2
-            /*return*/
-            ];
-        }
-      });
-    });
-  };
-
-  DataTable_Actions.prototype.created = function () {
-    this.checkPermissions();
+  DataTable_Actions.prototype.created = function () {// this.checkPermissions()
   };
 
   __decorate([(0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Prop)({
@@ -10126,7 +9965,7 @@ function (_super) {
     "default": function _default() {
       return _Shared_DataTable_Types_defaults__WEBPACK_IMPORTED_MODULE_1__.defaultActionsOptions;
     }
-  })], DataTable_Actions.prototype, "actions", void 0);
+  })], DataTable_Actions.prototype, "actionsOptions", void 0);
 
   DataTable_Actions = __decorate([(0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Component)({
     components: {
@@ -10534,7 +10373,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
 
 
 
- // TODO: Use Dynamic components
+
 
 var DataTable =
 /** @class */
@@ -69895,64 +69734,41 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "text-left text-sm font-medium divide-x divide-gray-200" },
+    { staticClass: "text-left text-sm font-medium" },
     [
-      _vm.actions.show.enabled
-        ? _c(
-            "a",
-            {
-              staticClass: "text-green-600 hover:text-green-900 pr-1",
-              attrs: { href: "#" },
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  return _vm.goToShow(_vm.item.id)
-                }
-              }
-            },
-            [_vm._v("\n    " + _vm._s(_vm.actions.show.displayName) + "\n  ")]
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.actions.edit.enabled
-        ? _c(
-            "a",
-            {
-              staticClass: "text-indigo-600 hover:text-indigo-900",
-              class: (_vm.actions.show.enabled ? "pl-2" : "") + " pr-1",
-              attrs: { href: "#" },
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  return _vm.goToEdit(_vm.item.id)
-                }
-              }
-            },
-            [_vm._v("\n    " + _vm._s(_vm.actions.edit.displayName) + "\n  ")]
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.actions.destroy.enabled
-        ? _c(
-            "a",
-            {
-              staticClass: "text-red-600 hover:text-red-900",
-              class: "pl-2",
-              attrs: { href: "#" },
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  return _vm.initiateDestruction(_vm.item.id)
-                }
-              }
-            },
-            [
-              _vm._v(
-                "\n    " + _vm._s(_vm.actions.destroy.displayName) + "\n  "
-              )
+      _c(
+        "div",
+        { staticClass: "divide-x divide-gray-200" },
+        [
+          _vm._l(_vm.actionsOptions.actions, function(action) {
+            return [
+              action.enabled
+                ? _c(
+                    "a",
+                    {
+                      key: action.displayName,
+                      staticClass: "px-1",
+                      class: action.class,
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.goTo(action)
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n        " + _vm._s(action.displayName) + "\n      "
+                      )
+                    ]
+                  )
+                : _vm._e()
             ]
-          )
-        : _vm._e(),
+          })
+        ],
+        2
+      ),
       _vm._v(" "),
       _c("jet-confirmation-modal", {
         attrs: { show: _vm.uuidBeingDestroyed },
@@ -70037,7 +69853,7 @@ var render = function() {
                     attrs: { disabled: _vm.destructionInProgress },
                     nativeOn: {
                       click: function($event) {
-                        return _vm.goToDestroy(_vm.uuidBeingDestroyed)
+                        return _vm.goToDestroy(_vm.actionUsedToDestroy)
                       }
                     }
                   },
@@ -70521,7 +70337,7 @@ var render = function() {
                                       [
                                         _c("dt-actions", {
                                           attrs: {
-                                            actions: _vm.actions,
+                                            "actions-options": _vm.actions,
                                             item: {
                                               id: item.id,
                                               type: _vm.dataType
