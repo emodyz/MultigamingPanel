@@ -9,8 +9,8 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 
-    @Component
+@Component
 export default class InputError extends Vue {
-        @Prop() readonly message!: any
+  @Prop() readonly message!: any
 }
 </script>
