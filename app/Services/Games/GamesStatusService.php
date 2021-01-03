@@ -8,6 +8,10 @@ use GameQ\GameQ;
 
 class GamesStatusService
 {
+    /**
+     * @param Server $server
+     * @throws \Exception
+     */
     public static function fetchStatus(Server $server)
     {
         $gameQ = new GameQ();

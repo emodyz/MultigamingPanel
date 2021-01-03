@@ -15,26 +15,15 @@ class ProcessServersStatuses implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-
-    }
-
-    /**
      * Execute the job.
      *
      * @return void
+     * @throws \Exception
      */
     public function handle()
     {
         $servers = Server::all();
 
-        $servers->each(function($server) {
-            GamesStatusService::fetchStatus($server);
-        });
+        $servers->each(fn(Server $server) => GamesStatusService::fetchStatus($server));
     }
 }
