@@ -70,9 +70,8 @@ class ArticleController extends Controller
      */
     public function create(): \Inertia\Response
     {
-        $servers = Server::all()->map(function ($server) {
-            return collect($server)->only(['id', 'name', 'logo_url', 'game']);
-        });
+        $servers = Server::all()->map(fn(Server $server) => $server->only(['id', 'name', 'logo_url', 'game']));
+
         return Inertia::render('Articles/Create', compact('servers'));
     }
 
@@ -109,9 +108,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article): \Inertia\Response
     {
-        $servers = Server::all()->map(function ($server) {
-            return collect($server)->only(['id', 'name', 'logo_url', 'game']);
-        });
+        $servers = Server::all()->map(fn(Server $server) => $server->only(['id', 'name', 'logo_url', 'game']));
 
         $article->servers;
 

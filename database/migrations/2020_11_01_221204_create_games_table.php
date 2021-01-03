@@ -17,7 +17,7 @@ class CreateGamesTable extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->string('identifier');
-            $table->integer('appid');
+            $table->integer('appid')->nullable();
             $table->text('logo_path')->nullable();
             $table->timestamps();
         });

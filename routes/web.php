@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ServerController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ModpackController;
+use App\Http\Controllers\ModPackController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,14 +28,17 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::group(['middleware' => 'auth:sanctum'], function () {
 
     // ModPacks
-    Route::resource('modpacks', ModpackController::class);
-    Route::post('/modpacks/{modpack}/update', [ModpackController::class, 'startUpdate'])->name('modpacks.update.start');
-    Route::delete('/modpacks/{modpack}/update', [ModpackController::class, 'cancelUpdate'])->name('modpacks.update.cancel');
+    Route::resource('modpacks', ModPackController::class);
+    Route::get('/modpacks/{modpack}/update', [ModPackController::class, 'showUpdate'])->name('modpacks.update.show');
+    Route::post('/modpacks/{modpack}/update', [ModPackController::class, 'startUpdate'])->name('modpacks.update.start');
+    Route::delete('/modpacks/{modpack}/update', [ModPackController::class, 'cancelUpdate'])->name('modpacks.update.cancel');
     // Users
     Route::resource('users', UserController::class);
     route::delete('users/{user}/avatar', [UserController::class, 'destroyAvatar'])->name('users.destroy.avatar');
     route::put('users/{user}/account', [UserController::class, 'updateAccount'])->name('users.update.account');
     // Articles
     Route::resource('articles', ArticleController::class);
+    // Servers
+    Route::resource('servers', ServerController::class);
 
 });

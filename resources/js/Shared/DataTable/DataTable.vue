@@ -4,15 +4,15 @@
       <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
         <div class="shadow-md overflow-hidden border border-gray-200 sm:rounded-lg divide-y divide-gray-200">
           <div class="w-full flex flex-row">
-            <jet-input
-                v-model="search"
-                class="w-1/3 my-3 mx-6 border-gray-200"
-                type="search"
-                placeholder="Search..."
-            />
-            <div v-if="actionComponent" class="w-1/3 my-3 ml-auto mr-6 border-gray-200 flex flex-row items-center align-middle">
-              <component :is="actionComponent"/>
-            </div>
+              <jet-input
+                      v-model="search"
+                      class="w-1/3 my-3 mx-6 border-gray-200"
+                      type="search"
+                      placeholder="Search..."
+              />
+              <div class="w-1/3 my-3 ml-auto mr-6 border-gray-200 flex flex-row items-center align-middle">
+                  <slot name="action"/>
+              </div>
           </div>
           <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
@@ -24,7 +24,7 @@
                   class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                   <span
-                      v-if="item.key !== 'index'"
+                      v-if="item.key !== 'index' && item.order !== false"
                       class="flex flex-row  hover:cursor-pointer"
                       @click.prevent="handleOrderBy(item.key)"
                   >
@@ -132,11 +132,14 @@ import JetInput from '@/Jetstream/Input.vue'
 import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions'
 import DtUserProfile from '@/Shared/DataTable/Components/UserProfile.vue'
 import DtUserStatus from '@/Shared/DataTable/Components/UserStatus.vue'
+import DtModPackFiles from '@/Shared/DataTable/Components/ModPackFiles.vue'
+import DtModPackSize from '@/Shared/DataTable/Components/ModPackSize.vue'
 import DtDate from '@/Shared/DataTable/Components/Date.vue'
 import DtArticleTitle from '@/Shared/DataTable/Components/ArticleTitle.vue'
 import DtArticleStatus from '@/Shared/DataTable/Components/ArticleStatus.vue'
 import DtDefaultRow from '@/Shared/DataTable/Components/DefaultRow.vue'
 import DtActions from '@/Shared/DataTable/Components/Actions.vue'
+import DtGameProfile from '@/Shared/DataTable/Components/GameProfile.vue'
 import { User } from '@/Shared/DataTable/Types/User'
 import { PaginatedDate } from '@/Shared/DataTable/Types/PaginatedData'
 import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader'
@@ -153,6 +156,9 @@ import { Article } from '@/Shared/DataTable/Types/Article'
     ChevronDown,
     DtUserProfile,
     DtUserStatus,
+    DtGameProfile,
+    DtModPackFiles,
+    DtModPackSize,
     DtDate,
     DtDefaultRow,
     DtActions,
@@ -172,8 +178,6 @@ export default class DataTable extends Mixins(Cerberus) {
   }) readonly dataObject!: PaginatedDate
 
   @Prop() readonly dataType!: null | string
-
-  @Prop() readonly actionComponent!: any
 
   @Prop({
     type: Number,
@@ -247,6 +251,8 @@ export default class DataTable extends Mixins(Cerberus) {
   initActionsMetaData(item: object): User | Article | object {
     // eslint-disable-next-line default-case
     switch (this.dataType) {
+      case 'ModPacks':
+        return item
       case 'Users':
         return item
       case 'Articles':
@@ -298,6 +304,12 @@ export default class DataTable extends Mixins(Cerberus) {
         return 'DtUserProfile'
       case 'User.Status':
         return 'DtUserStatus'
+      case 'Game.Profile':
+        return 'DtGameProfile'
+      case 'ModPack.Size':
+        return 'DtModPackSize'
+      case 'ModPack.Files':
+        return 'DtModPackFiles'
       case 'Article.Title':
         return 'DtArticleTitle'
       case 'Article.Status':
@@ -325,6 +337,11 @@ export default class DataTable extends Mixins(Cerberus) {
           email: this.getWithAccs(_item, _dataAccs.email),
           profile_photo_url: this.getWithAccs(_item, _dataAccs.profile_photo_url),
         }
+      case 'DtGameProfile':
+        return {
+          name: this.getWithAccs(_item, _dataAccs.name),
+          logo_url: this.getWithAccs(_item, _dataAccs.logo_url),
+        }
       case 'DtUserStatus':
         return { email_verified_at: _item.email_verified_at }
       case 'DtArticleTitle':
@@ -336,6 +353,14 @@ export default class DataTable extends Mixins(Cerberus) {
         return {
           status: _item.status,
           published_at: _item.published_at,
+        }
+      case 'DtModPackSize':
+        return {
+          size: _item.manifest_info.size,
+        }
+      case 'DtModPackFiles':
+        return {
+          files: _item.manifest_info.files,
         }
       default:
         return {

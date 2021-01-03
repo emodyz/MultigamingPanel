@@ -166,6 +166,13 @@ export default class MultiSelect extends Vue {
     this.$emit('input', this.getSelectedOptions())
   }
 
+  @Watch('optionsList')
+  onOptionListUpdated() {
+    this.searchOption = ''
+    this.searchResults = null
+    this.options = this.initOptions(this.optionsList)
+  }
+
   shouldWatchValue = true
 
   shouldAllowWatchValue = true

@@ -20,5 +20,12 @@ class GameSeeder extends Seeder
             'appid' => 107410,
             'logo_path' => 'games/arma3.png'
         ]);
+
+      Game::factory()->create([
+        'name' => 'Minecraft',
+        'identifier' => 'minecraft',
+        'appid' => null,
+        'logo_path' => 'games/minecraft.png'
+      ]);
     }
 }

@@ -1,0 +1,19 @@
+<template>
+    <div class="flex items-center">
+    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-200 text-indigo-800">
+        <span v-if="files === 0"> No Files</span>
+        <span v-else-if="files === 1">{{ files }} File</span>
+        <span v-else-if="files > 1">{{ files }} Files</span>
+    </span>
+    </div>
+</template>
+
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
+
+@Component
+// eslint-disable-next-line camelcase
+export default class DataTable_ModPackFiles extends Vue {
+    @Prop({ type: Number, required: true }) readonly files!: string
+}
+</script>
