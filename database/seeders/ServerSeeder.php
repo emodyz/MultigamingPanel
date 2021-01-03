@@ -15,20 +15,28 @@ class ServerSeeder extends Seeder
      */
     public function run()
     {
-        $game = Game::whereIdentifier('arma3')->first();
+        $arma3 = Game::whereIdentifier('arma3')->first();
+        $minecraft = Game::whereIdentifier('minecraft')->first();
 
         Server::factory()->create([
             'name' => 'LiveYourLife',
             'ip' => 'altis.lyl.gg',
             'port' => 2302,
-            'game_id' => $game->id
+            'game_id' => $arma3->id
         ]);
 
         Server::factory()->create([
             'name' => 'Projet Renaissance',
             'ip' => '54.36.127.224',
             'port' => 2302,
-            'game_id' => $game->id
+            'game_id' => $arma3->id
+        ]);
+
+        Server::factory()->create([
+          'name' => 'MineSuperior',
+          'ip' => 'server.mcs.gg',
+          'port' => 25565,
+          'game_id' => $minecraft->id
         ]);
     }
 }

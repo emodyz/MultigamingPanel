@@ -48,6 +48,8 @@ new Vue({
       initialPage: JSON.parse(app.dataset.page),
       // eslint-disable-next-line global-require,import/no-dynamic-require
       resolveComponent: (name: string) => require(`./Pages/${name}`).default,
+      // eslint-disable-next-line global-require,import/no-dynamic-require
+      resolveErrors: (page: any) => (page.props.errors || {}),
     },
   }),
 }).$mount(app)

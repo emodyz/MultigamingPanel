@@ -4,7 +4,8 @@
       {{ $moment(date).format('LLL') }}
     </span>
     <span v-else-if="type === 'Date.FromNow'">
-      {{ $moment(date).fromNow() }}
+        <span v-if="date === null">Never</span>
+        <span v-else>{{ $moment(date).fromNow() }}</span>
     </span>
   </div>
 </template>
@@ -17,6 +18,6 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
 export default class DataTable_Date extends Vue {
     @Prop({ type: String, required: true }) readonly type!: string
 
-    @Prop({ type: String, required: true }) readonly date!: string
+    @Prop({ required: true }) readonly date!: string
 }
 </script>

@@ -3,6 +3,6 @@ import { Article } from '@/Shared/DataTable/Types/Article'
 
 export interface DataTableActionsItem {
     id: string | number
-    type?: 'Users' | string | null
+    type?: 'Users' | 'ModPacks' | string | null
     metaData?: User | Article | boolean
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Game;
 use App\Models\Modpack;
 use App\Models\Server;
 use Illuminate\Database\Seeder;
@@ -21,9 +22,15 @@ class ModpackSeeder extends Seeder
             Storage::disk('modpacks')->deleteDirectory($directory);
         }
 
-        $modpack1 = Modpack::factory()->create();
-        $modpack2 = Modpack::factory()->create();
-        $servers = Server::all();
+        $arma3 = Game::whereIdentifier('arma3')->first();
+
+        $modpack1 = Modpack::factory()->create([
+          'game_id' => $arma3->id
+        ]);
+        $modpack2 = Modpack::factory()->create([
+          'game_id' => $arma3->id
+        ]);
+        $servers = Server::whereGameId($arma3->id)->get();
 
         foreach ($servers as $server) {
             $server->modpacks()->attach($modpack1->id);

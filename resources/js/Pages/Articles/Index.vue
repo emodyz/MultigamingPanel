@@ -17,9 +17,13 @@
             :initial-query="initialSearch"
             :actions="actions"
             :total-item-count="totalItemCount"
-            :action-component="actionBtn"
-            class="w-full p-6"
-        />
+            class="w-full p-6">
+
+            <template #action>
+                <create-article-button/>
+            </template>
+
+        </data-table>
       </div>
     </div>
   </app-layout>
@@ -51,8 +55,6 @@ export default class UsersIndex extends Vue {
   @Prop() readonly totalItemCount!: null | number
 
   @Prop() readonly initialSearch!: null | string
-
-  actionBtn = CreateArticleButton
 
   headers: Array<DataTableHeader> = [
     {

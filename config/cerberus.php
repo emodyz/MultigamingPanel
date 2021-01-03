@@ -8,6 +8,19 @@ return [
                 '*'
             ]
         ],
+        'developer' => [
+            'displayName' => 'Developer',
+            'can' => [
+                'dashboard',
+                'users-index',
+
+                'modpacks-create',
+                'modpacks-index',
+                'modpacks-edit',
+                'modpacks-update',
+                'modpacks-destroy',
+            ]
+        ],
         'admin' => [
             'displayName' => 'Administrator',
             'can' => [
@@ -71,6 +84,30 @@ return [
         [
             'slug' => 'articles-destroy',
             'description' => 'a user can delete articles'
+        ],
+
+        /**
+         * ModPacks
+         */
+        [
+            'slug' => 'modpacks-index',
+            'description' => 'a user can view a list of all modpacks'
+        ],
+        [
+            'slug' => 'modpacks-create',
+            'description' => 'a user can create a modpack'
+        ],
+        [
+          'slug' => 'modpacks-update',
+          'description' => 'a user can manage modpack updates'
+        ],
+        [
+            'slug' => 'modpacks-edit',
+            'description' => 'a user can edit a modpack'
+        ],
+        [
+            'slug' => 'modpacks-destroy',
+            'description' => 'a user can delete a modpack'
         ],
     ]
 ];

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Game;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -22,6 +23,10 @@ class CreateModpacksTable extends Migration
             $table->json('manifest')->nullable();
             $table->json('manifest_info')->nullable();
             $table->timestamp('manifest_last_update')->nullable();
+
+            $table->foreignIdFor(Game::class)
+              ->constrained();
+
             $table->timestamps();
         });
     }

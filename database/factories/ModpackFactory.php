@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Game;
 use App\Models\Modpack;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -24,7 +25,8 @@ class ModpackFactory extends Factory
         return [
             'name' => "@{$this->faker->firstName}",
             'disk' => 'modpacks',
-            'path' => $this->faker->firstName
+            'path' => $this->faker->firstName,
+            'game_id' => fn() => Game::factory()
         ];
     }
 }

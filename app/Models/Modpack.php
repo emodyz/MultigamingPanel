@@ -6,6 +6,7 @@ use App\Models\Traits\HasPrimaryKeyAsUuid;
 use Illuminate\Bus\Batch;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Storage;
@@ -20,6 +21,7 @@ class Modpack extends Model
 
     protected $fillable = [
         'name',
+        'game_id',
         'path',
         'disk',
         'job_batch_id',
@@ -38,21 +40,25 @@ class Modpack extends Model
         'manifest_info' => 'array'
     ];
 
+    protected $with = [
+      'game'
+    ];
+
     protected $appends = [
         'batch'
     ];
 
     protected static function booted()
     {
-        static::created(function (Modpack $modpack) {
-            if (!Storage::disk($modpack->disk)->exists($modpack->path)) {
-                Storage::disk($modpack->disk)->makeDirectory($modpack->path);
+        static::created(function (Modpack $modPack) {
+            if (!Storage::disk($modPack->disk)->exists($modPack->path)) {
+                Storage::disk($modPack->disk)->makeDirectory($modPack->path);
             }
         });
 
-        static::deleted(function (Modpack $modpack) {
-            if (Storage::disk($modpack->disk)->exists($modpack->path)) {
-                Storage::disk($modpack->disk)->deleteDirectory($modpack->path);
+        static::deleted(function (Modpack $modPack) {
+            if (Storage::disk($modPack->disk)->exists($modPack->path)) {
+                Storage::disk($modPack->disk)->deleteDirectory($modPack->path);
             }
         });
     }
@@ -63,6 +69,14 @@ class Modpack extends Model
     public function servers(): BelongsToMany
     {
         return $this->belongsToMany(Server::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function game(): BelongsTo
+    {
+      return $this->belongsTo(Game::class);
     }
 
     /**

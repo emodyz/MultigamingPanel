@@ -21,6 +21,6 @@ Broadcast::channel('servers', function () {
     return true;
 });
 
-Broadcast::channel('modpacks.{id}', function ($user, $id) {
+Broadcast::channel('modPacks.{id}', function ($user, $id) {
     return true;
 });
