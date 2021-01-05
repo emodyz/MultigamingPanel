@@ -1,29 +1,14 @@
 <template>
-  <article class="prose" v-html="parsedContent"/>
+  <article class="prose" v-html="content"/>
 </template>
 
 <script lang="ts">
-import marked from 'marked'
 import {
-  Vue, Component,
+  Vue, Component, Prop,
 } from 'vue-property-decorator'
 
-@Component({
-  props: {
-    content: {
-      type: String,
-      default: null,
-      required: true,
-    },
-  },
-  computed: {
-    parsedContent() {
-      // @ts-ignore
-      return marked(this.content)
-    },
-  },
-})
+@Component
 export default class ArticlePreview extends Vue {
-//
+@Prop({ type: String, default: null, required: true }) content !: string
 }
 </script>

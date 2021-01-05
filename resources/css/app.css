@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer utilities {
+    @variants responsive {
+        .h-page {
+            height: calc(100vh - 14.6rem);
+            max-height: calc(100vh - 14.6rem);
+        }
+
+        .w-page {
+            width: 80rem;
+            max-width: 80rem;
+        }
+
+        .w-prose {
+            width: calc(65ch + 1.5rem)
+        }
+    }
+}
