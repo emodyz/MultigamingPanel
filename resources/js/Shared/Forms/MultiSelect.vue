@@ -97,6 +97,9 @@ import ChevronUp from '@/Shared/Svgs/ChevronUp.vue'
     ChevronUp,
   },
 })
+/**
+ * ⚠️ v-model implementation for this component is readonly ⚠️
+ */
 export default class MultiSelect extends Vue {
   @Prop({
     type: Array,
@@ -158,18 +161,6 @@ export default class MultiSelect extends Vue {
 
   getSearchResults(val: string) {
     return _.filter(this.options, (s) => s.name.toLowerCase().startsWith(val.toLowerCase()))
-  }
-
-  logSelected() {
-    console.log(this.searchResults)
-  }
-
-  created() {
-    /*
-    this.options[0].selected = true
-    this.options[2].selected = true
-    this.options[5].selected = true
-    this.logSelected() */
   }
 }
 </script>
