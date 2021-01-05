@@ -14,7 +14,6 @@
 
 <template>
     <div class="w-full md:w-1/2 flex flex-col items-center h-64 mx-auto">
-        <button @click="logSelected">Log</button>
         <div class="w-full px-4">
             <div class="flex flex-col items-center relative">
                 <div class="w-full">
@@ -33,7 +32,7 @@
                                 </div>
                             </template>
                             <div class="flex-1">
-                                <input placeholder="Search..."
+                                <input :placeholder="placeholder"
                                        v-model="searchOption"
                                        class="bg-transparent p-1 px-2 appearance-none outline-none h-full w-full text-gray-800">
                             </div>
@@ -102,11 +101,16 @@ export default class MultiSelect extends Vue {
   @Prop({
     type: Array,
     required: true,
-  }) readonly optionsProp !: Array<any>
+  }) readonly optionsList !: Array<any>
+
+  @Prop({
+    type: String,
+    required: true,
+  }) readonly placeholder !: string
 
   isOpened = false
 
-  options = this.initOptions(this.optionsProp)
+  options = this.initOptions(this.optionsList)
 
   searchOption = ''
 
@@ -119,6 +123,11 @@ export default class MultiSelect extends Vue {
     } else {
       this.searchResults = null
     }
+  }
+
+  @Watch('options')
+  onOptionChanged() {
+    this.$emit('input', this.getSelectedOptions())
   }
 
   initOptions(_opts: Array<any>) {

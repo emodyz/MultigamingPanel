@@ -9,7 +9,8 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg h-screen">
-                    <multi-select :options-prop="opts"/>
+                    <button @click="log">Log</button>
+                    <multi-select v-model="test" :options-list="opts" placeholder="Search Languages..."/>
                 </div>
             </div>
         </div>
@@ -18,7 +19,7 @@
 
 <script lang="ts">
 import {
-  Vue, Component,
+  Vue, Component, Watch,
 } from 'vue-property-decorator'
 
 import AppLayout from '@/Layouts/AppLayout.vue'
@@ -59,6 +60,17 @@ export default class Dashboard extends Vue {
       value: 'java',
     },
   ]
+
+  test: any = []
+
+  @Watch('test')
+  onTestChanged(val: any) {
+    console.log(val)
+  }
+
+  log() {
+    console.log(this.test)
+  }
 
   mounted() {
     // console.log('mounted')
