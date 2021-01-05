@@ -33,7 +33,8 @@
                                 </div>
                             </template>
                             <div class="flex-1">
-                                <input placeholder=""
+                                <input placeholder="Search..."
+                                       v-model="searchOption"
                                        class="bg-transparent p-1 px-2 appearance-none outline-none h-full w-full text-gray-800">
                             </div>
                         </div>
@@ -52,7 +53,22 @@
                         <template v-for="option in options">
                             <div :key="option.value" @click="handleOptionSelection(option)" class="cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-indigo-100">
                                 <div class="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative"
-                                        :class="option.selected ? 'border-indigo-600' : 'hover:border-indigo-100'">
+                                     :class="option.selected ? 'border-indigo-600' : 'hover:border-indigo-100'">
+                                    <div class="w-full items-center flex">
+                                        <div class="mx-2 leading-6">{{ option.name }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+                <div v-if="!_.isNull(searchResults)"
+                     class="absolute shadow top-100 bg-white z-40 w-full lef-0 rounded max-h-select overflow-y-auto">
+                    <div class="flex flex-col w-full">
+                        <template v-for="option in searchResults">
+                            <div :key="option.value" @click="handleOptionSelection(option)" class="cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-indigo-100">
+                                <div class="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative"
+                                     :class="option.selected ? 'border-indigo-600' : 'hover:border-indigo-100'">
                                     <div class="w-full items-center flex">
                                         <div class="mx-2 leading-6">{{ option.name }}</div>
                                     </div>
@@ -67,7 +83,9 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import {
+  Vue, Component, Prop, Watch,
+} from 'vue-property-decorator'
 import _ from 'lodash'
 import CrossIcon from '@/Shared/Svgs/CrossIcon.vue'
 import ChevronDown from '@/Shared/Svgs/ChevronDown.vue'
@@ -89,6 +107,19 @@ export default class MultiSelect extends Vue {
   isOpened = false
 
   options = this.initOptions(this.optionsProp)
+
+  searchOption = ''
+
+  searchResults: any = null
+
+  @Watch('searchOption')
+  onSearchOptionChanged(val: any) {
+    if (val !== '') {
+      this.searchResults = this.getSearchResults(val)
+    } else {
+      this.searchResults = null
+    }
+  }
 
   initOptions(_opts: Array<any>) {
     if (_.isNull(_opts)) {
@@ -116,15 +147,20 @@ export default class MultiSelect extends Vue {
     return _.filter(this.options, 'selected')
   }
 
+  getSearchResults(val: string) {
+    return _.filter(this.options, (s) => s.name.toLowerCase().startsWith(val.toLowerCase()))
+  }
+
   logSelected() {
-    console.log(this.getSelectedOptions())
+    console.log(this.searchResults)
   }
 
   created() {
+    /*
     this.options[0].selected = true
     this.options[2].selected = true
     this.options[5].selected = true
-    this.logSelected()
+    this.logSelected() */
   }
 }
 </script>
