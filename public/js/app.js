@@ -6378,6 +6378,7 @@ function (_Vue) {
     key: "onSearchOptionChanged",
     value: function onSearchOptionChanged(val) {
       if (val !== '') {
+        this.isOpened = false;
         this.searchResults = this.getSearchResults(val);
       } else {
         this.searchResults = null;
@@ -6406,6 +6407,11 @@ function (_Vue) {
       });
 
       return _opts;
+    }
+  }, {
+    key: "handleSowOption",
+    value: function handleSowOption() {
+      this.isOpened = !this.isOpened;
     }
   }, {
     key: "handleOptionSelection",
@@ -6440,6 +6446,11 @@ __decorate([(0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Prop)({
   type: String,
   required: true
 })], MultiSelect.prototype, "placeholder", void 0);
+
+__decorate([(0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Prop)({
+  type: Boolean,
+  "default": false
+})], MultiSelect.prototype, "tags", void 0);
 
 __decorate([(0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Watch)('searchOption')], MultiSelect.prototype, "onSearchOptionChanged", null);
 
@@ -6823,7 +6834,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.top-100[data-v-974f612e] {\n    top: 100%\n}\n.bottom-100[data-v-974f612e] {\n    bottom: 100%\n}\n.max-h-select[data-v-974f612e] {\n    max-height: 300px;\n}\n", "",{"version":3,"sources":["webpack://./resources/js/Shared/Forms/MultiSelect.vue"],"names":[],"mappings":";AACA;IACA;AACA;AAEA;IACA;AACA;AAEA;IACA,iBAAA;AACA","sourcesContent":["<style scoped>\n.top-100 {\n    top: 100%\n}\n\n.bottom-100 {\n    bottom: 100%\n}\n\n.max-h-select {\n    max-height: 300px;\n}\n</style>\n\n<template>\n    <div class=\"w-full md:w-1/2 flex flex-col items-center h-64 mx-auto\">\n        <div class=\"w-full px-4\">\n            <div class=\"flex flex-col items-center relative\">\n                <div class=\"w-full\">\n                    <div class=\"my-2 p-1 flex border border-gray-200 bg-white rounded\">\n                        <div class=\"flex flex-auto flex-wrap\">\n                            <template v-for=\"option in options\">\n                                <div v-if=\"option.selected\"\n                                     :key=\"option.value\"\n                                     class=\"flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-full text-indigo-700 bg-indigo-100 border border-indigo-300 \">\n                                    <div class=\"text-xs font-normal leading-none max-w-full flex-initial\">{{ option.name }}</div>\n                                    <div class=\"flex flex-auto flex-row-reverse\">\n                                        <div @click=\"handleOptionSelection(option)\" class=\"hover:text-indigo-500 hover:cursor-pointer\">\n                                            <cross-icon/>\n                                        </div>\n                                    </div>\n                                </div>\n                            </template>\n                            <div class=\"flex-1\">\n                                <input :placeholder=\"placeholder\"\n                                       v-model=\"searchOption\"\n                                       class=\"bg-transparent p-1 px-2 appearance-none outline-none h-full w-full text-gray-800\">\n                            </div>\n                        </div>\n                        <div class=\"text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200 \">\n                            <button @click=\"isOpened = !isOpened\"\n                                    class=\"cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none\">\n                                <chevron-down v-if=\"!isOpened\"/>\n                                <chevron-up v-else/>\n                            </button>\n                        </div>\n                    </div>\n                </div>\n                <div v-show=\"isOpened\"\n                     class=\"absolute shadow top-100 bg-white z-40 w-full lef-0 rounded max-h-select overflow-y-auto\">\n                    <div class=\"flex flex-col w-full\">\n                        <template v-for=\"option in options\">\n                            <div :key=\"option.value\" @click=\"handleOptionSelection(option)\" class=\"cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-indigo-100\">\n                                <div class=\"flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative\"\n                                     :class=\"option.selected ? 'border-indigo-600' : 'hover:border-indigo-100'\">\n                                    <div class=\"w-full items-center flex\">\n                                        <div class=\"mx-2 leading-6\">{{ option.name }}</div>\n                                    </div>\n                                </div>\n                            </div>\n                        </template>\n                    </div>\n                </div>\n                <div v-if=\"!_.isNull(searchResults)\"\n                     class=\"absolute shadow top-100 bg-white z-40 w-full lef-0 rounded max-h-select overflow-y-auto\">\n                    <div class=\"flex flex-col w-full\">\n                        <template v-for=\"option in searchResults\">\n                            <div :key=\"option.value\" @click=\"handleOptionSelection(option)\" class=\"cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-indigo-100\">\n                                <div class=\"flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative\"\n                                     :class=\"option.selected ? 'border-indigo-600' : 'hover:border-indigo-100'\">\n                                    <div class=\"w-full items-center flex\">\n                                        <div class=\"mx-2 leading-6\">{{ option.name }}</div>\n                                    </div>\n                                </div>\n                            </div>\n                        </template>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</template>\n\n<script lang=\"ts\">\nimport {\n  Vue, Component, Prop, Watch,\n} from 'vue-property-decorator'\nimport _ from 'lodash'\nimport CrossIcon from '@/Shared/Svgs/CrossIcon.vue'\nimport ChevronDown from '@/Shared/Svgs/ChevronDown.vue'\nimport ChevronUp from '@/Shared/Svgs/ChevronUp.vue'\n\n@Component({\n  components: {\n    CrossIcon,\n    ChevronDown,\n    ChevronUp,\n  },\n})\n/**\n * ⚠️ v-model implementation for this component is readonly ⚠️\n */\nexport default class MultiSelect extends Vue {\n  @Prop({\n    type: Array,\n    required: true,\n  }) readonly optionsList !: Array<any>\n\n  @Prop({\n    type: String,\n    required: true,\n  }) readonly placeholder !: string\n\n  isOpened = false\n\n  options = this.initOptions(this.optionsList)\n\n  searchOption = ''\n\n  searchResults: any = null\n\n  @Watch('searchOption')\n  onSearchOptionChanged(val: any) {\n    if (val !== '') {\n      this.searchResults = this.getSearchResults(val)\n    } else {\n      this.searchResults = null\n    }\n  }\n\n  @Watch('options')\n  onOptionChanged() {\n    this.$emit('input', this.getSelectedOptions())\n  }\n\n  initOptions(_opts: Array<any>) {\n    if (_.isNull(_opts)) {\n      return []\n    }\n\n    _opts.forEach((val) => {\n      if (_.isNull(val.selected)) {\n        const mVal = val\n        mVal.selected = false\n        this.options[this.options.indexOf(val)] = mVal\n      }\n    })\n\n    return _opts\n  }\n\n  handleOptionSelection(_opt: any) {\n    const mOpt = _opt\n    mOpt.selected = !_opt.selected\n    this.$set(this.options, this.options.indexOf(_opt), mOpt)\n  }\n\n  getSelectedOptions() {\n    return _.filter(this.options, 'selected')\n  }\n\n  getSearchResults(val: string) {\n    return _.filter(this.options, (s) => s.name.toLowerCase().startsWith(val.toLowerCase()))\n  }\n}\n</script>\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.top-100[data-v-974f612e] {\n    top: 100%\n}\n.bottom-100[data-v-974f612e] {\n    bottom: 100%\n}\n.max-h-select[data-v-974f612e] {\n    max-height: 300px;\n}\n", "",{"version":3,"sources":["webpack://./resources/js/Shared/Forms/MultiSelect.vue"],"names":[],"mappings":";AACA;IACA;AACA;AAEA;IACA;AACA;AAEA;IACA,iBAAA;AACA","sourcesContent":["<style scoped>\n.top-100 {\n    top: 100%\n}\n\n.bottom-100 {\n    bottom: 100%\n}\n\n.max-h-select {\n    max-height: 300px;\n}\n</style>\n\n<template>\n    <div class=\"w-full md:w-1/2 flex flex-col items-center h-64 mx-auto\">\n        <div class=\"w-full px-4\">\n            <div class=\"flex flex-col items-center relative\">\n                <div class=\"w-full\">\n                    <div class=\"my-2 p-1 flex border border-gray-200 bg-white rounded\">\n                        <div class=\"flex flex-auto flex-wrap\">\n                            <template v-if=\"tags\">\n                                <template v-for=\"option in options\">\n                                    <div v-if=\"option.selected\"\n                                         :key=\"option.value\"\n                                         class=\"flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-full text-indigo-700 bg-indigo-100 border border-indigo-300 \">\n                                        <div class=\"text-xs font-normal leading-none max-w-full flex-initial\">{{ option.name }}</div>\n                                        <div class=\"flex flex-auto flex-row-reverse\">\n                                            <div @click=\"handleOptionSelection(option)\" class=\"hover:text-indigo-500 hover:cursor-pointer\">\n                                                <cross-icon class=\"cursor-pointer hover:text-indigo-400 rounded-full\"/>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </template>\n                            </template>\n                            <div class=\"flex-1\">\n                                <input :placeholder=\"placeholder\"\n                                       v-model=\"searchOption\"\n                                       class=\"bg-transparent py-1 px-1 appearance-none outline-none h-full w-full text-gray-800\">\n                            </div>\n                            <div v-if=\"!_.isNull(searchResults)\" @click=\"searchOption = ''\" class=\"justify-self-end text-indigo-700 pr-2 flex items-center\">\n                                <cross-icon class=\"cursor-pointer hover:text-indigo-400 rounded-full\"/>\n                            </div>\n                        </div>\n                        <div class=\"text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200 \">\n                            <button @click=\"handleSowOption()\"\n                                    :disabled=\"!_.isNull(searchResults)\"\n                                    class=\"cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none disabled:cursor-not-allowed disabled:text-gray-300\">\n                                <chevron-down v-if=\"!isOpened\"/>\n                                <chevron-up v-else/>\n                            </button>\n                        </div>\n                    </div>\n                </div>\n                <div v-show=\"isOpened\"\n                     class=\"absolute shadow top-100 bg-white z-40 w-full lef-0 rounded max-h-select overflow-y-auto\">\n                    <div class=\"flex flex-col w-full\">\n                        <template v-for=\"option in options\">\n                            <div :key=\"option.value\" @click=\"handleOptionSelection(option)\" class=\"cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-indigo-100\">\n                                <div class=\"flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative\"\n                                     :class=\"option.selected ? 'border-indigo-700' : 'hover:border-indigo-100'\">\n                                    <div class=\"w-full items-center flex\">\n                                        <div class=\"mx-2 leading-6\">{{ option.name }}</div>\n                                    </div>\n                                </div>\n                            </div>\n                        </template>\n                    </div>\n                </div>\n                <div v-if=\"!_.isNull(searchResults)\"\n                     class=\"absolute shadow top-100 bg-white z-40 w-full lef-0 rounded max-h-select overflow-y-auto\">\n                    <div class=\"flex flex-col w-full\">\n                        <template v-for=\"option in searchResults\">\n                            <div :key=\"option.value\" @click=\"handleOptionSelection(option)\" class=\"cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-indigo-100\">\n                                <div class=\"flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative\"\n                                     :class=\"option.selected ? 'border-indigo-700' : 'hover:border-indigo-100'\">\n                                    <div class=\"w-full items-center flex\">\n                                        <div class=\"mx-2 leading-6\">{{ option.name }}</div>\n                                    </div>\n                                </div>\n                            </div>\n                        </template>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</template>\n\n<script lang=\"ts\">\nimport {\n  Vue, Component, Prop, Watch,\n} from 'vue-property-decorator'\nimport _ from 'lodash'\nimport CrossIcon from '@/Shared/Svgs/CrossIcon.vue'\nimport ChevronDown from '@/Shared/Svgs/ChevronDown.vue'\nimport ChevronUp from '@/Shared/Svgs/ChevronUp.vue'\n\n@Component({\n  components: {\n    CrossIcon,\n    ChevronDown,\n    ChevronUp,\n  },\n})\n/**\n * ⚠️ v-model implementation for this component is readonly ⚠️\n */\nexport default class MultiSelect extends Vue {\n  @Prop({\n    type: Array,\n    required: true,\n  }) readonly optionsList !: Array<any>\n\n  @Prop({\n    type: String,\n    required: true,\n  }) readonly placeholder !: string\n\n  @Prop({\n    type: Boolean,\n    default: false,\n  }) readonly tags !: boolean\n\n  isOpened = false\n\n  options = this.initOptions(this.optionsList)\n\n  searchOption = ''\n\n  searchResults: any = null\n\n  @Watch('searchOption')\n  onSearchOptionChanged(val: any) {\n    if (val !== '') {\n      this.isOpened = false\n      this.searchResults = this.getSearchResults(val)\n    } else {\n      this.searchResults = null\n    }\n  }\n\n  @Watch('options')\n  onOptionChanged() {\n    this.$emit('input', this.getSelectedOptions())\n  }\n\n  initOptions(_opts: Array<any>) {\n    if (_.isNull(_opts)) {\n      return []\n    }\n\n    _opts.forEach((val) => {\n      if (_.isNull(val.selected)) {\n        const mVal = val\n        mVal.selected = false\n        this.options[this.options.indexOf(val)] = mVal\n      }\n    })\n\n    return _opts\n  }\n\n  handleSowOption() {\n    this.isOpened = !this.isOpened\n  }\n\n  handleOptionSelection(_opt: any) {\n    const mOpt = _opt\n    mOpt.selected = !_opt.selected\n    this.$set(this.options, this.options.indexOf(_opt), mOpt)\n  }\n\n  getSelectedOptions() {\n    return _.filter(this.options, 'selected')\n  }\n\n  getSearchResults(val: string) {\n    return _.filter(this.options, (s) => s.name.toLowerCase().startsWith(val.toLowerCase()))\n  }\n}\n</script>\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -14231,6 +14242,7 @@ var render = function() {
               _c("multi-select", {
                 attrs: {
                   "options-list": _vm.opts,
+                  tags: true,
                   placeholder: "Search Languages..."
                 },
                 model: {
@@ -18657,56 +18669,65 @@ var render = function() {
                   "div",
                   { staticClass: "flex flex-auto flex-wrap" },
                   [
-                    _vm._l(_vm.options, function(option) {
-                      return [
-                        option.selected
-                          ? _c(
-                              "div",
-                              {
-                                key: option.value,
-                                staticClass:
-                                  "flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-full text-indigo-700 bg-indigo-100 border border-indigo-300 "
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "text-xs font-normal leading-none max-w-full flex-initial"
-                                  },
-                                  [_vm._v(_vm._s(option.name))]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "flex flex-auto flex-row-reverse"
-                                  },
-                                  [
-                                    _c(
-                                      "div",
-                                      {
-                                        staticClass:
-                                          "hover:text-indigo-500 hover:cursor-pointer",
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.handleOptionSelection(
-                                              option
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [_c("cross-icon")],
-                                      1
-                                    )
-                                  ]
-                                )
-                              ]
-                            )
-                          : _vm._e()
-                      ]
-                    }),
+                    _vm.tags
+                      ? [
+                          _vm._l(_vm.options, function(option) {
+                            return [
+                              option.selected
+                                ? _c(
+                                    "div",
+                                    {
+                                      key: option.value,
+                                      staticClass:
+                                        "flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-full text-indigo-700 bg-indigo-100 border border-indigo-300 "
+                                    },
+                                    [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "text-xs font-normal leading-none max-w-full flex-initial"
+                                        },
+                                        [_vm._v(_vm._s(option.name))]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "flex flex-auto flex-row-reverse"
+                                        },
+                                        [
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "hover:text-indigo-500 hover:cursor-pointer",
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.handleOptionSelection(
+                                                    option
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("cross-icon", {
+                                                staticClass:
+                                                  "cursor-pointer hover:text-indigo-400 rounded-full"
+                                              })
+                                            ],
+                                            1
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                : _vm._e()
+                            ]
+                          })
+                        ]
+                      : _vm._e(),
                     _vm._v(" "),
                     _c("div", { staticClass: "flex-1" }, [
                       _c("input", {
@@ -18719,7 +18740,7 @@ var render = function() {
                           }
                         ],
                         staticClass:
-                          "bg-transparent p-1 px-2 appearance-none outline-none h-full w-full text-gray-800",
+                          "bg-transparent py-1 px-1 appearance-none outline-none h-full w-full text-gray-800",
                         attrs: { placeholder: _vm.placeholder },
                         domProps: { value: _vm.searchOption },
                         on: {
@@ -18731,7 +18752,29 @@ var render = function() {
                           }
                         }
                       })
-                    ])
+                    ]),
+                    _vm._v(" "),
+                    !_vm._.isNull(_vm.searchResults)
+                      ? _c(
+                          "div",
+                          {
+                            staticClass:
+                              "justify-self-end text-indigo-700 pr-2 flex items-center",
+                            on: {
+                              click: function($event) {
+                                _vm.searchOption = ""
+                              }
+                            }
+                          },
+                          [
+                            _c("cross-icon", {
+                              staticClass:
+                                "cursor-pointer hover:text-indigo-400 rounded-full"
+                            })
+                          ],
+                          1
+                        )
+                      : _vm._e()
                   ],
                   2
                 ),
@@ -18747,10 +18790,11 @@ var render = function() {
                       "button",
                       {
                         staticClass:
-                          "cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none",
+                          "cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none disabled:cursor-not-allowed disabled:text-gray-300",
+                        attrs: { disabled: !_vm._.isNull(_vm.searchResults) },
                         on: {
                           click: function($event) {
-                            _vm.isOpened = !_vm.isOpened
+                            return _vm.handleSowOption()
                           }
                         }
                       },
@@ -18803,7 +18847,7 @@ var render = function() {
                               staticClass:
                                 "flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative",
                               class: option.selected
-                                ? "border-indigo-600"
+                                ? "border-indigo-700"
                                 : "hover:border-indigo-100"
                             },
                             [
@@ -18861,7 +18905,7 @@ var render = function() {
                                   staticClass:
                                     "flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative",
                                   class: option.selected
-                                    ? "border-indigo-600"
+                                    ? "border-indigo-700"
                                     : "hover:border-indigo-100"
                                 },
                                 [
@@ -19256,8 +19300,7 @@ var render = function() {
   return _c(
     "svg",
     {
-      staticClass:
-        "feather feather-x cursor-pointer hover:text-indigo-400 rounded-full w-4 h-4 ml-2",
+      staticClass: "feather feather-x w-4 h-4",
       attrs: {
         xmlns: "http://www.w3.org/2000/svg",
         width: "100%",
