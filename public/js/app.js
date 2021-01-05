@@ -6373,10 +6373,10 @@ var MultiSelect = /*#__PURE__*/function (_Vue) {
       return _opts;
     }
   }, {
-    key: "unSelectOption",
-    value: function unSelectOption(_opt) {
+    key: "handleOptionSelection",
+    value: function handleOptionSelection(_opt) {
       var mOpt = _opt;
-      mOpt.selected = false;
+      mOpt.selected = !_opt.selected;
       this.$set(this.options, this.options.indexOf(_opt), mOpt);
     }
   }, {
@@ -6781,7 +6781,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.top-100[data-v-974f612e] {\n    top: 100%\n}\n.bottom-100[data-v-974f612e] {\n    bottom: 100%\n}\n.max-h-select[data-v-974f612e] {\n    max-height: 300px;\n}\n", "",{"version":3,"sources":["webpack://./resources/js/Shared/Forms/MultiSelect.vue"],"names":[],"mappings":";AACA;IACA;AACA;AAEA;IACA;AACA;AAEA;IACA,iBAAA;AACA","sourcesContent":["<style scoped>\n.top-100 {\n    top: 100%\n}\n\n.bottom-100 {\n    bottom: 100%\n}\n\n.max-h-select {\n    max-height: 300px;\n}\n</style>\n\n<template>\n    <div class=\"w-full md:w-1/2 flex flex-col items-center h-64 mx-auto\">\n        <button @click=\"logSelected\">Log</button>\n        <div class=\"w-full px-4\">\n            <div class=\"flex flex-col items-center relative\">\n                <div class=\"w-full\">\n                    <div class=\"my-2 p-1 flex border border-gray-200 bg-white rounded\">\n                        <div class=\"flex flex-auto flex-wrap\">\n                            <div v-for=\"option in options\"\n                                 v-show=\"option.selected\"\n                                 :key=\"option.value\"\n                                 class=\"flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-full text-indigo-700 bg-indigo-100 border border-indigo-300 \">\n                                <div class=\"text-xs font-normal leading-none max-w-full flex-initial\">{{ option.name }}</div>\n                                <div class=\"flex flex-auto flex-row-reverse\">\n                                    <div @click=\"unSelectOption(option)\" class=\"hover:text-indigo-500 hover:cursor-pointer\">\n                                        <cross-icon/>\n                                    </div>\n                                </div>\n                            </div>\n                            <div class=\"flex-1\">\n                                <input placeholder=\"\"\n                                       class=\"bg-transparent p-1 px-2 appearance-none outline-none h-full w-full text-gray-800\">\n                            </div>\n                        </div>\n                        <div class=\"text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200 \">\n                            <button @click=\"isOpened = !isOpened\"\n                                    class=\"cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none\">\n                                <chevron-down v-if=\"!isOpened\"/>\n                                <chevron-up v-else/>\n                            </button>\n                        </div>\n                    </div>\n                </div>\n                <div v-show=\"isOpened\"\n                     class=\"absolute shadow top-100 bg-white z-40 w-full lef-0 rounded max-h-select overflow-y-auto\">\n                    <div class=\"flex flex-col w-full\">\n                        <div class=\"cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-indigo-100\">\n                            <div class=\"flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative hover:border-indigo-100\">\n                                <div class=\"w-full items-center flex\">\n                                    <div class=\"mx-2 leading-6  \">Python</div>\n                                </div>\n                            </div>\n                        </div>\n                        <div class=\"cursor-pointer w-full border-gray-100 border-b hover:bg-indigo-100\">\n                            <div class=\"flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative border-indigo-600\">\n                                <div class=\"w-full items-center flex\">\n                                    <div class=\"mx-2 leading-6  \">Javascript</div>\n                                </div>\n                            </div>\n                        </div>\n                        <div class=\"cursor-pointer w-full border-gray-100 border-b hover:bg-indigo-100\">\n                            <div class=\"flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative border-indigo-600\">\n                                <div class=\"w-full items-center flex\">\n                                    <div class=\"mx-2 leading-6  \">Ruby</div>\n                                </div>\n                            </div>\n                        </div>\n                        <div class=\"cursor-pointer w-full border-gray-100 border-b hover:bg-indigo-100\">\n                            <div class=\"flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative hover:border-indigo-100\">\n                                <div class=\"w-full items-center flex\">\n                                    <div class=\"mx-2 leading-6  \">JAVA</div>\n                                </div>\n                            </div>\n                        </div>\n                        <div class=\"cursor-pointer w-full border-gray-100 border-b hover:bg-indigo-100\">\n                            <div class=\"flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative hover:border-indigo-100\">\n                                <div class=\"w-full items-center flex\">\n                                    <div class=\"mx-2 leading-6  \">ASP.Net</div>\n                                </div>\n                            </div>\n                        </div>\n                        <div class=\"cursor-pointer w-full border-gray-100 border-b hover:bg-indigo-100\">\n                            <div class=\"flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative hover:border-indigo-100\">\n                                <div class=\"w-full items-center flex\">\n                                    <div class=\"mx-2 leading-6  \">C++</div>\n                                </div>\n                            </div>\n                        </div>\n                        <div class=\"cursor-pointer w-full border-gray-100 border-b hover:bg-indigo-100\">\n                            <div class=\"flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative hover:border-indigo-100\">\n                                <div class=\"w-full items-center flex\">\n                                    <div class=\"mx-2 leading-6  \">SQL</div>\n                                </div>\n                            </div>\n                        </div>\n                        <div class=\"cursor-pointer w-full border-gray-100 rounded-b hover:bg-indigo-100\">\n                            <div class=\"flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative border-indigo-600\">\n                                <div class=\"w-full items-center flex\">\n                                    <div class=\"mx-2 leading-6  \">HTML</div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</template>\n\n<script lang=\"ts\">\nimport { Vue, Component, Prop } from 'vue-property-decorator'\nimport _ from 'lodash'\nimport CrossIcon from '@/Shared/Svgs/CrossIcon.vue'\nimport ChevronDown from '@/Shared/Svgs/ChevronDown.vue'\nimport ChevronUp from '@/Shared/Svgs/ChevronUp.vue'\n\n@Component({\n  components: {\n    CrossIcon,\n    ChevronDown,\n    ChevronUp,\n  },\n})\nexport default class MultiSelect extends Vue {\n  @Prop({\n    type: Array,\n    required: true,\n  }) readonly optionsProp !: Array<any>\n\n  isOpened = false\n\n  options = this.initOptions(this.optionsProp)\n\n  initOptions(_opts: Array<any>) {\n    if (_.isNull(_opts)) {\n      return []\n    }\n\n    _opts.forEach((val) => {\n      if (_.isNull(val.selected)) {\n        const mVal = val\n        mVal.selected = false\n        this.options[this.options.indexOf(val)] = mVal\n      }\n    })\n\n    return _opts\n  }\n\n  unSelectOption(_opt: any) {\n    const mOpt = _opt\n    mOpt.selected = false\n    this.$set(this.options, this.options.indexOf(_opt), mOpt)\n  }\n\n  getSelectedOptions() {\n    return _.filter(this.options, 'selected')\n  }\n\n  logSelected() {\n    console.log(this.getSelectedOptions())\n  }\n\n  created() {\n    this.options[0].selected = true\n    this.options[2].selected = true\n    this.options[5].selected = true\n    this.logSelected()\n  }\n}\n</script>\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.top-100[data-v-974f612e] {\n    top: 100%\n}\n.bottom-100[data-v-974f612e] {\n    bottom: 100%\n}\n.max-h-select[data-v-974f612e] {\n    max-height: 300px;\n}\n", "",{"version":3,"sources":["webpack://./resources/js/Shared/Forms/MultiSelect.vue"],"names":[],"mappings":";AACA;IACA;AACA;AAEA;IACA;AACA;AAEA;IACA,iBAAA;AACA","sourcesContent":["<style scoped>\n.top-100 {\n    top: 100%\n}\n\n.bottom-100 {\n    bottom: 100%\n}\n\n.max-h-select {\n    max-height: 300px;\n}\n</style>\n\n<template>\n    <div class=\"w-full md:w-1/2 flex flex-col items-center h-64 mx-auto\">\n        <button @click=\"logSelected\">Log</button>\n        <div class=\"w-full px-4\">\n            <div class=\"flex flex-col items-center relative\">\n                <div class=\"w-full\">\n                    <div class=\"my-2 p-1 flex border border-gray-200 bg-white rounded\">\n                        <div class=\"flex flex-auto flex-wrap\">\n                            <template v-for=\"option in options\">\n                                <div v-if=\"option.selected\"\n                                     :key=\"option.value\"\n                                     class=\"flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-full text-indigo-700 bg-indigo-100 border border-indigo-300 \">\n                                    <div class=\"text-xs font-normal leading-none max-w-full flex-initial\">{{ option.name }}</div>\n                                    <div class=\"flex flex-auto flex-row-reverse\">\n                                        <div @click=\"handleOptionSelection(option)\" class=\"hover:text-indigo-500 hover:cursor-pointer\">\n                                            <cross-icon/>\n                                        </div>\n                                    </div>\n                                </div>\n                            </template>\n                            <div class=\"flex-1\">\n                                <input placeholder=\"\"\n                                       class=\"bg-transparent p-1 px-2 appearance-none outline-none h-full w-full text-gray-800\">\n                            </div>\n                        </div>\n                        <div class=\"text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200 \">\n                            <button @click=\"isOpened = !isOpened\"\n                                    class=\"cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none\">\n                                <chevron-down v-if=\"!isOpened\"/>\n                                <chevron-up v-else/>\n                            </button>\n                        </div>\n                    </div>\n                </div>\n                <div v-show=\"isOpened\"\n                     class=\"absolute shadow top-100 bg-white z-40 w-full lef-0 rounded max-h-select overflow-y-auto\">\n                    <div class=\"flex flex-col w-full\">\n                        <template v-for=\"option in options\">\n                            <div :key=\"option.value\" @click=\"handleOptionSelection(option)\" class=\"cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-indigo-100\">\n                                <div class=\"flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative\"\n                                        :class=\"option.selected ? 'border-indigo-600' : 'hover:border-indigo-100'\">\n                                    <div class=\"w-full items-center flex\">\n                                        <div class=\"mx-2 leading-6\">{{ option.name }}</div>\n                                    </div>\n                                </div>\n                            </div>\n                        </template>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</template>\n\n<script lang=\"ts\">\nimport { Vue, Component, Prop } from 'vue-property-decorator'\nimport _ from 'lodash'\nimport CrossIcon from '@/Shared/Svgs/CrossIcon.vue'\nimport ChevronDown from '@/Shared/Svgs/ChevronDown.vue'\nimport ChevronUp from '@/Shared/Svgs/ChevronUp.vue'\n\n@Component({\n  components: {\n    CrossIcon,\n    ChevronDown,\n    ChevronUp,\n  },\n})\nexport default class MultiSelect extends Vue {\n  @Prop({\n    type: Array,\n    required: true,\n  }) readonly optionsProp !: Array<any>\n\n  isOpened = false\n\n  options = this.initOptions(this.optionsProp)\n\n  initOptions(_opts: Array<any>) {\n    if (_.isNull(_opts)) {\n      return []\n    }\n\n    _opts.forEach((val) => {\n      if (_.isNull(val.selected)) {\n        const mVal = val\n        mVal.selected = false\n        this.options[this.options.indexOf(val)] = mVal\n      }\n    })\n\n    return _opts\n  }\n\n  handleOptionSelection(_opt: any) {\n    const mOpt = _opt\n    mOpt.selected = !_opt.selected\n    this.$set(this.options, this.options.indexOf(_opt), mOpt)\n  }\n\n  getSelectedOptions() {\n    return _.filter(this.options, 'selected')\n  }\n\n  logSelected() {\n    console.log(this.getSelectedOptions())\n  }\n\n  created() {\n    this.options[0].selected = true\n    this.options[2].selected = true\n    this.options[5].selected = true\n    this.logSelected()\n  }\n}\n</script>\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -18602,53 +18602,54 @@ var render = function() {
                   { staticClass: "flex flex-auto flex-wrap" },
                   [
                     _vm._l(_vm.options, function(option) {
-                      return _c(
-                        "div",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: option.selected,
-                              expression: "option.selected"
-                            }
-                          ],
-                          key: option.value,
-                          staticClass:
-                            "flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-full text-indigo-700 bg-indigo-100 border border-indigo-300 "
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "text-xs font-normal leading-none max-w-full flex-initial"
-                            },
-                            [_vm._v(_vm._s(option.name))]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "flex flex-auto flex-row-reverse" },
-                            [
-                              _c(
-                                "div",
-                                {
-                                  staticClass:
-                                    "hover:text-indigo-500 hover:cursor-pointer",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.unSelectOption(option)
-                                    }
-                                  }
-                                },
-                                [_c("cross-icon")],
-                                1
-                              )
-                            ]
-                          )
-                        ]
-                      )
+                      return [
+                        option.selected
+                          ? _c(
+                              "div",
+                              {
+                                key: option.value,
+                                staticClass:
+                                  "flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-full text-indigo-700 bg-indigo-100 border border-indigo-300 "
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "text-xs font-normal leading-none max-w-full flex-initial"
+                                  },
+                                  [_vm._v(_vm._s(option.name))]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "flex flex-auto flex-row-reverse"
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "hover:text-indigo-500 hover:cursor-pointer",
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.handleOptionSelection(
+                                              option
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_c("cross-icon")],
+                                      1
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          : _vm._e()
+                      ]
                     }),
                     _vm._v(" "),
                     _vm._m(0)
@@ -18697,7 +18698,55 @@ var render = function() {
               staticClass:
                 "absolute shadow top-100 bg-white z-40 w-full lef-0 rounded max-h-select overflow-y-auto"
             },
-            [_vm._m(1)]
+            [
+              _c(
+                "div",
+                { staticClass: "flex flex-col w-full" },
+                [
+                  _vm._l(_vm.options, function(option) {
+                    return [
+                      _c(
+                        "div",
+                        {
+                          key: option.value,
+                          staticClass:
+                            "cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-indigo-100",
+                          on: {
+                            click: function($event) {
+                              return _vm.handleOptionSelection(option)
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative",
+                              class: option.selected
+                                ? "border-indigo-600"
+                                : "hover:border-indigo-100"
+                            },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "w-full items-center flex" },
+                                [
+                                  _c("div", { staticClass: "mx-2 leading-6" }, [
+                                    _vm._v(_vm._s(option.name))
+                                  ])
+                                ]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    ]
+                  })
+                ],
+                2
+              )
+            ]
           )
         ])
       ])
@@ -18715,194 +18764,6 @@ var staticRenderFns = [
           "bg-transparent p-1 px-2 appearance-none outline-none h-full w-full text-gray-800",
         attrs: { placeholder: "" }
       })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex flex-col w-full" }, [
-      _c(
-        "div",
-        {
-          staticClass:
-            "cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-indigo-100"
-        },
-        [
-          _c(
-            "div",
-            {
-              staticClass:
-                "flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative hover:border-indigo-100"
-            },
-            [
-              _c("div", { staticClass: "w-full items-center flex" }, [
-                _c("div", { staticClass: "mx-2 leading-6  " }, [
-                  _vm._v("Python")
-                ])
-              ])
-            ]
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "cursor-pointer w-full border-gray-100 border-b hover:bg-indigo-100"
-        },
-        [
-          _c(
-            "div",
-            {
-              staticClass:
-                "flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative border-indigo-600"
-            },
-            [
-              _c("div", { staticClass: "w-full items-center flex" }, [
-                _c("div", { staticClass: "mx-2 leading-6  " }, [
-                  _vm._v("Javascript")
-                ])
-              ])
-            ]
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "cursor-pointer w-full border-gray-100 border-b hover:bg-indigo-100"
-        },
-        [
-          _c(
-            "div",
-            {
-              staticClass:
-                "flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative border-indigo-600"
-            },
-            [
-              _c("div", { staticClass: "w-full items-center flex" }, [
-                _c("div", { staticClass: "mx-2 leading-6  " }, [_vm._v("Ruby")])
-              ])
-            ]
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "cursor-pointer w-full border-gray-100 border-b hover:bg-indigo-100"
-        },
-        [
-          _c(
-            "div",
-            {
-              staticClass:
-                "flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative hover:border-indigo-100"
-            },
-            [
-              _c("div", { staticClass: "w-full items-center flex" }, [
-                _c("div", { staticClass: "mx-2 leading-6  " }, [_vm._v("JAVA")])
-              ])
-            ]
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "cursor-pointer w-full border-gray-100 border-b hover:bg-indigo-100"
-        },
-        [
-          _c(
-            "div",
-            {
-              staticClass:
-                "flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative hover:border-indigo-100"
-            },
-            [
-              _c("div", { staticClass: "w-full items-center flex" }, [
-                _c("div", { staticClass: "mx-2 leading-6  " }, [
-                  _vm._v("ASP.Net")
-                ])
-              ])
-            ]
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "cursor-pointer w-full border-gray-100 border-b hover:bg-indigo-100"
-        },
-        [
-          _c(
-            "div",
-            {
-              staticClass:
-                "flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative hover:border-indigo-100"
-            },
-            [
-              _c("div", { staticClass: "w-full items-center flex" }, [
-                _c("div", { staticClass: "mx-2 leading-6  " }, [_vm._v("C++")])
-              ])
-            ]
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "cursor-pointer w-full border-gray-100 border-b hover:bg-indigo-100"
-        },
-        [
-          _c(
-            "div",
-            {
-              staticClass:
-                "flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative hover:border-indigo-100"
-            },
-            [
-              _c("div", { staticClass: "w-full items-center flex" }, [
-                _c("div", { staticClass: "mx-2 leading-6  " }, [_vm._v("SQL")])
-              ])
-            ]
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "cursor-pointer w-full border-gray-100 rounded-b hover:bg-indigo-100"
-        },
-        [
-          _c(
-            "div",
-            {
-              staticClass:
-                "flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative border-indigo-600"
-            },
-            [
-              _c("div", { staticClass: "w-full items-center flex" }, [
-                _c("div", { staticClass: "mx-2 leading-6  " }, [_vm._v("HTML")])
-              ])
-            ]
-          )
-        ]
-      )
     ])
   }
 ]
