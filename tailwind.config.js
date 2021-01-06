@@ -73,7 +73,7 @@ module.exports = {
       boxShadow: ['group-focus'],
       opacity: ['group-focus', 'disabled'],
       cursor: ['hover', 'focus', 'disabled'],
-      textColor: ['group-focus', 'active'],
+      textColor: ['group-focus', 'active', 'disabled'],
       textDecoration: ['group-focus'],
       fontWeight: ['hover', 'focus']
     }
