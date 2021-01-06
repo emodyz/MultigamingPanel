@@ -13,7 +13,7 @@ class Team extends JetstreamTeam
     use HasPrimaryKeyAsUuid;
 
     /**
-     * The attributes that should be cast to native types.
+     * The attributes that should be cast to native Types.
      *
      * @var array
      */

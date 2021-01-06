@@ -25,6 +25,7 @@ import {
 import AppLayout from '@/Layouts/AppLayout.vue'
 import Welcome from '@/Jetstream/Welcome.vue'
 import MultiSelect from '@/Shared/Forms/MultiSelect.vue'
+import { MultiSelectOptions } from '@/Shared/Forms/Types/MultiSelectOptions'
 
 @Component({
   components: {
@@ -34,7 +35,7 @@ import MultiSelect from '@/Shared/Forms/MultiSelect.vue'
   },
 })
 export default class Dashboard extends Vue {
-  opts = [
+  opts: MultiSelectOptions = [
     {
       name: 'Javascript',
       value: 'js',

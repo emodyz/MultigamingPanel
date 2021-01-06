@@ -95,6 +95,7 @@ import _ from 'lodash'
 import CrossIcon from '@/Shared/Svgs/CrossIcon.vue'
 import ChevronDown from '@/Shared/Svgs/ChevronDown.vue'
 import ChevronUp from '@/Shared/Svgs/ChevronUp.vue'
+import { MultiSelectOptions } from '@/Shared/Forms/Types/MultiSelectOptions'
 
 @Component({
   components: {
@@ -110,7 +111,7 @@ export default class MultiSelect extends Vue {
   @Prop({
     type: Array,
     required: true,
-  }) readonly optionsList !: Array<any>
+  }) readonly optionsList !: MultiSelectOptions
 
   @Prop({
     type: String,
