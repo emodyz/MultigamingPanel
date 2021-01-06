@@ -95,7 +95,7 @@ import _ from 'lodash'
 import CrossIcon from '@/Shared/Svgs/CrossIcon.vue'
 import ChevronDown from '@/Shared/Svgs/ChevronDown.vue'
 import ChevronUp from '@/Shared/Svgs/ChevronUp.vue'
-import { MultiSelectOptions } from '@/Shared/Forms/Types/MultiSelectOptions'
+import { MultiSelectOptions, Option } from '@/Shared/Forms/Types/MultiSelectOptions'
 
 @Component({
   components: {
@@ -173,7 +173,13 @@ export default class MultiSelect extends Vue {
   }
 
   getSelectedOptions() {
-    return _.filter(this.options, 'selected')
+    const rv: any[] = []
+
+    _.filter(this.options, 'selected').forEach((val: Option) => {
+      rv.push(val.value)
+    })
+
+    return rv
   }
 
   getSearchResults(val: string) {
