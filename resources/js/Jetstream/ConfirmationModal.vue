@@ -64,7 +64,7 @@ export default class ConfirmationModal extends Vue {
 
 /*
     export default {
-        components: {
+        Components: {
             Modal,
         },
 

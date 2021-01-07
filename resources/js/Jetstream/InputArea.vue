@@ -14,7 +14,7 @@ import {
 
 @Component
 export default class InputArea extends Vue {
-  @Prop({ default: 'button' }) readonly value!: any
+  @Prop({ default: 'i need my v-model' }) readonly value!: any
 
   @Ref('input') readonly input!: HTMLInputElement
 
