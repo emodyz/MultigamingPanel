@@ -14,7 +14,7 @@ import {
 
 @Component
 export default class Input extends Vue {
-  @Prop({ default: 'button' }) readonly value!: any
+  @Prop({ default: 'button' }) readonly value!: string | number | boolean |null
 
   @Ref('input') readonly input!: HTMLInputElement
 

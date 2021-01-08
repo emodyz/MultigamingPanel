@@ -10,7 +10,6 @@
         <edit-user-profile-form v-if="canEditProfile" :user="userBeingEdited"/>
         <div v-if="canEditAccount">
           <jet-section-border/>
-          <!-- TODO: Extract permission checks -->
           <edit-user-account-form
               :user="userBeingEdited"
               :roles="roles"

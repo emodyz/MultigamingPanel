@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Server;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Inertia\Inertia;
@@ -26,7 +27,8 @@ class ArticlesController extends Controller
      */
     public function create(): \Inertia\Response
     {
-        return Inertia::render('News/Create');
+        $servers = Server::all();
+        return Inertia::render('News/Create', compact('servers'));
     }
 
     /**

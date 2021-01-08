@@ -2,12 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+    @variants dark {
+        .form-input {
+            @apply border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent;
+        }
+    }
+}
 
 @layer utilities {
     @variants responsive {
         .h-page {
             height: calc(100vh - 14.6rem);
-            max-height: calc(100vh - 14.6rem);
+            max-height: 30rem;
         }
 
         .w-page {

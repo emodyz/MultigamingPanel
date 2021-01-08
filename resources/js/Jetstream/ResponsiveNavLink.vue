@@ -1,19 +1,19 @@
 <template>
   <div>
     <button
-      v-if="as == 'button'"
-      :class="classes"
-      class="w-full text-left"
+        v-if="as == 'button'"
+        :class="classes"
+        class="w-full text-left"
     >
-      <slot />
+      <slot/>
     </button>
 
     <inertia-link
-      v-else
-      :href="href"
-      :class="classes"
+        v-else
+        :href="href"
+        :class="classes"
     >
-      <slot />
+      <slot/>
     </inertia-link>
   </div>
 </template>
@@ -34,7 +34,7 @@ const respNavLink = Vue.extend({
   },
 })
 
-    @Component
+@Component
 export default class ResponsiveNavLink extends respNavLink {
   //
 }
