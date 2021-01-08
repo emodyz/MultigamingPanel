@@ -26,6 +26,6 @@ import CreateArticleForm from '@/Pages/News/Components/CreateArticleForm.vue'
   },
 })
 export default class ArticlesCreate extends Vue {
-  @Prop() readonly servers !: any
+  @Prop() readonly servers !: Array<any>
 }
 </script>

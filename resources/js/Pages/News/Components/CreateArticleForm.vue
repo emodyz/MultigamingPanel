@@ -6,7 +6,9 @@
       </template>
 
       <template #description>
-        Add a title<required/> and a subtitle (optional) to your new article.
+        Add a title
+        <required/>
+        and a subtitle (optional) to your new article.
       </template>
 
       <template #form>
@@ -28,12 +30,12 @@
           />
           <jet-input-error
               v-if="form.errors.title"
-              :message="form.errors.name"
+              :message="form.errors.title"
               class="mt-2"
           />
         </div>
         <!-- Title -->
-        <div class="col-span-6 sm:col-span-4">
+        <div class="col-span-6">
           <jet-label
               for="subTitle"
               value="Subtitle"
@@ -48,11 +50,51 @@
               autocomplete="subtitle"
           />
           <jet-input-error
-              v-if="form.errors.title"
-              :message="form.errors.name"
+              v-if="form.errors.subTitle"
+              :message="form.errors.subTitle"
               class="mt-2"
           />
         </div>
+      </template>
+
+      <template #customInputs>
+        <jet-section-border padding="pb-5"/>
+        <!-- Link Servers -->
+        <monolithic-form-input-card>
+          <template #label>
+            <jet-section-title class="pb-6">
+              <template #title>
+                Link to a server
+              </template>
+              <template #description>
+                You can chose to link this article to one or more servers
+              </template>
+            </jet-section-title>
+          </template>
+
+          <template #input>
+            <div class="col-span-6 sm:col-span-4">
+              <multi-select
+                  placeholder="Chose a server"
+                  :options-list="serversOptions"
+                  v-model="form.servers"
+                  :tags="true"
+              />
+            </div>
+          </template>
+        </monolithic-form-input-card>
+        <jet-section-border padding="pb-5 pt-6"/>
+        <!-- Content MD -->
+        <jet-section-title class="pb-5">
+          <template #title>
+            Add some content
+          </template>
+          <template #description>
+            Markdown ftw!
+            <required/>
+          </template>
+        </jet-section-title>
+        <md-editor v-model="form.content"/>
       </template>
 
       <template #actions>
@@ -69,22 +111,6 @@
         >
           Save
         </jet-button>
-      </template>
-      <template #customInputs>
-        <div class="hidden sm:block">
-          <div class="pb-5">
-            <div class="border-t border-gray-200" />
-          </div>
-        </div>
-        <jet-section-title class="pb-6">
-          <template #title>
-            Add some Content
-          </template>
-          <template #description>
-            Markdown ftw!<required/>
-          </template>
-        </jet-section-title>
-        <md-editor v-model="form.content"/>
       </template>
     </monolithic-form-section>
   </div>
@@ -108,9 +134,14 @@ import MdEditor from '@/Shared/Forms/MdEditor.vue'
 import JetSectionBorder from '@/Jetstream/SectionBorder.vue'
 import Required from '@/Shared/Forms/Required.vue'
 import JetSectionTitle from '@/Jetstream/SectionTitle.vue'
+import MultiSelect from '@/Shared/Forms/MultiSelect.vue'
+import { MultiSelectOptions } from '@/Shared/Forms/Types/MultiSelectOptions'
+import MonolithicFormInputCard from '@/Shared/Forms/MonolithicFormInputCard.vue'
 
 @Component({
   components: {
+    MonolithicFormInputCard,
+    MultiSelect,
     JetActionMessage,
     JetButton,
     MonolithicFormSection,
@@ -125,7 +156,7 @@ import JetSectionTitle from '@/Jetstream/SectionTitle.vue'
   },
 })
 export default class CreateArticleForm extends Mixins(Route) {
-  @Prop() readonly servers !: any
+  @Prop() readonly servers !: Array<any>
 
   form = this.$inertia.form({
     title: null,
@@ -133,6 +164,19 @@ export default class CreateArticleForm extends Mixins(Route) {
     servers: null,
     content: null,
   })
+
+  serversOptions: MultiSelectOptions = this.initServerOptions()
+
+  initServerOptions(): MultiSelectOptions {
+    const opts: MultiSelectOptions = []
+    this.servers.forEach((s: any) => {
+      opts.push({
+        name: s.name,
+        value: s.id,
+      })
+    })
+    return opts
+  }
 
   created() {
     /**

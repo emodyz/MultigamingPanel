@@ -2,13 +2,13 @@
   <div class="flex flex-col">
     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-        <div class="shadow-md bg-gray-50 border border-gray-200 sm:rounded-lg divide-y divide-gray-200 sm:h-page">
+        <div class="shadow overflow-hidden bg-gray-50 border border-gray-200 sm:rounded-lg divide-y divide-gray-200 sm:h-page">
           <div class="flex flex-row divide-x divide-gray-200 h-full">
             <div class="w-1/2 py-3 px-6">
               <textarea
                   maxlength="4294967294"
                   ref="input"
-                  class="form-input rounded-md shadow-sm w-full h-full overflow-y-scroll"
+                  class="form-input rounded-md resize-none shadow-sm w-full h-full"
                   :value="value"
                   placeholder="Content..."
                   @input="handleInput($event.target.value)"

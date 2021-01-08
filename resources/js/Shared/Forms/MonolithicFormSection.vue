@@ -1,5 +1,5 @@
 <template>
-  <form class="md:grid md:grid-cols-3 md:gap-6 " @submit.prevent="$emit('submitted')">
+  <form class="md:grid md:grid-cols-3 md:gap-6" @submit.prevent="$emit('submitted')">
     <jet-section-title>
       <template #title>
         <slot name="title"/>
