@@ -15,7 +15,7 @@ class GameSeeder extends Seeder
     public function run()
     {
         Game::factory()->create([
-            'name' => 'Arma3',
+            'name' => 'ArmA 3',
             'identifier' => 'arma3',
             'appid' => 107410,
             'logo_path' => 'games/arma3.png'

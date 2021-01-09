@@ -1,4 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
+const colors = require('tailwindcss/colors')
 
 module.exports = {
   purge: {
@@ -65,7 +66,10 @@ module.exports = {
         '10/12': '83.333333%',
         '11/12': '91.666667%',
         full: '100%',
-      }
+      },
+      colors: {
+        orange: colors.orange,
+      },
     },
   },
 

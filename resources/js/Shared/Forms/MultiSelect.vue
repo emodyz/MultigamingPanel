@@ -13,8 +13,7 @@
 </style>
 
 <template>
-  <!-- TODO: Fix height auto to not cause overflow -->
-  <div class="w-full flex flex-col items-center h-auto z-20">
+  <div v-click-outside="handleClickOutside" class="w-full flex flex-col items-center h-auto z-20">
     <div class="w-full">
       <div class="flex flex-col items-center relative">
         <div class="w-full">
@@ -24,7 +23,7 @@
                 <template v-for="option in options">
                   <div v-if="option.selected"
                        :key="option.value"
-                       class="flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-full text-indigo-700 bg-indigo-100 border border-indigo-300 ">
+                       class="flex justify-center items-center m-1 font-medium py-1 px-2 rounded-full text-indigo-700 bg-indigo-100 border border-indigo-300 ">
                     <div class="text-xs font-normal leading-none max-w-full flex-initial">{{ option.name }}</div>
                     <div class="flex flex-auto flex-row-reverse">
                       <div @click="handleOptionSelection(option)" class="hover:text-indigo-500 hover:cursor-pointer">
@@ -108,12 +107,17 @@ import CrossIcon from '@/Shared/Svgs/CrossIcon.vue'
 import ChevronDown from '@/Shared/Svgs/ChevronDown.vue'
 import ChevronUp from '@/Shared/Svgs/ChevronUp.vue'
 import { MultiSelectOptions, Option } from '@/Shared/Forms/Types/MultiSelectOptions'
+// @ts-ignore
+import vClickOutside from 'v-click-outside'
 
 @Component({
   components: {
     CrossIcon,
     ChevronDown,
     ChevronUp,
+  },
+  directives: {
+    clickOutside: vClickOutside.directive,
   },
 })
 /**
@@ -203,6 +207,11 @@ export default class MultiSelect extends Vue {
   getSearchResults(val: string) {
     return _.filter(this.options, (s) => s.name.toLowerCase()
       .startsWith(val.toLowerCase()))
+  }
+
+  handleClickOutside(e: any) {
+    this.isOpened = false
+    return e
   }
 }
 </script>
