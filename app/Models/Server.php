@@ -8,7 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
+use JetBrains\PhpStorm\Pure;
 
+/**
+ * @property mixed logo_path
+ * @property mixed ip
+ * @property mixed name
+ * @property mixed modpacks
+ */
 class Server extends Model
 {
     use HasFactory;
@@ -65,5 +73,29 @@ class Server extends Model
             $hash .= $modpack->manifest_last_update;
         });
         return hash('sha256', $hash);
+    }
+
+    protected $appends = ['logo_url'];
+
+    /**
+     * Get the URL to the user's profile photo.
+     *
+     * @return string
+     */
+    public function getLogoUrlAttribute(): string
+    {
+        return $this->logo_path
+            ? Storage::disk('public')->url($this->logo_path)
+            : $this->defaultLogoUrl();
+    }
+
+    /**
+     * Get the default profile photo URL if no profile photo has been uploaded.
+     *
+     * @return string
+     */
+    #[Pure] protected function defaultLogoUrl(): string
+    {
+        return 'https://ui-avatars.com/api/?name='.urlencode($this->name).'&color=7F9CF5&background=EBF4FF';
     }
 }

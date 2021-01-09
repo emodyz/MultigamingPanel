@@ -27,7 +27,9 @@ class ArticlesController extends Controller
      */
     public function create(): \Inertia\Response
     {
-        $servers = Server::all();
+        $servers = Server::all()->map(function ($server) {
+            return collect($server)->only(['id', 'name', 'logo_url', 'game']);
+        });
         return Inertia::render('News/Create', compact('servers'));
     }
 

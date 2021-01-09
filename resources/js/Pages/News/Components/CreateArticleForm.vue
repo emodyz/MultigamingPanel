@@ -137,6 +137,7 @@ import JetSectionTitle from '@/Jetstream/SectionTitle.vue'
 import MultiSelect from '@/Shared/Forms/MultiSelect.vue'
 import { MultiSelectOptions } from '@/Shared/Forms/Types/MultiSelectOptions'
 import MonolithicFormInputCard from '@/Shared/Forms/MonolithicFormInputCard.vue'
+import MultiSelectServerRow from '@/Shared/Forms/MultiSelectServerRow.vue'
 
 @Component({
   components: {
@@ -173,6 +174,17 @@ export default class CreateArticleForm extends Mixins(Route) {
       opts.push({
         name: s.name,
         value: s.id,
+        component: {
+          instance: MultiSelectServerRow,
+          properties: {
+            logo: s.logo_url,
+            game: {
+              name: s.game.name,
+              logo: s.game.logo_url,
+              identifier: s.game.identifier,
+            },
+          },
+        },
       })
     })
     return opts

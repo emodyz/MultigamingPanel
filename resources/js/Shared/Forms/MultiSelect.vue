@@ -57,6 +57,7 @@
             </div>
           </div>
         </div>
+        <!-- DROPDOWN -->
         <div v-show="isOpened"
              class="absolute shadow top-100 bg-white z-40 w-full lef-0 rounded max-h-select overflow-y-auto">
           <div class="flex flex-col w-full">
@@ -66,13 +67,16 @@
                 <div class="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative"
                      :class="option.selected ? 'border-indigo-700' : 'hover:border-indigo-100'">
                   <div class="w-full items-center flex">
-                    <div class="mx-2 leading-6">{{ option.name }}</div>
+                    <div v-if="_.isNull(option.component)" class="mx-2 leading-6">{{ option.name }}</div>
+                    <component v-else :is="option.component.instance" :name="option.name" v-bind="{...option.component.properties}"/>
                   </div>
                 </div>
               </div>
             </template>
           </div>
         </div>
+        <!-- TODO: Combine Dropdown and search results into one reusable scaffolding component -->
+        <!-- SEARCH RESULTS -->
         <div v-if="!_.isNull(searchResults)"
              class="absolute shadow top-100 bg-white z-40 w-full lef-0 rounded max-h-select overflow-y-auto">
           <div class="flex flex-col w-full">
@@ -82,7 +86,8 @@
                 <div class="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative"
                      :class="option.selected ? 'border-indigo-700' : 'hover:border-indigo-100'">
                   <div class="w-full items-center flex">
-                    <div class="mx-2 leading-6"><!-- TODO: USE DYN COMPs -->{{ option.name }}</div>
+                    <div v-if="_.isNull(option.component)" class="mx-2 leading-6">{{ option.name }}</div>
+                    <component v-else :is="option.component.instance" :name="option.name" v-bind="{...option.component.properties}"/>
                   </div>
                 </div>
               </div>

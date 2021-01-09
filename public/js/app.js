@@ -3347,6 +3347,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_SectionTitle_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/Jetstream/SectionTitle.vue */ "./resources/js/Jetstream/SectionTitle.vue");
 /* harmony import */ var _Shared_Forms_MultiSelect_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/Shared/Forms/MultiSelect.vue */ "./resources/js/Shared/Forms/MultiSelect.vue");
 /* harmony import */ var _Shared_Forms_MonolithicFormInputCard_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/Shared/Forms/MonolithicFormInputCard.vue */ "./resources/js/Shared/Forms/MonolithicFormInputCard.vue");
+/* harmony import */ var _Shared_Forms_MultiSelectServerRow_vue__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/Shared/Forms/MultiSelectServerRow.vue */ "./resources/js/Shared/Forms/MultiSelectServerRow.vue");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -3380,6 +3381,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
 };
 
  // import { objectToFormData } from '@/Shared/Helpers/objectToFormData'
+
 
 
 
@@ -3484,7 +3486,18 @@ var CreateArticleForm = /*#__PURE__*/function (_Mixins) {
       this.servers.forEach(function (s) {
         opts.push({
           name: s.name,
-          value: s.id
+          value: s.id,
+          component: {
+            instance: _Shared_Forms_MultiSelectServerRow_vue__WEBPACK_IMPORTED_MODULE_15__.default,
+            properties: {
+              logo: s.logo_url,
+              game: {
+                name: s.game.name,
+                logo: s.game.logo_url,
+                identifier: s.game.identifier
+              }
+            }
+          }
         });
       });
       return opts;
@@ -3541,6 +3554,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Pages_News_Components_CreateArticleForm_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Pages/News/Components/CreateArticleForm.vue */ "./resources/js/Pages/News/Components/CreateArticleForm.vue");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
@@ -3581,6 +3598,12 @@ var ArticlesCreate = /*#__PURE__*/function (_Vue) {
 
     return _super.apply(this, arguments);
   }
+
+  _createClass(ArticlesCreate, [{
+    key: "created",
+    value: function created() {// console.log(this.servers)
+    }
+  }]);
 
   return ArticlesCreate;
 }(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Vue);
@@ -7200,6 +7223,82 @@ MultiSelect = __decorate([(0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-6[0].rules[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Shared/Forms/MultiSelectServerRow.vue?vue&type=script&lang=ts&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-6[0].rules[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Shared/Forms/MultiSelectServerRow.vue?vue&type=script&lang=ts& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-property-decorator */ "./node_modules/vue-property-decorator/lib/index.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
+  var c = arguments.length,
+      r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+      d;
+  if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+    if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  }
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+var MultiSelectServerRow = /*#__PURE__*/function (_Vue) {
+  _inherits(MultiSelectServerRow, _Vue);
+
+  var _super = _createSuper(MultiSelectServerRow);
+
+  function MultiSelectServerRow() {
+    _classCallCheck(this, MultiSelectServerRow);
+
+    return _super.apply(this, arguments);
+  }
+
+  return MultiSelectServerRow;
+}(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Vue);
+
+__decorate([(0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Prop)({
+  type: String,
+  required: true
+})], MultiSelectServerRow.prototype, "name", void 0);
+
+__decorate([(0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Prop)({
+  type: String,
+  required: true
+})], MultiSelectServerRow.prototype, "logo", void 0);
+
+__decorate([(0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Prop)({
+  type: Object,
+  required: true
+})], MultiSelectServerRow.prototype, "game", void 0);
+
+MultiSelectServerRow = __decorate([vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Component], MultiSelectServerRow);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MultiSelectServerRow);
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-6[0].rules[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Shared/Forms/Required.vue?vue&type=script&lang=ts&":
 /*!********************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-6[0].rules[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Shared/Forms/Required.vue?vue&type=script&lang=ts& ***!
@@ -7624,7 +7723,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.top-100[data-v-974f612e] {\n    top: 100%\n}\n.bottom-100[data-v-974f612e] {\n    bottom: 100%\n}\n.max-h-select[data-v-974f612e] {\n    max-height: 300px;\n}\n", "",{"version":3,"sources":["webpack://./resources/js/Shared/Forms/MultiSelect.vue"],"names":[],"mappings":";AACA;IACA;AACA;AAEA;IACA;AACA;AAEA;IACA,iBAAA;AACA","sourcesContent":["<style scoped>\n.top-100 {\n    top: 100%\n}\n\n.bottom-100 {\n    bottom: 100%\n}\n\n.max-h-select {\n    max-height: 300px;\n}\n</style>\n\n<template>\n  <!-- TODO: Fix height auto to not cause overflow -->\n  <div class=\"w-full flex flex-col items-center h-auto z-20\">\n    <div class=\"w-full\">\n      <div class=\"flex flex-col items-center relative\">\n        <div class=\"w-full\">\n          <div class=\"form-input my-2 p-1 flex border bg-white rounded-md shadow-sm\">\n            <div class=\"flex flex-auto flex-wrap\">\n              <template v-if=\"tags\">\n                <template v-for=\"option in options\">\n                  <div v-if=\"option.selected\"\n                       :key=\"option.value\"\n                       class=\"flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-full text-indigo-700 bg-indigo-100 border border-indigo-300 \">\n                    <div class=\"text-xs font-normal leading-none max-w-full flex-initial\">{{ option.name }}</div>\n                    <div class=\"flex flex-auto flex-row-reverse\">\n                      <div @click=\"handleOptionSelection(option)\" class=\"hover:text-indigo-500 hover:cursor-pointer\">\n                        <cross-icon class=\"cursor-pointer hover:text-indigo-400 rounded-full\"/>\n                      </div>\n                    </div>\n                  </div>\n                </template>\n              </template>\n              <div class=\"flex-1\">\n                <input :placeholder=\"placeholder\"\n                       v-model=\"searchOption\"\n                       class=\"bg-transparent py-1 px-1 appearance-none outline-none h-full w-full text-gray-800\">\n              </div>\n              <div v-show=\"!_.isNull(searchResults)\" @click=\"searchOption = ''\"\n                   class=\"justify-self-end text-indigo-700 pr-2 flex items-center\">\n                <cross-icon class=\"cursor-pointer hover:text-indigo-400 rounded-full\"/>\n              </div>\n            </div>\n            <div class=\"text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200 \">\n              <button\n                  type=\"button\"\n                  @click=\"handleSowOption()\"\n                  :disabled=\"!_.isNull(searchResults)\"\n                  class=\"cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none disabled:cursor-not-allowed disabled:text-gray-300\"\n              >\n                <chevron-down v-if=\"!isOpened\"/>\n                <chevron-up v-else/>\n              </button>\n            </div>\n          </div>\n        </div>\n        <div v-show=\"isOpened\"\n             class=\"absolute shadow top-100 bg-white z-40 w-full lef-0 rounded max-h-select overflow-y-auto\">\n          <div class=\"flex flex-col w-full\">\n            <template v-for=\"option in options\">\n              <div :key=\"option.value\" @click=\"handleOptionSelection(option)\"\n                   class=\"cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-indigo-100\">\n                <div class=\"flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative\"\n                     :class=\"option.selected ? 'border-indigo-700' : 'hover:border-indigo-100'\">\n                  <div class=\"w-full items-center flex\">\n                    <div class=\"mx-2 leading-6\">{{ option.name }}</div>\n                  </div>\n                </div>\n              </div>\n            </template>\n          </div>\n        </div>\n        <div v-if=\"!_.isNull(searchResults)\"\n             class=\"absolute shadow top-100 bg-white z-40 w-full lef-0 rounded max-h-select overflow-y-auto\">\n          <div class=\"flex flex-col w-full\">\n            <template v-for=\"option in searchResults\">\n              <div :key=\"option.value\" @click=\"handleOptionSelection(option)\"\n                   class=\"cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-indigo-100\">\n                <div class=\"flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative\"\n                     :class=\"option.selected ? 'border-indigo-700' : 'hover:border-indigo-100'\">\n                  <div class=\"w-full items-center flex\">\n                    <div class=\"mx-2 leading-6\"><!-- TODO: USE DYN COMPs -->{{ option.name }}</div>\n                  </div>\n                </div>\n              </div>\n            </template>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</template>\n\n<script lang=\"ts\">\nimport {\n  Vue, Component, Prop, Watch,\n} from 'vue-property-decorator'\nimport _ from 'lodash'\nimport CrossIcon from '@/Shared/Svgs/CrossIcon.vue'\nimport ChevronDown from '@/Shared/Svgs/ChevronDown.vue'\nimport ChevronUp from '@/Shared/Svgs/ChevronUp.vue'\nimport { MultiSelectOptions, Option } from '@/Shared/Forms/Types/MultiSelectOptions'\n\n@Component({\n  components: {\n    CrossIcon,\n    ChevronDown,\n    ChevronUp,\n  },\n})\n/**\n * ⚠️ v-model implementation for this component is readonly ⚠️\n */\nexport default class MultiSelect extends Vue {\n  @Prop({\n    type: Array,\n    required: true,\n  }) readonly optionsList !: MultiSelectOptions\n\n  @Prop({\n    type: String,\n    required: true,\n  }) readonly placeholder !: string\n\n  @Prop({\n    type: Boolean,\n    default: false,\n  }) readonly tags !: boolean\n\n  @Prop({\n    type: Object,\n    default: null,\n  }) readonly comp !: any\n\n  isOpened = false\n\n  options = this.initOptions(this.optionsList)\n\n  searchOption = ''\n\n  searchResults: any = null\n\n  @Watch('searchOption')\n  onSearchOptionChanged(val: any) {\n    if (val !== '') {\n      this.isOpened = false\n      this.searchResults = this.getSearchResults(val)\n    } else {\n      this.searchResults = null\n    }\n  }\n\n  @Watch('options')\n  onOptionChanged() {\n    this.$emit('input', this.getSelectedOptions())\n  }\n\n  initOptions(_opts: Array<any>) {\n    if (_.isNull(_opts)) {\n      return []\n    }\n\n    _opts.forEach((val) => {\n      if (_.isNull(val.selected)) {\n        const mVal = val\n        mVal.selected = false\n        this.options[this.options.indexOf(val)] = mVal\n      }\n    })\n\n    return _opts\n  }\n\n  handleSowOption() {\n    this.isOpened = !this.isOpened\n  }\n\n  handleOptionSelection(_opt: any) {\n    const mOpt = _opt\n    mOpt.selected = !_opt.selected\n    this.$set(this.options, this.options.indexOf(_opt), mOpt)\n  }\n\n  getSelectedOptions() {\n    const rv: any[] = []\n\n    _.filter(this.options, 'selected')\n      .forEach((val: Option) => {\n        rv.push(val.value)\n      })\n\n    return rv\n  }\n\n  getSearchResults(val: string) {\n    return _.filter(this.options, (s) => s.name.toLowerCase()\n      .startsWith(val.toLowerCase()))\n  }\n}\n</script>\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.top-100[data-v-974f612e] {\n    top: 100%\n}\n.bottom-100[data-v-974f612e] {\n    bottom: 100%\n}\n.max-h-select[data-v-974f612e] {\n    max-height: 300px;\n}\n", "",{"version":3,"sources":["webpack://./resources/js/Shared/Forms/MultiSelect.vue"],"names":[],"mappings":";AACA;IACA;AACA;AAEA;IACA;AACA;AAEA;IACA,iBAAA;AACA","sourcesContent":["<style scoped>\n.top-100 {\n    top: 100%\n}\n\n.bottom-100 {\n    bottom: 100%\n}\n\n.max-h-select {\n    max-height: 300px;\n}\n</style>\n\n<template>\n  <!-- TODO: Fix height auto to not cause overflow -->\n  <div class=\"w-full flex flex-col items-center h-auto z-20\">\n    <div class=\"w-full\">\n      <div class=\"flex flex-col items-center relative\">\n        <div class=\"w-full\">\n          <div class=\"form-input my-2 p-1 flex border bg-white rounded-md shadow-sm\">\n            <div class=\"flex flex-auto flex-wrap\">\n              <template v-if=\"tags\">\n                <template v-for=\"option in options\">\n                  <div v-if=\"option.selected\"\n                       :key=\"option.value\"\n                       class=\"flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-full text-indigo-700 bg-indigo-100 border border-indigo-300 \">\n                    <div class=\"text-xs font-normal leading-none max-w-full flex-initial\">{{ option.name }}</div>\n                    <div class=\"flex flex-auto flex-row-reverse\">\n                      <div @click=\"handleOptionSelection(option)\" class=\"hover:text-indigo-500 hover:cursor-pointer\">\n                        <cross-icon class=\"cursor-pointer hover:text-indigo-400 rounded-full\"/>\n                      </div>\n                    </div>\n                  </div>\n                </template>\n              </template>\n              <div class=\"flex-1\">\n                <input :placeholder=\"placeholder\"\n                       v-model=\"searchOption\"\n                       class=\"bg-transparent py-1 px-1 appearance-none outline-none h-full w-full text-gray-800\">\n              </div>\n              <div v-show=\"!_.isNull(searchResults)\" @click=\"searchOption = ''\"\n                   class=\"justify-self-end text-indigo-700 pr-2 flex items-center\">\n                <cross-icon class=\"cursor-pointer hover:text-indigo-400 rounded-full\"/>\n              </div>\n            </div>\n            <div class=\"text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200 \">\n              <button\n                  type=\"button\"\n                  @click=\"handleSowOption()\"\n                  :disabled=\"!_.isNull(searchResults)\"\n                  class=\"cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none disabled:cursor-not-allowed disabled:text-gray-300\"\n              >\n                <chevron-down v-if=\"!isOpened\"/>\n                <chevron-up v-else/>\n              </button>\n            </div>\n          </div>\n        </div>\n        <!-- DROPDOWN -->\n        <div v-show=\"isOpened\"\n             class=\"absolute shadow top-100 bg-white z-40 w-full lef-0 rounded max-h-select overflow-y-auto\">\n          <div class=\"flex flex-col w-full\">\n            <template v-for=\"option in options\">\n              <div :key=\"option.value\" @click=\"handleOptionSelection(option)\"\n                   class=\"cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-indigo-100\">\n                <div class=\"flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative\"\n                     :class=\"option.selected ? 'border-indigo-700' : 'hover:border-indigo-100'\">\n                  <div class=\"w-full items-center flex\">\n                    <div v-if=\"_.isNull(option.component)\" class=\"mx-2 leading-6\">{{ option.name }}</div>\n                    <component v-else :is=\"option.component.instance\" :name=\"option.name\" v-bind=\"{...option.component.properties}\"/>\n                  </div>\n                </div>\n              </div>\n            </template>\n          </div>\n        </div>\n        <!-- TODO: Combine Dropdown and search results into one reusable scaffolding component -->\n        <!-- SEARCH RESULTS -->\n        <div v-if=\"!_.isNull(searchResults)\"\n             class=\"absolute shadow top-100 bg-white z-40 w-full lef-0 rounded max-h-select overflow-y-auto\">\n          <div class=\"flex flex-col w-full\">\n            <template v-for=\"option in searchResults\">\n              <div :key=\"option.value\" @click=\"handleOptionSelection(option)\"\n                   class=\"cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-indigo-100\">\n                <div class=\"flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative\"\n                     :class=\"option.selected ? 'border-indigo-700' : 'hover:border-indigo-100'\">\n                  <div class=\"w-full items-center flex\">\n                    <div v-if=\"_.isNull(option.component)\" class=\"mx-2 leading-6\">{{ option.name }}</div>\n                    <component v-else :is=\"option.component.instance\" :name=\"option.name\" v-bind=\"{...option.component.properties}\"/>\n                  </div>\n                </div>\n              </div>\n            </template>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</template>\n\n<script lang=\"ts\">\nimport {\n  Vue, Component, Prop, Watch,\n} from 'vue-property-decorator'\nimport _ from 'lodash'\nimport CrossIcon from '@/Shared/Svgs/CrossIcon.vue'\nimport ChevronDown from '@/Shared/Svgs/ChevronDown.vue'\nimport ChevronUp from '@/Shared/Svgs/ChevronUp.vue'\nimport { MultiSelectOptions, Option } from '@/Shared/Forms/Types/MultiSelectOptions'\n\n@Component({\n  components: {\n    CrossIcon,\n    ChevronDown,\n    ChevronUp,\n  },\n})\n/**\n * ⚠️ v-model implementation for this component is readonly ⚠️\n */\nexport default class MultiSelect extends Vue {\n  @Prop({\n    type: Array,\n    required: true,\n  }) readonly optionsList !: MultiSelectOptions\n\n  @Prop({\n    type: String,\n    required: true,\n  }) readonly placeholder !: string\n\n  @Prop({\n    type: Boolean,\n    default: false,\n  }) readonly tags !: boolean\n\n  @Prop({\n    type: Object,\n    default: null,\n  }) readonly comp !: any\n\n  isOpened = false\n\n  options = this.initOptions(this.optionsList)\n\n  searchOption = ''\n\n  searchResults: any = null\n\n  @Watch('searchOption')\n  onSearchOptionChanged(val: any) {\n    if (val !== '') {\n      this.isOpened = false\n      this.searchResults = this.getSearchResults(val)\n    } else {\n      this.searchResults = null\n    }\n  }\n\n  @Watch('options')\n  onOptionChanged() {\n    this.$emit('input', this.getSelectedOptions())\n  }\n\n  initOptions(_opts: Array<any>) {\n    if (_.isNull(_opts)) {\n      return []\n    }\n\n    _opts.forEach((val) => {\n      if (_.isNull(val.selected)) {\n        const mVal = val\n        mVal.selected = false\n        this.options[this.options.indexOf(val)] = mVal\n      }\n    })\n\n    return _opts\n  }\n\n  handleSowOption() {\n    this.isOpened = !this.isOpened\n  }\n\n  handleOptionSelection(_opt: any) {\n    const mOpt = _opt\n    mOpt.selected = !_opt.selected\n    this.$set(this.options, this.options.indexOf(_opt), mOpt)\n  }\n\n  getSelectedOptions() {\n    const rv: any[] = []\n\n    _.filter(this.options, 'selected')\n      .forEach((val: Option) => {\n        rv.push(val.value)\n      })\n\n    return rv\n  }\n\n  getSearchResults(val: string) {\n    return _.filter(this.options, (s) => s.name.toLowerCase()\n      .startsWith(val.toLowerCase()))\n  }\n}\n</script>\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -10271,6 +10370,45 @@ component.options.__file = "resources/js/Shared/Forms/MultiSelect.vue"
 
 /***/ }),
 
+/***/ "./resources/js/Shared/Forms/MultiSelectServerRow.vue":
+/*!************************************************************!*\
+  !*** ./resources/js/Shared/Forms/MultiSelectServerRow.vue ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _MultiSelectServerRow_vue_vue_type_template_id_7218a4de___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MultiSelectServerRow.vue?vue&type=template&id=7218a4de& */ "./resources/js/Shared/Forms/MultiSelectServerRow.vue?vue&type=template&id=7218a4de&");
+/* harmony import */ var _MultiSelectServerRow_vue_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MultiSelectServerRow.vue?vue&type=script&lang=ts& */ "./resources/js/Shared/Forms/MultiSelectServerRow.vue?vue&type=script&lang=ts&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _MultiSelectServerRow_vue_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_1__.default,
+  _MultiSelectServerRow_vue_vue_type_template_id_7218a4de___WEBPACK_IMPORTED_MODULE_0__.render,
+  _MultiSelectServerRow_vue_vue_type_template_id_7218a4de___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Shared/Forms/MultiSelectServerRow.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/Shared/Forms/Required.vue":
 /*!************************************************!*\
   !*** ./resources/js/Shared/Forms/Required.vue ***!
@@ -11394,6 +11532,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Shared/Forms/MultiSelectServerRow.vue?vue&type=script&lang=ts&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/Shared/Forms/MultiSelectServerRow.vue?vue&type=script&lang=ts& ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MultiSelectServerRow_vue_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/ts-loader/index.js??clonedRuleSet-6[0].rules[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MultiSelectServerRow.vue?vue&type=script&lang=ts& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-6[0].rules[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Shared/Forms/MultiSelectServerRow.vue?vue&type=script&lang=ts&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MultiSelectServerRow_vue_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/Shared/Forms/Required.vue?vue&type=script&lang=ts&":
 /*!*************************************************************************!*\
   !*** ./resources/js/Shared/Forms/Required.vue?vue&type=script&lang=ts& ***!
@@ -12482,6 +12636,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MultiSelect_vue_vue_type_template_id_974f612e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MultiSelect_vue_vue_type_template_id_974f612e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MultiSelect.vue?vue&type=template&id=974f612e&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Shared/Forms/MultiSelect.vue?vue&type=template&id=974f612e&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/Shared/Forms/MultiSelectServerRow.vue?vue&type=template&id=7218a4de&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/Shared/Forms/MultiSelectServerRow.vue?vue&type=template&id=7218a4de& ***!
+  \*******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MultiSelectServerRow_vue_vue_type_template_id_7218a4de___WEBPACK_IMPORTED_MODULE_0__.render,
+/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MultiSelectServerRow_vue_vue_type_template_id_7218a4de___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MultiSelectServerRow_vue_vue_type_template_id_7218a4de___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MultiSelectServerRow.vue?vue&type=template&id=7218a4de& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Shared/Forms/MultiSelectServerRow.vue?vue&type=template&id=7218a4de&");
 
 
 /***/ }),
@@ -20901,10 +21072,29 @@ var render = function() {
                                 "div",
                                 { staticClass: "w-full items-center flex" },
                                 [
-                                  _c("div", { staticClass: "mx-2 leading-6" }, [
-                                    _vm._v(_vm._s(option.name))
-                                  ])
-                                ]
+                                  _vm._.isNull(option.component)
+                                    ? _c(
+                                        "div",
+                                        { staticClass: "mx-2 leading-6" },
+                                        [_vm._v(_vm._s(option.name))]
+                                      )
+                                    : _c(
+                                        option.component.instance,
+                                        _vm._b(
+                                          {
+                                            tag: "component",
+                                            attrs: { name: option.name }
+                                          },
+                                          "component",
+                                          Object.assign(
+                                            {},
+                                            option.component.properties
+                                          ),
+                                          false
+                                        )
+                                      )
+                                ],
+                                1
                               )
                             ]
                           )
@@ -20959,12 +21149,29 @@ var render = function() {
                                     "div",
                                     { staticClass: "w-full items-center flex" },
                                     [
-                                      _c(
-                                        "div",
-                                        { staticClass: "mx-2 leading-6" },
-                                        [_vm._v(_vm._s(option.name))]
-                                      )
-                                    ]
+                                      _vm._.isNull(option.component)
+                                        ? _c(
+                                            "div",
+                                            { staticClass: "mx-2 leading-6" },
+                                            [_vm._v(_vm._s(option.name))]
+                                          )
+                                        : _c(
+                                            option.component.instance,
+                                            _vm._b(
+                                              {
+                                                tag: "component",
+                                                attrs: { name: option.name }
+                                              },
+                                              "component",
+                                              Object.assign(
+                                                {},
+                                                option.component.properties
+                                              ),
+                                              false
+                                            )
+                                          )
+                                    ],
+                                    1
                                   )
                                 ]
                               )
@@ -20980,6 +21187,49 @@ var render = function() {
             : _vm._e()
         ])
       ])
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Shared/Forms/MultiSelectServerRow.vue?vue&type=template&id=7218a4de&":
+/*!**********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Shared/Forms/MultiSelectServerRow.vue?vue&type=template&id=7218a4de& ***!
+  \**********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* binding */ render,
+/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass:
+        "mx-2 leading-6 inline-flex justify-start items-center w-full"
+    },
+    [
+      _c("div", [_vm._v(_vm._s(_vm.name))]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            "m-1 font-medium py-1 px-2 bg-white rounded-full text-indigo-700 bg-indigo-100 border border-indigo-300"
+        },
+        [_vm._v(_vm._s(_vm.game.name))]
+      )
     ]
   )
 }
