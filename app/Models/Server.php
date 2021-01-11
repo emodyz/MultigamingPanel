@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasLogo;
 use App\Models\Traits\HasPrimaryKeyAsUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\Storage;
-use JetBrains\PhpStorm\Pure;
 
 /**
  * @property mixed logo_path
@@ -21,6 +20,9 @@ class Server extends Model
 {
     use HasFactory;
     use HasPrimaryKeyAsUuid;
+    use HasLogo;
+
+    protected string $logoDiskPath = 'servers';
 
     protected $fillable = [
         'name',
@@ -30,6 +32,13 @@ class Server extends Model
     ];
 
     protected $with = ['game'];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['logo_url'];
 
     /**
      * @return BelongsTo
@@ -64,38 +73,10 @@ class Server extends Model
     }
 
     /**
-     * @return string
+     * @return BelongsToMany
      */
-    public function getUpdateHashAttribute(): string
+    public function articles(): BelongsToMany
     {
-        $hash = "";
-        $this->modpacks->each(function (Modpack $modpack) use (&$hash) {
-            $hash .= $modpack->manifest_last_update;
-        });
-        return hash('sha256', $hash);
-    }
-
-    protected $appends = ['logo_url'];
-
-    /**
-     * Get the URL to the user's profile photo.
-     *
-     * @return string
-     */
-    public function getLogoUrlAttribute(): string
-    {
-        return $this->logo_path
-            ? Storage::disk('public')->url($this->logo_path)
-            : $this->defaultLogoUrl();
-    }
-
-    /**
-     * Get the default profile photo URL if no profile photo has been uploaded.
-     *
-     * @return string
-     */
-    #[Pure] protected function defaultLogoUrl(): string
-    {
-        return 'https://ui-avatars.com/api/?name='.urlencode($this->name).'&color=7F9CF5&background=EBF4FF';
+        return $this->belongsToMany(Article::class)->withTimestamps();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Articles\CreateArticleRequest;
 use App\Models\Article;
 use App\Models\Server;
 use Illuminate\Http\Request;
@@ -36,12 +37,12 @@ class ArticlesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param CreateArticleRequest $request
      * @return Response
      */
-    public function store(Request $request): Response
+    public function store(CreateArticleRequest $request): Response
     {
-        //
+        dd($request->all());
     }
 
     /**

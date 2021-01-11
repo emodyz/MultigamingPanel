@@ -3409,73 +3409,15 @@ var CreateArticleForm = /*#__PURE__*/function (_Mixins) {
     _classCallCheck(this, CreateArticleForm);
 
     _this = _super.apply(this, arguments);
+    _this.coverPreview = null;
     _this.form = _this.$inertia.form({
       title: null,
       subTitle: null,
+      coverImage: null,
       servers: null,
       content: null
     });
     _this.serversOptions = _this.initServerOptions();
-    /*
-    photoPreview: any = null
-           form: any = {
-      name: this.user.name,
-      photo: null,
-      recentlySuccessful: false,
-      processing: false,
-    }
-           errorMessages = {
-      name: '',
-      photo: '',
-    }
-           editUserProfile() {
-      this.form.processing = false
-      this.form.recentlySuccessful = false
-             if (this.photo.files[0]) {
-        this.form.photo = this.photo.files[0]
-      }
-             this.$inertia.post(
-        this.route('users.update', this.user.id),
-        objectToFormData(this.form, 'PUT'),
-        {
-          preserveScroll: true,
-          resetOnSuccess: false,
-          onSuccess: (page: any) => {
-            this.form.processing = false
-            if (!page.props.errors.editUserProfile) {
-              this.photoPreview = null
-              this.form.recentlySuccessful = true
-            } else {
-              this.errorMessages = page.props.errors.editUserProfile
-            }
-          },
-        },
-      )
-    }
-           selectNewPhoto() {
-      this.photo.click()
-    }
-           updatePhotoPreview() {
-      const reader = new FileReader()
-             reader.onload = (e: any) => {
-        this.photoPreview = e.target.result
-      }
-             reader.readAsDataURL(this.photo.files[0])
-    }
-           deletePhoto() {
-      this.$inertia.delete(
-        this.route('users.destroy.avatar', this.user),
-        {
-          preserveScroll: true,
-          onSuccess: () => {
-            this.photoPreview = null
-            this.form.photo = null
-          },
-        },
-      )
-    }
-    */
-
     return _this;
   }
 
@@ -3503,12 +3445,33 @@ var CreateArticleForm = /*#__PURE__*/function (_Mixins) {
       return opts;
     }
   }, {
+    key: "selectNewCover",
+    value: function selectNewCover() {
+      this.cover.click();
+    }
+  }, {
+    key: "updateCoverPreview",
+    value: function updateCoverPreview() {
+      var _this2 = this;
+
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        _this2.coverPreview = e.target.result;
+      };
+
+      reader.readAsDataURL(this.cover.files[0]);
+      this.form.coverImage = this.cover.files[0];
+    }
+  }, {
+    key: "submitForm",
+    value: function submitForm() {
+      // console.log(this.form)
+      this.form.post(this.route('articles.store'));
+    }
+  }, {
     key: "created",
-    value: function created() {
-      /**
-       * TODO: Add the ability to pass custom html to the multiselect so that i can customize rows ie. server logo and game badge.
-       * */
-      console.log(this.servers);
+    value: function created() {// console.log(this.servers)
     }
   }]);
 
@@ -3516,6 +3479,8 @@ var CreateArticleForm = /*#__PURE__*/function (_Mixins) {
 }((0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Mixins)(_Mixins_Route__WEBPACK_IMPORTED_MODULE_1__.default));
 
 __decorate([(0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Prop)()], CreateArticleForm.prototype, "servers", void 0);
+
+__decorate([(0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Ref)('cover')], CreateArticleForm.prototype, "cover", void 0);
 
 CreateArticleForm = __decorate([(0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Component)({
   components: {
@@ -16519,11 +16484,7 @@ var render = function() {
     "div",
     [
       _c("monolithic-form-section", {
-        on: {
-          submitted: function($event) {
-            _vm.form.post(_vm.route("articles.store"))
-          }
-        },
+        on: { submitted: _vm.submitForm },
         scopedSlots: _vm._u([
           {
             key: "title",
@@ -16561,7 +16522,6 @@ var render = function() {
                       staticClass: "mt-1 block w-full",
                       attrs: {
                         id: "title",
-                        required: "",
                         type: "text",
                         maxlength: "80",
                         placeholder: "My Amazing Title...",
@@ -16702,6 +16662,122 @@ var render = function() {
                 _vm._v(" "),
                 _c("jet-section-border", { attrs: { padding: "pb-5 pt-6" } }),
                 _vm._v(" "),
+                _c("monolithic-form-input-card", {
+                  scopedSlots: _vm._u([
+                    {
+                      key: "label",
+                      fn: function() {
+                        return [
+                          _c("jet-section-title", {
+                            staticClass: "pb-6",
+                            scopedSlots: _vm._u([
+                              {
+                                key: "title",
+                                fn: function() {
+                                  return [
+                                    _vm._v(
+                                      "\n              Cover Image\n            "
+                                    )
+                                  ]
+                                },
+                                proxy: true
+                              },
+                              {
+                                key: "description",
+                                fn: function() {
+                                  return [
+                                    _vm._v(
+                                      "\n              Add a cover image to illustrate your article\n              "
+                                    ),
+                                    _c("required")
+                                  ]
+                                },
+                                proxy: true
+                              }
+                            ])
+                          })
+                        ]
+                      },
+                      proxy: true
+                    },
+                    {
+                      key: "input",
+                      fn: function() {
+                        return [
+                          _c(
+                            "div",
+                            { staticClass: "col-span-6" },
+                            [
+                              _c("input", {
+                                ref: "cover",
+                                staticClass: "hidden",
+                                attrs: { type: "file" },
+                                on: { change: _vm.updateCoverPreview }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.coverPreview,
+                                      expression: "coverPreview"
+                                    }
+                                  ],
+                                  staticClass: "mb-6"
+                                },
+                                [
+                                  _c("img", {
+                                    staticClass:
+                                      "border border-gray-300 rounded-3xl shadow-2xl max-h-96",
+                                    attrs: {
+                                      src: _vm.coverPreview,
+                                      alt: "Cover Image"
+                                    }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "jet-secondary-button",
+                                {
+                                  attrs: { type: "button" },
+                                  nativeOn: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.selectNewCover($event)
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n              Select A Cover Image\n            "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _vm.form.errors.coverImage
+                                ? _c("jet-input-error", {
+                                    staticClass: "mt-2",
+                                    attrs: {
+                                      message: _vm.form.errors.coverImage
+                                    }
+                                  })
+                                : _vm._e()
+                            ],
+                            1
+                          )
+                        ]
+                      },
+                      proxy: true
+                    }
+                  ])
+                }),
+                _vm._v(" "),
+                _c("jet-section-border", { attrs: { padding: "pb-5 pt-6" } }),
+                _vm._v(" "),
                 _c("jet-section-title", {
                   staticClass: "pb-5",
                   scopedSlots: _vm._u([
@@ -16726,6 +16802,13 @@ var render = function() {
                     }
                   ])
                 }),
+                _vm._v(" "),
+                _vm.form.errors.content
+                  ? _c("jet-input-error", {
+                      staticClass: "mt-2",
+                      attrs: { message: _vm.form.errors.content }
+                    })
+                  : _vm._e(),
                 _vm._v(" "),
                 _c("md-editor", {
                   model: {

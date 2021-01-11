@@ -52,11 +52,6 @@ class EditUser
             'role' => ['required', 'string', 'max:255', new RoleExists()],
         ])->validateWithBag('editUserAccount');
 
-        if (isset($input['photo'])) {
-            $user->updateProfilePhoto($input['photo']);
-        }
-
-
         $user->forceFill([
             'role' => $input['role'],
             'email' => $input['email'],

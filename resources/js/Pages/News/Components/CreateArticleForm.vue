@@ -1,6 +1,6 @@
 <template>
   <div>
-    <monolithic-form-section @submitted="form.post(route('articles.store'))">
+    <monolithic-form-section @submitted="submitForm">
       <template #title>
         Write a new article
       </template>
@@ -21,7 +21,6 @@
           <jet-input
               id="title"
               v-model="form.title"
-              required
               type="text"
               maxlength="80"
               placeholder="My Amazing Title..."
@@ -84,6 +83,57 @@
           </template>
         </monolithic-form-input-card>
         <jet-section-border padding="pb-5 pt-6"/>
+        <!-- Article Cover Image -->
+        <monolithic-form-input-card>
+          <template #label>
+            <jet-section-title class="pb-6">
+              <template #title>
+                Cover Image
+              </template>
+              <template #description>
+                Add a cover image to illustrate your article
+                <required/>
+              </template>
+            </jet-section-title>
+          </template>
+          <template #input>
+            <!-- TODO: Extract image input into a component and implement v-model -->
+            <div class="col-span-6">
+              <!-- Cover Image File Input -->
+              <input
+                  ref="cover"
+                  type="file"
+                  class="hidden"
+                  @change="updateCoverPreview"
+              >
+              <!-- Cover Image Preview -->
+              <div
+                  v-show="coverPreview"
+                  class="mb-6"
+              >
+                <!-- <span
+                  class="block rounded-md shadow-md w-full h-96"
+                  :style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' + photoPreview + '\');'"
+                /> -->
+                <img class="border border-gray-300 rounded-3xl shadow-2xl max-h-96" :src="coverPreview" alt="Cover Image">
+              </div>
+
+              <jet-secondary-button
+                  type="button"
+                  @click.native.prevent="selectNewCover"
+              >
+                Select A Cover Image
+              </jet-secondary-button>
+
+              <jet-input-error
+                  v-if="form.errors.coverImage"
+                  :message="form.errors.coverImage"
+                  class="mt-2"
+              />
+            </div>
+          </template>
+        </monolithic-form-input-card>
+        <jet-section-border padding="pb-5 pt-6"/>
         <!-- Content MD -->
         <jet-section-title class="pb-5">
           <template #title>
@@ -94,6 +144,11 @@
             <required/>
           </template>
         </jet-section-title>
+        <jet-input-error
+            v-if="form.errors.content"
+            :message="form.errors.content"
+            class="mt-2"
+        />
         <md-editor v-model="form.content"/>
       </template>
 
@@ -118,7 +173,7 @@
 
 <script lang="ts">
 import {
-  Component, /* Prop, Ref, */ Mixins, Prop,
+  Component, /* Prop, Ref, */ Mixins, Prop, Ref,
 } from 'vue-property-decorator'
 // import { objectToFormData } from '@/Shared/Helpers/objectToFormData'
 import Route from '@/Mixins/Route'
@@ -159,9 +214,14 @@ import MultiSelectServerRow from '@/Shared/Forms/MultiSelectServerRow.vue'
 export default class CreateArticleForm extends Mixins(Route) {
   @Prop() readonly servers !: Array<any>
 
+  @Ref('cover') readonly cover!: any
+
+  coverPreview: any = null
+
   form = this.$inertia.form({
     title: null,
     subTitle: null,
+    coverImage: null,
     servers: null,
     content: null,
   })
@@ -190,81 +250,29 @@ export default class CreateArticleForm extends Mixins(Route) {
     return opts
   }
 
-  created() {
-    /**
-     * TODO: Add the ability to pass custom html to the multiselect so that i can customize rows ie. server logo and game badge.
-     * */
-    console.log(this.servers)
+  selectNewCover() {
+    this.cover.click()
   }
 
-  /*
-  photoPreview: any = null
-
-  form: any = {
-    name: this.user.name,
-    photo: null,
-    recentlySuccessful: false,
-    processing: false,
-  }
-
-  errorMessages = {
-    name: '',
-    photo: '',
-  }
-
-  editUserProfile() {
-    this.form.processing = false
-    this.form.recentlySuccessful = false
-
-    if (this.photo.files[0]) {
-      this.form.photo = this.photo.files[0]
-    }
-
-    this.$inertia.post(
-      this.route('users.update', this.user.id),
-      objectToFormData(this.form, 'PUT'),
-      {
-        preserveScroll: true,
-        resetOnSuccess: false,
-        onSuccess: (page: any) => {
-          this.form.processing = false
-          if (!page.props.errors.editUserProfile) {
-            this.photoPreview = null
-            this.form.recentlySuccessful = true
-          } else {
-            this.errorMessages = page.props.errors.editUserProfile
-          }
-        },
-      },
-    )
-  }
-
-  selectNewPhoto() {
-    this.photo.click()
-  }
-
-  updatePhotoPreview() {
+  updateCoverPreview() {
     const reader = new FileReader()
 
     reader.onload = (e: any) => {
-      this.photoPreview = e.target.result
+      this.coverPreview = e.target.result
     }
 
-    reader.readAsDataURL(this.photo.files[0])
+    reader.readAsDataURL(this.cover.files[0])
+
+    this.form.coverImage = this.cover.files[0]
   }
 
-  deletePhoto() {
-    this.$inertia.delete(
-      this.route('users.destroy.avatar', this.user),
-      {
-        preserveScroll: true,
-        onSuccess: () => {
-          this.photoPreview = null
-          this.form.photo = null
-        },
-      },
-    )
+  submitForm() {
+    // console.log(this.form)
+    this.form.post(this.route('articles.store'))
   }
-  */
+
+  created() {
+    // console.log(this.servers)
+  }
 }
 </script>
