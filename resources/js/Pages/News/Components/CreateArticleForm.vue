@@ -115,7 +115,8 @@
                   class="block rounded-md shadow-md w-full h-96"
                   :style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' + photoPreview + '\');'"
                 /> -->
-                <img class="border border-gray-300 rounded-3xl shadow-2xl max-h-96" :src="coverPreview" alt="Cover Image">
+                <img class="border border-gray-300 rounded-3xl shadow-2xl max-h-96" :src="coverPreview"
+                     alt="Cover Image">
               </div>
 
               <jet-secondary-button
@@ -157,14 +158,26 @@
             :on="form.recentlySuccessful"
             class="mr-3"
         >
-          Saved.
+          {{ formSuccessMsg }}
         </jet-action-message>
 
-        <jet-button
+        <jet-secondary-button
+            type="submit"
+            class="mr-3"
             :class="{ 'opacity-25': form.processing }"
             :disabled="form.processing"
         >
-          Save
+          Save as draft
+        </jet-secondary-button>
+
+        <jet-button
+            type="button"
+            @click.native="handlePublish"
+            class="mr-3"
+            :class="{ 'opacity-25': form.processing }"
+            :disabled="form.processing"
+        >
+          Publish
         </jet-button>
       </template>
     </monolithic-form-section>
@@ -224,7 +237,10 @@ export default class CreateArticleForm extends Mixins(Route) {
     coverImage: null,
     servers: null,
     content: null,
+    status: 'draft',
   })
+
+  formSuccessMsg = 'Your draft has been saved!'
 
   serversOptions: MultiSelectOptions = this.initServerOptions()
 
@@ -267,8 +283,31 @@ export default class CreateArticleForm extends Mixins(Route) {
   }
 
   submitForm() {
-    // console.log(this.form)
-    this.form.post(this.route('articles.store'))
+    this.form.post(this.route('articles.store'),
+      {
+        preserveScroll: true,
+        preserveState: true,
+        onSuccess: () => {
+          this.coverPreview = null
+          this.form.reset()
+          this.resetServerOptions()
+        },
+      })
+  }
+
+  handlePublish() {
+    this.formSuccessMsg = 'Your new article has been published'
+    this.form.status = 'published'
+    this.submitForm()
+  }
+
+  resetServerOptions() {
+    this.serversOptions.forEach((s) => {
+      const i = this.serversOptions.indexOf(s)
+      const nOpt = s
+      nOpt.selected = false
+      this.$set(this.serversOptions, i, nOpt)
+    })
   }
 
   created() {

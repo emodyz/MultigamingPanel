@@ -30,9 +30,11 @@ class ArticleSeeder extends Seeder
 
         Storage::disk('public')->put($imagePath, $fakeImage->body());
 
-        Article::factory()->create([
+        tap(Article::factory()->create([
             'user_id' => $user->id,
             'cover_image_path' => $imagePath
-        ]);
+        ]),function (Article $article) use ($server) {
+            $article->servers()->attach($server);
+        });
     }
 }

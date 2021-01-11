@@ -16,6 +16,21 @@ trait HasCoverImage
     }
 
     /**
+     * Set the model's cover image at creation.
+     *
+     * @param UploadedFile $coverImage
+     * @return void
+     */
+    public function setInitialCoverImage(UploadedFile $coverImage)
+    {
+        $path = $coverImage->storePublicly(
+            'cover-images/' . $this->getDiskPath(), ['disk' => $this->coverImageDisk()]
+        );
+
+        $this->setAttribute('cover_image_path', $path);
+    }
+
+    /**
      * Update the model's cover image.
      *
      * @param UploadedFile $coverImage
@@ -26,7 +41,7 @@ trait HasCoverImage
         tap($this->cover_image_path, function ($previous) use ($coverImage) {
             $this->forceFill([
                 'cover_image_path' => $coverImage->storePublicly(
-                    'cover-images/'. $this->getDiskPath(), ['disk' => $this->coverImageDisk()]
+                    'cover-images/' . $this->getDiskPath(), ['disk' => $this->coverImageDisk()]
                 ),
             ])->save();
 

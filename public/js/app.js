@@ -3415,8 +3415,10 @@ var CreateArticleForm = /*#__PURE__*/function (_Mixins) {
       subTitle: null,
       coverImage: null,
       servers: null,
-      content: null
+      content: null,
+      status: 'draft'
     });
+    _this.formSuccessMsg = 'Your draft has been saved!';
     _this.serversOptions = _this.initServerOptions();
     return _this;
   }
@@ -3466,8 +3468,40 @@ var CreateArticleForm = /*#__PURE__*/function (_Mixins) {
   }, {
     key: "submitForm",
     value: function submitForm() {
-      // console.log(this.form)
-      this.form.post(this.route('articles.store'));
+      var _this3 = this;
+
+      this.form.post(this.route('articles.store'), {
+        preserveScroll: true,
+        preserveState: true,
+        onSuccess: function onSuccess() {
+          _this3.coverPreview = null;
+
+          _this3.form.reset();
+
+          _this3.resetServerOptions();
+        }
+      });
+    }
+  }, {
+    key: "handlePublish",
+    value: function handlePublish() {
+      this.formSuccessMsg = 'Your new article has been published';
+      this.form.status = 'published';
+      this.submitForm();
+    }
+  }, {
+    key: "resetServerOptions",
+    value: function resetServerOptions() {
+      var _this4 = this;
+
+      this.serversOptions.forEach(function (s) {
+        var i = _this4.serversOptions.indexOf(s);
+
+        var nOpt = s;
+        nOpt.selected = false;
+
+        _this4.$set(_this4.serversOptions, i, nOpt);
+      });
     }
   }, {
     key: "created",
@@ -16833,16 +16867,36 @@ var render = function() {
                     staticClass: "mr-3",
                     attrs: { on: _vm.form.recentlySuccessful }
                   },
-                  [_vm._v("\n        Saved.\n      ")]
+                  [
+                    _vm._v(
+                      "\n        " + _vm._s(_vm.formSuccessMsg) + "\n      "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "jet-secondary-button",
+                  {
+                    staticClass: "mr-3",
+                    class: { "opacity-25": _vm.form.processing },
+                    attrs: { type: "submit", disabled: _vm.form.processing }
+                  },
+                  [_vm._v("\n        Save as draft\n      ")]
                 ),
                 _vm._v(" "),
                 _c(
                   "jet-button",
                   {
+                    staticClass: "mr-3",
                     class: { "opacity-25": _vm.form.processing },
-                    attrs: { disabled: _vm.form.processing }
+                    attrs: { type: "button", disabled: _vm.form.processing },
+                    nativeOn: {
+                      click: function($event) {
+                        return _vm.handlePublish($event)
+                      }
+                    }
                   },
-                  [_vm._v("\n        Save\n      ")]
+                  [_vm._v("\n        Publish\n      ")]
                 )
               ]
             },

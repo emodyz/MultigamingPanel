@@ -14,6 +14,7 @@ class CreateArticleServerTable extends Migration
     public function up()
     {
         Schema::create('article_server', function (Blueprint $table) {
+            $table->id();
             $table->foreignUuid('article_id')
                 ->constrained()
                 ->cascadeOnDelete();

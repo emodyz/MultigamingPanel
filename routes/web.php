@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ArticlesController;
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ModpackController;
 use Illuminate\Support\Facades\Route;
@@ -35,7 +35,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     route::delete('users/{user}/avatar', [UserController::class, 'destroyAvatar'])->name('users.destroy.avatar');
     route::put('users/{user}/account', [UserController::class, 'updateAccount'])->name('users.update.account');
     // Articles
-    Route::resource('articles', ArticlesController::class);
+    Route::resource('articles', ArticleController::class);
 
 });
 

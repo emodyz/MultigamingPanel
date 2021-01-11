@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Articles;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreateArticleRequest extends FormRequest
 {
@@ -24,9 +25,10 @@ class CreateArticleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:80'],
+            'title' => ['required', 'string', 'max:80', 'unique:articles'],
             'subTitle' => ['nullable', 'string', 'max:256'],
             'servers.*' => ['nullable', 'uuid', 'exists:servers,id'],
+            'status' => ['nullable', 'string', Rule::in(['draft', 'published'])],
             'coverImage' => ['required', 'file', 'image', 'max:8192'],
             'content' => ['required', 'string'],
         ];

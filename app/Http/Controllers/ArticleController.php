@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Articles\CreateArticleRequest;
 use App\Models\Article;
 use App\Models\Server;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
-class ArticlesController extends Controller
+class ArticleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -38,11 +40,38 @@ class ArticlesController extends Controller
      * Store a newly created resource in storage.
      *
      * @param CreateArticleRequest $request
-     * @return Response
+     * @return RedirectResponse
      */
-    public function store(CreateArticleRequest $request): Response
+    public function store(CreateArticleRequest $request): RedirectResponse
     {
-        dd($request->all());
+        $article = new Article();
+
+        $title = $request->get('title');
+        $servers = $request->get('servers');
+
+        $article->setAttribute('title', $title);
+        $article->setAttribute('subTitle', $request->get('subTitle'));
+        $article->setAttribute('slug', Str::slug($title));
+        $article->setAttribute('content', $request->get('content'));
+
+        $article->setAttribute('user_id', $request->user()->id);
+
+        $article->setInitialCoverImage($request->file('coverImage'));
+
+        if ($request->get('status') === 'published') {
+            $article->setAttribute('status', 'published');
+            $article->setAttribute('published_at', now());
+        }
+
+        $article->save();
+
+        if ($servers) {
+            foreach ($servers as $server) {
+                $article->servers()->attach($server);
+            }
+        }
+
+        return back()->with('status', 'article-created');
     }
 
     /**
