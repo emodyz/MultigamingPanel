@@ -24,6 +24,7 @@ class CreateArticlesTable extends Migration
             $table->enum('status', ['draft', 'published'])->default('draft');
             $table->foreignIdFor(User::class )->constrained();
             $table->timestamp('published_at')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

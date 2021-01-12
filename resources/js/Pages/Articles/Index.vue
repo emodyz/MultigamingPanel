@@ -2,18 +2,18 @@
   <app-layout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Users <span class="text-gray-400">/</span> Index
+        Articles <span class="text-gray-400">/</span> Index
       </h2>
     </template>
 
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <data-table
-            :query-url="'/users'"
-            :query-param="'users'"
+            :query-url="'/articles'"
+            :query-param="'articles'"
             :headers="headers"
-            :data-object="users"
-            data-type="Users"
+            :data-object="articles"
+            data-type="Articles"
             :initial-query="initialSearch"
             :actions="actions"
             :total-item-count="totalItemCount"
@@ -43,7 +43,7 @@ import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader'
   },
 })
 export default class UsersIndex extends Vue {
-  @Prop() readonly users!: null | object
+  @Prop() readonly articles!: null | object
 
   @Prop() readonly totalItemCount!: null | number
 
@@ -56,26 +56,21 @@ export default class UsersIndex extends Vue {
       type: 'Index',
     },
     {
-      title: 'Name',
-      key: 'name',
+      title: 'Title',
+      key: 'title',
+    },
+    {
+      title: 'Written By',
+      key: 'author.name',
       type: 'User.Profile',
       dataAccessors: {
-        name: 'name',
-        email: 'email',
-        profile_photo_url: 'profile_photo_url',
+        name: 'author.name',
+        email: 'author.email',
+        profile_photo_url: 'author.profile_photo_url',
       },
     },
     {
-      title: 'Role',
-      key: 'roleName',
-    },
-    {
-      title: 'Status',
-      key: 'email_verified_at',
-      type: 'User.Status',
-    },
-    {
-      title: 'Registered',
+      title: 'Written On',
       key: 'created_at',
       type: 'Date.Formatted',
     },
@@ -83,20 +78,20 @@ export default class UsersIndex extends Vue {
 
   actions: DataTableActionsOptions = {
     enabled: true,
-    baseUrl: '/users',
+    baseUrl: '/articles',
     actions: [
       {
         displayName: 'Edit',
         enabled: true,
         path: 'edit',
-        permission: 'users-edit',
+        permission: 'articles-edit',
         type: 'edit',
         class: 'text-indigo-600 hover:text-indigo-900',
       },
       {
         displayName: 'Delete',
         enabled: true,
-        permission: 'users-destroy',
+        permission: 'articles-destroy',
         type: 'destroy',
         class: 'text-red-600 hover:text-red-900',
       },
@@ -104,7 +99,7 @@ export default class UsersIndex extends Vue {
   }
 
   created() {
-    //
+    console.log(this.articles)
   }
 }
 </script>

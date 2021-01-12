@@ -32,7 +32,7 @@
               </jet-nav-link>
 
               <jet-nav-link :active="route().current('articles.*')"
-                            :href="route('articles.create')">
+                            :href="route('articles.index')">
                 Articles
               </jet-nav-link>
             </div>

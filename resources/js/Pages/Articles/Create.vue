@@ -17,7 +17,7 @@
 
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import AppLayout from '@/Layouts/AppLayout.vue'
-import CreateArticleForm from '@/Pages/News/Components/CreateArticleForm.vue'
+import CreateArticleForm from '@/Pages/Articles/Components/CreateArticleForm.vue'
 
 @Component({
   components: {

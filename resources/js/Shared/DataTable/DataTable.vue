@@ -72,7 +72,7 @@
                 :key="index"
                 v-else>
               <td
-                  v-for="{ key, type } in headers"
+                  v-for="{ key, type, dataAccessors } in headers"
                   :key="key"
                   class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
               >
@@ -85,7 +85,7 @@
                 </span>
                 <component :key="key" v-else-if="type !== ''"
                            :is="getRowComponent(type)"
-                           v-bind="{...getRowComponentProps(item, type, key)}"/>
+                           v-bind="{...getRowComponentProps(item, type, key, dataAccessors)}"/>
               </td>
               <td
                   v-if="actions.enabled"
@@ -237,6 +237,8 @@ export default class DataTable extends Mixins(Cerberus) {
     switch (this.dataType) {
       case 'Users':
         return item
+      case 'Articles':
+        return item
     }
   }
 
@@ -285,7 +287,11 @@ export default class DataTable extends Mixins(Cerberus) {
     }
   }
 
-  getRowComponentProps(_item: any, _type: string | null, key: any): any {
+  getWithAccs(item:any, acss: any) {
+    return acss.split('.').reduce((acc: any, part: any) => acc && acc[part], item)
+  }
+
+  getRowComponentProps(_item: any, _type: string | null, key: any, _dataAccs: any = null): any {
     switch (this.getRowComponent(_type)) {
       case 'DtDate':
         return {
@@ -294,14 +300,14 @@ export default class DataTable extends Mixins(Cerberus) {
         }
       case 'DtUserProfile':
         return {
-          name: _item.name,
-          email: _item.email,
-          profile_photo_url: _item.profile_photo_url,
+          name: this.getWithAccs(_item, _dataAccs.name),
+          email: this.getWithAccs(_item, _dataAccs.email),
+          profile_photo_url: this.getWithAccs(_item, _dataAccs.profile_photo_url),
         }
       case 'DtUserStatus':
         return { email_verified_at: _item.email_verified_at }
       default:
-        return { data: _item[key] }
+        return { data: key.split('.').reduce((acc: any, part: any) => acc && acc[part], _item) }
     }
   }
 

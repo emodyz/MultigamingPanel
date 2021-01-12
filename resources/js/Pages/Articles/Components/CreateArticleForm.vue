@@ -229,6 +229,8 @@ export default class CreateArticleForm extends Mixins(Route) {
 
   @Ref('cover') readonly cover!: any
 
+  // TODO: Save & load content from localStorage until a from is submitted
+
   coverPreview: any = null
 
   form = this.$inertia.form({
