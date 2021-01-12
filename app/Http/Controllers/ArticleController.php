@@ -33,7 +33,9 @@ class ArticleController extends Controller
                     ->orWhere('slug','LIKE','%'.$initialSearch.'%');
             })
             ->when($request->filled('orderBy'),function($query) use ($orderBy){
-                $query->orderBy($orderBy['key'], $orderBy['direction']);
+                $orderByKey = $orderBy['key'];
+                $orderByDirection = $orderBy['direction'];
+                $query->orderBy($orderByKey === 'author.name' ? 'user_id' : $orderByKey, $orderByDirection);
             });
 
         $articles = $articlesQuery
@@ -112,11 +114,17 @@ class ArticleController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Article $article
-     * @return Response
+     * @return \Inertia\Response
      */
-    public function edit(Article $article): Response
+    public function edit(Article $article): \Inertia\Response
     {
-        //
+        $servers = Server::all()->map(function ($server) {
+            return collect($server)->only(['id', 'name', 'logo_url', 'game']);
+        });
+
+        $article->servers;
+
+        return Inertia::render('Articles/Edit', compact('servers', 'article'));
     }
 
     /**

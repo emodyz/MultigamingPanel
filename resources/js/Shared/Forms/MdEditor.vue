@@ -27,7 +27,7 @@
 <script lang="ts">
 
 import {
-  Mixins, Component, /* Watch, */ Prop, Ref,
+  Mixins, Component, Watch, Prop, Ref,
 } from 'vue-property-decorator'
 import AppLayout from '@/Layouts/AppLayout.vue'
 import Route from '@/Mixins/Route'
@@ -60,15 +60,12 @@ export default class MdEditor extends Mixins(Route) {
     this.$emit('input', val)
   }
 
-  /*
-  @Watch('content', { immediate: true, deep: true })
-  onContentChanged(val: string, oldVal: string) {
+  @Watch('value', { immediate: true, deep: true })
+  onValueChanged(val: string, oldVal: string) {
     if (val !== oldVal) {
       this.parsedContent = marked(val)
-      // this.$emit('input', this.getSelectedOptions())
     }
   }
-  */
 
   log() {
     console.log(this.parsedContent)

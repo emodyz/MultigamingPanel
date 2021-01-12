@@ -3,12 +3,17 @@
     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
         <div class="shadow-md overflow-hidden border border-gray-200 sm:rounded-lg divide-y divide-gray-200">
-          <jet-input
-              v-model="search"
-              class="w-1/3 my-3 mx-6 border-gray-200"
-              type="search"
-              placeholder="Search..."
-          />
+          <div class="w-full flex flex-row">
+            <jet-input
+                v-model="search"
+                class="w-1/3 my-3 mx-6 border-gray-200"
+                type="search"
+                placeholder="Search..."
+            />
+            <div v-if="actionComponent" class="w-1/3 my-3 ml-auto mr-6 border-gray-200 flex flex-row items-center align-middle">
+              <component :is="actionComponent"/>
+            </div>
+          </div>
           <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
             <tr v-if="!(_.isEmpty(dataObject.data))">
@@ -128,6 +133,8 @@ import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActio
 import DtUserProfile from '@/Shared/DataTable/Components/UserProfile.vue'
 import DtUserStatus from '@/Shared/DataTable/Components/UserStatus.vue'
 import DtDate from '@/Shared/DataTable/Components/Date.vue'
+import DtArticleTitle from '@/Shared/DataTable/Components/ArticleTitle.vue'
+import DtArticleStatus from '@/Shared/DataTable/Components/ArticleStatus.vue'
 import DtDefaultRow from '@/Shared/DataTable/Components/DefaultRow.vue'
 import DtActions from '@/Shared/DataTable/Components/Actions.vue'
 import { User } from '@/Shared/DataTable/Types/User'
@@ -136,6 +143,7 @@ import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader'
 import Cerberus from '@/Mixins/Cerberus'
 import ChevronUp from '@/Shared/Svgs/ChevronUp.vue'
 import ChevronDown from '@/Shared/Svgs/ChevronDown.vue'
+import { Article } from '@/Shared/DataTable/Types/Article'
 
 @Component({
   components: {
@@ -148,6 +156,8 @@ import ChevronDown from '@/Shared/Svgs/ChevronDown.vue'
     DtDate,
     DtDefaultRow,
     DtActions,
+    DtArticleTitle,
+    DtArticleStatus,
   },
 })
 export default class DataTable extends Mixins(Cerberus) {
@@ -162,6 +172,8 @@ export default class DataTable extends Mixins(Cerberus) {
   }) readonly dataObject!: PaginatedDate
 
   @Prop() readonly dataType!: null | string
+
+  @Prop() readonly actionComponent!: any
 
   @Prop({
     type: Number,
@@ -232,7 +244,7 @@ export default class DataTable extends Mixins(Cerberus) {
   }, 250)
 
   // eslint-disable-next-line consistent-return
-  initActionsMetaData(item: object): User | object {
+  initActionsMetaData(item: object): User | Article | object {
     // eslint-disable-next-line default-case
     switch (this.dataType) {
       case 'Users':
@@ -272,6 +284,10 @@ export default class DataTable extends Mixins(Cerberus) {
     }
   }
 
+  /**
+   * TODO: Simply pass the item object as data and the accessors to a component instance provided by the header and let the individual component deal with it to reduce boilerplate
+   */
+
   getRowComponent(_type: string | null): string {
     switch (_type) {
       case 'Date.Formatted':
@@ -282,13 +298,18 @@ export default class DataTable extends Mixins(Cerberus) {
         return 'DtUserProfile'
       case 'User.Status':
         return 'DtUserStatus'
+      case 'Article.Title':
+        return 'DtArticleTitle'
+      case 'Article.Status':
+        return 'DtArticleStatus'
       default:
         return 'DtDefaultRow'
     }
   }
 
-  getWithAccs(item:any, acss: any) {
-    return acss.split('.').reduce((acc: any, part: any) => acc && acc[part], item)
+  getWithAccs(item: any, acss: any) {
+    return acss.split('.')
+      .reduce((acc: any, part: any) => acc && acc[part], item)
   }
 
   getRowComponentProps(_item: any, _type: string | null, key: any, _dataAccs: any = null): any {
@@ -306,8 +327,21 @@ export default class DataTable extends Mixins(Cerberus) {
         }
       case 'DtUserStatus':
         return { email_verified_at: _item.email_verified_at }
+      case 'DtArticleTitle':
+        return {
+          title: _item.title,
+          subTitle: _item.subTitle,
+        }
+      case 'DtArticleStatus':
+        return {
+          status: _item.status,
+          published_at: _item.published_at,
+        }
       default:
-        return { data: key.split('.').reduce((acc: any, part: any) => acc && acc[part], _item) }
+        return {
+          data: key.split('.')
+            .reduce((acc: any, part: any) => acc && acc[part], _item),
+        }
     }
   }
 

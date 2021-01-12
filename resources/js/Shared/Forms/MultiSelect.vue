@@ -144,6 +144,8 @@ export default class MultiSelect extends Vue {
     default: null,
   }) readonly comp !: any
 
+  @Prop() value!:any
+
   isOpened = false
 
   options = this.initOptions(this.optionsList)
@@ -165,6 +167,19 @@ export default class MultiSelect extends Vue {
   @Watch('options')
   onOptionChanged() {
     this.$emit('input', this.getSelectedOptions())
+  }
+
+  shouldWatchValue = true
+
+  shouldAllowWatchValue = true
+
+  @Watch('value')
+  onValueChanged(val: any) {
+    if (this.shouldWatchValue) {
+      this.setSelectedOptions(val)
+    } else if (this.shouldAllowWatchValue) {
+      this.shouldWatchValue = true
+    }
   }
 
   initOptions(_opts: Array<any>) {
@@ -202,6 +217,28 @@ export default class MultiSelect extends Vue {
       })
 
     return rv
+  }
+
+  setSelectedOptions(_toSelect: Array<any>) {
+    let itemsProcessed = 0
+    this.shouldWatchValue = false
+    this.shouldAllowWatchValue = false
+    this.options
+      .forEach((val: Option) => {
+        if (_toSelect.find((e) => e === val.value)) {
+          const mOpt = val
+          mOpt.selected = true
+          this.$set(this.options, this.options.indexOf(val), mOpt)
+        } else {
+          const mOpt = val
+          mOpt.selected = false
+          this.$set(this.options, this.options.indexOf(val), mOpt)
+        }
+        itemsProcessed += 1
+        if (itemsProcessed === this.options.length) {
+          this.shouldAllowWatchValue = true
+        }
+      })
   }
 
   getSearchResults(val: string) {

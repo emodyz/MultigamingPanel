@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property mixed servers
+ */
 class Article extends Model
 {
     use HasFactory;
@@ -22,6 +25,9 @@ class Article extends Model
     protected $appends = ['cover_image_url'];
 
     protected $with = ['author'];
+    /**
+     * @var mixed
+     */
 
     /**
      * @return BelongsTo

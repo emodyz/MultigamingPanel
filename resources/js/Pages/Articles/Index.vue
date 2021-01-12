@@ -7,7 +7,7 @@
     </template>
 
     <div class="py-12">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+      <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8">
         <data-table
             :query-url="'/articles'"
             :query-param="'articles'"
@@ -17,6 +17,7 @@
             :initial-query="initialSearch"
             :actions="actions"
             :total-item-count="totalItemCount"
+            :action-component="actionBtn"
             class="w-full p-6"
         />
       </div>
@@ -33,6 +34,7 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
 import AppLayout from '@/Layouts/AppLayout.vue'
 import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions'
 import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader'
+import CreateArticleButton from '@/Pages/Articles/Components/CreateArticleButton.vue'
 
 @Component({
   components: {
@@ -40,6 +42,7 @@ import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader'
     DataTable,
     Pagination,
     JetInput,
+    CreateArticleButton,
   },
 })
 export default class UsersIndex extends Vue {
@@ -48,6 +51,8 @@ export default class UsersIndex extends Vue {
   @Prop() readonly totalItemCount!: null | number
 
   @Prop() readonly initialSearch!: null | string
+
+  actionBtn = CreateArticleButton
 
   headers: Array<DataTableHeader> = [
     {
@@ -58,6 +63,7 @@ export default class UsersIndex extends Vue {
     {
       title: 'Title',
       key: 'title',
+      type: 'Article.Title',
     },
     {
       title: 'Written By',
@@ -68,6 +74,11 @@ export default class UsersIndex extends Vue {
         email: 'author.email',
         profile_photo_url: 'author.profile_photo_url',
       },
+    },
+    {
+      title: 'Status',
+      key: 'status',
+      type: 'Article.Status',
     },
     {
       title: 'Written On',
@@ -99,7 +110,7 @@ export default class UsersIndex extends Vue {
   }
 
   created() {
-    console.log(this.articles)
+    // console.log(this.articles)
   }
 }
 </script>
