@@ -176,6 +176,10 @@ export default class MultiSelect extends Vue {
   @Watch('value')
   onValueChanged(val: any) {
     if (this.shouldWatchValue) {
+      if (_.isNull(val)) {
+        this.setSelectedOptions([])
+        return
+      }
       this.setSelectedOptions(val)
     } else if (this.shouldAllowWatchValue) {
       this.shouldWatchValue = true

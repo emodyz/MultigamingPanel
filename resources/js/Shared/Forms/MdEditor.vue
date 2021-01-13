@@ -63,8 +63,8 @@ export default class MdEditor extends Mixins(Route) {
 
   @Watch('value', { immediate: true, deep: true })
   onValueChanged(val: string, oldVal: string) {
-    if (val !== oldVal && !_.isNull(val)) {
-      this.parsedContent = marked(val)
+    if (val !== oldVal) {
+      this.parsedContent = marked(_.isNull(val) ? '' : val)
     }
   }
 

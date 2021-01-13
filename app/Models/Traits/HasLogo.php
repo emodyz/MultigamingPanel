@@ -16,6 +16,21 @@ trait HasLogo
     }
 
     /**
+     * Set the model's logo at creation.
+     *
+     * @param UploadedFile $logo
+     * @return void
+     */
+    public function setInitialCoverImage(UploadedFile $logo)
+    {
+        $path = $logo->storePublicly(
+            'logos/' . $this->getDiskPath(), ['disk' => $this->logoDisk()]
+        );
+
+        $this->setAttribute('logo_path', $path);
+    }
+
+    /**
      * Update the model's logo.
      *
      * @param UploadedFile $logo

@@ -2,13 +2,13 @@
   <div>
     <monolithic-form-section @submitted="submitForm">
       <template #title>
-        Write a new article
+        Edit this article
       </template>
 
       <template #description>
-        Add a title
+        Edit the title
         <required/>
-        and a subtitle (optional) to your new article.
+        and subtitle (optional) to of this article.
       </template>
 
       <template #form>
@@ -73,7 +73,6 @@
 
           <template #input>
             <div class="col-span-6 sm:col-span-4">
-              <!-- <button type="button" @click="test()">test</button> -->
               <multi-select
                   placeholder="Chose a server"
                   :options-list="serversOptions"
@@ -92,7 +91,7 @@
                 Cover Image
               </template>
               <template #description>
-                Add a cover image to illustrate your article
+                Change the cover image illustrating this article
                 <required/>
               </template>
             </jet-section-title>
@@ -235,24 +234,24 @@ export default class EditArticleForm extends Mixins(Route) {
   coverPreview: any = this.article.cover_image_url
 
   form = this.$inertia.form({
+    _method: 'PUT',
     title: this.article.title,
     subTitle: this.article.subTitle,
     coverImage: null,
-    servers: null,
+    servers: this.getLinkedServersIds(),
     content: this.article.content,
     status: this.article.status,
   })
 
-  formSuccessMsg = 'Your draft has been saved!'
+  formSuccessMsg = 'This draft has been edited!'
 
-  /* test() {
-    const idsArr: any[] = []
-    this.servers.forEach((s) => {
-      idsArr.push(s.id)
+  getLinkedServersIds() {
+    const lsids: any[] = []
+    this.article.servers.forEach((s: any) => {
+      lsids.push(s.id)
     })
-    this.form.servers = idsArr
+    return lsids
   }
-   */
 
   isServerLinked(s: any): boolean {
     return !!this.article.servers.find((e: any) => e.id === s.id)
@@ -298,19 +297,19 @@ export default class EditArticleForm extends Mixins(Route) {
   }
 
   submitForm() {
-    this.form.patch(this.route('articles.store'),
+    this.form.post(this.route('articles.update', this.article.id),
       {
         preserveScroll: true,
         preserveState: true,
-        onSuccess: () => {
-          this.coverPreview = null
-          this.form.reset()
+        onSuccess: (page: any) => {
+          this.coverPreview = page.props.article.cover_image_url
+          this.form.coverImage = null
         },
       })
   }
 
   handlePublish() {
-    this.formSuccessMsg = 'Your new article has been published'
+    this.formSuccessMsg = 'This article has been edited and published'
     this.form.status = 'published'
     this.submitForm()
   }

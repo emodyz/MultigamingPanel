@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Articles\CreateArticleRequest;
+use App\Http\Requests\Articles\EditArticleRequest;
 use App\Models\Article;
 use App\Models\Server;
-use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class ArticleController extends Controller
@@ -134,13 +136,36 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param EditArticleRequest $request
      * @param Article $article
-     * @return Response
+     * @return RedirectResponse
      */
-    public function update(Request $request, Article $article): Response
+    public function update(EditArticleRequest $request, Article $article): RedirectResponse
     {
-        //
+        $newCoverImage = $request->file('coverImage');
+
+        if ($newCoverImage) {
+            $article->updateCoverImage($newCoverImage);
+        }
+
+        $title = $request->get('title');
+        $servers = $request->get('servers');
+        $status = $request->get('status');
+
+        $article->setAttribute('title', $title);
+        $article->setAttribute('subTitle', $request->get('subTitle'));
+        $article->setAttribute('slug', Str::slug($title));
+        $article->setAttribute('content', $request->get('content'));
+
+
+        $article->setAttribute('status', $status);
+        $article->setAttribute('published_at', $status ? now() : null);
+
+        $article->save();
+
+        $article->servers()->sync($servers);
+
+        return back()->with('status', 'article-edited');
     }
 
     /**

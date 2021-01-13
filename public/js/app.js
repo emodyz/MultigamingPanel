@@ -3125,27 +3125,28 @@ var EditArticleForm = /*#__PURE__*/function (_Mixins) {
     _this.serversOptions = _this.initServerOptions();
     _this.coverPreview = _this.article.cover_image_url;
     _this.form = _this.$inertia.form({
+      _method: 'PUT',
       title: _this.article.title,
       subTitle: _this.article.subTitle,
       coverImage: null,
-      servers: null,
+      servers: _this.getLinkedServersIds(),
       content: _this.article.content,
       status: _this.article.status
     });
-    _this.formSuccessMsg = 'Your draft has been saved!';
+    _this.formSuccessMsg = 'This draft has been edited!';
     return _this;
   }
-  /* test() {
-    const idsArr: any[] = []
-    this.servers.forEach((s) => {
-      idsArr.push(s.id)
-    })
-    this.form.servers = idsArr
-  }
-   */
-
 
   _createClass(EditArticleForm, [{
+    key: "getLinkedServersIds",
+    value: function getLinkedServersIds() {
+      var lsids = [];
+      this.article.servers.forEach(function (s) {
+        lsids.push(s.id);
+      });
+      return lsids;
+    }
+  }, {
     key: "isServerLinked",
     value: function isServerLinked(s) {
       return !!this.article.servers.find(function (e) {
@@ -3202,20 +3203,19 @@ var EditArticleForm = /*#__PURE__*/function (_Mixins) {
     value: function submitForm() {
       var _this4 = this;
 
-      this.form.patch(this.route('articles.store'), {
+      this.form.post(this.route('articles.update', this.article.id), {
         preserveScroll: true,
         preserveState: true,
-        onSuccess: function onSuccess() {
-          _this4.coverPreview = null;
-
-          _this4.form.reset();
+        onSuccess: function onSuccess(page) {
+          _this4.coverPreview = page.props.article.cover_image_url;
+          _this4.form.coverImage = null;
         }
       });
     }
   }, {
     key: "handlePublish",
     value: function handlePublish() {
-      this.formSuccessMsg = 'Your new article has been published';
+      this.formSuccessMsg = 'This article has been edited and published';
       this.form.status = 'published';
       this.submitForm();
     }
@@ -7509,8 +7509,8 @@ var MdEditor = /*#__PURE__*/function (_Mixins) {
   }, {
     key: "onValueChanged",
     value: function onValueChanged(val, oldVal) {
-      if (val !== oldVal && !lodash__WEBPACK_IMPORTED_MODULE_1___default().isNull(val)) {
-        this.parsedContent = marked__WEBPACK_IMPORTED_MODULE_9___default()(val);
+      if (val !== oldVal) {
+        this.parsedContent = marked__WEBPACK_IMPORTED_MODULE_9___default()(lodash__WEBPACK_IMPORTED_MODULE_1___default().isNull(val) ? '' : val);
       }
     }
   }, {
@@ -7818,6 +7818,11 @@ function (_Vue) {
     key: "onValueChanged",
     value: function onValueChanged(val) {
       if (this.shouldWatchValue) {
+        if (lodash__WEBPACK_IMPORTED_MODULE_1___default().isNull(val)) {
+          this.setSelectedOptions([]);
+          return;
+        }
+
         this.setSelectedOptions(val);
       } else if (this.shouldAllowWatchValue) {
         this.shouldWatchValue = true;
@@ -8530,7 +8535,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.top-100[data-v-974f612e] {\n    top: 100%\n}\n.bottom-100[data-v-974f612e] {\n    bottom: 100%\n}\n.max-h-select[data-v-974f612e] {\n    max-height: 300px;\n}\n", "",{"version":3,"sources":["webpack://./resources/js/Shared/Forms/MultiSelect.vue"],"names":[],"mappings":";AACA;IACA;AACA;AAEA;IACA;AACA;AAEA;IACA,iBAAA;AACA","sourcesContent":["<style scoped>\n.top-100 {\n    top: 100%\n}\n\n.bottom-100 {\n    bottom: 100%\n}\n\n.max-h-select {\n    max-height: 300px;\n}\n</style>\n\n<template>\n  <div v-click-outside=\"handleClickOutside\" class=\"w-full flex flex-col items-center h-auto z-20\">\n    <div class=\"w-full\">\n      <div class=\"flex flex-col items-center relative\">\n        <div class=\"w-full\">\n          <div class=\"form-input my-2 p-1 flex border bg-white rounded-md shadow-sm\">\n            <div class=\"flex flex-auto flex-wrap\">\n              <template v-if=\"tags\">\n                <template v-for=\"option in options\">\n                  <div v-if=\"option.selected\"\n                       :key=\"option.value\"\n                       class=\"flex justify-center items-center m-1 font-medium py-1 px-2 rounded-full text-indigo-700 bg-indigo-100 border border-indigo-300 \">\n                    <div class=\"text-xs font-normal leading-none max-w-full flex-initial\">{{ option.name }}</div>\n                    <div class=\"flex flex-auto flex-row-reverse\">\n                      <div @click=\"handleOptionSelection(option)\" class=\"hover:text-indigo-500 hover:cursor-pointer\">\n                        <cross-icon class=\"cursor-pointer hover:text-indigo-400 rounded-full\"/>\n                      </div>\n                    </div>\n                  </div>\n                </template>\n              </template>\n              <div class=\"flex-1\">\n                <input :placeholder=\"placeholder\"\n                       v-model=\"searchOption\"\n                       class=\"bg-transparent py-1 px-1 appearance-none outline-none h-full w-full text-gray-800\">\n              </div>\n              <div v-show=\"!_.isNull(searchResults)\" @click=\"searchOption = ''\"\n                   class=\"justify-self-end text-indigo-700 pr-2 flex items-center\">\n                <cross-icon class=\"cursor-pointer hover:text-indigo-400 rounded-full\"/>\n              </div>\n            </div>\n            <div class=\"text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200 \">\n              <button\n                  type=\"button\"\n                  @click=\"handleSowOption()\"\n                  :disabled=\"!_.isNull(searchResults)\"\n                  class=\"cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none disabled:cursor-not-allowed disabled:text-gray-300\"\n              >\n                <chevron-down v-if=\"!isOpened\"/>\n                <chevron-up v-else/>\n              </button>\n            </div>\n          </div>\n        </div>\n        <!-- DROPDOWN -->\n        <div v-show=\"isOpened\"\n             class=\"absolute shadow top-100 bg-white z-40 w-full lef-0 rounded max-h-select overflow-y-auto\">\n          <div class=\"flex flex-col w-full\">\n            <template v-for=\"option in options\">\n              <div :key=\"option.value\" @click=\"handleOptionSelection(option)\"\n                   class=\"cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-indigo-100\">\n                <div class=\"flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative\"\n                     :class=\"option.selected ? 'border-indigo-700' : 'hover:border-indigo-100'\">\n                  <div class=\"w-full items-center flex\">\n                    <div v-if=\"_.isNull(option.component)\" class=\"mx-2 leading-6\">{{ option.name }}</div>\n                    <component v-else :is=\"option.component.instance\" :name=\"option.name\" v-bind=\"{...option.component.properties}\"/>\n                  </div>\n                </div>\n              </div>\n            </template>\n          </div>\n        </div>\n        <!-- TODO: Combine Dropdown and search results into one reusable scaffolding component -->\n        <!-- SEARCH RESULTS -->\n        <div v-if=\"!_.isNull(searchResults)\"\n             class=\"absolute shadow top-100 bg-white z-40 w-full lef-0 rounded max-h-select overflow-y-auto\">\n          <div class=\"flex flex-col w-full\">\n            <template v-for=\"option in searchResults\">\n              <div :key=\"option.value\" @click=\"handleOptionSelection(option)\"\n                   class=\"cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-indigo-100\">\n                <div class=\"flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative\"\n                     :class=\"option.selected ? 'border-indigo-700' : 'hover:border-indigo-100'\">\n                  <div class=\"w-full items-center flex\">\n                    <div v-if=\"_.isNull(option.component)\" class=\"mx-2 leading-6\">{{ option.name }}</div>\n                    <component v-else :is=\"option.component.instance\" :name=\"option.name\" v-bind=\"{...option.component.properties}\"/>\n                  </div>\n                </div>\n              </div>\n            </template>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</template>\n\n<script lang=\"ts\">\nimport {\n  Vue, Component, Prop, Watch,\n} from 'vue-property-decorator'\nimport _ from 'lodash'\nimport CrossIcon from '@/Shared/Svgs/CrossIcon.vue'\nimport ChevronDown from '@/Shared/Svgs/ChevronDown.vue'\nimport ChevronUp from '@/Shared/Svgs/ChevronUp.vue'\nimport { MultiSelectOptions, Option } from '@/Shared/Forms/Types/MultiSelectOptions'\n// @ts-ignore\nimport vClickOutside from 'v-click-outside'\n\n@Component({\n  components: {\n    CrossIcon,\n    ChevronDown,\n    ChevronUp,\n  },\n  directives: {\n    clickOutside: vClickOutside.directive,\n  },\n})\n/**\n * ⚠️ v-model implementation for this component is readonly ⚠️\n */\nexport default class MultiSelect extends Vue {\n  @Prop({\n    type: Array,\n    required: true,\n  }) readonly optionsList !: MultiSelectOptions\n\n  @Prop({\n    type: String,\n    required: true,\n  }) readonly placeholder !: string\n\n  @Prop({\n    type: Boolean,\n    default: false,\n  }) readonly tags !: boolean\n\n  @Prop({\n    type: Object,\n    default: null,\n  }) readonly comp !: any\n\n  @Prop() value!:any\n\n  isOpened = false\n\n  options = this.initOptions(this.optionsList)\n\n  searchOption = ''\n\n  searchResults: any = null\n\n  @Watch('searchOption')\n  onSearchOptionChanged(val: any) {\n    if (val !== '') {\n      this.isOpened = false\n      this.searchResults = this.getSearchResults(val)\n    } else {\n      this.searchResults = null\n    }\n  }\n\n  @Watch('options')\n  onOptionChanged() {\n    this.$emit('input', this.getSelectedOptions())\n  }\n\n  shouldWatchValue = true\n\n  shouldAllowWatchValue = true\n\n  @Watch('value')\n  onValueChanged(val: any) {\n    if (this.shouldWatchValue) {\n      this.setSelectedOptions(val)\n    } else if (this.shouldAllowWatchValue) {\n      this.shouldWatchValue = true\n    }\n  }\n\n  initOptions(_opts: Array<any>) {\n    if (_.isNull(_opts)) {\n      return []\n    }\n\n    _opts.forEach((val) => {\n      if (_.isNull(val.selected)) {\n        const mVal = val\n        mVal.selected = false\n        this.options[this.options.indexOf(val)] = mVal\n      }\n    })\n\n    return _opts\n  }\n\n  handleSowOption() {\n    this.isOpened = !this.isOpened\n  }\n\n  handleOptionSelection(_opt: any) {\n    const mOpt = _opt\n    mOpt.selected = !_opt.selected\n    this.$set(this.options, this.options.indexOf(_opt), mOpt)\n  }\n\n  getSelectedOptions() {\n    const rv: any[] = []\n\n    _.filter(this.options, 'selected')\n      .forEach((val: Option) => {\n        rv.push(val.value)\n      })\n\n    return rv\n  }\n\n  setSelectedOptions(_toSelect: Array<any>) {\n    let itemsProcessed = 0\n    this.shouldWatchValue = false\n    this.shouldAllowWatchValue = false\n    this.options\n      .forEach((val: Option) => {\n        if (_toSelect.find((e) => e === val.value)) {\n          const mOpt = val\n          mOpt.selected = true\n          this.$set(this.options, this.options.indexOf(val), mOpt)\n        } else {\n          const mOpt = val\n          mOpt.selected = false\n          this.$set(this.options, this.options.indexOf(val), mOpt)\n        }\n        itemsProcessed += 1\n        if (itemsProcessed === this.options.length) {\n          this.shouldAllowWatchValue = true\n        }\n      })\n  }\n\n  getSearchResults(val: string) {\n    return _.filter(this.options, (s) => s.name.toLowerCase()\n      .startsWith(val.toLowerCase()))\n  }\n\n  handleClickOutside(e: any) {\n    this.isOpened = false\n    return e\n  }\n}\n</script>\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.top-100[data-v-974f612e] {\n    top: 100%\n}\n.bottom-100[data-v-974f612e] {\n    bottom: 100%\n}\n.max-h-select[data-v-974f612e] {\n    max-height: 300px;\n}\n", "",{"version":3,"sources":["webpack://./resources/js/Shared/Forms/MultiSelect.vue"],"names":[],"mappings":";AACA;IACA;AACA;AAEA;IACA;AACA;AAEA;IACA,iBAAA;AACA","sourcesContent":["<style scoped>\n.top-100 {\n    top: 100%\n}\n\n.bottom-100 {\n    bottom: 100%\n}\n\n.max-h-select {\n    max-height: 300px;\n}\n</style>\n\n<template>\n  <div v-click-outside=\"handleClickOutside\" class=\"w-full flex flex-col items-center h-auto z-20\">\n    <div class=\"w-full\">\n      <div class=\"flex flex-col items-center relative\">\n        <div class=\"w-full\">\n          <div class=\"form-input my-2 p-1 flex border bg-white rounded-md shadow-sm\">\n            <div class=\"flex flex-auto flex-wrap\">\n              <template v-if=\"tags\">\n                <template v-for=\"option in options\">\n                  <div v-if=\"option.selected\"\n                       :key=\"option.value\"\n                       class=\"flex justify-center items-center m-1 font-medium py-1 px-2 rounded-full text-indigo-700 bg-indigo-100 border border-indigo-300 \">\n                    <div class=\"text-xs font-normal leading-none max-w-full flex-initial\">{{ option.name }}</div>\n                    <div class=\"flex flex-auto flex-row-reverse\">\n                      <div @click=\"handleOptionSelection(option)\" class=\"hover:text-indigo-500 hover:cursor-pointer\">\n                        <cross-icon class=\"cursor-pointer hover:text-indigo-400 rounded-full\"/>\n                      </div>\n                    </div>\n                  </div>\n                </template>\n              </template>\n              <div class=\"flex-1\">\n                <input :placeholder=\"placeholder\"\n                       v-model=\"searchOption\"\n                       class=\"bg-transparent py-1 px-1 appearance-none outline-none h-full w-full text-gray-800\">\n              </div>\n              <div v-show=\"!_.isNull(searchResults)\" @click=\"searchOption = ''\"\n                   class=\"justify-self-end text-indigo-700 pr-2 flex items-center\">\n                <cross-icon class=\"cursor-pointer hover:text-indigo-400 rounded-full\"/>\n              </div>\n            </div>\n            <div class=\"text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200 \">\n              <button\n                  type=\"button\"\n                  @click=\"handleSowOption()\"\n                  :disabled=\"!_.isNull(searchResults)\"\n                  class=\"cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none disabled:cursor-not-allowed disabled:text-gray-300\"\n              >\n                <chevron-down v-if=\"!isOpened\"/>\n                <chevron-up v-else/>\n              </button>\n            </div>\n          </div>\n        </div>\n        <!-- DROPDOWN -->\n        <div v-show=\"isOpened\"\n             class=\"absolute shadow top-100 bg-white z-40 w-full lef-0 rounded max-h-select overflow-y-auto\">\n          <div class=\"flex flex-col w-full\">\n            <template v-for=\"option in options\">\n              <div :key=\"option.value\" @click=\"handleOptionSelection(option)\"\n                   class=\"cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-indigo-100\">\n                <div class=\"flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative\"\n                     :class=\"option.selected ? 'border-indigo-700' : 'hover:border-indigo-100'\">\n                  <div class=\"w-full items-center flex\">\n                    <div v-if=\"_.isNull(option.component)\" class=\"mx-2 leading-6\">{{ option.name }}</div>\n                    <component v-else :is=\"option.component.instance\" :name=\"option.name\" v-bind=\"{...option.component.properties}\"/>\n                  </div>\n                </div>\n              </div>\n            </template>\n          </div>\n        </div>\n        <!-- TODO: Combine Dropdown and search results into one reusable scaffolding component -->\n        <!-- SEARCH RESULTS -->\n        <div v-if=\"!_.isNull(searchResults)\"\n             class=\"absolute shadow top-100 bg-white z-40 w-full lef-0 rounded max-h-select overflow-y-auto\">\n          <div class=\"flex flex-col w-full\">\n            <template v-for=\"option in searchResults\">\n              <div :key=\"option.value\" @click=\"handleOptionSelection(option)\"\n                   class=\"cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-indigo-100\">\n                <div class=\"flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative\"\n                     :class=\"option.selected ? 'border-indigo-700' : 'hover:border-indigo-100'\">\n                  <div class=\"w-full items-center flex\">\n                    <div v-if=\"_.isNull(option.component)\" class=\"mx-2 leading-6\">{{ option.name }}</div>\n                    <component v-else :is=\"option.component.instance\" :name=\"option.name\" v-bind=\"{...option.component.properties}\"/>\n                  </div>\n                </div>\n              </div>\n            </template>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</template>\n\n<script lang=\"ts\">\nimport {\n  Vue, Component, Prop, Watch,\n} from 'vue-property-decorator'\nimport _ from 'lodash'\nimport CrossIcon from '@/Shared/Svgs/CrossIcon.vue'\nimport ChevronDown from '@/Shared/Svgs/ChevronDown.vue'\nimport ChevronUp from '@/Shared/Svgs/ChevronUp.vue'\nimport { MultiSelectOptions, Option } from '@/Shared/Forms/Types/MultiSelectOptions'\n// @ts-ignore\nimport vClickOutside from 'v-click-outside'\n\n@Component({\n  components: {\n    CrossIcon,\n    ChevronDown,\n    ChevronUp,\n  },\n  directives: {\n    clickOutside: vClickOutside.directive,\n  },\n})\n/**\n * ⚠️ v-model implementation for this component is readonly ⚠️\n */\nexport default class MultiSelect extends Vue {\n  @Prop({\n    type: Array,\n    required: true,\n  }) readonly optionsList !: MultiSelectOptions\n\n  @Prop({\n    type: String,\n    required: true,\n  }) readonly placeholder !: string\n\n  @Prop({\n    type: Boolean,\n    default: false,\n  }) readonly tags !: boolean\n\n  @Prop({\n    type: Object,\n    default: null,\n  }) readonly comp !: any\n\n  @Prop() value!:any\n\n  isOpened = false\n\n  options = this.initOptions(this.optionsList)\n\n  searchOption = ''\n\n  searchResults: any = null\n\n  @Watch('searchOption')\n  onSearchOptionChanged(val: any) {\n    if (val !== '') {\n      this.isOpened = false\n      this.searchResults = this.getSearchResults(val)\n    } else {\n      this.searchResults = null\n    }\n  }\n\n  @Watch('options')\n  onOptionChanged() {\n    this.$emit('input', this.getSelectedOptions())\n  }\n\n  shouldWatchValue = true\n\n  shouldAllowWatchValue = true\n\n  @Watch('value')\n  onValueChanged(val: any) {\n    if (this.shouldWatchValue) {\n      if (_.isNull(val)) {\n        this.setSelectedOptions([])\n        return\n      }\n      this.setSelectedOptions(val)\n    } else if (this.shouldAllowWatchValue) {\n      this.shouldWatchValue = true\n    }\n  }\n\n  initOptions(_opts: Array<any>) {\n    if (_.isNull(_opts)) {\n      return []\n    }\n\n    _opts.forEach((val) => {\n      if (_.isNull(val.selected)) {\n        const mVal = val\n        mVal.selected = false\n        this.options[this.options.indexOf(val)] = mVal\n      }\n    })\n\n    return _opts\n  }\n\n  handleSowOption() {\n    this.isOpened = !this.isOpened\n  }\n\n  handleOptionSelection(_opt: any) {\n    const mOpt = _opt\n    mOpt.selected = !_opt.selected\n    this.$set(this.options, this.options.indexOf(_opt), mOpt)\n  }\n\n  getSelectedOptions() {\n    const rv: any[] = []\n\n    _.filter(this.options, 'selected')\n      .forEach((val: Option) => {\n        rv.push(val.value)\n      })\n\n    return rv\n  }\n\n  setSelectedOptions(_toSelect: Array<any>) {\n    let itemsProcessed = 0\n    this.shouldWatchValue = false\n    this.shouldAllowWatchValue = false\n    this.options\n      .forEach((val: Option) => {\n        if (_toSelect.find((e) => e === val.value)) {\n          const mOpt = val\n          mOpt.selected = true\n          this.$set(this.options, this.options.indexOf(val), mOpt)\n        } else {\n          const mOpt = val\n          mOpt.selected = false\n          this.$set(this.options, this.options.indexOf(val), mOpt)\n        }\n        itemsProcessed += 1\n        if (itemsProcessed === this.options.length) {\n          this.shouldAllowWatchValue = true\n        }\n      })\n  }\n\n  getSearchResults(val: string) {\n    return _.filter(this.options, (s) => s.name.toLowerCase()\n      .startsWith(val.toLowerCase()))\n  }\n\n  handleClickOutside(e: any) {\n    this.isOpened = false\n    return e\n  }\n}\n</script>\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -17587,7 +17592,7 @@ var render = function() {
           {
             key: "title",
             fn: function() {
-              return [_vm._v("\n      Write a new article\n    ")]
+              return [_vm._v("\n      Edit this article\n    ")]
             },
             proxy: true
           },
@@ -17595,10 +17600,10 @@ var render = function() {
             key: "description",
             fn: function() {
               return [
-                _vm._v("\n      Add a title\n      "),
+                _vm._v("\n      Edit the title\n      "),
                 _c("required"),
                 _vm._v(
-                  "\n      and a subtitle (optional) to your new article.\n    "
+                  "\n      and subtitle (optional) to of this article.\n    "
                 )
               ]
             },
@@ -17785,7 +17790,7 @@ var render = function() {
                                 fn: function() {
                                   return [
                                     _vm._v(
-                                      "\n              Add a cover image to illustrate your article\n              "
+                                      "\n              Change the cover image illustrating this article\n              "
                                     ),
                                     _c("required")
                                   ]
