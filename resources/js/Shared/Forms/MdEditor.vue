@@ -29,6 +29,7 @@
 import {
   Mixins, Component, Watch, Prop, Ref,
 } from 'vue-property-decorator'
+import _ from 'lodash'
 import AppLayout from '@/Layouts/AppLayout.vue'
 import Route from '@/Mixins/Route'
 import JetInput from '@/Jetstream/Input.vue'
@@ -62,7 +63,7 @@ export default class MdEditor extends Mixins(Route) {
 
   @Watch('value', { immediate: true, deep: true })
   onValueChanged(val: string, oldVal: string) {
-    if (val !== oldVal) {
+    if (val !== oldVal && !_.isNull(val)) {
       this.parsedContent = marked(val)
     }
   }

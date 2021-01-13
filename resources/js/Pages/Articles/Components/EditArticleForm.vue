@@ -73,7 +73,7 @@
 
           <template #input>
             <div class="col-span-6 sm:col-span-4">
-              <button type="button" @click="test()">test</button>
+              <!-- <button type="button" @click="test()">test</button> -->
               <multi-select
                   placeholder="Chose a server"
                   :options-list="serversOptions"
@@ -232,12 +232,12 @@ export default class EditArticleForm extends Mixins(Route) {
 
   serversOptions: MultiSelectOptions = this.initServerOptions()
 
-  coverPreview: any = null
+  coverPreview: any = this.article.cover_image_url
 
   form = this.$inertia.form({
     title: this.article.title,
     subTitle: this.article.subTitle,
-    coverImage: this.article.cover_image_url,
+    coverImage: null,
     servers: null,
     content: this.article.content,
     status: this.article.status,
@@ -298,14 +298,13 @@ export default class EditArticleForm extends Mixins(Route) {
   }
 
   submitForm() {
-    this.form.post(this.route('articles.store'),
+    this.form.patch(this.route('articles.store'),
       {
         preserveScroll: true,
         preserveState: true,
         onSuccess: () => {
           this.coverPreview = null
           this.form.reset()
-          this.resetServerOptions()
         },
       })
   }
@@ -314,15 +313,6 @@ export default class EditArticleForm extends Mixins(Route) {
     this.formSuccessMsg = 'Your new article has been published'
     this.form.status = 'published'
     this.submitForm()
-  }
-
-  resetServerOptions() {
-    this.serversOptions.forEach((s) => {
-      const i = this.serversOptions.indexOf(s)
-      const nOpt = s
-      nOpt.selected = false
-      this.$set(this.serversOptions, i, nOpt)
-    })
   }
 
   created() {

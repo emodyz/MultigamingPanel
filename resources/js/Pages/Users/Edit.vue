@@ -30,7 +30,7 @@ import EditUserProfileForm from '@/Pages/Users/EditUserProfileForm.vue'
 import EditUserAccountForm from '@/Pages/Users/EditUserAccountForm.vue'
 import JetSectionBorder from '@/Jetstream/SectionBorder.vue'
 import Cerberus from '@/Mixins/Cerberus'
-import ZigRoute from '@/Mixins/Route'
+import Route from '@/Mixins/Route'
 
 @Component({
   components: {
@@ -40,7 +40,7 @@ import ZigRoute from '@/Mixins/Route'
     JetSectionBorder,
   },
 })
-export default class UsersEdit extends Mixins(Cerberus, ZigRoute) {
+export default class UsersEdit extends Mixins(Cerberus, Route) {
   @Prop() readonly userBeingEdited!: User
 
   @Prop() readonly roles!: any

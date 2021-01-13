@@ -292,7 +292,6 @@ export default class CreateArticleForm extends Mixins(Route) {
         onSuccess: () => {
           this.coverPreview = null
           this.form.reset()
-          this.resetServerOptions()
         },
       })
   }
@@ -301,15 +300,6 @@ export default class CreateArticleForm extends Mixins(Route) {
     this.formSuccessMsg = 'Your new article has been published'
     this.form.status = 'published'
     this.submitForm()
-  }
-
-  resetServerOptions() {
-    this.serversOptions.forEach((s) => {
-      const i = this.serversOptions.indexOf(s)
-      const nOpt = s
-      nOpt.selected = false
-      this.$set(this.serversOptions, i, nOpt)
-    })
   }
 
   created() {

@@ -118,6 +118,10 @@ class ArticleController extends Controller
      */
     public function edit(Article $article): \Inertia\Response
     {
+        /**
+         * TODO: Check if the coverImage field is null if not update the image
+         */
+
         $servers = Server::all()->map(function ($server) {
             return collect($server)->only(['id', 'name', 'logo_url', 'game']);
         });
