@@ -3490,10 +3490,6 @@ var UsersIndex = /*#__PURE__*/function (_Vue) {
     _this = _super.apply(this, arguments);
     _this.actionBtn = _Pages_Articles_Components_CreateArticleButton_vue__WEBPACK_IMPORTED_MODULE_5__.default;
     _this.headers = [{
-      title: '#',
-      key: 'index',
-      type: 'Index'
-    }, {
       title: 'Title',
       key: 'title',
       type: 'Article.Title'

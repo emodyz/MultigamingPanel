@@ -7,6 +7,8 @@ use App\Http\Controllers\ModpackController;
 use App\Http\Controllers\ModpackServerController;
 use App\Http\Controllers\ServerController;
 use App\Http\Resources\UserResource;
+use App\Models\Article;
+use App\Models\Server;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -46,4 +48,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // Modpack Server
     Route::post('/modpacks/{modpack}/servers/{server}', [ModpackServerController::class, 'attach']);
     Route::delete('/modpacks/{modpack}/servers/{server}', [ModpackServerController::class, 'detach']);
+
+    // Articles
+    Route::get('/servers/{server}/articles', function (Server $server) {
+        return response()->json($server->articles()->latest()->take(5)->get());
+    });
 });
+// Articles
+Route::get('/articles', function () { return response()->json(Article::getAllGlobalArticles()); });
+Route::get('/articles/latest/{n?}', function ($n = 1) { return response()->json(Article::getLastGlobalArticles($n)); });

@@ -6,12 +6,11 @@ use App\Http\Requests\Articles\CreateArticleRequest;
 use App\Http\Requests\Articles\EditArticleRequest;
 use App\Models\Article;
 use App\Models\Server;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class ArticleController extends Controller
@@ -172,10 +171,18 @@ class ArticleController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Article $article
-     * @return Response
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws Exception
      */
-    public function destroy(Article $article): Response
+    public function destroy(Article $article, Request $request): RedirectResponse
     {
-        //
+        if ($request->user()->cannot('users-destroy')) {
+            abort(403);
+        }
+
+        $article->delete();
+
+        return back(303)->with('status', 'article-deleted');
     }
 }

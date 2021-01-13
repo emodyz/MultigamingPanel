@@ -56,11 +56,6 @@ export default class UsersIndex extends Vue {
 
   headers: Array<DataTableHeader> = [
     {
-      title: '#',
-      key: 'index',
-      type: 'Index',
-    },
-    {
       title: 'Title',
       key: 'title',
       type: 'Article.Title',

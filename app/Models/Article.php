@@ -44,4 +44,14 @@ class Article extends Model
     {
         return $this->belongsToMany(Server::class)->withTimestamps();
     }
+
+    public static function getAllGlobalArticles()
+    {
+        return self::where('status', 'published')->latest()->get();
+    }
+
+    public static function getLastGlobalArticles($n = 1)
+    {
+        return self::where('status', 'published')->latest()->take($n)->get();
+    }
 }

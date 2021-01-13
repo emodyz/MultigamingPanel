@@ -36,5 +36,16 @@ class ArticleSeeder extends Seeder
         ]),function (Article $article) use ($server) {
             $article->servers()->attach($server);
         });
+
+        Article::factory()->count(10)->create([
+            'user_id' => $user->id,
+            'cover_image_path' => $imagePath
+        ]);
+
+        $acrs = Article::all();
+
+        foreach ($acrs as $a) {
+            $a->servers()->attach($server);
+        }
     }
 }
