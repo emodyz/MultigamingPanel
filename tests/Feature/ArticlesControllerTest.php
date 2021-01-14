@@ -74,6 +74,54 @@ class ArticlesControllerTest extends TestCase
     /**
      * @test
      */
+    public function _can_edit_an_article()
+    {
+        $faker = Factory::create();
+
+        $this->initUser('owner');
+
+        $server = Server::factory()->create();
+
+        $article = Article::factory()->create([
+            'user_id' => auth()->user()->id,
+            'cover_image_path' => '',
+            'status' => 'draft',
+            'published_at' => null
+        ]);
+
+        $newTitle = $faker->sentence(5 );
+        $newSubTitle = $faker->sentence(15 );
+        $newContent = $faker->text;
+        $newServer = [$server->id];
+        $newStatus = 'published';
+
+        $this->put(route('articles.update', $article), [
+            'title' => $newTitle,
+            'subTitle' => $newSubTitle,
+            'servers' => $newServer,
+            'coverImage' => UploadedFile::fake()->image('cover.jpg', 64,64),
+            'content' => $newContent,
+            'status' => $newStatus,
+        ])->assertStatus(302);
+
+        $this->assertDatabaseHas('articles', [
+            'title' => $newTitle,
+            'subTitle'=> $newSubTitle,
+            'slug' => Str::slug($newTitle),
+            'content' => $newContent,
+            'status' => $newStatus,
+        ]);
+
+        $article = Article::where('id', $article->id)->first();
+
+        $this->assertEquals($server->id, $article->servers->first()->id);
+    }
+
+
+
+    /**
+     * @test
+     */
     public function _can_delete_an_article() {
         $this->initUser('owner');
 
