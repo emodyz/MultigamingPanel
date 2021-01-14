@@ -120,9 +120,6 @@ import vClickOutside from 'v-click-outside'
     clickOutside: vClickOutside.directive,
   },
 })
-/**
- * ⚠️ v-model implementation for this component is readonly ⚠️
- */
 export default class MultiSelect extends Vue {
   @Prop({
     type: Array,

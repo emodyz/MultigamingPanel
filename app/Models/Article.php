@@ -25,9 +25,6 @@ class Article extends Model
     protected $appends = ['cover_image_url'];
 
     protected $with = ['author'];
-    /**
-     * @var mixed
-     */
 
     /**
      * @return BelongsTo
