@@ -38,5 +38,3 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::resource('articles', ArticleController::class);
 
 });
-
-

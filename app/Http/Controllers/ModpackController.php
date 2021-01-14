@@ -113,9 +113,9 @@ class ModpackController extends Controller
 
     /**
      * @param Modpack $modpack
-     * @return string
+     * @return Response
      */
-    public function startUpdate(Modpack $modpack): string
+    public function startUpdate(Modpack $modpack): Response
     {
         if ($modpack->batch) {
             abort(Response::HTTP_LOCKED, 'Update already in progress...');
