@@ -111,7 +111,7 @@
                   v-show="coverPreview"
                   class="mb-6"
               >
-                <img class="border border-gray-300 rounded-3xl shadow-2xl max-h-96" :src="coverPreview"
+                <img class="border border-gray-300 rounded-xl shadow-lg max-h-96" :src="coverPreview"
                      alt="Cover Image">
               </div>
 

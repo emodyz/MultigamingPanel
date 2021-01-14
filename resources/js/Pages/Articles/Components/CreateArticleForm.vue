@@ -115,7 +115,7 @@
                   class="block rounded-md shadow-md w-full h-96"
                   :style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' + photoPreview + '\');'"
                 /> -->
-                <img class="border border-gray-300 rounded-3xl shadow-2xl max-h-96" :src="coverPreview"
+                <img class="border border-gray-300 rounded-xl shadow-lg max-h-96" :src="coverPreview"
                      alt="Cover Image">
               </div>
 

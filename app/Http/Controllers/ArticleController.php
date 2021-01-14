@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Emodyz\Articles\CreateArticle;
+use App\Actions\Emodyz\Articles\EditArticle;
 use App\Http\Requests\Articles\CreateArticleRequest;
 use App\Http\Requests\Articles\EditArticleRequest;
 use App\Models\Article;
@@ -15,6 +17,17 @@ use Inertia\Inertia;
 
 class ArticleController extends Controller
 {
+    public function __construct() {
+
+        $this->middleware('can:articles-index', ['only' => ['index']]);
+
+        $this->middleware('can:articles-create', ['only' => ['create', 'store']]);
+
+        $this->middleware('can:articles-edit', ['only' => ['edit', 'update']]);
+
+        $this->middleware('can:articles-destroy', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -23,6 +36,7 @@ class ArticleController extends Controller
      */
     public function index(Request $request): \Inertia\Response
     {
+
         $orderBy = $request->query('orderBy');
 
         $initialSearch = $request->query('search', '');
@@ -66,36 +80,12 @@ class ArticleController extends Controller
      * Store a newly created resource in storage.
      *
      * @param CreateArticleRequest $request
+     * @param CreateArticle $store
      * @return RedirectResponse
      */
-    public function store(CreateArticleRequest $request): RedirectResponse
+    public function store(CreateArticleRequest $request, CreateArticle $store): RedirectResponse
     {
-        $article = new Article();
-
-        $title = $request->get('title');
-        $servers = $request->get('servers');
-
-        $article->setAttribute('title', $title);
-        $article->setAttribute('subTitle', $request->get('subTitle'));
-        $article->setAttribute('slug', Str::slug($title));
-        $article->setAttribute('content', $request->get('content'));
-
-        $article->setAttribute('user_id', $request->user()->id);
-
-        $article->setInitialCoverImage($request->file('coverImage'));
-
-        if ($request->get('status') === 'published') {
-            $article->setAttribute('status', 'published');
-            $article->setAttribute('published_at', now());
-        }
-
-        $article->save();
-
-        if ($servers) {
-            foreach ($servers as $server) {
-                $article->servers()->attach($server);
-            }
-        }
+        $store->storeNewArticle($request->all());
 
         return back()->with('status', 'article-created');
     }
@@ -119,10 +109,6 @@ class ArticleController extends Controller
      */
     public function edit(Article $article): \Inertia\Response
     {
-        /**
-         * TODO: Check if the coverImage field is null if not update the image
-         */
-
         $servers = Server::all()->map(function ($server) {
             return collect($server)->only(['id', 'name', 'logo_url', 'game']);
         });
@@ -137,32 +123,12 @@ class ArticleController extends Controller
      *
      * @param EditArticleRequest $request
      * @param Article $article
+     * @param EditArticle $editor
      * @return RedirectResponse
      */
-    public function update(EditArticleRequest $request, Article $article): RedirectResponse
+    public function update(EditArticleRequest $request, Article $article, EditArticle $editor): RedirectResponse
     {
-        $newCoverImage = $request->file('coverImage');
-
-        if ($newCoverImage) {
-            $article->updateCoverImage($newCoverImage);
-        }
-
-        $title = $request->get('title');
-        $servers = $request->get('servers');
-        $status = $request->get('status');
-
-        $article->setAttribute('title', $title);
-        $article->setAttribute('subTitle', $request->get('subTitle'));
-        $article->setAttribute('slug', Str::slug($title));
-        $article->setAttribute('content', $request->get('content'));
-
-
-        $article->setAttribute('status', $status);
-        $article->setAttribute('published_at', $status ? now() : null);
-
-        $article->save();
-
-        $article->servers()->sync($servers);
+        $editor->editArticle($article, $request->all());
 
         return back()->with('status', 'article-edited');
     }
@@ -177,10 +143,6 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article, Request $request): RedirectResponse
     {
-        if ($request->user()->cannot('users-destroy')) {
-            abort(403);
-        }
-
         $article->delete();
 
         return back(303)->with('status', 'article-deleted');

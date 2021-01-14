@@ -17413,7 +17413,7 @@ var render = function() {
                                 [
                                   _c("img", {
                                     staticClass:
-                                      "border border-gray-300 rounded-3xl shadow-2xl max-h-96",
+                                      "border border-gray-300 rounded-xl shadow-lg max-h-96",
                                     attrs: {
                                       src: _vm.coverPreview,
                                       alt: "Cover Image"
@@ -17830,7 +17830,7 @@ var render = function() {
                                 [
                                   _c("img", {
                                     staticClass:
-                                      "border border-gray-300 rounded-3xl shadow-2xl max-h-96",
+                                      "border border-gray-300 rounded-xl shadow-lg max-h-96",
                                     attrs: {
                                       src: _vm.coverPreview,
                                       alt: "Cover Image"

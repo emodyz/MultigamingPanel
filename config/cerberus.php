@@ -64,5 +64,13 @@ return [
             'slug' => 'articles-create',
             'description' => 'a user can write a new article'
         ],
+        [
+            'slug' => 'articles-edit',
+            'description' => 'a user can edit articles'
+        ],
+        [
+            'slug' => 'articles-destroy',
+            'description' => 'a user can delete articles'
+        ],
     ]
 ];
