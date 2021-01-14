@@ -28,7 +28,12 @@
               </jet-nav-link>
               <jet-nav-link :active="route().current('modpacks.*')"
                             :href="route('modpacks.index')">
-                Modpacks
+                ModPacks
+              </jet-nav-link>
+
+              <jet-nav-link :active="route().current('articles.*')"
+                            :href="route('articles.index')">
+                Articles
               </jet-nav-link>
             </div>
           </div>
@@ -200,6 +205,24 @@
             :active="route().current('dashboard')"
           >
             Dashboard
+          </jet-responsive-nav-link>
+          <jet-responsive-nav-link
+              :href="route('users.index')"
+              :active="route().current('users.*')"
+          >
+            Users
+          </jet-responsive-nav-link>
+          <jet-responsive-nav-link
+              :active="route().current('modpacks.*')"
+              :href="route('modpacks.index')"
+          >
+            ModPacks
+          </jet-responsive-nav-link>
+          <jet-responsive-nav-link
+              :active="route().current('articles.*')"
+              :href="route('articles.index')"
+          >
+            Articles
           </jet-responsive-nav-link>
         </div>
 

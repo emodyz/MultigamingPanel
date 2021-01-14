@@ -2,10 +2,10 @@
   <div class="md:grid md:grid-cols-3 md:gap-6">
     <jet-section-title>
       <template #title>
-        <slot name="title" />
+        <slot name="title"/>
       </template>
       <template #description>
-        <slot name="description" />
+        <slot name="description"/>
       </template>
     </jet-section-title>
 
@@ -14,15 +14,15 @@
         <div class="shadow overflow-hidden sm:rounded-md">
           <div class="px-4 py-5 bg-white sm:p-6">
             <div class="grid grid-cols-6 gap-6">
-              <slot name="form" />
+              <slot name="form"/>
             </div>
           </div>
 
           <div
-            v-if="hasActions"
-            class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6"
+              v-if="hasActions"
+              class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6"
           >
-            <slot name="actions" />
+            <slot name="actions"/>
           </div>
         </div>
       </form>
@@ -36,11 +36,14 @@ import {
 } from 'vue-property-decorator'
 import JetSectionTitle from './SectionTitle.vue'
 
-    @Component({
-      components: {
-        JetSectionTitle,
-      },
-    })
+/**
+ *  TODO: Create a custom stackable form section
+ */
+@Component({
+  components: {
+    JetSectionTitle,
+  },
+})
 export default class FormSection extends Vue {
   get hasActions() {
     return !!this.$slots.actions

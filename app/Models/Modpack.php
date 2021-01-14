@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * @property mixed manifest_last_update
+ */
 class Modpack extends Model
 {
     use HasFactory;

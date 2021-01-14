@@ -24,6 +24,7 @@
       </template>
 
       <template #content>
+        <!-- TODO: handle action model content with injectable dynamic components -->
         <div v-if="item.type === 'Users'">
           <span class="text-md">Are you sure you would like to delete this user ?</span>
           <dt-user-profile

@@ -2,7 +2,7 @@
   <app-layout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Users <span class="text-gray-400">/</span> Edit / {{ userBeingEdited.name }}
+        Users <span class="text-gray-400">/</span> Edit <span class="text-gray-400">/</span> {{ userBeingEdited.name }}
       </h2>
     </template>
     <div class="py-12">
@@ -10,7 +10,6 @@
         <edit-user-profile-form v-if="canEditProfile" :user="userBeingEdited"/>
         <div v-if="canEditAccount">
           <jet-section-border/>
-          <!-- TODO: Extract permission checks -->
           <edit-user-account-form
               :user="userBeingEdited"
               :roles="roles"
@@ -31,7 +30,7 @@ import EditUserProfileForm from '@/Pages/Users/EditUserProfileForm.vue'
 import EditUserAccountForm from '@/Pages/Users/EditUserAccountForm.vue'
 import JetSectionBorder from '@/Jetstream/SectionBorder.vue'
 import Cerberus from '@/Mixins/Cerberus'
-import ZigRoute from '@/Mixins/Route'
+import Route from '@/Mixins/Route'
 
 @Component({
   components: {
@@ -41,7 +40,7 @@ import ZigRoute from '@/Mixins/Route'
     JetSectionBorder,
   },
 })
-export default class UsersEdit extends Mixins(Cerberus, ZigRoute) {
+export default class UsersEdit extends Mixins(Cerberus, Route) {
   @Prop() readonly userBeingEdited!: User
 
   @Prop() readonly roles!: any

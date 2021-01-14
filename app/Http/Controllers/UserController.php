@@ -21,7 +21,6 @@ class UserController extends Controller
      */
     public function index(Request $request): \Inertia\Response
     {
-
         $orderBy = $request->query('orderBy');
 
         $initialSearch = $request->query('search', '');

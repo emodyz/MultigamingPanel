@@ -3,7 +3,7 @@ export interface Action {
     displayName?: string,
     permission?: string,
     path?: string,
-    type?: 'show' | 'edit' | 'destroy',
+    type?: 'show' | 'edit' | 'destroy' | 'custom',
     class?: string,
 }
 

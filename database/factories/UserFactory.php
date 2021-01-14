@@ -24,12 +24,11 @@ class UserFactory extends Factory
     public function definition(): array
     {
         $roles = config('cerberus.roles');
-        $emailValidatedAt = [null, now()];
 
         return [
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
-            'email_verified_at' => $emailValidatedAt[array_rand($emailValidatedAt)],
+            'email_verified_at' => $this->faker->randomElement([null, now()]),
             'role' => array_rand($roles),
             'password' => Hash::make('password'), // password
             'remember_token' => Str::random(10),

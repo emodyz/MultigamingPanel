@@ -7,7 +7,9 @@ use App\Exceptions\ModpackException;
 use App\Http\Requests\Modpacks\CreateModpackRequest;
 use App\Http\Resources\Modpack\ModpackResource;
 use App\Models\Modpack;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -18,9 +20,10 @@ class ModpackController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection|Response|\Inertia\Response|ResponseFactory
+     * @param Request $request
+     * @return AnonymousResourceCollection|Response|\Inertia\Response|ResponseFactory
      */
-    public function index(Request $request)
+    public function index(Request $request): Response|AnonymousResourceCollection|\Inertia\Response|ResponseFactory
     {
         $modpacks = Modpack::with('servers')
             ->latest()
@@ -38,11 +41,11 @@ class ModpackController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param CreateModpackRequest $request
      * @return ModpackResource
      * @throws ModpackException
      */
-    public function store(CreateModpackRequest $request)
+    public function store(CreateModpackRequest $request): ModpackResource
     {
         $name = $request->get('name');
         $path = $request->get('path') ?? Str::ascii($name);
@@ -64,10 +67,11 @@ class ModpackController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Request $request
      * @param Modpack $modpack
      * @return ModpackResource|Response|\Inertia\Response|ResponseFactory
      */
-    public function show(Request $request, Modpack $modpack)
+    public function show(Request $request, Modpack $modpack): Response|ModpackResource|\Inertia\Response|ResponseFactory
     {
         if ($request->wantsJson()) {
             return ModpackResource::make($modpack);
@@ -85,7 +89,7 @@ class ModpackController extends Controller
      * @param Modpack $modpack
      * @return Response
      */
-    public function update(Request $request, Modpack $modpack)
+    public function update(Request $request, Modpack $modpack): Response
     {
         //
     }
@@ -95,9 +99,9 @@ class ModpackController extends Controller
      *
      * @param Modpack $modpack
      * @return Response
-     * @throws \Exception
+     * @throws Exception
      */
-    public function destroy(Modpack $modpack)
+    public function destroy(Modpack $modpack): Response
     {
         if ($modpack->batch) {
             abort(Response::HTTP_LOCKED, 'Cannot delete while an update in progress...');
@@ -109,9 +113,9 @@ class ModpackController extends Controller
 
     /**
      * @param Modpack $modpack
-     * @return string
+     * @return Response
      */
-    public function startUpdate(Modpack $modpack)
+    public function startUpdate(Modpack $modpack): Response
     {
         if ($modpack->batch) {
             abort(Response::HTTP_LOCKED, 'Update already in progress...');
@@ -126,7 +130,7 @@ class ModpackController extends Controller
      * @param Modpack $modpack
      * @return Response
      */
-    public function cancelUpdate(Modpack $modpack)
+    public function cancelUpdate(Modpack $modpack): Response
     {
         if (!$modpack->batch) {
             abort(Response::HTTP_CONTINUE, 'Cannot cancel update, no update in progress...');

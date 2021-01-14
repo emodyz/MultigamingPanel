@@ -1,4 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
+const colors = require('tailwindcss/colors')
 
 module.exports = {
   purge: {
@@ -10,9 +11,12 @@ module.exports = {
     ],
     options: {
       safelist: [
+        // Colors
         'text-green-600', 'text-green-900',
         'text-indigo-600', 'text-indigo-900',
         'text-red-600', 'text-red-900',
+        // Utilities
+        'py-8', 'pb-5', 'pt-6'
       ],
     }
   },
@@ -62,7 +66,10 @@ module.exports = {
         '10/12': '83.333333%',
         '11/12': '91.666667%',
         full: '100%',
-      }
+      },
+      colors: {
+        orange: colors.orange,
+      },
     },
   },
 

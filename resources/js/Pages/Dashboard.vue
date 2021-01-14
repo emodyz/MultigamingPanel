@@ -5,12 +5,10 @@
                 Dashboard
             </h2>
         </template>
-
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg h-screen">
-                    <button @click="log">Log</button>
-                    <multi-select v-model="test" :options-list="opts" :tags="true" placeholder="Search Languages..."/>
+                   <welcome/>
                 </div>
             </div>
         </div>
@@ -19,60 +17,19 @@
 
 <script lang="ts">
 import {
-  Vue, Component, Watch,
+  Vue, Component,
 } from 'vue-property-decorator'
 
 import AppLayout from '@/Layouts/AppLayout.vue'
 import Welcome from '@/Jetstream/Welcome.vue'
-import MultiSelect from '@/Shared/Forms/MultiSelect.vue'
-import { MultiSelectOptions } from '@/Shared/Forms/Types/MultiSelectOptions'
 
 @Component({
   components: {
     AppLayout,
     Welcome,
-    MultiSelect,
   },
 })
 export default class Dashboard extends Vue {
-  opts: MultiSelectOptions = [
-    {
-      name: 'Javascript',
-      value: 'js',
-    },
-    {
-      name: 'Ruby',
-      value: 'rb',
-    },
-    {
-      name: 'Python',
-      value: 'py',
-    },
-    {
-      name: 'PhP',
-      value: 'php',
-    },
-    {
-      name: 'C++',
-      value: 'cpp',
-    },
-    {
-      name: 'Java',
-      value: 'java',
-    },
-  ]
-
-  test: any = []
-
-  @Watch('test')
-  onTestChanged(val: any) {
-    console.log(val)
-  }
-
-  log() {
-    console.log(this.test)
-  }
-
   mounted() {
     // console.log('mounted')
   }

@@ -9,15 +9,15 @@
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <data-table
-          :query-url="'/users'"
-          :query-param="'users'"
-          :headers="headers"
-          :data-object="users"
-          data-type="Users"
-          :initial-query="initialSearch"
-          :actions="actions"
-          :total-item-count="totalItemCount"
-          class="w-full p-6"
+            :query-url="'/users'"
+            :query-param="'users'"
+            :headers="headers"
+            :data-object="users"
+            data-type="Users"
+            :initial-query="initialSearch"
+            :actions="actions"
+            :total-item-count="totalItemCount"
+            class="w-full p-6"
         />
       </div>
     </div>
@@ -43,38 +43,68 @@ import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader'
   },
 })
 export default class UsersIndex extends Vue {
-    @Prop() readonly users!: null | object
+  @Prop() readonly users!: null | object
 
-    @Prop() readonly totalItemCount!: null | number
+  @Prop() readonly totalItemCount!: null | number
 
-    @Prop() readonly initialSearch!: null | string
+  @Prop() readonly initialSearch!: null | string
 
-    headers: Array<DataTableHeader> = [
-      { title: '#', key: 'index', type: 'Index' },
-      { title: 'Name', key: 'name', type: 'User.Profile' },
-      { title: 'Role', key: 'roleName' },
-      { title: 'Status', key: 'email_verified_at', type: 'User.Status' },
-      { title: 'Registered', key: 'created_at', type: 'Date.Formatted' },
-    ]
+  headers: Array<DataTableHeader> = [
+    {
+      title: '#',
+      key: 'index',
+      type: 'Index',
+    },
+    {
+      title: 'Name',
+      key: 'name',
+      type: 'User.Profile',
+      dataAccessors: {
+        name: 'name',
+        email: 'email',
+        profile_photo_url: 'profile_photo_url',
+      },
+    },
+    {
+      title: 'Role',
+      key: 'roleName',
+    },
+    {
+      title: 'Status',
+      key: 'email_verified_at',
+      type: 'User.Status',
+    },
+    {
+      title: 'Registered',
+      key: 'created_at',
+      type: 'Date.Formatted',
+    },
+  ]
 
-    actions: DataTableActionsOptions = {
-      enabled: true,
-      baseUrl: '/users',
-      actions: [
-        {
-          displayName: 'See', enabled: false, type: 'show',
-        },
-        {
-          displayName: 'Edit', enabled: true, path: 'edit', permission: 'users-edit', type: 'edit', class: 'text-indigo-600 hover:text-indigo-900',
-        },
-        {
-          displayName: 'Delete', enabled: true, permission: 'users-destroy', type: 'destroy', class: 'text-red-600 hover:text-red-900',
-        },
-      ],
-    }
+  actions: DataTableActionsOptions = {
+    enabled: true,
+    baseUrl: '/users',
+    actions: [
+      {
+        displayName: 'Edit',
+        enabled: true,
+        path: 'edit',
+        permission: 'users-edit',
+        type: 'edit',
+        class: 'text-indigo-600 hover:text-indigo-900',
+      },
+      {
+        displayName: 'Delete',
+        enabled: true,
+        permission: 'users-destroy',
+        type: 'destroy',
+        class: 'text-red-600 hover:text-red-900',
+      },
+    ],
+  }
 
-    created() {
-      //
-    }
+  created() {
+    //
+  }
 }
 </script>

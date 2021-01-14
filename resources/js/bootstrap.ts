@@ -55,3 +55,10 @@ window.Echo = new Echo({
 // @ts-ignore
 Vue.prototype.$echo = window.Echo
 Vue.prototype.$axios = axios
+
+// @ts-ignore
+// eslint-disable-next-line no-extend-native,func-names
+String.prototype.trunc = function (n) {
+  // @ts-ignore
+  return this.substr(0, n - 1) + (this.length > n ? '…' : '')
+}

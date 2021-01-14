@@ -30,6 +30,9 @@ return [
             'slug' => 'dashboard',
             'description' => 'a user can view the administration dashboard'
         ],
+        /**
+         * Users Management
+         */
         [
             'slug' => 'users-index',
             'description' => 'a user can view a list of all users'
@@ -45,6 +48,29 @@ return [
         [
             'slug' => 'users-destroy',
             'description' => 'a user can delete other users'
+        ],
+        [
+            'slug' => 'users-destroy',
+            'description' => 'a user can delete other users'
+        ],
+        /**
+         * Articles
+         */
+        [
+            'slug' => 'articles-index',
+            'description' => 'a user can manage articles'
+        ],
+        [
+            'slug' => 'articles-create',
+            'description' => 'a user can write a new article'
+        ],
+        [
+            'slug' => 'articles-edit',
+            'description' => 'a user can edit articles'
+        ],
+        [
+            'slug' => 'articles-destroy',
+            'description' => 'a user can delete articles'
         ],
     ]
 ];
