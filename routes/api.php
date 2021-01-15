@@ -50,8 +50,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/modpacks/{modpack}/servers/{server}', [ModpackServerController::class, 'detach']);
 
     // Articles
-    Route::get('/servers/{server}/articles', function (Server $server) {
-        return response()->json($server->articles()->latest()->take(5)->get());
+    Route::get('/servers/{server}/articles', function (Server $server) { return response()->json($server->articles); });
+    Route::get('/servers/{server}/articles/latest/{n?}', function (Server $server, $n = 5) {
+        return response()->json($server->articles()->latest()->take($n)->get());
     });
 });
 // Articles

@@ -32,9 +32,10 @@ class EditArticle
         $article->setAttribute('slug', Str::slug($title));
         $article->setAttribute('content', $input['content']);
 
-
-        $article->setAttribute('status', $status);
-        $article->setAttribute('published_at', $status ? now() : null);
+        if ($article->getAttribute('status') !== $status) {
+            $article->setAttribute('status', $status);
+            $article->setAttribute('published_at', $status === 'published' ? now() : null);
+        }
 
         $article->save();
 

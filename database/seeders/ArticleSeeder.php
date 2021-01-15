@@ -19,32 +19,22 @@ class ArticleSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Factory::create();
-
         $user = User::where('email', 'root@root.com')->first();
         $server = Server::first();
 
-        $fakeImage = Http::get($faker->imageUrl(640, 480, 'cats', true, 'Placeholder'));
-
-        $imagePath = 'cover-images/articles/placeholder.jpg';
-
-        Storage::disk('public')->put($imagePath, $fakeImage->body());
-
-        tap(Article::factory()->create([
-            'user_id' => $user->id,
-            'cover_image_path' => $imagePath
+        tap(Article::factory()->withCover()->withContent()->create([
+            'user_id' => $user->id
         ]),function (Article $article) use ($server) {
             $article->servers()->attach($server);
         });
 
-        Article::factory()->count(10)->create([
-            'user_id' => $user->id,
-            'cover_image_path' => $imagePath
+        Article::factory()->withCover()->withContent()->count(10)->create([
+            'user_id' => $user->id
         ]);
 
-        $acrs = Article::all();
+        $articles = Article::all();
 
-        foreach ($acrs as $a) {
+        foreach ($articles as $a) {
             $a->servers()->attach($server);
         }
     }

@@ -25,19 +25,49 @@ class ArticleFactory extends Factory
      */
     public function definition(): array
     {
-        $md = Http::get('https://jaspervdj.be/lorem-markdownum/markdown.txt');
-
         $title = $this->faker->sentence(5);
-
         $status = $this->faker->randomElement(['draft', 'published']);
 
         return [
             'title' => $title,
             'subTitle' => $this->faker->sentence(20),
             'slug' => Str::slug($title),
-            'content' => $md->body(),
+            'cover_image_path' => '',
+            'content' => '',
             'status' => $status,
             'published_at' => ($status === 'published') ? now() : null,
         ];
     }
+
+    /**
+     * @return ArticleFactory
+     */
+    public function withCover(): ArticleFactory
+    {
+        return $this->state(function (array $attributes) {
+            $fakeImage = Http::get($this->faker->imageUrl(640, 480, 'cats', true, 'Placeholder'));
+            $imagePath = 'cover-images/articles/placeholder-'. $this->faker->uuid .'.jpg';
+            Storage::disk('public')->put($imagePath, $fakeImage->body());
+
+            return [
+                'cover_image_path' => $imagePath,
+            ];
+        });
+    }
+
+    /**
+     * @return ArticleFactory
+     */
+    public function withContent(): ArticleFactory
+    {
+        return $this->state(function (array $attributes) {
+            $md = Http::get('https://jaspervdj.be/lorem-markdownum/markdown.txt');
+
+            return [
+                'content' => $md->body(),
+            ];
+        });
+    }
+
+    // $md = Http::get('https://jaspervdj.be/lorem-markdownum/markdown.txt');
 }
