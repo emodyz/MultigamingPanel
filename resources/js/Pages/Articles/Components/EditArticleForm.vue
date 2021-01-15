@@ -160,6 +160,7 @@
         <jet-secondary-button
             type="submit"
             class="mr-3"
+            @click.native="handleDraft"
             :class="{ 'opacity-25': form.processing }"
             :disabled="form.processing"
         >
@@ -311,6 +312,12 @@ export default class EditArticleForm extends Mixins(Route) {
   handlePublish() {
     this.formSuccessMsg = 'This article has been edited and published'
     this.form.status = 'published'
+    this.submitForm()
+  }
+
+  handleDraft() {
+    this.formSuccessMsg = 'This draft has been edited!'
+    this.form.status = 'draft'
     this.submitForm()
   }
 

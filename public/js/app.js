@@ -3220,6 +3220,13 @@ var EditArticleForm = /*#__PURE__*/function (_Mixins) {
       this.submitForm();
     }
   }, {
+    key: "handleDraft",
+    value: function handleDraft() {
+      this.formSuccessMsg = 'This draft has been edited!';
+      this.form.status = 'draft';
+      this.submitForm();
+    }
+  }, {
     key: "created",
     value: function created() {//
     }
@@ -17934,7 +17941,12 @@ var render = function() {
                   {
                     staticClass: "mr-3",
                     class: { "opacity-25": _vm.form.processing },
-                    attrs: { type: "submit", disabled: _vm.form.processing }
+                    attrs: { type: "submit", disabled: _vm.form.processing },
+                    nativeOn: {
+                      click: function($event) {
+                        return _vm.handleDraft($event)
+                      }
+                    }
                   },
                   [_vm._v("\n        Save as draft\n      ")]
                 ),

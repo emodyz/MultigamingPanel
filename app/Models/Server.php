@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property mixed ip
  * @property mixed name
  * @property mixed modpacks
+ * @property mixed articles
  */
 class Server extends Model
 {

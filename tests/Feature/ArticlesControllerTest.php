@@ -84,7 +84,6 @@ class ArticlesControllerTest extends TestCase
 
         $article = Article::factory()->create([
             'user_id' => auth()->user()->id,
-            'cover_image_path' => '',
             'status' => 'draft',
             'published_at' => null
         ]);
