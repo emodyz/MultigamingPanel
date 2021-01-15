@@ -68,6 +68,4 @@ class ArticleFactory extends Factory
             ];
         });
     }
-
-    // $md = Http::get('https://jaspervdj.be/lorem-markdownum/markdown.txt');
 }
