@@ -8235,6 +8235,547 @@ String.prototype.trunc = function (n) {
 
 /***/ }),
 
+/***/ "./resources/js/Mixins/Cerberus.ts":
+/*!*****************************************!*\
+  !*** ./resources/js/Mixins/Cerberus.ts ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-property-decorator */ "./node_modules/vue-property-decorator/lib/index.js");
+/* harmony import */ var _Shared_Services_cerberus_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Shared/Services/cerberus.service */ "./resources/js/Shared/Services/cerberus.service.ts");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
+  var c = arguments.length,
+      r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+      d;
+  if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+    if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  }
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+var Cerberus = /*#__PURE__*/function (_Vue) {
+  _inherits(Cerberus, _Vue);
+
+  var _super = _createSuper(Cerberus);
+
+  function Cerberus() {
+    var _this;
+
+    _classCallCheck(this, Cerberus);
+
+    _this = _super.apply(this, arguments);
+    _this.Cerberus = new _Shared_Services_cerberus_service__WEBPACK_IMPORTED_MODULE_1__.default();
+    return _this;
+  }
+
+  return Cerberus;
+}(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Vue);
+
+Cerberus = __decorate([vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Component], Cerberus);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Cerberus);
+
+/***/ }),
+
+/***/ "./resources/js/Mixins/Route.ts":
+/*!**************************************!*\
+  !*** ./resources/js/Mixins/Route.ts ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-property-decorator */ "./node_modules/vue-property-decorator/lib/index.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
+  var c = arguments.length,
+      r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+      d;
+  if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+    if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  }
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+var Route = /*#__PURE__*/function (_Vue) {
+  _inherits(Route, _Vue);
+
+  var _super = _createSuper(Route);
+
+  function Route() {
+    var _this;
+
+    _classCallCheck(this, Route);
+
+    _this = _super.apply(this, arguments); // @ts-ignore
+
+    _this.route = window.route;
+    return _this;
+  }
+
+  return Route;
+}(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Vue);
+
+Route = __decorate([vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__.Component], Route);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Route);
+
+/***/ }),
+
+/***/ "./resources/js/Shared/DataTable/Types/defaults.ts":
+/*!*********************************************************!*\
+  !*** ./resources/js/Shared/DataTable/Types/defaults.ts ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "defaultActionsOptions": () => /* binding */ defaultActionsOptions
+/* harmony export */ });
+// eslint-disable-next-line import/prefer-default-export
+var defaultActionsOptions = {
+  enabled: false,
+  baseUrl: '',
+  actions: [{
+    enabled: false,
+    displayName: 'See',
+    permission: '',
+    path: '',
+    type: 'show',
+    "class": 'text-green-600 hover:text-green-900'
+  }, {
+    enabled: false,
+    displayName: 'Edit',
+    permission: '',
+    path: 'edit',
+    type: 'edit',
+    "class": 'text-indigo-600 hover:text-indigo-900'
+  }, {
+    enabled: false,
+    displayName: 'Delete',
+    permission: '',
+    path: '',
+    type: 'destroy',
+    "class": 'text-red-600 hover:text-red-900'
+  }]
+};
+
+/***/ }),
+
+/***/ "./resources/js/Shared/Helpers/objectToFormData.ts":
+/*!*********************************************************!*\
+  !*** ./resources/js/Shared/Helpers/objectToFormData.ts ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "objectToFormData": () => /* binding */ objectToFormData
+/* harmony export */ });
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+// eslint-disable-next-line import/prefer-default-export
+function objectToFormData(object) {
+  var method = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  var formData = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new FormData();
+  var parent = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+
+  if (object === null || object === 'undefined' || object.length === 0) {
+    return formData.append(parent, object);
+  } // eslint-disable-next-line no-restricted-syntax
+
+
+  for (var property in object) {
+    // eslint-disable-next-line no-prototype-builtins
+    if (object.hasOwnProperty(property)) {
+      // eslint-disable-next-line no-use-before-define
+      appendToFormData(formData, getKey(parent, property), object[property]);
+    }
+  }
+
+  if (method) {
+    formData.append('_method', 'PUT');
+  }
+
+  return formData;
+}
+
+function getKey(parent, property) {
+  return parent ? "".concat(parent, "[").concat(property, "]") : property;
+} // eslint-disable-next-line consistent-return
+
+
+function appendToFormData(formData, key, value) {
+  if (value instanceof Date) {
+    return formData.append(key, value.toISOString());
+  }
+
+  if (value instanceof File) {
+    return formData.append(key, value, value.name);
+  }
+
+  if (typeof value === 'boolean') {
+    return formData.append(key, value ? '1' : '0');
+  }
+
+  if (value === null) {
+    return formData.append(key, '');
+  }
+
+  if (_typeof(value) !== 'object') {
+    return formData.append(key, value);
+  }
+
+  objectToFormData(value, formData, key);
+}
+
+/***/ }),
+
+/***/ "./resources/js/Shared/Services/cerberus.service.ts":
+/*!**********************************************************!*\
+  !*** ./resources/js/Shared/Services/cerberus.service.ts ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
+
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+
+
+
+var CerberusService = /*#__PURE__*/function () {
+  // eslint-disable-next-line no-useless-constructor
+  function CerberusService(baseUrl) {
+    _classCallCheck(this, CerberusService);
+
+    // do something construct...
+    this.http = (axios__WEBPACK_IMPORTED_MODULE_1___default());
+  }
+
+  _createClass(CerberusService, [{
+    key: "getAllAuthorizations",
+    value: function getAllAuthorizations() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                _context.next = 3;
+                return this.http.get(route('cerberus.authorizations'));
+
+              case 3:
+                res = _context.sent;
+                return _context.abrupt("return", res.data);
+
+              case 7:
+                _context.prev = 7;
+                _context.t0 = _context["catch"](0);
+                return _context.abrupt("return", console.error(_context.t0));
+
+              case 10:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[0, 7]]);
+      }));
+    }
+  }, {
+    key: "checkAuthorization",
+    value: function checkAuthorization(_ability) {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.prev = 0;
+                _context2.next = 3;
+                return this.http.get(route('cerberus.authorizations.check', {
+                  ability: _ability
+                }));
+
+              case 3:
+                res = _context2.sent;
+                return _context2.abrupt("return", res.data);
+
+              case 7:
+                _context2.prev = 7;
+                _context2.t0 = _context2["catch"](0);
+                return _context2.abrupt("return", console.error(_context2.t0));
+
+              case 10:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this, [[0, 7]]);
+      }));
+    }
+  }, {
+    key: "can",
+    value: function can(_ability) {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                return _context3.abrupt("return", this.checkAuthorization(_ability));
+
+              case 1:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+    }
+  }]);
+
+  return CerberusService;
+}();
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CerberusService);
+
+/***/ }),
+
+/***/ "./resources/js/app.ts":
+/*!*****************************!*\
+  !*** ./resources/js/app.ts ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.ts");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @inertiajs/inertia-vue */ "./node_modules/@inertiajs/inertia-vue/dist/index.js");
+/* harmony import */ var portal_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! portal-vue */ "./node_modules/portal-vue/dist/portal-vue.common.js");
+/* harmony import */ var moment_timezone__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment-timezone */ "./node_modules/moment-timezone/index.js");
+/* harmony import */ var moment_timezone__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var vue_lodash__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-lodash */ "./node_modules/vue-lodash/dist/bundle.js");
+/* harmony import */ var vue_lodash__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vue_lodash__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _inertiajs_progress__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @inertiajs/progress */ "./node_modules/@inertiajs/progress/dist/index.js");
+
+
+
+
+
+
+ // @ts-ignore
+
+
+moment_timezone__WEBPACK_IMPORTED_MODULE_3___default().locale(document.documentElement.lang);
+moment_timezone__WEBPACK_IMPORTED_MODULE_3___default().tz.setDefault(document.querySelector('meta[name="timezone"]').getAttribute('content'));
+vue__WEBPACK_IMPORTED_MODULE_7__.default.use((vue_lodash__WEBPACK_IMPORTED_MODULE_5___default()), {
+  name: 'custom',
+  lodash: (lodash__WEBPACK_IMPORTED_MODULE_4___default())
+});
+_inertiajs_progress__WEBPACK_IMPORTED_MODULE_6__.InertiaProgress.init({
+  // The delay after which the progress bar will
+  // appear during navigation, in milliseconds.
+  delay: 250,
+  // The color of the progress bar.
+  color: '#6875f5',
+  // Whether to include the default NProgress styles.
+  includeCSS: true,
+  // Whether the NProgress spinner will be shown.
+  showSpinner: false
+});
+vue__WEBPACK_IMPORTED_MODULE_7__.default.mixin({
+  methods: {
+    $moment: (moment_timezone__WEBPACK_IMPORTED_MODULE_3___default())
+  }
+});
+vue__WEBPACK_IMPORTED_MODULE_7__.default.use(_inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_1__.plugin);
+vue__WEBPACK_IMPORTED_MODULE_7__.default.use(portal_vue__WEBPACK_IMPORTED_MODULE_2__.default);
+var app = document.getElementById('app');
+new vue__WEBPACK_IMPORTED_MODULE_7__.default({
+  render: function render(h) {
+    return h(_inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_1__.App, {
+      props: {
+        initialPage: JSON.parse(app.dataset.page),
+        // eslint-disable-next-line global-require,import/no-dynamic-require
+        resolveComponent: function resolveComponent(name) {
+          return __webpack_require__("./resources/js/Pages sync recursive ^\\.\\/.*$")("./".concat(name))["default"];
+        }
+      }
+    });
+  }
+}).$mount(app);
+
+/***/ }),
+
+/***/ "./resources/js/bootstrap.ts":
+/*!***********************************!*\
+  !*** ./resources/js/bootstrap.ts ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var laravel_echo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! laravel-echo */ "./node_modules/laravel-echo/dist/echo.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/**
+ * We'll load the axios HTTP library which allows us to easily issue requests
+ * to our Laravel back-end. This library automatically handles sending the
+ * CSRF token as a header based on the value of the "XSRF" token cookie.
+ */
+
+
+
+(axios__WEBPACK_IMPORTED_MODULE_0___default().defaults.headers.common["X-Requested-With"]) = 'XMLHttpRequest';
+/**
+ * Next we will register the CSRF Token as a common header with Axios so that
+ * all outgoing HTTP requests automatically have it attached. This is just
+ * a simple convenience so we don't have to attach every token manually.
+ */
+
+var token = document.head.querySelector('meta[name="csrf-token"]');
+
+if (token) {
+  (axios__WEBPACK_IMPORTED_MODULE_0___default().defaults.headers.common["X-CSRF-TOKEN"]) = token.content;
+} else {
+  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+}
+/**
+ * Echo exposes an expressive API for subscribing to channels and listening
+ * for events that are broadcast by Laravel. Echo and event broadcasting
+ * allows your team to easily build robust real-time web applications.
+ */
+// @ts-ignore
+
+
+window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
+/*
+// @ts-ignore
+window.Echo = new Echo({
+  broadcaster: 'pusher',
+  key: 'app-key',
+  wsHost: window.location.hostname,
+  wsPort: 6001,
+  wssPort: 6001,
+  disableStats: true,
+}) */
+// @ts-ignore
+
+window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_1__.default({
+  broadcaster: 'pusher',
+  key: "95a0578db73c0fdab888",
+  cluster: "eu",
+  forceTLS: true
+}); // @ts-ignore
+
+vue__WEBPACK_IMPORTED_MODULE_2__.default.prototype.$echo = window.Echo;
+vue__WEBPACK_IMPORTED_MODULE_2__.default.prototype.$axios = (axios__WEBPACK_IMPORTED_MODULE_0___default()); // @ts-ignore
+// eslint-disable-next-line no-extend-native,func-names
+
+String.prototype.trunc = function (n) {
+  // @ts-ignore
+  return this.substr(0, n - 1) + (this.length > n ? '…' : '');
+};
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Modpacks/Show.vue?vue&type=style&index=0&id=edea838a&scoped=true&lang=css&":
 /*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Modpacks/Show.vue?vue&type=style&index=0&id=edea838a&scoped=true&lang=css& ***!
