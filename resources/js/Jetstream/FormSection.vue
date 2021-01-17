@@ -36,9 +36,6 @@ import {
 } from 'vue-property-decorator'
 import JetSectionTitle from './SectionTitle.vue'
 
-/**
- *  TODO: Create a custom stackable form section
- */
 @Component({
   components: {
     JetSectionTitle,

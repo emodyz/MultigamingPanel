@@ -410,30 +410,6 @@ ConfirmationModal = __decorate([(0,vue_property_decorator__WEBPACK_IMPORTED_MODU
   }
 })], ConfirmationModal);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ConfirmationModal);
-/*
-    export default {
-        Components: {
-            Modal,
-        },
-
-        props: {
-            show: {
-                default: false
-            },
-            maxWidth: {
-                default: '2xl'
-            },
-            closeable: {
-                default: true
-            },
-        },
-
-        methods: {
-            close() {
-                this.$emit('close')
-            },
-        }
-    } */
 
 /***/ }),
 
@@ -971,9 +947,6 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
 
 
 
-/**
- *  TODO: Create a custom stackable form section
- */
 
 var FormSection = /*#__PURE__*/function (_Vue) {
   _inherits(FormSection, _Vue);
