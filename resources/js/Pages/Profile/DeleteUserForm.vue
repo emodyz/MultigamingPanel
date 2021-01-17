@@ -10,7 +10,8 @@
 
     <template #content>
       <div class="max-w-xl text-sm text-gray-600">
-        Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.
+        Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your
+        account, please download any data or information that you wish to retain.
       </div>
 
       <div class="mt-5">
@@ -21,30 +22,32 @@
 
       <!-- Delete Account Confirmation Modal -->
       <jet-dialog-modal
-        :show="confirmingUserDeletion"
-        @close="confirmingUserDeletion = false"
+          :show="confirmingUserDeletion"
+          @close="confirmingUserDeletion = false"
       >
         <template #title>
           Delete Account
         </template>
 
         <template #content>
-          Are you sure you want to delete your account? Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.
+          Are you sure you want to delete your account? Once your account is deleted, all of its resources and data will
+          be permanently deleted. Please enter your password to confirm you would like to permanently delete your
+          account.
 
           <div class="mt-4">
             <jet-input
-              ref="password"
-              v-model="form.password"
-              type="password"
-              class="mt-1 block w-3/4"
-              placeholder="Password"
-              @keyup.enter.native="deleteUser"
+                ref="password"
+                v-model="form.password"
+                type="password"
+                class="mt-1 block w-3/4"
+                placeholder="Password"
+                @keyup.enter.native="deleteUser"
             />
 
             <jet-input-error
-              v-if="!form.recentlySuccessful"
-              :message="errorMessages.password"
-              class="mt-2"
+                v-if="form.errors.password"
+                :message="form.errors.password"
+                class="mt-2"
             />
           </div>
         </template>
@@ -55,10 +58,10 @@
           </jet-secondary-button>
 
           <jet-danger-button
-            class="ml-2"
-            :class="{ 'opacity-25': form.processing }"
-            :disabled="form.processing"
-            @click.native="deleteUser"
+              class="ml-2"
+              :class="{ 'opacity-25': form.processing }"
+              :disabled="form.processing"
+              @click.native="deleteUser"
           >
             Delete Account
           </jet-danger-button>
@@ -81,60 +84,43 @@ import {
 } from 'vue-property-decorator'
 import Route from '@/Mixins/Route'
 
-    @Component({
-      components: {
-        JetActionSection,
-        JetDangerButton,
-        JetDialogModal,
-        JetInput,
-        JetInputError,
-        JetSecondaryButton,
+@Component({
+  components: {
+    JetActionSection,
+    JetDangerButton,
+    JetDialogModal,
+    JetInput,
+    JetInputError,
+    JetSecondaryButton,
+  },
+})
+export default class DeleteUserForm extends Mixins(Route) {
+  @Ref('password') readonly password!: any
+
+  confirmingUserDeletion = false
+
+  form = this.$inertia.form({
+    password: '',
+  })
+
+  confirmUserDeletion() {
+    this.confirmingUserDeletion = true
+
+    setTimeout(() => {
+      this.password.focus()
+    }, 250)
+  }
+
+  deleteUser() {
+    this.form.delete(this.route('current-user.destroy'), {
+      preserveScroll: true,
+      preserveState: true,
+      errorBag: 'deleteUser',
+      onSuccess: () => {
+        this.form.reset()
+        this.confirmingUserDeletion = false
       },
     })
-export default class DeleteUserForm extends Mixins(Route) {
-        @Ref('password') readonly password!: any
-
-        errorMessages = {
-          password: '',
-        }
-
-        confirmingUserDeletion = false
-
-        form = {
-          password: '',
-          processing: false,
-          recentlySuccessful: false,
-        }
-
-        confirmUserDeletion() {
-          this.form.password = ''
-
-          this.confirmingUserDeletion = true
-
-          setTimeout(() => {
-            this.password.focus()
-          }, 250)
-        }
-
-        deleteUser() {
-          this.form.processing = true
-          this.form.recentlySuccessful = false
-          this.$inertia.delete(
-            this.route('current-user.destroy'),
-            {
-              data: this.form,
-              preserveScroll: true,
-              onSuccess: (page: any) => {
-                this.form.processing = false
-                if (!page.props.errors.deleteUser) {
-                  this.confirmingUserDeletion = false
-                  this.form.recentlySuccessful = true
-                } else {
-                  this.errorMessages = page.props.errors.deleteUser
-                }
-              },
-            },
-          )
-        }
+  }
 }
 </script>

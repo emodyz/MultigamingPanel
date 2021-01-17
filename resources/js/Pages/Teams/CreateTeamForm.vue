@@ -41,7 +41,7 @@
           autofocus
         />
         <jet-input-error
-          v-if="!form.recentlySuccessful"
+          v-if="form.errors.name"
           :message="form.errors.name"
           class="mt-2"
         />
@@ -88,35 +88,19 @@ import Route from '@/Mixins/Route'
   },
 })
 export default class CreateTeamForm extends Mixins(Route) {
-  form: any = {
+  form = this.$inertia.form({
     name: '',
-    processing: false,
-    recentlySuccessful: false,
-    errors: {
-      name: '',
-    },
-  }
+  })
 
   createTeam() {
-    this.form.processing = true
-    this.form.recentlySuccessful = false
-
-    this.$inertia.post(
-      this.route('teams.store'),
-      this.form,
-      {
-        preserveScroll: true,
-        onSuccess: (page: any) => {
-          this.form.processing = false
-          if (!page.props.errors.createTeam) {
-            this.form.recentlySuccessful = true
-            this.form.name = ''
-          } else {
-            this.form.errors = page.props.errors.createTeam
-          }
-        },
+    this.form.post(this.route('teams.store'), {
+      preserveScroll: true,
+      preserveState: true,
+      errorBag: 'createTeam',
+      onSuccess: () => {
+        this.form.reset()
       },
-    )
+    })
   }
 }
 </script>

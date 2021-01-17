@@ -10,7 +10,8 @@
 
     <template #content>
       <div class="max-w-xl text-sm text-gray-600">
-        Once a team is deleted, all of its resources and data will be permanently deleted. Before deleting this team, please download any data or information regarding this team that you wish to retain.
+        Once a team is deleted, all of its resources and data will be permanently deleted. Before deleting this team,
+        please download any data or information regarding this team that you wish to retain.
       </div>
 
       <div class="mt-5">
@@ -21,15 +22,16 @@
 
       <!-- Delete Team Confirmation Modal -->
       <jet-confirmation-modal
-        :show="confirmingTeamDeletion"
-        @close="confirmingTeamDeletion = false"
+          :show="confirmingTeamDeletion"
+          @close="confirmingTeamDeletion = false"
       >
         <template #title>
           Delete Team
         </template>
 
         <template #content>
-          Are you sure you want to delete this team? Once a team is deleted, all of its resources and data will be permanently deleted.
+          Are you sure you want to delete this team? Once a team is deleted, all of its resources and data will be
+          permanently deleted.
         </template>
 
         <template #footer>
@@ -38,10 +40,10 @@
           </jet-secondary-button>
 
           <jet-danger-button
-            class="ml-2"
-            :class="{ 'opacity-25': form.processing }"
-            :disabled="form.processing"
-            @click.native="deleteTeam"
+              class="ml-2"
+              :class="{ 'opacity-25': form.processing }"
+              :disabled="form.processing"
+              @click.native="deleteTeam"
           >
             Delete Team
           </jet-danger-button>
@@ -61,34 +63,39 @@ import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 import { Mixins, Component, Prop } from 'vue-property-decorator'
 import Route from '@/Mixins/Route'
 
-    @Component({
-      components: {
-        JetActionSection,
-        JetButton,
-        JetConfirmationModal,
-        JetDangerButton,
-        JetSecondaryButton,
+@Component({
+  components: {
+    JetActionSection,
+    JetButton,
+    JetConfirmationModal,
+    JetDangerButton,
+    JetSecondaryButton,
+  },
+})
+export default class DeleteTeamForm extends Mixins(Route) {
+  @Prop() readonly team!: any
+
+  form = this.$inertia.form({
+    //
+  })
+
+  confirmingTeamDeletion: any = false
+
+  deleting: any = false
+
+  confirmTeamDeletion() {
+    this.confirmingTeamDeletion = true
+  }
+
+  deleteTeam() {
+    this.form.delete(this.route('teams.destroy', this.team), {
+      preserveScroll: true,
+      preserveState: true,
+      errorBag: 'deleteTeam',
+      onSuccess: () => {
+        this.form.reset()
       },
     })
-export default class DeleteTeamForm extends Mixins(Route) {
-        @Prop() readonly team!: any
-
-        form: any = {
-          processing: false,
-          errors: null,
-        }
-
-        confirmingTeamDeletion: any = false
-
-        deleting: any = false
-
-        confirmTeamDeletion() {
-          this.confirmingTeamDeletion = true
-        }
-
-        deleteTeam() {
-          this.form.processing = true
-          this.$inertia.delete(this.route('teams.destroy', this.team), { onSuccess: () => { this.form.processing = false } })
-        }
+  }
 }
 </script>

@@ -2007,23 +2007,13 @@ var ApiTokenManager = /*#__PURE__*/function (_Mixins) {
     _classCallCheck(this, ApiTokenManager);
 
     _this = _super.apply(this, arguments);
-    _this.createApiTokenForm = {
+    _this.createApiTokenForm = _this.$inertia.form({
       name: '',
-      permissions: _this.defaultPermissions,
-      processing: false,
-      recentlySuccessful: false,
-      errors: {
-        name: ''
-      }
-    };
-    _this.updateApiTokenForm = {
-      permissions: [],
-      processing: false,
-      recentlySuccessful: false,
-      errors: {
-        permissions: ''
-      }
-    };
+      permissions: _this.defaultPermissions
+    });
+    _this.updateApiTokenForm = _this.$inertia.form({
+      permissions: []
+    });
     _this.deleteApiTokenForm = {
       processing: false
     };
@@ -2038,18 +2028,16 @@ var ApiTokenManager = /*#__PURE__*/function (_Mixins) {
     value: function createApiToken() {
       var _this2 = this;
 
-      this.createApiTokenForm.recentlySuccessful = false;
-      this.$inertia.post(this.route('api-tokens.store'), this.createApiTokenForm, {
+      this.createApiTokenForm.post(this.route('api-tokens.store'), {
         preserveScroll: true,
-        onSuccess: function onSuccess(page) {
-          if (!page.props.errors.createApiToken) {
-            _this2.displayingToken = true;
-            _this2.createApiTokenForm.recentlySuccessful = true;
-            _this2.createApiTokenForm.name = '';
-            _this2.createApiTokenForm.permissions = _this2.defaultPermissions;
-          } else {
-            _this2.createApiTokenForm.errors.name = page.props.errors.createApiToken.name;
-          }
+        preserveState: true,
+        onSuccess: function onSuccess() {
+          _this2.displayingToken = true;
+
+          _this2.createApiTokenForm.reset();
+        },
+        onError: function onError(errors) {
+          _this2.createApiTokenForm.errors = errors.createApiToken;
         }
       });
     }
@@ -2064,13 +2052,16 @@ var ApiTokenManager = /*#__PURE__*/function (_Mixins) {
     value: function updateApiToken() {
       var _this3 = this;
 
-      this.updateApiTokenForm.processing = true;
-      this.$inertia.put(this.route('api-tokens.update', this.managingPermissionsFor), this.updateApiTokenForm, {
+      this.updateApiTokenForm.put(this.route('api-tokens.update', this.managingPermissionsFor), {
         preserveScroll: true,
         preserveState: true,
         onSuccess: function onSuccess() {
           _this3.managingPermissionsFor = null;
-          _this3.updateApiTokenForm.processing = false;
+
+          _this3.updateApiTokenForm.reset();
+        },
+        onError: function onError(errors) {
+          _this3.updateApiTokenForm.errors = errors.updateApiToken;
         }
       });
     }
@@ -3637,15 +3628,10 @@ var DeleteUserForm = /*#__PURE__*/function (_Mixins) {
     _classCallCheck(this, DeleteUserForm);
 
     _this = _super.apply(this, arguments);
-    _this.errorMessages = {
-      password: ''
-    };
     _this.confirmingUserDeletion = false;
-    _this.form = {
-      password: '',
-      processing: false,
-      recentlySuccessful: false
-    };
+    _this.form = _this.$inertia.form({
+      password: ''
+    });
     return _this;
   }
 
@@ -3654,7 +3640,6 @@ var DeleteUserForm = /*#__PURE__*/function (_Mixins) {
     value: function confirmUserDeletion() {
       var _this2 = this;
 
-      this.form.password = '';
       this.confirmingUserDeletion = true;
       setTimeout(function () {
         _this2.password.focus();
@@ -3665,20 +3650,14 @@ var DeleteUserForm = /*#__PURE__*/function (_Mixins) {
     value: function deleteUser() {
       var _this3 = this;
 
-      this.form.processing = true;
-      this.form.recentlySuccessful = false;
-      this.$inertia["delete"](this.route('current-user.destroy'), {
-        data: this.form,
+      this.form["delete"](this.route('current-user.destroy'), {
         preserveScroll: true,
-        onSuccess: function onSuccess(page) {
-          _this3.form.processing = false;
+        preserveState: true,
+        errorBag: 'deleteUser',
+        onSuccess: function onSuccess() {
+          _this3.form.reset();
 
-          if (!page.props.errors.deleteUser) {
-            _this3.confirmingUserDeletion = false;
-            _this3.form.recentlySuccessful = true;
-          } else {
-            _this3.errorMessages = page.props.errors.deleteUser;
-          }
+          _this3.confirmingUserDeletion = false;
         }
       });
     }
@@ -3777,14 +3756,9 @@ var LogoutOtherBrowserSessionsForm = /*#__PURE__*/function (_Mixins) {
 
     _this = _super.apply(this, arguments);
     _this.confirmingLogout = false;
-    _this.errorMessages = {
+    _this.form = _this.$inertia.form({
       password: ''
-    };
-    _this.form = {
-      password: '',
-      processing: false,
-      recentlySuccessful: false
-    };
+    });
     return _this;
   }
 
@@ -3793,7 +3767,6 @@ var LogoutOtherBrowserSessionsForm = /*#__PURE__*/function (_Mixins) {
     value: function confirmLogout() {
       var _this2 = this;
 
-      this.form.password = '';
       this.confirmingLogout = true;
       setTimeout(function () {
         _this2.password.focus();
@@ -3804,20 +3777,14 @@ var LogoutOtherBrowserSessionsForm = /*#__PURE__*/function (_Mixins) {
     value: function logoutOtherBrowserSessions() {
       var _this3 = this;
 
-      this.form.recentlySuccessful = false;
-      this.form.processing = true;
-      this.$inertia["delete"](this.route('other-browser-sessions.destroy'), {
-        data: this.form,
+      this.form["delete"](this.route('other-browser-sessions.destroy'), {
         preserveScroll: true,
-        onSuccess: function onSuccess(page) {
-          _this3.form.processing = false;
+        preserveState: true,
+        errorBag: 'logoutOtherBrowserSessions',
+        onSuccess: function onSuccess() {
+          _this3.form.reset();
 
-          if (!page.props.errors.logoutOtherBrowserSessions) {
-            _this3.confirmingLogout = false;
-            _this3.form.recentlySuccessful = true;
-          } else {
-            _this3.errorMessages = page.props.errors.logoutOtherBrowserSessions;
-          }
+          _this3.confirmingLogout = false;
         }
       });
     }
@@ -4221,18 +4188,11 @@ var UpdatePasswordForm = /*#__PURE__*/function (_Mixins) {
     _classCallCheck(this, UpdatePasswordForm);
 
     _this = _super.apply(this, arguments);
-    _this.errorMessages = {
+    _this.form = _this.$inertia.form({
       password: '',
       password_confirmation: '',
       current_password: ''
-    };
-    _this.form = {
-      password: '',
-      password_confirmation: '',
-      current_password: '',
-      recentlySuccessful: false,
-      processing: false
-    };
+    });
     return _this;
   }
 
@@ -4241,25 +4201,12 @@ var UpdatePasswordForm = /*#__PURE__*/function (_Mixins) {
     value: function updatePassword() {
       var _this2 = this;
 
-      this.form.processing = true;
-      this.form.recentlySuccessful = false;
-      this.$inertia.put(this.route('user-password.update'), this.form, {
+      this.form.put(this.route('user-password.update'), {
         preserveScroll: true,
-        onSuccess: function onSuccess(page) {
-          _this2.form.processing = false;
-
-          if (!page.props.errors.updatePassword) {
-            _this2.errorMessages = {
-              password: '',
-              password_confirmation: '',
-              current_password: ''
-            };
-            _this2.form.recentlySuccessful = true;
-          } else {
-            _this2.errorMessages = page.props.errors.updatePassword;
-
-            _this2.current_password.focus();
-          }
+        preserveState: true,
+        errorBag: 'updatePassword',
+        onSuccess: function onSuccess() {
+          _this2.form.reset();
         }
       });
     }
@@ -4303,8 +4250,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_ActionMessage_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Jetstream/ActionMessage.vue */ "./resources/js/Jetstream/ActionMessage.vue");
 /* harmony import */ var _Jetstream_SecondaryButton_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Jetstream/SecondaryButton.vue */ "./resources/js/Jetstream/SecondaryButton.vue");
 /* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-property-decorator */ "./node_modules/vue-property-decorator/lib/index.js");
-/* harmony import */ var _Shared_Helpers_objectToFormData__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/Shared/Helpers/objectToFormData */ "./resources/js/Shared/Helpers/objectToFormData.ts");
-/* harmony import */ var _Mixins_Route__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/Mixins/Route */ "./resources/js/Mixins/Route.ts");
+/* harmony import */ var _Mixins_Route__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/Mixins/Route */ "./resources/js/Mixins/Route.ts");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -4347,7 +4293,6 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
 
 
 
-
 var UpdateProfileInformationForm = /*#__PURE__*/function (_Mixins) {
   _inherits(UpdateProfileInformationForm, _Mixins);
 
@@ -4360,18 +4305,12 @@ var UpdateProfileInformationForm = /*#__PURE__*/function (_Mixins) {
 
     _this = _super.apply(this, arguments);
     _this.photoPreview = null;
-    _this.form = {
+    _this.form = _this.$inertia.form({
+      _method: 'PUT',
       name: _this.user.name,
       email: _this.user.email,
-      photo: null,
-      recentlySuccessful: false,
-      processing: false
-    };
-    _this.errorMessages = {
-      name: '',
-      email: '',
-      photo: ''
-    };
+      photo: null
+    });
     return _this;
   }
 
@@ -4387,18 +4326,12 @@ var UpdateProfileInformationForm = /*#__PURE__*/function (_Mixins) {
         this.form.photo = this.photo.files[0];
       }
 
-      this.$inertia.post(this.route('user-profile-information.update'), (0,_Shared_Helpers_objectToFormData__WEBPACK_IMPORTED_MODULE_8__.objectToFormData)(this.form, 'PUT'), {
+      this.form.post(this.route('user-profile-information.update'), {
         preserveScroll: true,
-        resetOnSuccess: false,
-        onSuccess: function onSuccess(page) {
-          _this2.form.processing = false;
-
-          if (!page.props.errors.updateProfileInformation) {
-            _this2.photoPreview = null;
-            _this2.form.recentlySuccessful = true;
-          } else {
-            _this2.errorMessages = page.props.errors.updateProfileInformation;
-          }
+        preserveState: true,
+        errorBag: 'updateProfileInformation',
+        onSuccess: function onSuccess() {
+          _this2.photoPreview = null;
         }
       });
     }
@@ -4436,7 +4369,7 @@ var UpdateProfileInformationForm = /*#__PURE__*/function (_Mixins) {
   }]);
 
   return UpdateProfileInformationForm;
-}((0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__.Mixins)(_Mixins_Route__WEBPACK_IMPORTED_MODULE_9__.default));
+}((0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__.Mixins)(_Mixins_Route__WEBPACK_IMPORTED_MODULE_8__.default));
 
 __decorate([(0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__.Ref)('photo')], UpdateProfileInformationForm.prototype, "photo", void 0);
 
@@ -4605,14 +4538,9 @@ var CreateTeamForm = /*#__PURE__*/function (_Mixins) {
     _classCallCheck(this, CreateTeamForm);
 
     _this = _super.apply(this, arguments);
-    _this.form = {
-      name: '',
-      processing: false,
-      recentlySuccessful: false,
-      errors: {
-        name: ''
-      }
-    };
+    _this.form = _this.$inertia.form({
+      name: ''
+    });
     return _this;
   }
 
@@ -4621,19 +4549,12 @@ var CreateTeamForm = /*#__PURE__*/function (_Mixins) {
     value: function createTeam() {
       var _this2 = this;
 
-      this.form.processing = true;
-      this.form.recentlySuccessful = false;
-      this.$inertia.post(this.route('teams.store'), this.form, {
+      this.form.post(this.route('teams.store'), {
         preserveScroll: true,
-        onSuccess: function onSuccess(page) {
-          _this2.form.processing = false;
-
-          if (!page.props.errors.createTeam) {
-            _this2.form.recentlySuccessful = true;
-            _this2.form.name = '';
-          } else {
-            _this2.form.errors = page.props.errors.createTeam;
-          }
+        preserveState: true,
+        errorBag: 'createTeam',
+        onSuccess: function onSuccess() {
+          _this2.form.reset();
         }
       });
     }
@@ -4725,10 +4646,8 @@ var DeleteTeamForm = /*#__PURE__*/function (_Mixins) {
     _classCallCheck(this, DeleteTeamForm);
 
     _this = _super.apply(this, arguments);
-    _this.form = {
-      processing: false,
-      errors: null
-    };
+    _this.form = _this.$inertia.form({//
+    });
     _this.confirmingTeamDeletion = false;
     _this.deleting = false;
     return _this;
@@ -4744,10 +4663,12 @@ var DeleteTeamForm = /*#__PURE__*/function (_Mixins) {
     value: function deleteTeam() {
       var _this2 = this;
 
-      this.form.processing = true;
-      this.$inertia["delete"](this.route('teams.destroy', this.team), {
+      this.form["delete"](this.route('teams.destroy', this.team), {
+        preserveScroll: true,
+        preserveState: true,
+        errorBag: 'deleteTeam',
         onSuccess: function onSuccess() {
-          _this2.form.processing = false;
+          _this2.form.reset();
         }
       });
     }
@@ -4939,32 +4860,17 @@ var TeamMemberManager = /*#__PURE__*/function (_Mixins) {
     _classCallCheck(this, TeamMemberManager);
 
     _this = _super.apply(this, arguments);
-    _this.addTeamMemberFormTemplate = {
+    _this.addTeamMemberForm = _this.$inertia.form({
       email: '',
-      role: null,
-      processing: false,
-      errors: {
-        email: '',
-        role: ''
-      },
-      recentlySuccessful: false
-    };
-    _this.addTeamMemberForm = _this.addTeamMemberFormTemplate;
-    _this.updateRoleForm = {
-      role: null,
-      processing: false,
-      errors: {
-        role: ''
-      }
-    };
-    _this.leaveTeamForm = {
-      processing: false,
-      errors: null
-    };
-    _this.removeTeamMemberForm = {
-      processing: false,
-      errors: null
-    };
+      role: null
+    });
+    _this.updateRoleForm = _this.$inertia.form({
+      role: null
+    });
+    _this.leaveTeamForm = _this.$inertia.form({//
+    });
+    _this.removeTeamMemberForm = _this.$inertia.form({//
+    });
     _this.currentlyManagingRole = false;
     _this.managingRoleFor = null;
     _this.confirmingLeavingTeam = false;
@@ -4977,18 +4883,12 @@ var TeamMemberManager = /*#__PURE__*/function (_Mixins) {
     value: function addTeamMember() {
       var _this2 = this;
 
-      this.addTeamMemberForm.processing = true;
-      this.addTeamMemberForm.recentlySuccessful = false;
-      this.$inertia.post(this.route('team-members.store', this.team), this.addTeamMemberForm, {
+      this.addTeamMemberForm.post(this.route('team-members.store', this.team), {
         preserveScroll: true,
-        onSuccess: function onSuccess(page) {
-          _this2.addTeamMemberForm.processing = false;
-
-          if (!page.props.errors.addTeamMember) {
-            _this2.addTeamMemberForm.recentlySuccessful = true;
-          } else {
-            _this2.addTeamMemberForm.errors = page.props.errors.addTeamMember;
-          }
+        preserveState: true,
+        errorBag: 'addTeamMember',
+        onSuccess: function onSuccess() {
+          _this2.addTeamMemberForm.reset();
         }
       });
     }
@@ -5004,16 +4904,14 @@ var TeamMemberManager = /*#__PURE__*/function (_Mixins) {
     value: function updateRole() {
       var _this3 = this;
 
-      this.updateRoleForm.processing = true;
-      this.$inertia.put(this.route('team-members.update', [this.team, this.managingRoleFor]), this.updateRoleForm, {
+      this.updateRoleForm.put(this.route('team-members.update', [this.team, this.managingRoleFor]), {
         preserveScroll: true,
+        preserveState: true,
+        errorBag: 'updateRole',
         onSuccess: function onSuccess() {
-          _this3.updateRoleForm.processing = false;
-          _this3.currentlyManagingRole = false;
+          _this3.updateRoleForm.reset();
 
-          if (_this3.updateRoleForm.errors.updateRole) {
-            _this3.updateRoleForm.errors = _this3.updateRoleForm.errors.updateRole;
-          }
+          _this3.currentlyManagingRole = false;
         }
       });
     }
@@ -5027,11 +4925,13 @@ var TeamMemberManager = /*#__PURE__*/function (_Mixins) {
     value: function leaveTeam() {
       var _this4 = this;
 
-      this.leaveTeamForm.processing = true; // @ts-ignore
-
-      this.$inertia["delete"](this.route('team-members.destroy', [this.team, this.$page.props.user]), {
+      // @ts-ignore
+      this.leaveTeamForm["delete"](this.route('team-members.destroy', [this.team, this.$page.props.user]), {
+        preserveScroll: true,
+        preserveState: true,
+        errorBag: 'leaveTeam',
         onSuccess: function onSuccess() {
-          _this4.leaveTeamForm.processing = false;
+          _this4.leaveTeamForm.reset();
         }
       });
     }
@@ -5045,9 +4945,13 @@ var TeamMemberManager = /*#__PURE__*/function (_Mixins) {
     value: function removeTeamMember() {
       var _this5 = this;
 
-      this.$inertia["delete"](this.route('team-members.destroy', [this.team, this.teamMemberBeingRemoved]), {
+      this.removeTeamMemberForm["delete"](this.route('team-members.destroy', [this.team, this.teamMemberBeingRemoved]), {
+        preserveScroll: true,
+        preserveState: true,
+        errorBag: 'removeTeamMember',
         onSuccess: function onSuccess() {
-          _this5.removeTeamMemberForm.processing = false;
+          _this5.leaveTeamForm.reset();
+
           _this5.teamMemberBeingRemoved = null;
         }
       });
@@ -5161,35 +5065,19 @@ var UpdateTeamNameForm = /*#__PURE__*/function (_Mixins) {
     _classCallCheck(this, UpdateTeamNameForm);
 
     _this = _super.apply(this, arguments);
-    _this.form = {
-      name: _this.team.name,
-      processing: false,
-      recentlySuccessful: false,
-      errors: {
-        name: ''
-      }
-    };
+    _this.form = _this.$inertia.form({
+      name: _this.team.name
+    });
     return _this;
   }
 
   _createClass(UpdateTeamNameForm, [{
     key: "updateTeamName",
     value: function updateTeamName() {
-      var _this2 = this;
-
-      this.form.processing = true;
-      this.form.recentlySuccessful = false;
-      this.$inertia.put(this.route('teams.update', this.team), this.form, {
+      this.form.put(this.route('teams.update', this.team), {
         preserveScroll: true,
-        onSuccess: function onSuccess(page) {
-          _this2.form.processing = false;
-
-          if (!page.props.errors.updateTeamName) {
-            _this2.form.recentlySuccessful = true;
-          } else {
-            _this2.form.errors = page.props.errors.updateTeamName;
-          }
-        }
+        preserveState: true,
+        errorBag: 'updateTeamName'
       });
     }
   }]);
@@ -5448,39 +5336,19 @@ var EditUserProfileForm = /*#__PURE__*/function (_Mixins) {
     _classCallCheck(this, EditUserProfileForm);
 
     _this = _super.apply(this, arguments);
-    _this.form = {
+    _this.form = _this.$inertia.form({
       email: _this.user.email,
-      role: _this.user.role,
-      recentlySuccessful: false,
-      processing: false
-    };
-    _this.errorMessages = {
-      email: '',
-      role: '',
-      photo: ''
-    };
+      role: _this.user.role
+    });
     return _this;
   }
 
   _createClass(EditUserProfileForm, [{
     key: "editUserAccount",
     value: function editUserAccount() {
-      var _this2 = this;
-
-      this.form.processing = false;
-      this.form.recentlySuccessful = false;
-      this.$inertia.put(this.route('users.update.account', this.user.id), this.form, {
+      this.form.put(this.route('users.update.account', this.user.id), {
         preserveScroll: true,
-        resetOnSuccess: false,
-        onSuccess: function onSuccess(page) {
-          _this2.form.processing = false;
-
-          if (!page.props.errors.editUserAccount) {
-            _this2.form.recentlySuccessful = true;
-          } else {
-            _this2.errorMessages = page.props.errors.editUserAccount;
-          }
-        }
+        preserveState: true
       });
     }
   }]);
@@ -5526,8 +5394,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_ActionMessage_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Jetstream/ActionMessage.vue */ "./resources/js/Jetstream/ActionMessage.vue");
 /* harmony import */ var _Jetstream_SecondaryButton_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Jetstream/SecondaryButton.vue */ "./resources/js/Jetstream/SecondaryButton.vue");
 /* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-property-decorator */ "./node_modules/vue-property-decorator/lib/index.js");
-/* harmony import */ var _Shared_Helpers_objectToFormData__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/Shared/Helpers/objectToFormData */ "./resources/js/Shared/Helpers/objectToFormData.ts");
-/* harmony import */ var _Mixins_Route__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/Mixins/Route */ "./resources/js/Mixins/Route.ts");
+/* harmony import */ var _Mixins_Route__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/Mixins/Route */ "./resources/js/Mixins/Route.ts");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -5570,7 +5437,6 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
 
 
 
-
 var EditUserProfileForm = /*#__PURE__*/function (_Mixins) {
   _inherits(EditUserProfileForm, _Mixins);
 
@@ -5583,16 +5449,11 @@ var EditUserProfileForm = /*#__PURE__*/function (_Mixins) {
 
     _this = _super.apply(this, arguments);
     _this.photoPreview = null;
-    _this.form = {
+    _this.form = _this.$inertia.form({
+      _method: 'PUT',
       name: _this.user.name,
-      photo: null,
-      recentlySuccessful: false,
-      processing: false
-    };
-    _this.errorMessages = {
-      name: '',
-      photo: ''
-    };
+      photo: null
+    });
     return _this;
   }
 
@@ -5601,25 +5462,15 @@ var EditUserProfileForm = /*#__PURE__*/function (_Mixins) {
     value: function editUserProfile() {
       var _this2 = this;
 
-      this.form.processing = false;
-      this.form.recentlySuccessful = false;
-
       if (this.photo.files[0]) {
         this.form.photo = this.photo.files[0];
       }
 
-      this.$inertia.post(this.route('users.update', this.user.id), (0,_Shared_Helpers_objectToFormData__WEBPACK_IMPORTED_MODULE_8__.objectToFormData)(this.form, 'PUT'), {
+      this.form.post(this.route('users.update', this.user.id), {
         preserveScroll: true,
-        resetOnSuccess: false,
-        onSuccess: function onSuccess(page) {
-          _this2.form.processing = false;
-
-          if (!page.props.errors.editUserProfile) {
-            _this2.photoPreview = null;
-            _this2.form.recentlySuccessful = true;
-          } else {
-            _this2.errorMessages = page.props.errors.editUserProfile;
-          }
+        preserveState: true,
+        onSuccess: function onSuccess() {
+          _this2.photoPreview = null;
         }
       });
     }
@@ -5657,7 +5508,7 @@ var EditUserProfileForm = /*#__PURE__*/function (_Mixins) {
   }]);
 
   return EditUserProfileForm;
-}((0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__.Mixins)(_Mixins_Route__WEBPACK_IMPORTED_MODULE_9__.default));
+}((0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__.Mixins)(_Mixins_Route__WEBPACK_IMPORTED_MODULE_8__.default));
 
 __decorate([(0,vue_property_decorator__WEBPACK_IMPORTED_MODULE_7__.Ref)('photo')], EditUserProfileForm.prototype, "photo", void 0);
 
@@ -8111,76 +7962,6 @@ var defaultActionsOptions = {
     "class": 'text-red-600 hover:text-red-900'
   }]
 };
-
-/***/ }),
-
-/***/ "./resources/js/Shared/Helpers/objectToFormData.ts":
-/*!*********************************************************!*\
-  !*** ./resources/js/Shared/Helpers/objectToFormData.ts ***!
-  \*********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "objectToFormData": () => /* binding */ objectToFormData
-/* harmony export */ });
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-// eslint-disable-next-line import/prefer-default-export
-function objectToFormData(object) {
-  var method = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-  var formData = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new FormData();
-  var parent = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
-
-  if (object === null || object === 'undefined' || object.length === 0) {
-    return formData.append(parent, object);
-  } // eslint-disable-next-line no-restricted-syntax
-
-
-  for (var property in object) {
-    // eslint-disable-next-line no-prototype-builtins
-    if (object.hasOwnProperty(property)) {
-      // eslint-disable-next-line no-use-before-define
-      appendToFormData(formData, getKey(parent, property), object[property]);
-    }
-  }
-
-  if (method) {
-    formData.append('_method', 'PUT');
-  }
-
-  return formData;
-}
-
-function getKey(parent, property) {
-  return parent ? "".concat(parent, "[").concat(property, "]") : property;
-} // eslint-disable-next-line consistent-return
-
-
-function appendToFormData(formData, key, value) {
-  if (value instanceof Date) {
-    return formData.append(key, value.toISOString());
-  }
-
-  if (value instanceof File) {
-    return formData.append(key, value, value.name);
-  }
-
-  if (typeof value === 'boolean') {
-    return formData.append(key, value ? '1' : '0');
-  }
-
-  if (value === null) {
-    return formData.append(key, '');
-  }
-
-  if (_typeof(value) !== 'object') {
-    return formData.append(key, value);
-  }
-
-  objectToFormData(value, formData, key);
-}
 
 /***/ }),
 
@@ -16474,7 +16255,7 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    !_vm.createApiTokenForm.recentlySuccessful
+                    _vm.createApiTokenForm.errors.name
                       ? _c("jet-input-error", {
                           staticClass: "mt-2",
                           attrs: { message: _vm.createApiTokenForm.errors.name }
@@ -18237,10 +18018,7 @@ var render = function() {
         _c("div", { staticClass: "max-w-7xl mx-auto sm:px-6 lg:px-8" }, [
           _c(
             "div",
-            {
-              staticClass:
-                "bg-white overflow-hidden shadow-xl sm:rounded-lg h-screen"
-            },
+            { staticClass: "bg-white overflow-hidden shadow-xl sm:rounded-lg" },
             [_c("welcome")],
             1
           )
@@ -18904,7 +18682,7 @@ var render = function() {
           return [
             _c("div", { staticClass: "max-w-xl text-sm text-gray-600" }, [
               _vm._v(
-                "\n      Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.\n    "
+                "\n      Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your\n      account, please download any data or information that you wish to retain.\n    "
               )
             ]),
             _vm._v(" "),
@@ -18947,7 +18725,7 @@ var render = function() {
                   fn: function() {
                     return [
                       _vm._v(
-                        "\n        Are you sure you want to delete your account? Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.\n\n        "
+                        "\n        Are you sure you want to delete your account? Once your account is deleted, all of its resources and data will\n        be permanently deleted. Please enter your password to confirm you would like to permanently delete your\n        account.\n\n        "
                       ),
                       _c(
                         "div",
@@ -18986,10 +18764,10 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
-                          !_vm.form.recentlySuccessful
+                          _vm.form.errors.password
                             ? _c("jet-input-error", {
                                 staticClass: "mt-2",
-                                attrs: { message: _vm.errorMessages.password }
+                                attrs: { message: _vm.form.errors.password }
                               })
                             : _vm._e()
                         ],
@@ -19091,7 +18869,7 @@ var render = function() {
           return [
             _c("div", { staticClass: "max-w-xl text-sm text-gray-600" }, [
               _vm._v(
-                "\n      If necessary, you may logout of all of your other browser sessions across all of your devices. Some of your recent sessions are listed below; however, this list may not be exhaustive. If you feel your account has been compromised, you should also update your password.\n    "
+                "\n      If necessary, you may logout of all of your other browser sessions across all of your devices. Some of your\n      recent sessions are listed below; however, this list may not be exhaustive. If you feel your account has been\n      compromised, you should also update your password.\n    "
               )
             ]),
             _vm._v(" "),
@@ -19149,6 +18927,7 @@ var render = function() {
                                       stroke: "none"
                                     }
                                   }),
+                                  _vm._v(" "),
                                   _c("rect", {
                                     attrs: {
                                       x: "7",
@@ -19158,6 +18937,7 @@ var render = function() {
                                       rx: "1"
                                     }
                                   }),
+                                  _vm._v(" "),
                                   _c("path", {
                                     attrs: { d: "M11 5h2M12 17v.01" }
                                   })
@@ -19262,7 +19042,7 @@ var render = function() {
                   fn: function() {
                     return [
                       _vm._v(
-                        "\n        Please enter your password to confirm you would like to logout of your other browser sessions across all of your devices.\n\n        "
+                        "\n        Please enter your password to confirm you would like to logout of your other browser sessions across all of\n        your devices.\n\n        "
                       ),
                       _c(
                         "div",
@@ -19301,10 +19081,10 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
-                          !_vm.form.recentlySuccessful
+                          _vm.form.errors.password
                             ? _c("jet-input-error", {
                                 staticClass: "mt-2",
-                                attrs: { message: _vm.errorMessages.password }
+                                attrs: { message: _vm.form.errors.password }
                               })
                             : _vm._e()
                         ],
@@ -19747,10 +19527,12 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _c("jet-input-error", {
-                  staticClass: "mt-2",
-                  attrs: { message: _vm.errorMessages.current_password }
-                })
+                _vm.form.errors.current_password
+                  ? _c("jet-input-error", {
+                      staticClass: "mt-2",
+                      attrs: { message: _vm.form.errors.current_password }
+                    })
+                  : _vm._e()
               ],
               1
             ),
@@ -19779,10 +19561,10 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                !_vm.form.recentlySuccessful
+                _vm.form.errors.password
                   ? _c("jet-input-error", {
                       staticClass: "mt-2",
-                      attrs: { message: _vm.errorMessages.password }
+                      attrs: { message: _vm.form.errors.password }
                     })
                   : _vm._e()
               ],
@@ -19816,12 +19598,10 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                !_vm.form.recentlySuccessful
+                _vm.form.errors.password
                   ? _c("jet-input-error", {
                       staticClass: "mt-2",
-                      attrs: {
-                        message: _vm.errorMessages.password_confirmation
-                      }
+                      attrs: { message: _vm.form.errors.password }
                     })
                   : _vm._e()
               ],
@@ -20003,10 +19783,10 @@ var render = function() {
                         )
                       : _vm._e(),
                     _vm._v(" "),
-                    !_vm.form.recentlySuccessful
+                    _vm.form.errors.photo
                       ? _c("jet-input-error", {
                           staticClass: "mt-2",
-                          attrs: { message: _vm.errorMessages.photo }
+                          attrs: { message: _vm.form.errors.photo }
                         })
                       : _vm._e()
                   ],
@@ -20032,10 +19812,10 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                !_vm.form.recentlySuccessful
+                _vm.form.errors.name
                   ? _c("jet-input-error", {
                       staticClass: "mt-2",
-                      attrs: { message: _vm.errorMessages.name }
+                      attrs: { message: _vm.form.errors.name }
                     })
                   : _vm._e()
               ],
@@ -20060,10 +19840,10 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                !_vm.form.recentlySuccessful
+                _vm.form.errors.email
                   ? _c("jet-input-error", {
                       staticClass: "mt-2",
-                      attrs: { message: _vm.errorMessages.email }
+                      attrs: { message: _vm.form.errors.email }
                     })
                   : _vm._e()
               ],
@@ -20256,7 +20036,7 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                !_vm.form.recentlySuccessful
+                _vm.form.errors.name
                   ? _c("jet-input-error", {
                       staticClass: "mt-2",
                       attrs: { message: _vm.form.errors.name }
@@ -20342,7 +20122,7 @@ var render = function() {
           return [
             _c("div", { staticClass: "max-w-xl text-sm text-gray-600" }, [
               _vm._v(
-                "\n      Once a team is deleted, all of its resources and data will be permanently deleted. Before deleting this team, please download any data or information regarding this team that you wish to retain.\n    "
+                "\n      Once a team is deleted, all of its resources and data will be permanently deleted. Before deleting this team,\n      please download any data or information regarding this team that you wish to retain.\n    "
               )
             ]),
             _vm._v(" "),
@@ -20385,7 +20165,7 @@ var render = function() {
                   fn: function() {
                     return [
                       _vm._v(
-                        "\n        Are you sure you want to delete this team? Once a team is deleted, all of its resources and data will be permanently deleted.\n      "
+                        "\n        Are you sure you want to delete this team? Once a team is deleted, all of its resources and data will be\n        permanently deleted.\n      "
                       )
                     ]
                   },
@@ -20580,7 +20360,7 @@ var render = function() {
                               { staticClass: "max-w-xl text-sm text-gray-600" },
                               [
                                 _vm._v(
-                                  "\n            Please provide the email address of the person you would like to add to this team. The email address must be associated with an existing account.\n          "
+                                  "\n            Please provide the email address of the person you would like to add to this team. The email address must\n            be associated with an existing account.\n          "
                                 )
                               ]
                             )
@@ -20610,7 +20390,7 @@ var render = function() {
                                 }
                               }),
                               _vm._v(" "),
-                              !_vm.addTeamMemberForm.recentlySuccessful
+                              _vm.addTeamMemberForm.errors.email
                                 ? _c("jet-input-error", {
                                     staticClass: "mt-2",
                                     attrs: {
@@ -20632,7 +20412,7 @@ var render = function() {
                                     attrs: { for: "roles", value: "Role" }
                                   }),
                                   _vm._v(" "),
-                                  !_vm.addTeamMemberForm.recentlySuccessful
+                                  _vm.addTeamMemberForm.errors.role
                                     ? _c("jet-input-error", {
                                         staticClass: "mt-2",
                                         attrs: {
@@ -20801,7 +20581,7 @@ var render = function() {
                   ],
                   null,
                   false,
-                  3208809583
+                  3098543333
                 )
               })
             ],
@@ -21382,7 +21162,7 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
-                  !_vm.form.recentlySuccessful
+                  _vm.form.errors.name
                     ? _c("jet-input-error", {
                         staticClass: "mt-2",
                         attrs: { message: _vm.form.errors.name }
@@ -21581,10 +21361,10 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                !_vm.form.recentlySuccessful
+                _vm.form.errors.email
                   ? _c("jet-input-error", {
                       staticClass: "mt-2",
-                      attrs: { message: _vm.errorMessages.email }
+                      attrs: { message: _vm.form.errors.email }
                     })
                   : _vm._e()
               ],
@@ -21655,10 +21435,10 @@ var render = function() {
                   2
                 ),
                 _vm._v(" "),
-                !_vm.form.recentlySuccessful
+                _vm.form.errors.role
                   ? _c("jet-input-error", {
                       staticClass: "mt-2",
-                      attrs: { message: _vm.errorMessages.role }
+                      attrs: { message: _vm.form.errors.role }
                     })
                   : _vm._e()
               ],
@@ -21842,10 +21622,10 @@ var render = function() {
                         )
                       : _vm._e(),
                     _vm._v(" "),
-                    !_vm.form.recentlySuccessful
+                    _vm.form.errors.photo
                       ? _c("jet-input-error", {
                           staticClass: "mt-2",
-                          attrs: { message: _vm.errorMessages.photo }
+                          attrs: { message: _vm.form.errors.photo }
                         })
                       : _vm._e()
                   ],
@@ -21871,10 +21651,10 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                !_vm.form.recentlySuccessful
+                _vm.form.errors.name
                   ? _c("jet-input-error", {
                       staticClass: "mt-2",
-                      attrs: { message: _vm.errorMessages.name }
+                      attrs: { message: _vm.form.errors.name }
                     })
                   : _vm._e()
               ],

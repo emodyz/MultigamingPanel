@@ -18,7 +18,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
      * @return void
      * @throws ValidationException
      */
-    public function update($user, array $input)
+    public function update(mixed $user, array $input)
     {
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
