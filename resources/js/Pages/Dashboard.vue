@@ -30,8 +30,8 @@ import Welcome from '@/Jetstream/Welcome.vue'
   },
 })
 export default class Dashboard extends Vue {
-  mounted() {
-    // console.log('mounted')
+  created() {
+    //
   }
 }
 </script>

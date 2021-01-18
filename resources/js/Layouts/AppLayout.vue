@@ -350,6 +350,12 @@
       name="modal"
       multiple
     />
+
+    <!-- Notifications -->
+    <span>Flash Message: {{ $page.props.flash.message }}</span>
+    <br/>
+    <span>Flash Status: {{ $page.props.flash.status }}</span>
+    <notification :flash="$page.props.flash"/>
   </div>
 </template>
 
@@ -361,6 +367,7 @@ import JetDropdown from '@/Jetstream/Dropdown.vue'
 import JetDropdownLink from '@/Jetstream/DropdownLink.vue'
 import JetNavLink from '@/Jetstream/NavLink.vue'
 import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink.vue'
+import Notification from '@/Shared/Notifications/Notification.vue'
 
 import axios from 'axios'
 import Route from '@/Mixins/Route'
@@ -372,6 +379,7 @@ import Route from '@/Mixins/Route'
     JetDropdownLink,
     JetNavLink,
     JetResponsiveNavLink,
+    Notification,
   },
 })
 export default class AppLayout extends Mixins(Route) {
