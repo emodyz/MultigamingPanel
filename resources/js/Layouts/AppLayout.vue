@@ -26,6 +26,12 @@
               >
                 Users
               </jet-nav-link>
+
+              <jet-nav-link :active="route().current('servers.*')"
+                            :href="route('servers.create')">
+                Servers
+              </jet-nav-link>
+
               <jet-nav-link :active="route().current('modpacks.*')"
                             :href="route('modpacks.index')">
                 ModPacks

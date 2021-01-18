@@ -21,7 +21,7 @@ trait HasLogo
      * @param UploadedFile $logo
      * @return void
      */
-    public function setInitialCoverImage(UploadedFile $logo)
+    public function setInitialLogo(UploadedFile $logo)
     {
         $path = $logo->storePublicly(
             'logos/' . $this->getDiskPath(), ['disk' => $this->logoDisk()]

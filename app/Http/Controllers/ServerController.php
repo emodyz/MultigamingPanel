@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Emodyz\Articles\CreateArticle;
+use App\Actions\Emodyz\Servers\CreateServer;
+use App\Http\Requests\Servers\CreateServerRequest;
 use App\Http\Resources\Server\ServerModpackResource;
 use App\Http\Resources\Server\ServerResource;
+use App\Models\Game;
+use App\Models\Modpack;
 use App\Models\Server;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
+use Inertia\Inertia;
 
 class ServerController extends Controller
 {
@@ -26,22 +33,30 @@ class ServerController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return \Inertia\Response
      */
-    public function create()
+    public function create(): \Inertia\Response
     {
-        //
+        $games = Game::all();
+
+        $modPacks = Modpack::all();
+
+        return Inertia::render('Servers/Create', compact('games', 'modPacks'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @return Response
+     * @param CreateServerRequest $request
+     * @param CreateServer $store
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CreateServerRequest $request, CreateServer $store): RedirectResponse
     {
-        //
+        $store->storeNewServer($request->all());
+
+        flash($request->get('name'), 'Your new server has ben successfully created!')->success();
+        return back();
     }
 
     /**

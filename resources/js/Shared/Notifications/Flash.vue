@@ -94,7 +94,7 @@ export default class FlashNotification extends Mixins(Helpers) {
   }
 
   created() {
-    console.log(this.flash)
+    // console.log(this.flash)
   }
 }
 </script>
