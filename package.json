@@ -6,6 +6,7 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "production": "mix --production",
+        "lint": "eslint --ext .js,.ts,.vue ./resources/js",
         "lint:fix": "eslint --fix --ext .js,.ts,.vue ./resources/js"
     },
     "@comment devDependencies": [
