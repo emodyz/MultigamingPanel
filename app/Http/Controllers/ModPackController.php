@@ -13,6 +13,8 @@ use App\Models\Game;
 use App\Models\Modpack;
 use Exception;
 use App\Models\Server;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
@@ -81,7 +83,7 @@ class ModPackController extends Controller
    *
    * @param CreateModPackRequest $request
    * @param CreateModPack $store
-   * @return ModPackResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\RedirectResponse|Response
+   * @return ModPackResource|Application|\Illuminate\Contracts\Routing\ResponseFactory|RedirectResponse|Response
    * @throws ModPackException
    */
     public function store(CreateModPackRequest $request, CreateModPack $store)
@@ -92,7 +94,8 @@ class ModPackController extends Controller
         return response()->noContent(Response::HTTP_CREATED);
       }
 
-      return back()->with('status', 'modpack-created');
+      flash($request->get('name'), 'Your new ModPack has been created!')->success();
+      return back();
     }
 
     /**
@@ -133,7 +136,7 @@ class ModPackController extends Controller
    * @param EditModPackRequest $request
    * @param Modpack $modpack
    * @param EditModPack $editor
-   * @return \Illuminate\Http\RedirectResponse|Response
+   * @return RedirectResponse|Response
    * @throws ModPackException
    */
     public function update(EditModPackRequest $request, Modpack $modpack, EditModPack $editor)
@@ -144,7 +147,8 @@ class ModPackController extends Controller
         return response()->noContent();
       }
 
-      return back()->with('status', 'modpack-updated');
+      flash($request->get('name'), 'This ModPack has been successfully updated!')->success();
+      return back();
     }
 
     /**
@@ -152,10 +156,9 @@ class ModPackController extends Controller
      *
      * @param Request $request
      * @param Modpack $modpack
-     * @return \Illuminate\Http\RedirectResponse|Response
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse|Response
+     * @return RedirectResponse
      * @throws Exception
-     * @throws \Exception
      */
     public function destroy(Request $request, Modpack $modpack)
     {
@@ -169,7 +172,8 @@ class ModPackController extends Controller
           return response()->noContent();
         }
 
-        return back()->with('status', 'modpack-deleted');
+        flash('ModPack Deleted',   '"'. $modpack->getAttribute('name') .'" has been successfully deleted!')->danger();
+        return back();
     }
 
     public function showUpdate(Request $request, Modpack $modpack)

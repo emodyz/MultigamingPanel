@@ -133,7 +133,8 @@ class UserController extends Controller
 
         $editor->editUserProfile($user, $request->all());
 
-        return back()->with('status', 'profile-information-updated');
+        flash('Profile Information', $user->getAttribute('name') . '\'s profile has been successfully updated!')->success();
+        return back();
     }
 
 
@@ -150,7 +151,8 @@ class UserController extends Controller
     {
         $editor->editUserAccount($user, $request->all());
 
-        return back()->with('status', 'profile-information-updated');
+        flash('Account Information', $user->getAttribute('name') . '\'s account has been successfully updated!')->success();
+        return back();
     }
 
 
@@ -170,7 +172,8 @@ class UserController extends Controller
 
         $user->delete();
 
-        return back(303)->with('status', 'user-deleted');
+        flash('User Deleted', $user->getAttribute('name') . '\'s account has been successfully deleted!')->danger();
+        return back(303);
     }
 
     public function destroyAvatar(User $user, Request $request): RedirectResponse
@@ -181,6 +184,8 @@ class UserController extends Controller
 
         $user->deleteProfilePhoto();
 
-        return back(303)->with('status', 'profile-photo-deleted');
+        flash('Profile Photo', $user->getAttribute('name') . '\'s avatar has been reset!')->warning();
+
+        return back(303);
     }
 }

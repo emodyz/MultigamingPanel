@@ -5,6 +5,7 @@ use App\Http\Controllers\ServerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ModPackController;
 use Illuminate\Support\Facades\Route;
+// use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------

@@ -22,7 +22,7 @@ class ServerResource extends JsonResource
             'ip' => $this->ip,
             'port' => $this->port,
             'logo_url' => $this->logo_url,
-            'status' => ServerStatusResource::make($this->status()->latest()->first()),
+            'status' => ServerStatusResource::make($this->latestStatus()),
             'game' => GameResource::make($this->game),
             'update_hash' => $this->update_hash
         ];

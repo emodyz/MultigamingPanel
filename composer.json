@@ -13,6 +13,7 @@
         "ext-json": "*",
         "austinb/gameq": "^3.0",
         "emodyz/cerberus": "^v0.0.2-alpha.2",
+        "emodyz/flash": "v0.0.1-alpha.1",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -71,5 +72,11 @@
         "post-update-cmd": [
             "@php artisan telescope:publish --ansi"
         ]
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/emodyz/flash"
+        }
+    ]
 }

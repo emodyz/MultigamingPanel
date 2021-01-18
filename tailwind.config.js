@@ -16,7 +16,8 @@ module.exports = {
         'text-indigo-600', 'text-indigo-900',
         'text-red-600', 'text-red-900',
         // Utilities
-        'py-8', 'pb-5', 'pt-6'
+        'py-8', 'pb-5', 'pt-6',
+        'w-88', 'w-96',
       ],
     }
   },
@@ -66,6 +67,11 @@ module.exports = {
         '10/12': '83.333333%',
         '11/12': '91.666667%',
         full: '100%',
+      },
+      spacing: {
+        '88': '22rem',
+        '104': '26rem',
+        '112': '28rem',
       },
       colors: {
         orange: colors.orange,

@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Models\Server;
 use App\Services\Games\GamesStatusService;
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -12,29 +13,22 @@ use Illuminate\Queue\SerializesModels;
 
 class ProcessServersStatuses implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+  use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
+  /**
+   * Execute the job.
+   *
+   * @return void
+   * @throws Exception
+   */
+  public function handle()
+  {
+    $gameStatusService = app()->make(GamesStatusService::class);
 
-    }
-
-    /**
-     * Execute the job.
-     *
-     * @return void
-     */
-    public function handle()
-    {
-        $servers = Server::all();
-
-        $servers->each(function($server) {
-            GamesStatusService::fetchStatus($server);
-        });
-    }
+    Server::chunk(20, function ($servers) use ($gameStatusService) {
+      foreach ($servers as $server) {
+        $gameStatusService->fetchServerStatus($server);
+      }
+    });
+  }
 }

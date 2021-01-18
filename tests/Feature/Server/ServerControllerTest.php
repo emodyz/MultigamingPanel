@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Server;
 
 use App\Models\Server;
 use App\Models\ServerStatus;

@@ -17,7 +17,8 @@ use Inertia\Inertia;
 
 class ArticleController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
 
         $this->middleware('can:articles-index', ['only' => ['index']]);
 
@@ -42,12 +43,12 @@ class ArticleController extends Controller
         $initialSearch = $request->query('search', '');
 
         $articlesQuery = Article::query()
-            ->select('id', 'title', 'subTitle', 'slug', 'status', 'cover_image_path', 'user_id','created_at', 'published_at', 'created_at')
-            ->when($request->filled('search'),function($query) use ($initialSearch){
-                $query->where('title','LIKE','%'.$initialSearch.'%')
-                    ->orWhere('slug','LIKE','%'.$initialSearch.'%');
+            ->select('id', 'title', 'subTitle', 'slug', 'status', 'cover_image_path', 'user_id', 'created_at', 'published_at', 'created_at')
+            ->when($request->filled('search'), function ($query) use ($initialSearch) {
+                $query->where('title', 'LIKE', '%' . $initialSearch . '%')
+                    ->orWhere('slug', 'LIKE', '%' . $initialSearch . '%');
             })
-            ->when($request->filled('orderBy'),function($query) use ($orderBy){
+            ->when($request->filled('orderBy'), function ($query) use ($orderBy) {
                 $orderByKey = $orderBy['key'];
                 $orderByDirection = $orderBy['direction'];
                 $query->orderBy($orderByKey === 'author.name' ? 'user_id' : $orderByKey, $orderByDirection);
@@ -60,7 +61,7 @@ class ArticleController extends Controller
 
         $totalItemCount = $articles->total();
 
-        return Inertia::render('Articles/Index',compact('articles', 'initialSearch', 'totalItemCount'));
+        return Inertia::render('Articles/Index', compact('articles', 'initialSearch', 'totalItemCount'));
     }
 
     /**
@@ -86,7 +87,10 @@ class ArticleController extends Controller
     {
         $store->storeNewArticle($request->all());
 
-        return back()->with('status', 'article-created');
+        $request->get('status') === 'draft'
+            ? flash('Draft', 'Your new draft has ben saved!')->success()
+            : flash($request->get('title'), 'Your new article has ben published!')->success();
+        return back();
     }
 
     /**
@@ -127,21 +131,22 @@ class ArticleController extends Controller
     {
         $editor->editArticle($article, $request->all());
 
-        return back()->with('status', 'article-edited');
+        flash($request->get('title'),   'This article has been successfully updated!')->success();
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param Article $article
-     * @param Request $request
      * @return RedirectResponse
      * @throws Exception
      */
-    public function destroy(Article $article, Request $request): RedirectResponse
+    public function destroy(Article $article): RedirectResponse
     {
         $article->delete();
 
-        return back(303)->with('status', 'article-deleted');
+        flash('Article Deleted',   '"'. $article->getAttribute('title') .'" has been successfully deleted!')->danger();
+        return back(303);
     }
 }
