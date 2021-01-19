@@ -1,4 +1,4 @@
-name: Build
+name: Build and Test
 
 on:
   push:
@@ -7,8 +7,36 @@ on:
     branches: [ master, dev ]
 
 jobs:
-  tests:
+  build_front:
 
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [ 12.x, 14.x, 15.x ]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies (Yarn)
+        run: yarn
+      - name: Build for production
+        run: yarn production
+
+  eslint:
+    needs: build_front
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies (Yarn)
+        run: yarn
+      - name: Run ESlint
+        run: yarn lint
+
+  test_back:
     runs-on: ubuntu-latest
 
     services:
