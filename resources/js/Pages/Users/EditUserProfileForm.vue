@@ -11,101 +11,101 @@
     <template #form>
       <!-- Profile Photo -->
       <div
-        v-if="$page.props.jetstream.managesProfilePhotos"
-        class="col-span-6 sm:col-span-4"
+          v-if="$page.props.jetstream.managesProfilePhotos"
+          class="col-span-6 sm:col-span-4"
       >
         <!-- Profile Photo File Input -->
         <input
-          ref="photo"
-          type="file"
-          class="hidden"
-          @change="updatePhotoPreview"
+            ref="photo"
+            type="file"
+            class="hidden"
+            @change="updatePhotoPreview"
         >
 
         <jet-label
-          for="photo"
-          value="Photo"
+            for="photo"
+            value="Photo"
         />
 
         <!-- Current Profile Photo -->
         <div
-          v-show="! photoPreview"
-          class="mt-2"
+            v-show="! photoPreview"
+            class="mt-2"
         >
           <img
-            :src="user.profile_photo_url"
-            alt="Current Profile Photo"
-            class="rounded-full h-20 w-20 object-cover"
+              :src="user.profile_photo_url"
+              alt="Current Profile Photo"
+              class="rounded-full h-20 w-20 object-cover"
           >
         </div>
 
         <!-- New Profile Photo Preview -->
         <div
-          v-show="photoPreview"
-          class="mt-2"
+            v-show="photoPreview"
+            class="mt-2"
         >
           <span
-            class="block rounded-full w-20 h-20"
-            :style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' + photoPreview + '\');'"
+              class="block rounded-full w-20 h-20"
+              :style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' + photoPreview + '\');'"
           />
         </div>
 
         <jet-secondary-button
-          class="mt-2 mr-2"
-          type="button"
-          @click.native.prevent="selectNewPhoto"
+            class="mt-2 mr-2"
+            type="button"
+            @click.native.prevent="selectNewPhoto"
         >
           Select A New Photo
         </jet-secondary-button>
 
         <jet-secondary-button
-          v-if="user.profile_photo_path"
-          type="button"
-          class="mt-2"
-          @click.native.prevent="deletePhoto"
+            v-if="user.profile_photo_path"
+            type="button"
+            class="mt-2"
+            @click.native.prevent="deletePhoto"
         >
           Remove Photo
         </jet-secondary-button>
 
         <jet-input-error
-          v-if="!form.recentlySuccessful"
-          :message="errorMessages.photo"
-          class="mt-2"
+            v-if="form.errors.photo"
+            :message="form.errors.photo"
+            class="mt-2"
         />
       </div>
 
       <!-- Name -->
       <div class="col-span-6 sm:col-span-4">
         <jet-label
-          for="name"
-          value="Name"
+            for="name"
+            value="Name"
         />
         <jet-input
-          id="name"
-          v-model="form.name"
-          type="text"
-          class="mt-1 block w-full"
-          autocomplete="name"
+            id="name"
+            v-model="form.name"
+            type="text"
+            class="mt-1 block w-full"
+            autocomplete="name"
         />
         <jet-input-error
-          v-if="!form.recentlySuccessful"
-          :message="errorMessages.name"
-          class="mt-2"
+            v-if="form.errors.name"
+            :message="form.errors.name"
+            class="mt-2"
         />
       </div>
     </template>
 
     <template #actions>
       <jet-action-message
-        :on="form.recentlySuccessful"
-        class="mr-3"
+          :on="form.recentlySuccessful"
+          class="mr-3"
       >
         Saved.
       </jet-action-message>
 
       <jet-button
-        :class="{ 'opacity-25': form.processing }"
-        :disabled="form.processing"
+          :class="{ 'opacity-25': form.processing }"
+          :disabled="form.processing"
       >
         Save
       </jet-button>
@@ -126,7 +126,6 @@ import {
   Component, Prop, Ref, Mixins,
 } from 'vue-property-decorator'
 
-import { objectToFormData } from '@/Shared/Helpers/objectToFormData'
 import { User } from '@/Shared/DataTable/Types/User'
 import Route from '@/Mixins/Route'
 
@@ -142,76 +141,57 @@ import Route from '@/Mixins/Route'
   },
 })
 export default class EditUserProfileForm extends Mixins(Route) {
-    @Ref('photo') readonly photo!: any
+  @Ref('photo') readonly photo!: any
 
-    @Prop() readonly user!: User
+  @Prop() readonly user!: User
 
-    photoPreview: any = null
+  photoPreview: any = null
 
-    form: any = {
-      name: this.user.name,
-      photo: null,
-      recentlySuccessful: false,
-      processing: false,
+  form = this.$inertia.form({
+    _method: 'PUT',
+    name: this.user.name,
+    photo: null,
+  })
+
+  editUserProfile() {
+    if (this.photo.files[0]) {
+      this.form.photo = this.photo.files[0]
     }
 
-    errorMessages = {
-      name: '',
-      photo: '',
+    this.form.post(this.route('users.update', this.user.id), {
+      preserveScroll: true,
+      preserveState: true,
+      onSuccess: () => {
+        this.photoPreview = null
+      },
+    })
+  }
+
+  selectNewPhoto() {
+    this.photo.click()
+  }
+
+  updatePhotoPreview() {
+    const reader = new FileReader()
+
+    reader.onload = (e: any) => {
+      this.photoPreview = e.target.result
     }
 
-    editUserProfile() {
-      this.form.processing = false
-      this.form.recentlySuccessful = false
+    reader.readAsDataURL(this.photo.files[0])
+  }
 
-      if (this.photo.files[0]) {
-        this.form.photo = this.photo.files[0]
-      }
-
-      this.$inertia.post(
-        this.route('users.update', this.user.id),
-        objectToFormData(this.form, 'PUT'),
-        {
-          preserveScroll: true,
-          resetOnSuccess: false,
-          onSuccess: (page: any) => {
-            this.form.processing = false
-            if (!page.props.errors.editUserProfile) {
-              this.photoPreview = null
-              this.form.recentlySuccessful = true
-            } else {
-              this.errorMessages = page.props.errors.editUserProfile
-            }
-          },
+  deletePhoto() {
+    this.$inertia.delete(
+      this.route('users.destroy.avatar', this.user),
+      {
+        preserveScroll: true,
+        onSuccess: () => {
+          this.photoPreview = null
+          this.form.photo = null
         },
-      )
-    }
-
-    selectNewPhoto() {
-      this.photo.click()
-    }
-
-    updatePhotoPreview() {
-      const reader = new FileReader()
-
-      reader.onload = (e: any) => {
-        this.photoPreview = e.target.result
-      }
-
-      reader.readAsDataURL(this.photo.files[0])
-    }
-
-    deletePhoto() {
-      this.$inertia.delete(
-        this.route('users.destroy.avatar', this.user),
-        {
-          preserveScroll: true,
-          onSuccess: () => {
-            this.photoPreview = null
-            this.form.photo = null
-          },
-        },
-      )
-    }
+      },
+    )
+  }
 }
 </script>

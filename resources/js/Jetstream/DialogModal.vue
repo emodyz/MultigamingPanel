@@ -1,9 +1,9 @@
 <template>
   <modal
-    :show="show"
-    :max-width="maxWidth"
-    :closeable="closeable"
-    @close="close"
+      :show="show"
+      :max-width="maxWidth"
+      :closeable="closeable"
+      @close="close"
   >
     <div class="px-6 py-4">
       <div class="text-lg">

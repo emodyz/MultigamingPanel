@@ -24,7 +24,7 @@ class EditUser
         Validator::make($input, [
             'name' => ['required', 'string', 'min:4', 'max:255'],
             'photo' => ['nullable', 'image', 'max:1024'],
-        ])->validateWithBag('editUserProfile');
+        ])->validate();
 
         if (isset($input['photo'])) {
             $user->updateProfilePhoto($input['photo']);
@@ -50,7 +50,7 @@ class EditUser
         Validator::make($input, [
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'role' => ['required', 'string', 'max:255', new RoleExists()],
-        ])->validateWithBag('editUserAccount');
+        ])->validate();
 
         $user->forceFill([
             'role' => $input['role'],

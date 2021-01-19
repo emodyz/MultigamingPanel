@@ -11,13 +11,13 @@
     <template #form>
       <!-- Team Owner Information -->
       <div class="col-span-6">
-        <jet-label value="Team Owner" />
+        <jet-label value="Team Owner"/>
 
         <div class="flex items-center mt-2">
           <img
-            class="w-12 h-12 rounded-full object-cover"
-            :src="team.owner.profile_photo_url"
-            :alt="team.owner.name"
+              class="w-12 h-12 rounded-full object-cover"
+              :src="team.owner.profile_photo_url"
+              :alt="team.owner.name"
           >
 
           <div class="ml-4 leading-tight">
@@ -32,40 +32,40 @@
       <!-- Team Name -->
       <div class="col-span-6 sm:col-span-4">
         <jet-label
-          for="name"
-          value="Team Name"
+            for="name"
+            value="Team Name"
         />
 
         <jet-input
-          id="name"
-          v-model="form.name"
-          type="text"
-          class="mt-1 block w-full"
-          :disabled="! permissions.canUpdateTeam"
+            id="name"
+            v-model="form.name"
+            type="text"
+            class="mt-1 block w-full"
+            :disabled="! permissions.canUpdateTeam"
         />
 
         <jet-input-error
-          v-if="!form.recentlySuccessful"
-          :message="form.errors.name"
-          class="mt-2"
+            v-if="form.errors.name"
+            :message="form.errors.name"
+            class="mt-2"
         />
       </div>
     </template>
 
     <template
-      v-if="permissions.canUpdateTeam"
-      #actions
+        v-if="permissions.canUpdateTeam"
+        #actions
     >
       <jet-action-message
-        :on="form.recentlySuccessful"
-        class="mr-3"
+          :on="form.recentlySuccessful"
+          class="mr-3"
       >
         Saved.
       </jet-action-message>
 
       <jet-button
-        :class="{ 'opacity-25': form.processing }"
-        :disabled="form.processing"
+          :class="{ 'opacity-25': form.processing }"
+          :disabled="form.processing"
       >
         Save
       </jet-button>
@@ -84,50 +84,33 @@ import JetLabel from '@/Jetstream/Label.vue'
 import { Component, Prop, Mixins } from 'vue-property-decorator'
 import Route from '@/Mixins/Route'
 
-    @Component({
-      components: {
-        JetActionMessage,
-        JetButton,
-        JetFormSection,
-        JetInput,
-        JetInputError,
-        JetLabel,
-      },
-    })
+@Component({
+  components: {
+    JetActionMessage,
+    JetButton,
+    JetFormSection,
+    JetInput,
+    JetInputError,
+    JetLabel,
+  },
+})
 export default class UpdateTeamNameForm extends Mixins(Route) {
-        @Prop() readonly team!: any
+  @Prop() readonly team!: any
 
-        @Prop() permissions!: any
+  @Prop() permissions!: any
 
-        @Prop() readonly errors!: any
+  @Prop() readonly errors!: any
 
-        form: any = {
-          name: this.team.name,
-          processing: false,
-          recentlySuccessful: false,
-          errors: {
-            name: '',
-          },
-        }
+  form = this.$inertia.form({
+    name: this.team.name,
+  })
 
-        updateTeamName() {
-          this.form.processing = true
-          this.form.recentlySuccessful = false
-          this.$inertia.put(
-            this.route('teams.update', this.team),
-            this.form,
-            {
-              preserveScroll: true,
-              onSuccess: (page: any) => {
-                this.form.processing = false
-                if (!page.props.errors.updateTeamName) {
-                  this.form.recentlySuccessful = true
-                } else {
-                  this.form.errors = page.props.errors.updateTeamName
-                }
-              },
-            },
-          )
-        }
+  updateTeamName() {
+    this.form.put(this.route('teams.update', this.team), {
+      preserveScroll: true,
+      preserveState: true,
+      errorBag: 'updateTeamName',
+    })
+  }
 }
 </script>

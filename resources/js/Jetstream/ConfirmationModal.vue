@@ -61,29 +61,4 @@ export default class ConfirmationModal extends Vue {
           this.$emit('close')
         }
 }
-
-/*
-    export default {
-        Components: {
-            Modal,
-        },
-
-        props: {
-            show: {
-                default: false
-            },
-            maxWidth: {
-                default: '2xl'
-            },
-            closeable: {
-                default: true
-            },
-        },
-
-        methods: {
-            close() {
-                this.$emit('close')
-            },
-        }
-    } */
 </script>
