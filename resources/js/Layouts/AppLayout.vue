@@ -352,10 +352,8 @@
     />
 
     <!-- Notifications -->
-    <span>Flash Message: {{ $page.props.flash.message }}</span>
-    <br/>
-    <span>Flash Status: {{ $page.props.flash.status }}</span>
-    <notification :flash="$page.props.flash"/>
+    <flash-notification :flash="$page.props.flash"/>
+    <button @click="flash" type="button" class="absolute top-5 left-24">FLASH</button>
   </div>
 </template>
 
@@ -367,7 +365,7 @@ import JetDropdown from '@/Jetstream/Dropdown.vue'
 import JetDropdownLink from '@/Jetstream/DropdownLink.vue'
 import JetNavLink from '@/Jetstream/NavLink.vue'
 import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink.vue'
-import Notification from '@/Shared/Notifications/Notification.vue'
+import FlashNotification from '@/Shared/Notifications/Flash.vue'
 
 import axios from 'axios'
 import Route from '@/Mixins/Route'
@@ -379,11 +377,15 @@ import Route from '@/Mixins/Route'
     JetDropdownLink,
     JetNavLink,
     JetResponsiveNavLink,
-    Notification,
+    FlashNotification,
   },
 })
 export default class AppLayout extends Mixins(Route) {
   showingNavigationDropdown: boolean = false
+
+  flash() {
+    this.$inertia.get(this.route('flash'))
+  }
 
   switchToTeam(team: any) {
     this.$inertia.put(this.route('current-team.update'), {

@@ -22,10 +22,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function (Request $request) {
-    $request->session()->flash('status', ['type' => 'success', 'title' => 'Article Created', 'message' => str_repeat('Your new article has been created.', 5) ]);
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia\Inertia::render('Dashboard');
 })->name('dashboard');
+
+Route::get('/flash', function (Request $request) {
+    $request->session()->flash('status', ['type' => 'success', 'title' => 'Article Created', 'message' => str_repeat('Your new article has been created.', 5) ]);
+    return back();
+})->name('flash');
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
 
