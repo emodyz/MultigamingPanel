@@ -20,6 +20,12 @@
               >
                 Dashboard
               </jet-nav-link>
+                <jet-nav-link
+                        :href="route('settings.edit')"
+                        :active="route().current('settings.*')"
+                >
+                    Settings
+                </jet-nav-link>
               <jet-nav-link
                 :href="route('users.index')"
                 :active="route().current('users.*')"

@@ -59,6 +59,8 @@ import Helpers from '@/Mixins/Helpers'
 export default class FlashNotification extends Mixins(Helpers) {
   @Prop({ required: true }) flash!: any
 
+  @Prop({ type: Number, default: 5000 }) timeout!: number;
+
   dismissed = false
 
   @Watch('flash')
@@ -72,6 +74,10 @@ export default class FlashNotification extends Mixins(Helpers) {
         this.dismissed = false
       }, 500)
     }
+
+    setTimeout(() => {
+      this.dismissed = true
+    }, this.timeout)
   }
 
   icon: any = this.initNotificationIcon()
@@ -94,7 +100,9 @@ export default class FlashNotification extends Mixins(Helpers) {
   }
 
   created() {
-    console.log(this.flash)
+    setTimeout(() => {
+      this.dismissed = true
+    }, this.timeout)
   }
 }
 </script>

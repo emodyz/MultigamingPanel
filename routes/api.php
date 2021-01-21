@@ -9,6 +9,7 @@ use App\Http\Controllers\ServerController;
 use App\Http\Resources\UserResource;
 use App\Models\Article;
 use App\Models\Server;
+use App\Settings\VoiceSettings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -54,6 +55,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/servers/{server}/articles/latest/{n?}', function (Server $server, $n = 5) {
         return response()->json($server->articles()->where('status', 'published')->latest()->take($n)->get());
     });
+
+    // Settings
+    Route::get('/settings/voice', fn(VoiceSettings $settings) => $settings->toArray())->name('settings.show.voice');
+
 });
 // Articles
 Route::get('/articles', function () { return response()->json(Article::getAllGlobalArticles()); });
