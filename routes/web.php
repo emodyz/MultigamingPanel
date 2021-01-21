@@ -27,7 +27,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::get('/flash', function (Request $request) {
-    $request->session()->flash('status', ['type' => 'success', 'title' => 'Article Created', 'message' => str_repeat('Your new article has been created.', 5) ]);
+    // $request->session()->flash('status', ['type' => 'success', 'title' => 'Article Created', 'message' => str_repeat('Your new article has been created.', 5) ]);
+    flash('test', str_repeat('Your new article has been created.', 5))->success();
     return back();
 })->name('flash');
 

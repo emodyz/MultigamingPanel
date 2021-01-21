@@ -352,7 +352,8 @@
     />
 
     <!-- Notifications -->
-    <flash-notification :flash="$page.props.flash"/>
+    <!-- TODO: Add Support for multiple flashes -->
+    <flash-notification v-if="!doseNotExist($page.props.flash.notifications)" :flash="$page.props.flash.notifications[0]"/>
     <button @click="flash" type="button" class="absolute top-5 left-24">FLASH</button>
   </div>
 </template>
@@ -369,6 +370,7 @@ import FlashNotification from '@/Shared/Notifications/Flash.vue'
 
 import axios from 'axios'
 import Route from '@/Mixins/Route'
+import Helpers from '@/Mixins/Helpers'
 
 @Component({
   components: {
@@ -380,7 +382,7 @@ import Route from '@/Mixins/Route'
     FlashNotification,
   },
 })
-export default class AppLayout extends Mixins(Route) {
+export default class AppLayout extends Mixins(Route, Helpers) {
   showingNavigationDropdown: boolean = false
 
   flash() {

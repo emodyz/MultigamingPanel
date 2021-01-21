@@ -49,8 +49,7 @@ class HandleInertiaRequests extends Middleware
         // Unauthenticated request
         return array_merge(parent::share($request), [
             'flash' => [
-                'message' => fn () => $request->session()->get('message'),
-                'status' => fn () => $request->session()->get('status'),
+                'notifications' => fn () => $request->session()->get('flash_notifications', collect()),
             ],
         ]);
     }
