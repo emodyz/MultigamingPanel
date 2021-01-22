@@ -6,6 +6,9 @@
       appear-class="scale-0"
       appear-to-class="scale-100"
       appear-active-class="origin-top-right transition transform-gpu duration-500 ease-in-out"
+      enter-class="scale-0"
+      enter-to-class="scale-100"
+      enter-active-class="origin-top-right transition transform-gpu duration-500 ease-in-out"
       leave-class="scale-100"
       leave-to-class="scale-0"
       leave-active-class="origin-top-right transition transform-gpu duration-500 ease-in-out"
@@ -61,7 +64,13 @@ export default class FlashNotification extends Mixins(Helpers) {
   @Watch('flash')
   onFlashChanged(newFlash: any, oldFlash: any) {
     if (newFlash !== oldFlash) {
-      this.dismissed = false
+      this.dismissed = true
+
+      this.icon = this.initNotificationIcon()
+
+      setTimeout(() => {
+        this.dismissed = false
+      }, 500)
     }
   }
 
@@ -75,7 +84,9 @@ export default class FlashNotification extends Mixins(Helpers) {
         return { component: 'CheckMarkSolid', color: 'text-green-500' }
       case 'warning':
         return { component: 'WarningSignSolid', color: 'text-orange-500' }
-      case 'error' || 'danger':
+      case 'danger':
+        return { component: 'ErrorCircleSolid', color: 'text-red-500' }
+      case 'error':
         return { component: 'ErrorCircleSolid', color: 'text-red-500' }
       default:
         return { component: null, color: null }
