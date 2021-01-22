@@ -172,7 +172,7 @@ class UserController extends Controller
 
         $user->delete();
 
-        flash('User Account', $user->getAttribute('name') . '\'s account has been successfully deleted!')->danger();
+        flash('User Deleted', $user->getAttribute('name') . '\'s account has been successfully deleted!')->danger();
         return back(303);
     }
 

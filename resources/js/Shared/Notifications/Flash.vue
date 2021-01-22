@@ -14,7 +14,7 @@
       leave-active-class="origin-top-right transition transform-gpu duration-500 ease-in-out"
   >
     <div v-if="!dismissed"
-         class="w-112 absolute top-5 right-5 z-40 shadow-lg border border-gray-100 rounded-lg bg-white p-4 flex">
+         class="w-112 fixed top-5 right-5 z-40 shadow-lg border border-gray-100 rounded-lg bg-white p-4 flex">
       <div :class="[!doseNotExist(icon.component) ? 'pr-2': '' , icon.color]">
         <component :is="icon.component" />
       </div>
