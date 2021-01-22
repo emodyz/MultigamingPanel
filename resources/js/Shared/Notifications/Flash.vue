@@ -34,7 +34,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Mixins } from 'vue-property-decorator'
+import {
+  Component, Prop, Mixins, Watch,
+} from 'vue-property-decorator'
 import CheckMarkSolid from '@/Shared/Svgs/CheckMarkSolid.vue'
 import CrossIcon from '@/Shared/Svgs/CrossIcon.vue'
 import ErrorCircleSolid from '@/Shared/Svgs/ErrorCircleSolid.vue'
@@ -55,6 +57,13 @@ export default class FlashNotification extends Mixins(Helpers) {
   @Prop({ required: true }) flash!: any
 
   dismissed = false
+
+  @Watch('flash')
+  onFlashChanged(newFlash: any, oldFlash: any) {
+    if (newFlash !== oldFlash) {
+      this.dismissed = false
+    }
+  }
 
   icon: any = this.initNotificationIcon()
 

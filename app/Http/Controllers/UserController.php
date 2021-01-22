@@ -133,6 +133,8 @@ class UserController extends Controller
 
         $editor->editUserProfile($user, $request->all());
 
+        flash('Profile Information', $user->getAttribute('name') . '\'s profile has been successfully updated!')->success();
+
         return back()->with('status', 'profile-information-updated');
     }
 
