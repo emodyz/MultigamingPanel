@@ -68,10 +68,12 @@ module.exports = {
         full: '100%',
       },
       spacing: {
-        '112': '28rem'
+        '88': '22rem',
+        '104': '26rem',
+        '112': '28rem',
       },
       colors: {
-        // orange: colors.orange,
+        orange: colors.orange,
       },
     },
   },

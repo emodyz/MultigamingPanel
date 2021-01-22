@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "42f5b5085e38353d8198084e57d9601e",
+    "content-hash": "2e102bcf395936c34cda12ae297f84ae",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -713,16 +713,16 @@
         },
         {
             "name": "emodyz/flash",
-            "version": "v0.0.1-alpha.0",
+            "version": "v0.0.1-alpha.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/emodyz/flash.git",
-                "reference": "6213fc327468b6bfe5a32d05dc2e2facfe8ae0bf"
+                "reference": "580a125c429ddfece00243059b3194360307074c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/emodyz/flash/zipball/6213fc327468b6bfe5a32d05dc2e2facfe8ae0bf",
-                "reference": "6213fc327468b6bfe5a32d05dc2e2facfe8ae0bf",
+                "url": "https://api.github.com/repos/emodyz/flash/zipball/580a125c429ddfece00243059b3194360307074c",
+                "reference": "580a125c429ddfece00243059b3194360307074c",
                 "shasum": ""
             },
             "require": {
@@ -774,10 +774,10 @@
                 "Laravel"
             ],
             "support": {
-                "source": "https://github.com/emodyz/flash/tree/v0.0.1-alpha.0",
+                "source": "https://github.com/emodyz/flash/tree/v0.0.1-alpha.1",
                 "issues": "https://github.com/emodyz/flash/issues"
             },
-            "time": "2021-01-21T17:38:11+00:00"
+            "time": "2021-01-22T15:39:45+00:00"
         },
         {
             "name": "fideloper/proxy",

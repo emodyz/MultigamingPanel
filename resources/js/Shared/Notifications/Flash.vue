@@ -1,4 +1,5 @@
 <!-- TODO: Slide-in from the right animation -->
+
 <template>
   <transition
       appear
@@ -11,18 +12,20 @@
   >
     <div v-if="!dismissed"
          class="w-112 absolute top-5 right-5 z-40 shadow-lg border border-gray-100 rounded-lg bg-white p-4 flex">
-      <div class="pr-2 text-green-500">
-        <check-mark-solid/>
+      <div :class="[!doseNotExist(icon.component) ? 'pr-2': '' , icon.color]">
+        <component :is="icon.component" />
       </div>
-      <div>
-        <div class="text-md pb-2">
-          {{ flash.title }}
+      <div class="w-104">
+        <div>
+          <span :class="!doseNotExist(icon.component) ? 'w-88': 'w-96'" class="text-md inline-block break-words">
+            {{ flash.title }}
+          </span>
           <button @click="dismissed = true" type="button" aria-label="Close Notification"
                   class="ml-2 float-right hover:cursor-pointer rounded-full focus:outline-none focus:text-gray-600">
-            <cross-icon/>
+            <cross-icon class="w-5 h-5"/>
           </button>
         </div>
-        <div class="text-sm text-gray-600  tracking-tight">
+        <div v-if="!doseNotExist(flash.message)" class="text-sm text-gray-600 tracking-tight pt-2">
           {{ flash.message }}
         </div>
       </div>
@@ -31,17 +34,44 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Component, Prop, Mixins } from 'vue-property-decorator'
 import CheckMarkSolid from '@/Shared/Svgs/CheckMarkSolid.vue'
 import CrossIcon from '@/Shared/Svgs/CrossIcon.vue'
+import ErrorCircleSolid from '@/Shared/Svgs/ErrorCircleSolid.vue'
+import InfoCircleSolid from '@/Shared/Svgs/InfoCircleSolid.vue'
+import WarningSignSolid from '@/Shared/Svgs/WarningSignSolid.vue'
+import Helpers from '@/Mixins/Helpers'
 
 @Component({
-  components: { CrossIcon, CheckMarkSolid },
+  components: {
+    CrossIcon,
+    CheckMarkSolid,
+    ErrorCircleSolid,
+    InfoCircleSolid,
+    WarningSignSolid,
+  },
 })
-export default class FlashNotification extends Vue {
+export default class FlashNotification extends Mixins(Helpers) {
   @Prop({ required: true }) flash!: any
 
   dismissed = false
+
+  icon: any = this.initNotificationIcon()
+
+  initNotificationIcon(): any {
+    switch (this.flash.level) {
+      case 'info':
+        return { component: 'InfoCircleSolid', color: 'text-blue-500' }
+      case 'success':
+        return { component: 'CheckMarkSolid', color: 'text-green-500' }
+      case 'warning':
+        return { component: 'WarningSignSolid', color: 'text-orange-500' }
+      case 'error' || 'danger':
+        return { component: 'ErrorCircleSolid', color: 'text-red-500' }
+      default:
+        return { component: null, color: null }
+    }
+  }
 
   created() {
     console.log(this.flash)

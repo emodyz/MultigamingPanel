@@ -5,7 +5,7 @@ use App\Http\Controllers\ServerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ModPackController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,9 +26,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia\Inertia::render('Dashboard');
 })->name('dashboard');
 
-Route::get('/flash', function (Request $request) {
-    // $request->session()->flash('status', ['type' => 'success', 'title' => 'Article Created', 'message' => str_repeat('Your new article has been created.', 5) ]);
-    flash('test', str_repeat('Your new article has been created.', 5))->success();
+Route::get('/flash', function () {
+    flash(str_repeat('Test', 20), str_repeat('Your new article has been created.', 5))->success();
+    // flash('test', str_repeat('Your new article has been created.', 5))->warning();
     return back();
 })->name('flash');
 
