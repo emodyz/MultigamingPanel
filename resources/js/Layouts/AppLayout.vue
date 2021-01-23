@@ -354,7 +354,6 @@
     <!-- Notifications -->
     <!-- TODO: Add Support for multiple flashes -->
     <flash-notification v-if="!doseNotExist($page.props.flash.notifications)" :flash="$page.props.flash.notifications[0]"/>
-    <button @click="flash" type="button" class="absolute top-5 left-24">FLASH</button>
   </div>
 </template>
 
@@ -384,10 +383,6 @@ import Helpers from '@/Mixins/Helpers'
 })
 export default class AppLayout extends Mixins(Route, Helpers) {
   showingNavigationDropdown: boolean = false
-
-  flash() {
-    this.$inertia.get(this.route('flash'))
-  }
 
   switchToTeam(team: any) {
     this.$inertia.put(this.route('current-team.update'), {

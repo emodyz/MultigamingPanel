@@ -26,12 +26,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia\Inertia::render('Dashboard');
 })->name('dashboard');
 
-Route::get('/flash', function () {
-    flash(str_repeat('Test', 20), str_repeat('Your new article has been created.', 5))->error();
-    // flash('test', str_repeat('Your new article has been created.', 5))->warning();
-    return back();
-})->name('flash');
-
 Route::group(['middleware' => 'auth:sanctum'], function () {
 
     // ModPacks
