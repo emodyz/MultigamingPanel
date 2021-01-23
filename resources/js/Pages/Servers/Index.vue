@@ -73,7 +73,7 @@ export default class ModPacks_Index extends Mixins(Route) {
 
   headers: Array<DataTableHeader> = [
     {
-      title: '#',
+      title: '##',
       key: 'index',
       type: 'Index',
     },
