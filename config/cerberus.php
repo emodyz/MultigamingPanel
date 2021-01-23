@@ -129,5 +129,17 @@ return [
             'slug' => 'servers-destroy',
             'description' => 'a user can delete a servers'
         ],
+
+        /**
+         * Settings
+         */
+        [
+          'slug' => 'settings-edit',
+          'description' => 'a user can view the settings page'
+        ],
+        [
+          'slug' => 'settings-edit-voice',
+          'description' => 'a user can edit voice provider settings'
+        ],
     ]
 ];
