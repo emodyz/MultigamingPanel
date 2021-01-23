@@ -90,9 +90,7 @@ class ArticleController extends Controller
         $request->get('status') === 'draft'
             ? flash('Draft', 'Your new draft has ben saved!')->success()
             : flash($request->get('title'), 'Your new article has ben published!')->success();
-
-
-        return back()->with('status', 'article-created');
+        return back();
     }
 
     /**
@@ -134,7 +132,7 @@ class ArticleController extends Controller
         $editor->editArticle($article, $request->all());
 
         flash($request->get('title'),   'This article has been successfully updated!')->success();
-        return back()->with('status', 'article-edited');
+        return back();
     }
 
     /**
@@ -149,6 +147,6 @@ class ArticleController extends Controller
         $article->delete();
 
         flash('Article Deleted',   '"'. $article->getAttribute('title') .'" has been successfully deleted!')->danger();
-        return back(303)->with('status', 'article-deleted');
+        return back(303);
     }
 }
