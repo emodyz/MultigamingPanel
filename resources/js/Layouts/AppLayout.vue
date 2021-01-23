@@ -350,6 +350,10 @@
       name="modal"
       multiple
     />
+
+    <!-- Notifications -->
+    <!-- TODO: Add Support for multiple flashes -->
+    <flash-notification v-if="!doesNotExist($page.props.flash.notifications)" :flash="$page.props.flash.notifications[0]"/>
   </div>
 </template>
 
@@ -361,9 +365,11 @@ import JetDropdown from '@/Jetstream/Dropdown.vue'
 import JetDropdownLink from '@/Jetstream/DropdownLink.vue'
 import JetNavLink from '@/Jetstream/NavLink.vue'
 import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink.vue'
+import FlashNotification from '@/Shared/Notifications/Flash.vue'
 
 import axios from 'axios'
 import Route from '@/Mixins/Route'
+import Helpers from '@/Mixins/Helpers'
 
 @Component({
   components: {
@@ -372,9 +378,10 @@ import Route from '@/Mixins/Route'
     JetDropdownLink,
     JetNavLink,
     JetResponsiveNavLink,
+    FlashNotification,
   },
 })
-export default class AppLayout extends Mixins(Route) {
+export default class AppLayout extends Mixins(Route, Helpers) {
   showingNavigationDropdown: boolean = false
 
   switchToTeam(team: any) {
