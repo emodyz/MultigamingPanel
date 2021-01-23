@@ -8,21 +8,40 @@ use GameQ\GameQ;
 
 class GamesStatusService
 {
-    public static function fetchStatus(Server $server)
-    {
-        $gameQ = new GameQ();
-        $gameQ->addServer([
-            'type' => $server->game->identifier,
-            'host' => $server->host()
-        ]);
+  /**
+   * @var GameQ
+   */
+  private GameQ $gameQ;
 
-        $results = $gameQ->process()[$server->host()];
+  /**
+   * GamesStatusService constructor.
+   * @param GameQ $gameQ
+   */
+  public function __construct(GameQ $gameQ)
+  {
+    $this->gameQ = $gameQ;
+  }
 
-        ServerStatus::create([
-            'server_id' => $server->id,
-            'online' => $results['gq_online'] ?? false,
-            'players_max' => $results['max_players'] ?? 0,
-            'players_online' => $results['num_players'] ?? 0
-        ]);
-    }
+  /**
+   * @param Server $server
+   * @throws \Exception
+   */
+  public function fetchServerStatus(Server $server)
+  {
+    $this->gameQ->clearServers();
+
+    $this->gameQ->addServer([
+      'type' => $server->game->identifier,
+      'host' => $server->host()
+    ]);
+
+    $results = $this->gameQ->process()[$server->host()];
+
+    ServerStatus::create([
+      'server_id' => $server->id,
+      'online' => $results['gq_online'] ?? false,
+      'players_max' => $results['gq_maxplayers'] ?? 0,
+      'players_online' => $results['gq_numplayers'] ?? 0
+    ]);
+  }
 }
