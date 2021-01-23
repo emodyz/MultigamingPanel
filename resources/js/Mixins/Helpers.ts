@@ -5,5 +5,5 @@ import _ from 'lodash'
 export default class Helpers extends Vue {
   isNullOrUndefined = (_var: any) => (_.isNull(_var) || _.isUndefined(_var))
 
-  doseNotExist = (_var: any) => (_.isNull(_var) || _.isUndefined(_var) || _.isNaN(_var) || _.isEmpty(_var))
+  doesNotExist = (_var: any) => (_.isNull(_var) || _.isUndefined(_var) || _.isNaN(_var) || _.isEmpty(_var))
 }

@@ -15,12 +15,12 @@
   >
     <div v-if="!dismissed"
          class="w-112 fixed top-5 right-5 z-40 shadow-lg border border-gray-100 rounded-lg bg-white p-4 flex">
-      <div :class="[!doseNotExist(icon.component) ? 'pr-2': '' , icon.color]">
+      <div :class="[!doesNotExist(icon.component) ? 'pr-2': '' , icon.color]">
         <component :is="icon.component" />
       </div>
       <div class="w-104">
         <div>
-          <span :class="!doseNotExist(icon.component) ? 'w-88': 'w-96'" class="text-md inline-block break-words">
+          <span :class="!doesNotExist(icon.component) ? 'w-88': 'w-96'" class="text-md inline-block break-words">
             {{ flash.title }}
           </span>
           <button @click="dismissed = true" type="button" aria-label="Close Notification"
@@ -28,7 +28,7 @@
             <cross-icon class="w-5 h-5"/>
           </button>
         </div>
-        <div v-if="!doseNotExist(flash.message)" class="text-sm text-gray-600 tracking-tight pt-2">
+        <div v-if="!doesNotExist(flash.message)" class="text-sm text-gray-600 tracking-tight pt-2">
           {{ flash.message }}
         </div>
       </div>

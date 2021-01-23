@@ -353,7 +353,7 @@
 
     <!-- Notifications -->
     <!-- TODO: Add Support for multiple flashes -->
-    <flash-notification v-if="!doseNotExist($page.props.flash.notifications)" :flash="$page.props.flash.notifications[0]"/>
+    <flash-notification v-if="!doesNotExist($page.props.flash.notifications)" :flash="$page.props.flash.notifications[0]"/>
   </div>
 </template>
 
