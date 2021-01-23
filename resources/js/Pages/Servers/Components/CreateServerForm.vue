@@ -25,6 +25,7 @@
               placeholder="My Amazing Name..."
               class="mt-1 block w-full"
               autocomplete="name"
+              required
           />
           <jet-input-error
               v-if="form.errors.name"
@@ -44,8 +45,7 @@
                 Logo
               </template>
               <template #description>
-                Add a Logo to distinguish server
-                <required/>
+                Add a Logo to distinguish this server
               </template>
             </jet-section-title>
           </template>
@@ -109,6 +109,7 @@
                   id="game"
                   v-model="form.game"
                   class="mt-1 block w-full rounded-md shadow-sm form-input"
+                  required
               >
                 <option
                     :value="null"
@@ -141,6 +142,7 @@
                   id="modPack"
                   v-model="form.modPack"
                   class="mt-1 block w-full rounded-md shadow-sm form-input"
+                  required
               >
                 <option
                     :value="null"
@@ -150,7 +152,7 @@
                   Choose a modPack
                 </option>
                 <option
-                    v-for="(item, index) in modPacks"
+                    v-for="(item, index) in availableModPacks"
                     :key="index"
                     :value="item.id"
                 >
@@ -192,7 +194,8 @@
                   type="text"
                   placeholder="My Amazing IP..."
                   class="mt-1 block w-full"
-                  autocomplete="ipaddress"
+                  autocomplete="ip address"
+                  required
               />
               <jet-input-error
                   v-if="form.errors.ip"
@@ -209,11 +212,12 @@
               <jet-input
                   id="port"
                   v-model="form.port"
-                  type="text"
+                  type="number"
                   maxlength="6"
                   placeholder="My Amazing Port..."
                   class="mt-1 block w-full"
                   autocomplete="port"
+                  required
               />
               <jet-input-error
                   v-if="form.errors.port"
@@ -246,11 +250,9 @@
 
 <script lang="ts">
 import {
-  Component, Mixins, Prop, Ref,
+  Component, Mixins, Prop, Ref, Watch,
 } from 'vue-property-decorator'
 import Route from '@/Mixins/Route'
-// eslint-disable-next-line no-unused-vars
-import _ from 'lodash'
 
 import JetButton from '@/Jetstream/Button.vue'
 import JetInput from '@/Jetstream/Input.vue'
@@ -290,6 +292,8 @@ export default class CreateServerForm extends Mixins(Route) {
 
   logoPreview: any = null
 
+  availableModPacks: Array<any> = []
+
   form = this.$inertia.form({
     name: null,
     logo: null,
@@ -298,6 +302,14 @@ export default class CreateServerForm extends Mixins(Route) {
     game: null,
     modPack: null,
   })
+
+  @Watch('form.game')
+  onSelectedGameChanged(val: any) {
+    this.availableModPacks = this.modPacks.filter((mod) => mod.game.id === val)
+    if (!this.availableModPacks.includes({ id: this.form.modPack })) {
+      this.form.modPack = null
+    }
+  }
 
   selectNewLogo() {
     this.logo.click()
@@ -316,6 +328,7 @@ export default class CreateServerForm extends Mixins(Route) {
   }
 
   submitForm() {
+    this.form.port = parseInt(this.form.port, 10)
     this.form.post(this.route('servers.store'),
       {
         preserveScroll: true,

@@ -94,7 +94,7 @@ class ModPackController extends Controller
         return response()->noContent(Response::HTTP_CREATED);
       }
 
-      flash($request->get('name'), 'Your new ModPack has been created!')->success();
+      flash($request->get('name'), 'Your new ModPack has been successfully created!')->success();
       return back();
     }
 

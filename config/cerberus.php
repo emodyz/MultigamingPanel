@@ -109,5 +109,25 @@ return [
             'slug' => 'modpacks-destroy',
             'description' => 'a user can delete a modpack'
         ],
+
+        /**
+         * Servers
+         */
+        [
+            'slug' => 'servers-index',
+            'description' => 'a user can manage servers'
+        ],
+        [
+            'slug' => 'servers-create',
+            'description' => 'a user can create a servers'
+        ],
+        [
+            'slug' => 'servers-edit',
+            'description' => 'a user can edit a servers'
+        ],
+        [
+            'slug' => 'servers-destroy',
+            'description' => 'a user can delete a servers'
+        ],
     ]
 ];

@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Emodyz\Articles\CreateArticle;
+use App\Actions\Emodyz\Servers\CreateServer;
+use App\Http\Requests\Servers\CreateServerRequest;
 use App\Http\Resources\Server\ServerModpackResource;
 use App\Http\Resources\Server\ServerResource;
 use App\Models\Game;
 use App\Models\Modpack;
 use App\Models\Server;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
@@ -43,12 +47,16 @@ class ServerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @return Response
+     * @param CreateServerRequest $request
+     * @param CreateServer $store
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CreateServerRequest $request, CreateServer $store): RedirectResponse
     {
-        //
+        $store->storeNewServer($request->all());
+
+        flash($request->get('name'), 'Your new server has ben successfully created!')->success();
+        return back();
     }
 
     /**
