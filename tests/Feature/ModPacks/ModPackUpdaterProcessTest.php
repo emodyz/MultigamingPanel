@@ -19,24 +19,24 @@ use Tests\TestCase;
 class ModPackUpdaterProcessTest extends TestCase
 {
 
-    const FILE_1MIO_URL = 'http://www.ovh.net/files/1Mio.dat';
-    const FILE_1MIO_SHA256 = '86f5cb58e26192af3f896704a4f974601ef04028a2f4da3e47b6c56d48e2fdba';
-    const FILE_1MIO_SIZE = 1048576;
+    const FILE_1MB_URL = 'http://www.ovh.net/files/1Mb.dat';
+    const FILE_1MB_SHA256 = '9ff676db83b10b3ce4012dc6ffc4d7de6ce62adb8c006e9267854b7ef850164e';
+    const FILE_1MB_SIZE = 125000;
 
-    const FILE_10MIO_URL = 'http://www.ovh.net/files/10Mio.dat';
-    const FILE_10MIO_SHA256 = '784fb3de5ea02e70738cc3764f7bebf071376f364907d20c50822013c5b64e94';
-    const FILE_10MIO_SIZE = 10485760;
+    const FILE_10MB_URL = 'http://www.ovh.net/files/10Mb.dat';
+    const FILE_10MB_SHA256 = '0fa9f14f884a0f2c289996e0c95837ebf175c27e4f05869b379f854fb7d9b7ba';
+    const FILE_10MB_SIZE = 1250000;
 
     /**
      * @test
      */
     public function assert_that_modpack_update_request_start_modpack_update()
     {
-        $modpack = Modpack::factory()->create();
+        $modPack = Modpack::factory()->create();
 
         $spy = $this->spy(StartModPackUpdate::class);
 
-        ModPackUpdateRequested::broadcast($modpack);
+        ModPackUpdateRequested::broadcast($modPack);
 
         $spy->shouldHaveReceived('handle');
     }
@@ -46,14 +46,14 @@ class ModPackUpdaterProcessTest extends TestCase
      */
     public function assert_modpacks_update_without_files_must_be_done()
     {
-        $modpack = Modpack::factory()->create();
+        $modPack = Modpack::factory()->create();
 
         Event::fake([
             ModPackProcessDone::class,
             ModPackProcessStarted::class
         ]);
 
-        ModPackUpdateRequested::broadcast($modpack);
+        ModPackUpdateRequested::broadcast($modPack);
 
         Event::assertDispatched(ModPackProcessDone::class);
         Event::assertNotDispatched(ModPackProcessStarted::class);
@@ -65,9 +65,9 @@ class ModPackUpdaterProcessTest extends TestCase
      */
     public function assert_modpacks_stated_must_be_triggered_when_files_to_process()
     {
-        $modpack = Modpack::factory()->create();
+        $modPack = Modpack::factory()->create();
 
-        $this->downloadFiles($modpack);
+        $this->downloadFiles($modPack);
 
         Event::fake([
             ModPackProcessStarted::class,
@@ -75,7 +75,7 @@ class ModPackUpdaterProcessTest extends TestCase
             ModPackProcessDone::class
         ]);
 
-        ModPackUpdateRequested::broadcast($modpack);
+        ModPackUpdateRequested::broadcast($modPack);
 
         Event::assertDispatched(ModPackProcessStarted::class);
         Event::assertDispatched(ModPackProcessProgress::class);
@@ -88,18 +88,18 @@ class ModPackUpdaterProcessTest extends TestCase
      */
     public function assert_modpacks_process_files_jobs_was_trigger()
     {
-        $modpack = Modpack::factory()->create();
+        $modPack = Modpack::factory()->create();
 
-        $this->downloadFiles($modpack);
+        $this->downloadFiles($modPack);
 
         Bus::fake([
             ProcessModPackFile::class
         ]);
 
-        ModPackUpdateRequested::broadcast($modpack);
+        ModPackUpdateRequested::broadcast($modPack);
 
-        Bus::assertBatched(function (PendingBatch $batch) use ($modpack) {
-            return $batch->name === "Modpack update ($modpack->name - $modpack->id)" &&
+        Bus::assertBatched(function (PendingBatch $batch) use ($modPack) {
+            return $batch->name === "Modpack update ($modPack->name - $modPack->id)" &&
                 $batch->jobs->count() === 2;
         });
     }
@@ -110,21 +110,21 @@ class ModPackUpdaterProcessTest extends TestCase
      */
     public function assert_modpack_manifest_info_was_correct()
     {
-        $modpack = Modpack::factory()->create();
+        $modPack = Modpack::factory()->create();
 
-        $this->downloadFiles($modpack);
+        $this->downloadFiles($modPack);
 
-        $this->assertEquals(0, $modpack->manifest_info['size']);
-        $this->assertEquals(0, $modpack->manifest_info['files']);
+        $this->assertEquals(0, $modPack->manifest_info['size']);
+        $this->assertEquals(0, $modPack->manifest_info['files']);
 
-        ModPackUpdateRequested::broadcast($modpack);
+        ModPackUpdateRequested::broadcast($modPack);
 
-        $modpack->refresh();
+        $modPack->refresh();
 
-        $expectedFilesSizes = self::FILE_1MIO_SIZE + self::FILE_10MIO_SIZE;
+        $expectedFilesSizes = self::FILE_1MB_SIZE + self::FILE_10MB_SIZE;
 
-        $this->assertEquals($expectedFilesSizes, $modpack->manifest_info['size']);
-        $this->assertEquals(2, $modpack->manifest_info['files']);
+        $this->assertEquals($expectedFilesSizes, $modPack->manifest_info['size']);
+        $this->assertEquals(2, $modPack->manifest_info['files']);
     }
 
     /**
@@ -133,24 +133,24 @@ class ModPackUpdaterProcessTest extends TestCase
      */
     public function assert_modpack_manifest_was_correct()
     {
-        $modpack = Modpack::factory()->create();
-        $this->assertEmpty($modpack->manifest);
+        $modPack = Modpack::factory()->create();
+        $this->assertEmpty($modPack->manifest);
 
-        $this->downloadFiles($modpack);
-        ModPackUpdateRequested::broadcast($modpack);
+        $this->downloadFiles($modPack);
+        ModPackUpdateRequested::broadcast($modPack);
 
-        $modpack->refresh();
-        $manifest = collect($modpack->manifest);
+        $modPack->refresh();
+        $manifest = collect($modPack->manifest);
 
         $this->assertCount(2, $manifest);
 
-        $file1Mio = $manifest->get("{$modpack->name}/1Mio-dat");
-        $this->assertEquals(self::FILE_1MIO_SIZE, $file1Mio['size']);
-        $this->assertEquals(self::FILE_1MIO_SHA256, $file1Mio['sha256']);
+        $file1Mb = $manifest->get("{$modPack->name}/1Mb-dat");
+        $this->assertEquals(self::FILE_1MB_SIZE, $file1Mb['size']);
+        $this->assertEquals(self::FILE_1MB_SHA256, $file1Mb['sha256']);
 
-        $file10Mio = $manifest->get("{$modpack->name}/10Mio-dat");
-        $this->assertEquals(self::FILE_10MIO_SIZE, $file10Mio['size']);
-        $this->assertEquals(self::FILE_10MIO_SHA256, $file10Mio['sha256']);
+        $file10Mb = $manifest->get("{$modPack->name}/10Mb-dat");
+        $this->assertEquals(self::FILE_10MB_SIZE, $file10Mb['size']);
+        $this->assertEquals(self::FILE_10MB_SHA256, $file10Mb['sha256']);
     }
 
     /**
@@ -159,18 +159,18 @@ class ModPackUpdaterProcessTest extends TestCase
      */
 
     /**
-     * @param Modpack $modpack
+     * @param Modpack $modPack
      * @throws \Illuminate\Http\Client\RequestException
      */
-    private function downloadFiles(Modpack $modpack)
+    private function downloadFiles(Modpack $modPack)
     {
 
-        // 1Mio file
-        $fileContent = Http::get(self::FILE_1MIO_URL)->throw()->body();
-        Storage::disk($modpack->disk)->put("$modpack->path/1Mio.dat", $fileContent);
+        // 1Mb file
+        $fileContent = Http::get(self::FILE_1MB_URL)->throw()->body();
+        Storage::disk($modPack->disk)->put("$modPack->path/1Mb.dat", $fileContent);
 
-        // 10Mio file
-        $fileContent = Http::get(self::FILE_10MIO_URL)->throw()->body();
-        Storage::disk($modpack->disk)->put("$modpack->path/10Mio.dat", $fileContent);
+        // 10Mb file
+        $fileContent = Http::get(self::FILE_10MB_URL)->throw()->body();
+        Storage::disk($modPack->disk)->put("$modPack->path/10Mb.dat", $fileContent);
     }
 }
