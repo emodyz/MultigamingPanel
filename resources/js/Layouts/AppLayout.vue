@@ -34,7 +34,7 @@
               </jet-nav-link>
 
               <jet-nav-link :active="route().current('servers.*')"
-                            :href="route('servers.create')">
+                            :href="route('servers.index')">
                 Servers
               </jet-nav-link>
 
@@ -223,6 +223,11 @@
               :active="route().current('users.*')"
           >
             Users
+          </jet-responsive-nav-link>
+          <jet-responsive-nav-link
+              :active="route().current('servers.*')"
+              :href="route('servers.index')">
+            Servers
           </jet-responsive-nav-link>
           <jet-responsive-nav-link
               :active="route().current('modpacks.*')"

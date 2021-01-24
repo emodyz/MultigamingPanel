@@ -10,19 +10,15 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <data-table
                             :actions="actions"
-                            :data-object="modpacks"
+                            :data-object="servers"
                             :headers="headers"
                             :initial-query="initialSearch"
-                            :query-param="'modpacks'"
-                            :query-url="'/modpacks'"
+                            :query-param="'servers'"
+                            :query-url="'/servers'"
                             :total-item-count="totalItemCount"
                             class="w-full p-6">
 
                     <template #action>
-                        <CreateModPackModal
-                                :servers="servers"
-                                :games="games"
-                        />
                     </template>
 
                 </data-table>
@@ -41,38 +37,30 @@ import Route from '@/Mixins/Route'
 import DataTable from '@/Shared/DataTable/DataTable.vue'
 import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader'
 import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions'
-import CreateModPackModal from '@/Pages/ModPacks/Components/CreateModPackModal.vue'
-import DeleteModPack from '@/Shared/DataTable/Components/Dialogs/DeleteModPack.vue'
-import DtGameProfile from '@/Shared/DataTable/Components/GameProfile.vue'
-import DtDate from '@/Shared/DataTable/Components/Date.vue'
-import DtModPackSize from '@/Shared/DataTable/Components/ModPackSize.vue'
-import DtModPackFiles from '@/Shared/DataTable/Components/ModPackFiles.vue'
+// import DeleteModPack from '@/Shared/DataTable/Components/Dialogs/DeleteModPack.vue'
+import DtServerProfile from '@/Shared/DataTable/Components/ServerProfile.vue'
+// import DtDate from '@/Shared/DataTable/Components/Date.vue'
+// import DtModPackSize from '@/Shared/DataTable/Components/ModPackSize.vue'
+// import DtModPackFiles from '@/Shared/DataTable/Components/ModPackFiles.vue'
 
 @Component({
   components: {
-    CreateModPackModal,
     DataTable,
     AppLayout,
     JetNavLink,
     JetDangerButton,
+    DtServerProfile,
   },
 })
-export default class ModPacks_Index extends Mixins(Route) {
-  @Prop() readonly modpacks!: null | object
-
+export default class ServersIndex extends Mixins(Route) {
   @Prop() readonly servers!: null | object
-
-  @Prop() readonly games!: null | object
 
   @Prop() readonly totalItemCount!: null | number
 
   @Prop() readonly initialSearch!: null | string
 
-  processing: boolean = false
-
-  form = {
-    name: '',
-    servers: [] as any,
+  created() {
+    console.log(this.servers)
   }
 
   headers: Array<DataTableHeader> = [
@@ -82,15 +70,16 @@ export default class ModPacks_Index extends Mixins(Route) {
       component: 'Index',
     },
     {
-      title: 'Game',
-      component: DtGameProfile,
-      key: 'game',
-      order: false,
+      title: 'Name',
+      component: DtServerProfile,
+      key: 'name',
+      order: true,
       dataAccessors: {
-        name: 'game.name',
-        logo_url: 'game.logo_url',
+        name: 'name',
+        logo_url: 'logo_url',
       },
     },
+    /*
     {
       title: 'Name',
       key: 'name',
@@ -118,26 +107,18 @@ export default class ModPacks_Index extends Mixins(Route) {
       options: {
         type: 'Date.FromNow',
       },
-    },
+    }, */
   ]
 
   actions: DataTableActionsOptions = {
     enabled: true,
-    baseUrl: '/modpacks',
-    destroyDialog: DeleteModPack,
+    baseUrl: '/servers',
+    // destroyDialog: DeleteModPack,
     actions: [
-      {
-        displayName: 'Update',
-        enabled: true,
-        permission: 'modpacks-update',
-        path: 'update',
-        type: 'custom',
-        class: 'text-green-600 hover:text-green-900',
-      },
       {
         displayName: 'Edit',
         enabled: true,
-        permission: 'modpacks-edit',
+        permission: 'servers-edit',
         path: 'edit',
         type: 'edit',
         class: 'text-indigo-600 hover:text-indigo-900',
@@ -145,7 +126,7 @@ export default class ModPacks_Index extends Mixins(Route) {
       {
         displayName: 'Delete',
         enabled: true,
-        permission: 'modpacks-destroy',
+        permission: 'servers-destroy',
         type: 'destroy',
         class: 'text-red-600 hover:text-red-900',
       },
@@ -153,7 +134,3 @@ export default class ModPacks_Index extends Mixins(Route) {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

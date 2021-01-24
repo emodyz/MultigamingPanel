@@ -13,7 +13,6 @@
             :query-param="'articles'"
             :headers="headers"
             :data-object="articles"
-            data-type="Articles"
             :initial-query="initialSearch"
             :actions="actions"
             :total-item-count="totalItemCount"

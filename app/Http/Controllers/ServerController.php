@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Actions\Emodyz\Articles\CreateArticle;
 use App\Actions\Emodyz\Servers\CreateServer;
 use App\Http\Requests\Servers\CreateServerRequest;
+use App\Http\Resources\ModPack\ModPackResource;
 use App\Http\Resources\Server\ServerModpackResource;
 use App\Http\Resources\Server\ServerResource;
 use App\Models\Game;
@@ -21,13 +22,40 @@ class ServerController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return AnonymousResourceCollection|Response
+     * @param Request $request
+     * @return AnonymousResourceCollection|Response|\Inertia\Response
      */
-    public function index()
+    public function index(Request $request): Response|AnonymousResourceCollection|\Inertia\Response
     {
         $servers = Server::all();
 
-        return ServerResource::collection($servers);
+        if($request->wantsJson()) {
+            return ServerResource::collection($servers);
+        }
+
+        $orderBy = $request->query('orderBy');
+
+        $initialSearch = $request->query('search', '');
+
+        $serversQuery = Server::query()
+            ->select('id', 'name', 'logo_path', 'ip', 'port', 'game_id', 'created_at')
+            ->when($request->filled('search'), function ($query) use ($initialSearch) {
+                $query->where('name', 'LIKE', '%' . $initialSearch . '%');
+            })
+            ->when($request->filled('orderBy'), function ($query) use ($orderBy) {
+                $orderByKey = $orderBy['key'];
+                $orderByDirection = $orderBy['direction'];
+                $query->orderBy($orderByKey, $orderByDirection);
+            });
+
+        $servers= $serversQuery
+            ->paginate(10)
+            ->onEachSide(2)
+            ->appends(request()->only(['search']));
+
+        $totalItemCount = $servers->total();
+
+        return Inertia::render('Servers/Index', compact('servers', 'initialSearch', 'totalItemCount'));
     }
 
     /**
