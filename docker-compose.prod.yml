@@ -8,39 +8,26 @@ services:
       context: ./docker/php
     environment:
       - APP_ENV=${APP_ENV}
-      - APP_SECRET=${APP_SECRET}
     volumes:
-      - .:/var/www
+      - .:/var/www/html
     networks: 
       - backend
 
   nginx:
-    image: nginx:1.19-alpine
+    image: nginx:1.19
     container_name: "nginx"
     restart: always
     volumes:
-      - .:/var/www
+      - .:/var/www/html
       - ./docker/nginx:/etc/nginx/conf.d
-      - ./storage/logs:/var/log
-      - ./docker/certbot/conf:/etc/letsencrypt
-      - ./docker/certbot/www:/var/www/certbot
+      #- ./storage/logs:/var/log
     networks: 
       - backend
     depends_on:
       - php
-      - certbot
     ports:
       - "80:80"
       - "443:443"
-    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
-
-  certbot:
-    container_name: "certbot"
-    image: certbot/certbot
-    volumes:
-      - ./docker/certbot/conf:/etc/letsencrypt
-      - ./docker/certbot/www:/var/www/certbot
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
   postgres:
     container_name: "postgres"
@@ -56,8 +43,6 @@ services:
       - backend
     ports:
       - "5432:5432"
-
-      
   
 networks: 
   backend:

@@ -18,12 +18,8 @@ RUN docker-php-ext-install bz2 pdo pdo_pgsql bcmath mbstring tokenizer xml pdo p
 ## Install composer
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
-WORKDIR /var/www
+WORKDIR /var/www/html
 
-##RUN chown -R www-data:www-data /var/www
-
-RUN chmod 777 -R /var/www
-
-CMD composer install --optimize-autoloader --no-dev ;  php-fpm
+CMD chown -R www-data:www-data .; composer install --optimize-autoloader --no-dev ;  php-fpm
 
 EXPOSE 9000
