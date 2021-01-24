@@ -16,13 +16,17 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Component, Prop, Mixins } from 'vue-property-decorator'
+import Helpers from '@/Mixins/Helpers'
 
 @Component
-// eslint-disable-next-line camelcase
-export default class DataTable_GameProfile extends Vue {
-    @Prop({ type: String, required: true }) readonly name!: string
+export default class DataTable_GameProfile extends Mixins(Helpers) {
+  @Prop({ required: true }) readonly data!: any
 
-    @Prop({ type: String, required: true }) readonly logo_url!: string
+  @Prop({ required: true }) readonly dataAccessors!: any
+
+  name: string = this.getWithDataAccessors(this.data, this.dataAccessors.name)
+
+  logo_url: string = this.getWithDataAccessors(this.data, this.dataAccessors.logo_url)
 }
 </script>

@@ -33,6 +33,9 @@ import AppLayout from '@/Layouts/AppLayout.vue'
 import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions'
 import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader'
 import DeleteUser from '@/Shared/DataTable/Components/Dialogs/DeleteUser.vue'
+import DtDate from '@/Shared/DataTable/Components/Date.vue'
+import DtUserProfile from '@/Shared/DataTable/Components/UserProfile.vue'
+import DtUserStatus from '@/Shared/DataTable/Components/UserStatus.vue'
 
 @Component({
   components: {
@@ -40,7 +43,6 @@ import DeleteUser from '@/Shared/DataTable/Components/Dialogs/DeleteUser.vue'
     DataTable,
     Pagination,
     JetInput,
-    DeleteUser,
   },
 })
 export default class UsersIndex extends Vue {
@@ -54,12 +56,12 @@ export default class UsersIndex extends Vue {
     {
       title: '#',
       key: 'index',
-      type: 'Index',
+      component: 'Index',
     },
     {
       title: 'Name',
       key: 'name',
-      type: 'User.Profile',
+      component: DtUserProfile,
       dataAccessors: {
         name: 'name',
         email: 'email',
@@ -73,12 +75,19 @@ export default class UsersIndex extends Vue {
     {
       title: 'Status',
       key: 'email_verified_at',
-      type: 'User.Status',
+      component: DtUserStatus,
+      dataAccessors: {
+        email_verified_at: 'email_verified_at',
+      },
+
     },
     {
       title: 'Registered',
       key: 'created_at',
-      type: 'Date.Formatted',
+      component: DtDate,
+      options: {
+        type: 'Date.Formatted',
+      },
     },
   ]
 

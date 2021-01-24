@@ -3,9 +3,8 @@
     <span class="text-md">Are you sure you would like to delete this user ?</span>
     <dt-user-profile
         class="my-4"
-        :email="data.email"
-        :name="data.name"
-        :profile_photo_url="data.profile_photo_url"
+        :data="data"
+        :data-accessors=" {name: 'name', email: 'email', profile_photo_url: 'profile_photo_url' }"
     />
   </div>
 </template>
@@ -20,6 +19,6 @@ import DtUserProfile from '@/Shared/DataTable/Components/UserProfile.vue'
   },
 })
 export default class DeleteUser extends Vue {
-    @Prop({ type: Object, required: true }) readonly data!: any
+  @Prop({ type: Object, required: true }) readonly data!: any
 }
 </script>

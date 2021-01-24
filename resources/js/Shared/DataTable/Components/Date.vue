@@ -1,23 +1,33 @@
 <template>
   <div>
-    <span v-if="type === 'Date.Formatted'">
-      {{ $moment(date).format('LLL') }}
+    <span v-if="options.type === 'Date.Formatted'">
+      {{
+        $moment(date)
+            .format('LLL')
+      }}
     </span>
-    <span v-else-if="type === 'Date.FromNow'">
+    <span v-else-if="options.type === 'Date.FromNow'">
         <span v-if="date === null">Never</span>
-        <span v-else>{{ $moment(date).fromNow() }}</span>
+        <span v-else>{{
+            $moment(date)
+                .fromNow()
+          }}</span>
     </span>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Component, Prop, Mixins } from 'vue-property-decorator'
+import Helpers from '@/Mixins/Helpers'
 
 @Component
-// eslint-disable-next-line camelcase
-export default class DataTable_Date extends Vue {
-    @Prop({ type: String, required: true }) readonly type!: string
+export default class DataTable_Date extends Mixins(Helpers) {
+  @Prop({ required: true }) readonly options!: any
 
-    @Prop({ required: true }) readonly date!: string
+  @Prop({ required: true }) readonly itemKey!: any
+
+  @Prop({ required: true }) readonly data!: any
+
+  date = this.getWithDataAccessors(this.data, this.itemKey)
 }
 </script>

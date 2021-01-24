@@ -15,10 +15,11 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 
 @Component
-// eslint-disable-next-line camelcase
 export default class DataTable_ArticleTitle extends Vue {
-  @Prop({ required: true }) readonly title!: string
+  @Prop({ required: true }) readonly data!: any
 
-  @Prop() readonly subTitle!: string | null
+  title: string = this.data.title
+
+  subTitle: string = this.data.subTitle
 }
 </script>

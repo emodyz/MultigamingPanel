@@ -18,10 +18,10 @@
         </div>
         <div>
           <span class="font-medium">Size:</span>
-          <DtModPackSize class="inline-flex" :size="data.manifest_info.size"></DtModPackSize>
+          <DtModPackSize class="inline-flex" :data="data"></DtModPackSize>
         </div>
       </div>
-      <dt-game-profile :name="data.game.name" :logo_url="data.game.logo_url"></dt-game-profile>
+      <dt-game-profile :data="data" :data-accessors="{name: 'game.name', logo_url: 'game.logo_url'}"></dt-game-profile>
     </div>
   </div>
 </template>

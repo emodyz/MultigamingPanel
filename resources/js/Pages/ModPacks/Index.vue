@@ -44,6 +44,10 @@ import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader'
 import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions'
 import CreateModPackModal from '@/Pages/ModPacks/Components/CreateModPackModal.vue'
 import DeleteModPack from '@/Shared/DataTable/Components/Dialogs/DeleteModPack.vue'
+import DtGameProfile from '@/Shared/DataTable/Components/GameProfile.vue'
+import DtDate from '@/Shared/DataTable/Components/Date.vue'
+import DtModPackSize from '@/Shared/DataTable/Components/ModPackSize.vue'
+import DtModPackFiles from '@/Shared/DataTable/Components/ModPackFiles.vue'
 
 @Component({
   components: {
@@ -52,7 +56,6 @@ import DeleteModPack from '@/Shared/DataTable/Components/Dialogs/DeleteModPack.v
     AppLayout,
     JetNavLink,
     JetDangerButton,
-    DeleteModPack,
   },
 })
 export default class ModPacks_Index extends Mixins(Route) {
@@ -77,11 +80,11 @@ export default class ModPacks_Index extends Mixins(Route) {
     {
       title: '#',
       key: 'index',
-      type: 'Index',
+      component: 'Index',
     },
     {
       title: 'Game',
-      type: 'Game.Profile',
+      component: DtGameProfile,
       key: 'game',
       order: false,
       dataAccessors: {
@@ -100,19 +103,22 @@ export default class ModPacks_Index extends Mixins(Route) {
     {
       title: 'Size',
       key: 'manifest_info.size',
-      type: 'ModPack.Size',
+      component: DtModPackSize,
       order: false,
     },
     {
       title: 'Files',
       key: 'manifest_info.files',
-      type: 'ModPack.Files',
+      component: DtModPackFiles,
       order: false,
     },
     {
       title: 'Last Update',
       key: 'manifest_last_update',
-      type: 'Date.FromNow',
+      component: DtDate,
+      options: {
+        type: 'Date.FromNow',
+      },
     },
   ]
 
