@@ -257,30 +257,9 @@ export default class DataTable extends Mixins(Cerberus, Helpers) {
     }
   }
 
-  /**
-   * TODO: Simply pass the item object as data and the accessors to a component instance provided by the header and let the individual component deal with it to reduce boilerplate
-   */
-
   getRowComponent(_comp: any): any {
     return !this.doesNotExist(_comp) ? _comp : DtDefaultRow
   }
-
-  /**
-  getWithAccs(item: any, acss: any) {
-    return acss.split('.')
-      .reduce((acc: any, part: any) => acc && acc[part], item)
-  }
-
-  getRowComponentProps(_item: any, _type: string | null, key: any, _dataAccs: any = null): any {
-    switch (this.getRowComponent(_type)) {
-      default:
-        return {
-          data: key.split('.')
-            .reduce((acc: any, part: any) => acc && acc[part], _item),
-        }
-    }
-  }
-   */
 
   checkActionsPermissions() {
     this.actions.actions.forEach(async (item) => {
