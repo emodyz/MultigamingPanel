@@ -43,6 +43,7 @@ import DataTable from '@/Shared/DataTable/DataTable.vue'
 import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader'
 import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions'
 import CreateModPackModal from '@/Pages/ModPacks/Components/CreateModPackModal.vue'
+import DeleteModPack from '@/Shared/DataTable/Components/Dialogs/DeleteModPack.vue'
 
 @Component({
   components: {
@@ -51,6 +52,7 @@ import CreateModPackModal from '@/Pages/ModPacks/Components/CreateModPackModal.v
     AppLayout,
     JetNavLink,
     JetDangerButton,
+    DeleteModPack,
   },
 })
 export default class ModPacks_Index extends Mixins(Route) {
@@ -117,6 +119,7 @@ export default class ModPacks_Index extends Mixins(Route) {
   actions: DataTableActionsOptions = {
     enabled: true,
     baseUrl: '/modpacks',
+    destroyDialog: DeleteModPack,
     actions: [
       {
         displayName: 'Update',

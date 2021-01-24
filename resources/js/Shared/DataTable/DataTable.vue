@@ -97,12 +97,8 @@
                   class="px-6 py-4 whitespace-nowrap"
               >
                 <dt-actions
-                    :actions-options="actions"
-                    :item="{
-                      id: item.id,
-                      type: dataType ? dataType : false,
-                      metaData: dataType ? initActionsMetaData(item) : null,
-                    }"
+                    :options="actions"
+                    :item="item"
                 />
               </td>
             </tr>
@@ -140,13 +136,11 @@ import DtArticleStatus from '@/Shared/DataTable/Components/ArticleStatus.vue'
 import DtDefaultRow from '@/Shared/DataTable/Components/DefaultRow.vue'
 import DtActions from '@/Shared/DataTable/Components/Actions.vue'
 import DtGameProfile from '@/Shared/DataTable/Components/GameProfile.vue'
-import { User } from '@/Shared/DataTable/Types/User'
 import { PaginatedDate } from '@/Shared/DataTable/Types/PaginatedData'
 import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader'
 import Cerberus from '@/Mixins/Cerberus'
 import ChevronUp from '@/Shared/Svgs/ChevronUp.vue'
 import ChevronDown from '@/Shared/Svgs/ChevronDown.vue'
-import { Article } from '@/Shared/DataTable/Types/Article'
 
 @Component({
   components: {
@@ -176,8 +170,6 @@ export default class DataTable extends Mixins(Cerberus) {
     type: Object,
     required: true,
   }) readonly dataObject!: PaginatedDate
-
-  @Prop() readonly dataType!: null | string
 
   @Prop({
     type: Number,
@@ -246,19 +238,6 @@ export default class DataTable extends Mixins(Cerberus) {
       })
     }
   }, 250)
-
-  // eslint-disable-next-line consistent-return
-  initActionsMetaData(item: object): User | Article | object {
-    // eslint-disable-next-line default-case
-    switch (this.dataType) {
-      case 'ModPacks':
-        return item
-      case 'Users':
-        return item
-      case 'Articles':
-        return item
-    }
-  }
 
   resetOrderBy() {
     this.order = {

@@ -10,5 +10,6 @@ export interface Action {
 export interface DataTableActionsOptions {
     enabled: boolean,
     baseUrl?: string,
+    destroyDialog?: any,
     actions?: Array<Action>,
 }

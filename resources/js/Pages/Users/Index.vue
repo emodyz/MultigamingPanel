@@ -13,7 +13,6 @@
             :query-param="'users'"
             :headers="headers"
             :data-object="users"
-            data-type="Users"
             :initial-query="initialSearch"
             :actions="actions"
             :total-item-count="totalItemCount"
@@ -33,6 +32,7 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
 import AppLayout from '@/Layouts/AppLayout.vue'
 import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions'
 import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader'
+import DeleteUser from '@/Shared/DataTable/Components/Dialogs/DeleteUser.vue'
 
 @Component({
   components: {
@@ -40,6 +40,7 @@ import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader'
     DataTable,
     Pagination,
     JetInput,
+    DeleteUser,
   },
 })
 export default class UsersIndex extends Vue {
@@ -84,6 +85,7 @@ export default class UsersIndex extends Vue {
   actions: DataTableActionsOptions = {
     enabled: true,
     baseUrl: '/users',
+    destroyDialog: DeleteUser,
     actions: [
       {
         displayName: 'Edit',
