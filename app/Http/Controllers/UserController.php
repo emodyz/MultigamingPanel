@@ -41,8 +41,7 @@ class UserController extends Controller
             ->select('id', 'email', 'name', 'profile_photo_path', 'role', 'email_verified_at','created_at')
             ->when($request->filled('search'),function($query) use ($initialSearch){
                 $query->where('name','LIKE','%'.$initialSearch.'%')
-                    ->orWhere('email','LIKE','%'.$initialSearch.'%')
-                    ->orWhere('role','LIKE','%'.$initialSearch.'%');
+                    ->orWhere('email','LIKE','%'.$initialSearch.'%');
             })
             ->when($request->filled('orderBy'),function($query) use ($orderBy){
                 $orderByKey = $orderBy['key'];

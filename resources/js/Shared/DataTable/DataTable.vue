@@ -198,7 +198,7 @@ export default class DataTable extends Mixins(Cerberus, Helpers) {
     Inertia.visit(query ? `${this.queryUrl}?${query}` : this.queryUrl, {
       preserveScroll: true,
       preserveState: true,
-      only: [this.queryParam, 'totalItemCount'],
+      only: [this.queryParam, 'totalItemCount', 'initialSearch'],
       onFinish: () => {
         this.resetOrderBy()
       },
@@ -222,7 +222,7 @@ export default class DataTable extends Mixins(Cerberus, Helpers) {
       Inertia.visit(orderBy ? `${this.queryUrl}?${orderBy}` : this.queryUrl, {
         preserveScroll: true,
         preserveState: true,
-        only: [this.queryParam, 'totalItemCount'],
+        only: [this.queryParam, 'totalItemCount', 'initialSearch'],
       })
     }
   }, 250)
