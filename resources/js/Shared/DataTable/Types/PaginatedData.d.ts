@@ -7,7 +7,7 @@ interface Link {
     active: boolean
 }
 
-export interface PaginatedDate {
+export interface PaginatedData {
     data: Array<User | Article | object>
     links: Array<Link>
 }

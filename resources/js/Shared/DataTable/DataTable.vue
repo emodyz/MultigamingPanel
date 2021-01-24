@@ -89,7 +89,7 @@
                   {{ ((pageNumber * 10) - 10) + (index + 1) }}
                 </span>
                 <component v-else
-                           :key="key"
+                           :key="Math.random()"
                            :itemKey="key"
                            :is="getRowComponent(component)"
                            :data="item"
@@ -132,7 +132,7 @@ import JetInput from '@/Jetstream/Input.vue'
 import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions'
 import DtDefaultRow from '@/Shared/DataTable/Components/DefaultRow.vue'
 import DtActions from '@/Shared/DataTable/Components/Actions.vue'
-import { PaginatedDate } from '@/Shared/DataTable/Types/PaginatedData'
+import { PaginatedData } from '@/Shared/DataTable/Types/PaginatedData'
 import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader'
 import Cerberus from '@/Mixins/Cerberus'
 import ChevronUp from '@/Shared/Svgs/ChevronUp.vue'
@@ -157,7 +157,7 @@ export default class DataTable extends Mixins(Cerberus, Helpers) {
   @Prop({
     type: Object,
     required: true,
-  }) readonly dataObject!: PaginatedDate
+  }) dataObject!: PaginatedData
 
   @Prop({
     type: Number,
