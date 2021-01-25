@@ -29,6 +29,14 @@ services:
       - "80:80"
       - "443:443"
 
+  redis:
+    container_name: "redis"
+    image: "redis:alpine"
+    networks: 
+      - backend
+    ports:
+      - "6379:6379"
+
   postgres:
     container_name: "postgres"
     image: postgres:13.1-alpine
