@@ -39,6 +39,7 @@ import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader'
 import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions'
 // import DeleteModPack from '@/Shared/DataTable/Components/Dialogs/DeleteModPack.vue'
 import DtServerProfile from '@/Shared/DataTable/Components/ServerProfile.vue'
+import DtGameProfile from '@/Shared/DataTable/Components/GameProfile.vue'
 // import DtDate from '@/Shared/DataTable/Components/Date.vue'
 // import DtModPackSize from '@/Shared/DataTable/Components/ModPackSize.vue'
 // import DtModPackFiles from '@/Shared/DataTable/Components/ModPackFiles.vue'
@@ -73,10 +74,18 @@ export default class ServersIndex extends Mixins(Route) {
       title: 'Name',
       component: DtServerProfile,
       key: 'name',
-      order: true,
       dataAccessors: {
         name: 'name',
         logo_url: 'logo_url',
+      },
+    },
+    {
+      title: 'Game',
+      component: DtGameProfile,
+      key: 'game_id',
+      dataAccessors: {
+        name: 'game.name',
+        logo_url: 'game.logo_url',
       },
     },
     /*

@@ -24,7 +24,7 @@
 
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import AppLayout from '@/Layouts/AppLayout.vue'
-import JetSectionBorder from '@/Jetstream/SectionBorder'
+import JetSectionBorder from '@/Jetstream/SectionBorder.vue'
 import VoiceSettingsForm from '@/Pages/Settings/Components/VoiceSettingsForm.vue'
 
 @Component({
