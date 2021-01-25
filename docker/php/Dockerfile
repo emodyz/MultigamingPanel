@@ -3,10 +3,10 @@ FROM php:8.0.1-fpm-buster
 LABEL maintainer="Léo Hubert"
 
 # Prepare PHP dependencies
-RUN apt-get update && apt-get install -y git libbz2-dev libxml2-dev libpq-dev libonig-dev
+RUN apt-get update && apt-get install -y git libbz2-dev libxml2-dev libpq-dev libonig-dev libzip-dev
 
 # Install php extensions
-RUN docker-php-ext-install bz2 pdo pdo_pgsql bcmath mbstring tokenizer xml pdo pdo_pgsql
+RUN docker-php-ext-install bz2 pdo pdo_pgsql bcmath mbstring tokenizer xml pdo pdo_pgsql zip
 
 # Install redis
 RUN pecl install redis
