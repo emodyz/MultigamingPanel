@@ -28,7 +28,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import DtGameProfile from '@/Shared/DataTable/Components/GameProfile.vue'
+import DtGameProfile from '@/Shared/DataTable/Components/BasicProfile.vue'
 import DtModPackSize from '@/Shared/DataTable/Components/ModPackSize.vue'
 
 @Component({

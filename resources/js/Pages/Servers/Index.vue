@@ -38,10 +38,9 @@ import DataTable from '@/Shared/DataTable/DataTable.vue'
 import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader'
 import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions'
 // import DeleteModPack from '@/Shared/DataTable/Components/Dialogs/DeleteModPack.vue'
-import DtServerProfile from '@/Shared/DataTable/Components/ServerProfile.vue'
-import DtGameProfile from '@/Shared/DataTable/Components/GameProfile.vue'
-// import DtDate from '@/Shared/DataTable/Components/Date.vue'
-// import DtModPackSize from '@/Shared/DataTable/Components/ModPackSize.vue'
+import DtBasicProfile from '@/Shared/DataTable/Components/BasicProfile.vue'
+import DtDate from '@/Shared/DataTable/Components/Date.vue'
+import DtConcatenatedStrings from '@/Shared/DataTable/Components/ConcatenatedStrings.vue'
 // import DtModPackFiles from '@/Shared/DataTable/Components/ModPackFiles.vue'
 
 @Component({
@@ -50,7 +49,6 @@ import DtGameProfile from '@/Shared/DataTable/Components/GameProfile.vue'
     AppLayout,
     JetNavLink,
     JetDangerButton,
-    DtServerProfile,
   },
 })
 export default class ServersIndex extends Mixins(Route) {
@@ -72,7 +70,7 @@ export default class ServersIndex extends Mixins(Route) {
     },
     {
       title: 'Name',
-      component: DtServerProfile,
+      component: DtBasicProfile,
       key: 'name',
       dataAccessors: {
         name: 'name',
@@ -81,11 +79,20 @@ export default class ServersIndex extends Mixins(Route) {
     },
     {
       title: 'Game',
-      component: DtGameProfile,
+      component: DtBasicProfile,
       key: 'game_id',
       dataAccessors: {
         name: 'game.name',
         logo_url: 'game.logo_url',
+      },
+    },
+    {
+      title: 'ModPacks',
+      component: DtConcatenatedStrings,
+      key: 'modpacks',
+      order: false,
+      dataAccessors: {
+        array: 'modpacks',
       },
     },
     /*
@@ -109,14 +116,15 @@ export default class ServersIndex extends Mixins(Route) {
       component: DtModPackFiles,
       order: false,
     },
+     */
     {
-      title: 'Last Update',
-      key: 'manifest_last_update',
+      title: 'Created',
+      key: 'created_at',
       component: DtDate,
       options: {
-        type: 'Date.FromNow',
+        type: 'Date.Formatted',
       },
-    }, */
+    },
   ]
 
   actions: DataTableActionsOptions = {

@@ -11,6 +11,7 @@ use App\Http\Resources\Server\ServerResource;
 use App\Models\Game;
 use App\Models\Modpack;
 use App\Models\Server;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -29,7 +30,7 @@ class ServerController extends Controller
     {
         $servers = Server::all();
 
-        if($request->wantsJson()) {
+        if ($request->wantsJson()) {
             return ServerResource::collection($servers);
         }
 
@@ -38,6 +39,7 @@ class ServerController extends Controller
         $initialSearch = $request->query('search', '');
 
         $serversQuery = Server::query()
+            ->with('modpacks')
             ->select('id', 'name', 'logo_path', 'ip', 'port', 'game_id', 'created_at')
             ->when($request->filled('search'), function ($query) use ($initialSearch) {
                 $query->where('name', 'LIKE', '%' . $initialSearch . '%');
@@ -48,7 +50,7 @@ class ServerController extends Controller
                 $query->orderBy($orderByKey, $orderByDirection);
             });
 
-        $servers= $serversQuery
+        $servers = $serversQuery
             ->paginate(10)
             ->onEachSide(2)
             ->appends(request()->only(['search']));
@@ -125,11 +127,15 @@ class ServerController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Server $server
-     * @return Response
+     * @return RedirectResponse
+     * @throws Exception
      */
-    public function destroy(Server $server)
+    public function destroy(Server $server): RedirectResponse
     {
-        //
+        $server->delete();
+
+        flash('Server Deleted',   '"'. $server->getAttribute('name') .'" has been successfully deleted!')->danger();
+        return back(303);
     }
 
     /**

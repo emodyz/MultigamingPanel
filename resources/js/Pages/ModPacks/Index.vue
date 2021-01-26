@@ -43,7 +43,7 @@ import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader'
 import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions'
 import CreateModPackModal from '@/Pages/ModPacks/Components/CreateModPackModal.vue'
 import DeleteModPack from '@/Shared/DataTable/Components/Dialogs/DeleteModPack.vue'
-import DtGameProfile from '@/Shared/DataTable/Components/GameProfile.vue'
+import DtBasicProfile from '@/Shared/DataTable/Components/BasicProfile.vue'
 import DtDate from '@/Shared/DataTable/Components/Date.vue'
 import DtModPackSize from '@/Shared/DataTable/Components/ModPackSize.vue'
 import DtModPackFiles from '@/Shared/DataTable/Components/ModPackFiles.vue'
@@ -83,7 +83,7 @@ export default class ModPacks_Index extends Mixins(Route) {
     },
     {
       title: 'Game',
-      component: DtGameProfile,
+      component: DtBasicProfile,
       key: 'game',
       order: false,
       dataAccessors: {

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property mixed logo_path
@@ -22,6 +23,7 @@ class Server extends Model
     use HasFactory;
     use HasPrimaryKeyAsUuid;
     use HasLogo;
+    use SoftDeletes;
 
     protected string $logoDiskPath = 'servers';
 
@@ -62,9 +64,8 @@ class Server extends Model
      */
     public function latestStatus()
     {
-      return $this->status()->latest()->first();
+        return $this->status()->latest()->first();
     }
-
     /**
      * @return HasMany
      */

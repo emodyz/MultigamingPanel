@@ -20,7 +20,7 @@ import { Component, Prop, Mixins } from 'vue-property-decorator'
 import Helpers from '@/Mixins/Helpers'
 
 @Component
-export default class DataTable_ServerProfile extends Mixins(Helpers) {
+export default class DataTable_BasicProfile extends Mixins(Helpers) {
   @Prop({ required: true }) readonly data!: any
 
   @Prop({ required: true }) readonly dataAccessors!: any

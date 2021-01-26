@@ -177,7 +177,7 @@ import Route from '@/Mixins/Route'
 import Spinner from '@/Shared/Svgs/Spinner.vue'
 import ModpackSize from '@/Shared/DataTable/Components/ModPackSize.vue'
 import ModpackFiles from '@/Shared/DataTable/Components/ModPackFiles.vue'
-import GameProfile from '@/Shared/DataTable/Components/GameProfile.vue'
+import GameProfile from '@/Shared/DataTable/Components/BasicProfile.vue'
 import UpdateIllustration from '@/Shared/Svgs/UpdateIllustration.vue'
 
 @Component({
