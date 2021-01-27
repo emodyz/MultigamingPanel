@@ -70,9 +70,9 @@ class GameServerStatusJobTest extends TestCase
     foreach (Server::cursor() as $server) {
       $serverMockedResponse = $mockedReturnObject[$server->host()];
 
-      $this->assertEquals($serverMockedResponse['gq_online'], $server->latestStatus()->online);
-      $this->assertEquals($serverMockedResponse['gq_maxplayers'], $server->latestStatus()->players_max);
-      $this->assertEquals($serverMockedResponse['gq_numplayers'], $server->latestStatus()->players_online);
+      $this->assertEquals($serverMockedResponse['gq_online'], $server->latest_status->online);
+      $this->assertEquals($serverMockedResponse['gq_maxplayers'], $server->latest_status->players_max);
+      $this->assertEquals($serverMockedResponse['gq_numplayers'], $server->latest_status->players_online);
     }
   }
 }

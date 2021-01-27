@@ -60,10 +60,6 @@ class ServerController extends Controller
 
         $totalItemCount = $servers->total();
 
-        foreach ($servers as $server)
-        {
-            $server->latest_status = $server->latestStatus();
-        }
 
         return Inertia::render('Servers/Index', compact('servers', 'initialSearch', 'totalItemCount'));
     }

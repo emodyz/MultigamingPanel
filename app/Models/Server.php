@@ -42,7 +42,10 @@ class Server extends Model
      *
      * @var array
      */
-    protected $appends = ['logo_url'];
+    protected $appends = [
+      'logo_url',
+      'latest_status'
+    ];
 
     /**
      * @return BelongsTo
@@ -63,7 +66,7 @@ class Server extends Model
     /**
      * @return ServerStatus|Model|HasMany|object
      */
-    public function latestStatus()
+    public function getLatestStatusAttribute()
     {
         return $this->status()->latest()->first();
     }
