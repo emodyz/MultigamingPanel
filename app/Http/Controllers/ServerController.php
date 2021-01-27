@@ -46,6 +46,7 @@ class ServerController extends Controller
             ->select('id', 'name', 'logo_path', 'ip', 'port', 'game_id', 'created_at')
             ->when($request->filled('search'), function ($query) use ($initialSearch) {
                 $query->where('name', 'LIKE', '%' . $initialSearch . '%');
+                $query->where('ip', 'LIKE', '%' . $initialSearch . '%');
             })
             ->when($request->filled('orderBy'), function ($query) use ($orderBy) {
                 $orderByKey = $orderBy['key'];
