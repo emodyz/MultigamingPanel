@@ -40,8 +40,8 @@ import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActio
 // import DeleteModPack from '@/Shared/DataTable/Components/Dialogs/DeleteModPack.vue'
 import DtBasicProfile from '@/Shared/DataTable/Components/BasicProfile.vue'
 import DtDate from '@/Shared/DataTable/Components/Date.vue'
-import DtConcatenatedStrings from '@/Shared/DataTable/Components/ConcatenatedStrings.vue'
-// import DtModPackFiles from '@/Shared/DataTable/Components/ModPackFiles.vue'
+import DtServerModPacks from '@/Shared/DataTable/Components/ServerModPacks.vue'
+import DtServerStatus from '@/Shared/DataTable/Components/ServerStatus.vue'
 
 @Component({
   components: {
@@ -88,11 +88,21 @@ export default class ServersIndex extends Mixins(Route) {
     },
     {
       title: 'ModPacks',
-      component: DtConcatenatedStrings,
+      component: DtServerModPacks,
       key: 'modpacks',
       order: false,
       dataAccessors: {
         array: 'modpacks',
+      },
+    },
+
+    {
+      title: 'Status',
+      component: DtServerStatus,
+      key: 'latest_status',
+      order: false,
+      dataAccessors: {
+        status: 'latest_status',
       },
     },
     /*

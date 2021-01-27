@@ -138,26 +138,12 @@
                   for="modPack"
                   value="ModPack"
               />
-              <select
-                  id="modPack"
+              <multi-select
+                  placeholder="Chose a ModPack"
+                  :options-list="availableModPacks"
                   v-model="form.modPack"
-                  class="mt-1 block w-full rounded-md shadow-sm form-input"
-              >
-                <option
-                    :value="null"
-                    disabled
-                    selected
-                >
-                  Choose a modPack
-                </option>
-                <option
-                    v-for="(item, index) in availableModPacks"
-                    :key="index"
-                    :value="item.id"
-                >
-                  {{ item.name }}
-                </option>
-              </select>
+                  :tags="true"
+              />
               <jet-input-error
                   v-if="form.errors.modPack"
                   :message="form.errors.modPack"
@@ -265,6 +251,9 @@ import JetSectionBorder from '@/Jetstream/SectionBorder.vue'
 import Required from '@/Shared/Forms/Required.vue'
 import JetSectionTitle from '@/Jetstream/SectionTitle.vue'
 import MonolithicFormInputCard from '@/Shared/Forms/MonolithicFormInputCard.vue'
+import { MultiSelectOptions } from '@/Shared/Forms/Types/MultiSelectOptions'
+import MultiSelect from '@/Shared/Forms/MultiSelect.vue'
+import MultiSelectServerRow from '@/Shared/Forms/MultiSelectServerRow.vue'
 
 @Component({
   components: {
@@ -280,6 +269,7 @@ import MonolithicFormInputCard from '@/Shared/Forms/MonolithicFormInputCard.vue'
     JetSectionBorder,
     Required,
     JetSectionTitle,
+    MultiSelect,
   },
 })
 export default class CreateServerForm extends Mixins(Route) {
@@ -287,27 +277,66 @@ export default class CreateServerForm extends Mixins(Route) {
 
   @Prop({ required: true }) readonly games !: Array<any>
 
+  @Prop({ required: true }) readonly server !: any
+
   @Ref('logo') readonly logo!: any
 
   logoPreview: any = null
 
-  availableModPacks: Array<any> = []
+  availableModPacks: MultiSelectOptions = []
 
+  // TODO: Multiselect ModPacks
   form = this.$inertia.form({
-    name: null,
+    name: this.server.name,
     logo: null,
-    ip: null,
-    port: null,
-    game: null,
-    modPack: null,
+    ip: this.server.ip,
+    port: this.server.port,
+    game: this.server.game_id,
+    modPack: this.getLinkedModPacksIds(),
   })
 
   @Watch('form.game')
   onSelectedGameChanged(val: any) {
     this.availableModPacks = this.modPacks.filter((mod) => mod.game.id === val)
+    /*
     if (!this.availableModPacks.includes({ id: this.form.modPack })) {
       this.form.modPack = null
-    }
+    } */
+  }
+
+  getLinkedModPacksIds() {
+    const lmids: any[] = []
+    this.server.modpacks.forEach((s: any) => {
+      lmids.push(s.id)
+    })
+    return lmids
+  }
+
+  isModPackLinked(s: any): boolean {
+    return !!this.server.modpacks.find((e: any) => e.id === s.id)
+  }
+
+  initAvailableModPacks(): MultiSelectOptions {
+    const opts: MultiSelectOptions = []
+    this.modPacks.forEach((s: any) => {
+      opts.push({
+        name: s.name,
+        value: s.id,
+        selected: this.isModPackLinked(s),
+        component: {
+          instance: MultiSelectServerRow,
+          properties: {
+            logo: s.logo_url,
+            game: {
+              name: s.game.name,
+              logo: s.game.logo_url,
+              identifier: s.game.identifier,
+            },
+          },
+        },
+      })
+    })
+    return opts
   }
 
   selectNewLogo() {

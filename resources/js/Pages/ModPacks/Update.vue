@@ -41,7 +41,7 @@
                                     Game
                                 </dt>
                                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    <game-profile :name="modpack.game.name" :logo_url="modpack.game.logo_url"/>
+                                    <basic-profile :data="modpack" :data-accessors="{name: 'game.name', logo_url: 'game.logo_url'}"/>
                                 </dd>
                             </div>
                             <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -61,7 +61,7 @@
                                     Total Files
                                 </dt>
                                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    <modpack-files :files="modpack.manifest_info.files"></modpack-files>
+                                    <modpack-files :data="modpack"></modpack-files>
                                 </dd>
                             </div>
                             <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -69,7 +69,7 @@
                                     Total Size
                                 </dt>
                                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    <modpack-size :size="modpack.manifest_info.size"></modpack-size>
+                                    <modpack-size :data="modpack"></modpack-size>
                                 </dd>
                             </div>
                             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -177,13 +177,13 @@ import Route from '@/Mixins/Route'
 import Spinner from '@/Shared/Svgs/Spinner.vue'
 import ModpackSize from '@/Shared/DataTable/Components/ModPackSize.vue'
 import ModpackFiles from '@/Shared/DataTable/Components/ModPackFiles.vue'
-import GameProfile from '@/Shared/DataTable/Components/BasicProfile.vue'
+import BasicProfile from '@/Shared/DataTable/Components/BasicProfile.vue'
 import UpdateIllustration from '@/Shared/Svgs/UpdateIllustration.vue'
 
 @Component({
   components: {
     UpdateIllustration,
-    GameProfile,
+    BasicProfile,
     ModpackFiles,
     ModpackSize,
     Spinner,

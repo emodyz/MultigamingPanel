@@ -30,7 +30,7 @@ class CreateServerRequest extends FormRequest
             'ip' => ['required', 'string', 'min:4'],
             'port' => ['required', 'integer', 'digits_between:2,6'],
             'game' => ['required', 'uuid', 'exists:games,id'],
-            'modPack' => ['required', 'uuid', 'exists:modpacks,id'],
+            'modPack' => ['nullable', 'uuid', 'exists:modpacks,id'],
         ];
     }
 }

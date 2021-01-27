@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property mixed name
  * @property mixed modpacks
  * @property mixed articles
+ * @property mixed port
  */
 class Server extends Model
 {
@@ -60,9 +61,9 @@ class Server extends Model
     }
 
     /**
-     * @return ServerStatus|Model|HasMany|object
+     * @return HasMany|ServerStatus
      */
-    public function latestStatus()
+    public function latestStatus(): HasMany|ServerStatus
     {
         return $this->status()->latest()->first();
     }

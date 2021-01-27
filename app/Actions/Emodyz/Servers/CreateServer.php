@@ -31,6 +31,8 @@ class CreateServer
 
         $server->save();
 
-        $server->modpacks()->sync([$modPackId]);
+        if ($modPackId) {
+            $server->modpacks()->sync([$modPackId]);
+        }
     }
 }

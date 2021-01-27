@@ -57,6 +57,11 @@ class ServerController extends Controller
 
         $totalItemCount = $servers->total();
 
+        foreach ($servers as $server)
+        {
+            $server->latest_status = $server->latestStatus();
+        }
+
         return Inertia::render('Servers/Index', compact('servers', 'initialSearch', 'totalItemCount'));
     }
 
@@ -104,11 +109,16 @@ class ServerController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Server $server
-     * @return Response
+     * @return \Inertia\Response
      */
-    public function edit(Server $server)
+    public function edit(Server $server): \Inertia\Response
     {
-        //
+        $games = Game::all();
+
+        $modPacks = Modpack::all();
+
+        $server->modpacks;
+        return Inertia::render('Servers/Edit', compact('server', 'games', 'modPacks'));
     }
 
     /**
