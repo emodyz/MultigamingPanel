@@ -59,7 +59,7 @@ export default class ServersIndex extends Mixins(Route) {
   @Prop() readonly initialSearch!: null | string
 
   created() {
-    console.log(this.servers)
+    // console.log(this.servers)
   }
 
   headers: Array<DataTableHeader> = [
@@ -105,28 +105,6 @@ export default class ServersIndex extends Mixins(Route) {
         status: 'latest_status',
       },
     },
-    /*
-    {
-      title: 'Name',
-      key: 'name',
-    },
-    {
-      title: 'Path',
-      key: 'path',
-    },
-    {
-      title: 'Size',
-      key: 'manifest_info.size',
-      component: DtModPackSize,
-      order: false,
-    },
-    {
-      title: 'Files',
-      key: 'manifest_info.files',
-      component: DtModPackFiles,
-      order: false,
-    },
-     */
     {
       title: 'Created',
       key: 'created_at',

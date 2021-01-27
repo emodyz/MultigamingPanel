@@ -66,7 +66,7 @@
                 <div class="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative"
                      :class="option.selected ? 'border-indigo-700' : 'hover:border-indigo-100'">
                   <div class="w-full items-center flex">
-                    <div v-if="_.isNull(option.component)" class="mx-2 leading-6">{{ option.name }}</div>
+                    <div v-if="doesNotExist(option.component)" class="mx-2 leading-6">{{ option.name }}</div>
                     <component v-else :is="option.component.instance" :name="option.name" v-bind="{...option.component.properties}"/>
                   </div>
                 </div>
@@ -85,7 +85,7 @@
                 <div class="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative"
                      :class="option.selected ? 'border-indigo-700' : 'hover:border-indigo-100'">
                   <div class="w-full items-center flex">
-                    <div v-if="_.isNull(option.component)" class="mx-2 leading-6">{{ option.name }}</div>
+                    <div v-if="doesNotExist(option.component)" class="mx-2 leading-6">{{ option.name }}</div>
                     <component v-else :is="option.component.instance" :name="option.name" v-bind="{...option.component.properties}"/>
                   </div>
                 </div>
@@ -100,7 +100,7 @@
 
 <script lang="ts">
 import {
-  Vue, Component, Prop, Watch,
+  Component, Prop, Watch, Mixins,
 } from 'vue-property-decorator'
 import _ from 'lodash'
 import CrossIcon from '@/Shared/Svgs/CrossIcon.vue'
@@ -109,6 +109,7 @@ import ChevronUp from '@/Shared/Svgs/ChevronUp.vue'
 import { MultiSelectOptions, Option } from '@/Shared/Forms/Types/MultiSelectOptions'
 // @ts-ignore
 import vClickOutside from 'v-click-outside'
+import Helpers from '@/Mixins/Helpers'
 
 @Component({
   components: {
@@ -120,7 +121,7 @@ import vClickOutside from 'v-click-outside'
     clickOutside: vClickOutside.directive,
   },
 })
-export default class MultiSelect extends Vue {
+export default class MultiSelect extends Mixins(Helpers) {
   @Prop({
     type: Array,
     required: true,

@@ -61,9 +61,9 @@ class Server extends Model
     }
 
     /**
-     * @return HasMany|ServerStatus
+     * @return ServerStatus|Model|HasMany|object
      */
-    public function latestStatus(): HasMany|ServerStatus
+    public function latestStatus()
     {
         return $this->status()->latest()->first();
     }

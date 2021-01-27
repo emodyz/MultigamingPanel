@@ -50,7 +50,7 @@
             </jet-section-title>
           </template>
           <template #input>
-            <div class="col-span-6">
+            <div class="col-span-6 sm:col-span-4">
               <!-- Logo File Input -->
               <input
                   ref="logo"
@@ -58,22 +58,50 @@
                   class="hidden"
                   @change="updateLogoPreview"
               >
-              <!-- Logo Preview -->
+
+              <jet-label
+                  for="logo"
+                  value="Logo"
+              />
+
+              <!-- Current Logo -->
+              <div
+                  v-show="! logoPreview"
+                  class="mt-2"
+              >
+                <img
+                    :src="server.logo_url"
+                    alt="Current Server Logo"
+                    class="rounded-full h-20 w-20 object-cover"
+                >
+              </div>
+
+              <!-- New Logo Preview -->
               <div
                   v-show="logoPreview"
-                  class="mb-6"
+                  class="mt-2"
               >
-                <span
-                  class="block rounded-full w-40 h-40 shadow-lg"
-                  :style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' + logoPreview + '\');'"
-                />
+          <span
+              class="block rounded-full w-20 h-20"
+              :style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' + logoPreview + '\');'"
+          />
               </div>
 
               <jet-secondary-button
+                  class="mt-2 mr-2"
                   type="button"
                   @click.native.prevent="selectNewLogo"
               >
-                Select A Logo
+                Select A New Logo
+              </jet-secondary-button>
+
+              <jet-secondary-button
+                  v-if="server.logo_path"
+                  type="button"
+                  class="mt-2"
+                  @click.native.prevent="deleteLogo"
+              >
+                Remove Logo
               </jet-secondary-button>
 
               <jet-input-error
@@ -105,35 +133,19 @@
                   for="game"
                   value="Game"
               />
-              <select
+              <jet-input
                   id="game"
-                  v-model="form.game"
-                  class="mt-1 block w-full rounded-md shadow-sm form-input"
-                  required
-              >
-                <option
-                    :value="null"
-                    disabled
-                    selected
-                >
-                  Choose a game
-                </option>
-                <option
-                    v-for="(item, index) in games"
-                    :key="index"
-                    :value="item.id"
-                >
-                  {{ item.name }}
-                </option>
-              </select>
-              <jet-input-error
-                  v-if="form.errors.game"
-                  :message="form.errors.game"
-                  class="mt-2"
+                  :disabled="true"
+                  v-model="server.game.name"
+                  autocomplete="game"
+                  class="mt-1 block w-full bg-gray-200 cursor-not-allowed"
+                  maxlength="80"
+                  placeholder="My Amazing Game..."
+                  type="text"
               />
             </div>
             <!-- ModPack -->
-            <div class="col-span-6 sm:col-span-4" v-show="form.game">
+            <div class="col-span-6 sm:col-span-4">
               <jet-label
                   for="modPack"
                   value="ModPack"
@@ -141,7 +153,7 @@
               <multi-select
                   placeholder="Chose a ModPack"
                   :options-list="availableModPacks"
-                  v-model="form.modPack"
+                  v-model="form.modPacks"
                   :tags="true"
               />
               <jet-input-error
@@ -235,7 +247,7 @@
 
 <script lang="ts">
 import {
-  Component, Mixins, Prop, Ref, Watch,
+  Component, Mixins, Prop, Ref,
 } from 'vue-property-decorator'
 import Route from '@/Mixins/Route'
 
@@ -253,7 +265,6 @@ import JetSectionTitle from '@/Jetstream/SectionTitle.vue'
 import MonolithicFormInputCard from '@/Shared/Forms/MonolithicFormInputCard.vue'
 import { MultiSelectOptions } from '@/Shared/Forms/Types/MultiSelectOptions'
 import MultiSelect from '@/Shared/Forms/MultiSelect.vue'
-import MultiSelectServerRow from '@/Shared/Forms/MultiSelectServerRow.vue'
 
 @Component({
   components: {
@@ -283,26 +294,17 @@ export default class CreateServerForm extends Mixins(Route) {
 
   logoPreview: any = null
 
-  availableModPacks: MultiSelectOptions = []
+  availableModPacks: MultiSelectOptions = this.initAvailableModPacks()
 
   // TODO: Multiselect ModPacks
   form = this.$inertia.form({
+    _method: 'PUT',
     name: this.server.name,
     logo: null,
     ip: this.server.ip,
     port: this.server.port,
-    game: this.server.game_id,
-    modPack: this.getLinkedModPacksIds(),
+    modPacks: this.getLinkedModPacksIds(),
   })
-
-  @Watch('form.game')
-  onSelectedGameChanged(val: any) {
-    this.availableModPacks = this.modPacks.filter((mod) => mod.game.id === val)
-    /*
-    if (!this.availableModPacks.includes({ id: this.form.modPack })) {
-      this.form.modPack = null
-    } */
-  }
 
   getLinkedModPacksIds() {
     const lmids: any[] = []
@@ -318,22 +320,12 @@ export default class CreateServerForm extends Mixins(Route) {
 
   initAvailableModPacks(): MultiSelectOptions {
     const opts: MultiSelectOptions = []
-    this.modPacks.forEach((s: any) => {
+    const filteredModPacks = this.modPacks.filter((mod) => mod.game.id === this.server.game_id)
+    filteredModPacks.forEach((s: any) => {
       opts.push({
         name: s.name,
         value: s.id,
         selected: this.isModPackLinked(s),
-        component: {
-          instance: MultiSelectServerRow,
-          properties: {
-            logo: s.logo_url,
-            game: {
-              name: s.game.name,
-              logo: s.game.logo_url,
-              identifier: s.game.identifier,
-            },
-          },
-        },
       })
     })
     return opts
@@ -351,21 +343,40 @@ export default class CreateServerForm extends Mixins(Route) {
     }
 
     reader.readAsDataURL(this.logo.files[0])
-
-    this.form.logo = this.logo.files[0]
   }
 
   submitForm() {
+    if (this.logo.files[0]) {
+      this.form.logo = this.logo.files[0]
+    }
     this.form.port = parseInt(this.form.port, 10)
-    this.form.post(this.route('servers.store'),
+    this.form.post(this.route('servers.update', this.server.id),
       {
         preserveScroll: true,
         preserveState: true,
         onSuccess: () => {
           this.logoPreview = null
-          this.form.reset()
+          this.form.logo = null
         },
       })
+  }
+
+  deleteLogo() {
+    this.$inertia.delete(
+      this.route('servers.destroy.logo', this.server.id),
+      {
+        preserveScroll: true,
+        onSuccess: () => {
+          this.resetLogoInput()
+        },
+      },
+    )
+  }
+
+  resetLogoInput() {
+    this.logoPreview = null
+    this.form.logo = null
+    this.logo.files = null
   }
 
   created() {

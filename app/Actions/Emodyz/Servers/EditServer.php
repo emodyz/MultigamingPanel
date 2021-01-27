@@ -3,6 +3,7 @@
 namespace App\Actions\Emodyz\Servers;
 
 use App\Models\Article;
+use App\Models\Server;
 use App\Models\User;
 use Illuminate\Support\Str;
 
@@ -11,35 +12,25 @@ class EditServer
     /**
      * Validate and update the given user if the initiator has the appropriate authorizations.
      *
-     * @param Article $article
+     * @param Server $server
      * @param array $input
      * @return void
      */
-    public function editArticle(Article $article, array $input)
+    public function editServer(Server $server, array $input)
     {
-        $newCoverImage = $input['coverImage'];
+        $newLogo = $input['logo'];
 
-        if ($newCoverImage) {
-            $article->updateCoverImage($newCoverImage);
+        if (isset($newLogo)) {
+            $server->updateLogo($newLogo);
         }
+        $modPacks = $input['modPacks'];
 
-        $title = $input['title'];
-        $servers = $input['servers'];
-        $status = $input['status'];
+        $server->setAttribute('name', $input['name']);
+        $server->setAttribute('ip', $input['ip']);
+        $server->setAttribute('port', $input['port']);
 
-        $article->setAttribute('title', $title);
-        $article->setAttribute('subTitle', $input['subTitle']);
-        $article->setAttribute('slug', Str::slug($title));
-        $article->setAttribute('content', $input['content']);
+        $server->save();
 
-        if ($article->getAttribute('status') !== $status) {
-            $article->setAttribute('status', $status);
-            $article->setAttribute('published_at', $status === 'published' ? now() : null);
-        }
-
-        $article->save();
-
-        $article->servers()->sync($servers);
-
+        $server->modpacks()->sync($modPacks);
     }
 }

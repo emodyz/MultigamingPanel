@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Actions\Emodyz\Articles\CreateArticle;
 use App\Actions\Emodyz\Servers\CreateServer;
+use App\Actions\Emodyz\Servers\EditServer;
 use App\Http\Requests\Servers\CreateServerRequest;
+use App\Http\Requests\Servers\EditServerRequest;
 use App\Http\Resources\ModPack\ModPackResource;
 use App\Http\Resources\Server\ServerModpackResource;
 use App\Http\Resources\Server\ServerResource;
@@ -17,6 +19,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Inertia\Inertia;
+use function Symfony\Component\String\b;
 
 class ServerController extends Controller
 {
@@ -124,13 +127,17 @@ class ServerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param EditServerRequest $request
      * @param Server $server
-     * @return Response
+     * @param EditServer $editor
+     * @return RedirectResponse
      */
-    public function update(Request $request, Server $server)
+    public function update(EditServerRequest $request, Server $server, EditServer $editor): RedirectResponse
     {
-        //
+        $editor->editServer($server, $request->all());
+
+        flash($request->get('name'),'This server has been successfully edited!')->success();
+        return back();
     }
 
     /**
@@ -145,6 +152,21 @@ class ServerController extends Controller
         $server->delete();
 
         flash('Server Deleted',   '"'. $server->getAttribute('name') .'" has been successfully deleted!')->danger();
+        return back(303);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Server $server
+     * @return RedirectResponse
+     * @throws Exception
+     */
+    public function destroyLogo(Server $server): RedirectResponse
+    {
+        $server->deleteLogo();
+
+        flash('Server Logo', $server->getAttribute('name') . '\'s logo has been reset!')->warning();
         return back(303);
     }
 
