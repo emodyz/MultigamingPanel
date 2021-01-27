@@ -33,8 +33,8 @@ export default class ServersCreate extends Vue {
   @Prop() readonly games !: Array<any>
 
   created() {
-    console.log('ModPacks:', this.modPacks)
-    console.log('Games:', this.games)
+    // console.log('ModPacks:', this.modPacks)
+    // console.log('Games:', this.games)
   }
 }
 </script>
