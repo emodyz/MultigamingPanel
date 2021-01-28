@@ -43,6 +43,7 @@ class ArticleController extends Controller
         $initialSearch = $request->query('search', '');
 
         $articlesQuery = Article::query()
+            ->with('servers')
             ->select('id', 'title', 'subTitle', 'slug', 'status', 'cover_image_path', 'user_id', 'created_at', 'published_at', 'created_at')
             ->when($request->filled('search'), function ($query) use ($initialSearch) {
                 $query->where('title', 'LIKE', '%' . $initialSearch . '%')

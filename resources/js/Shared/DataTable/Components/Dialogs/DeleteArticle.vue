@@ -2,16 +2,58 @@
   <div>
     <span class="text-md">Are you sure you would like to delete this article ?</span>
 
-    <div class="w-88 flex flex-col justify-center items-center">
-      <div class="bg-gray-300 h-56 w-full rounded-lg shadow-md bg-cover bg-center" :style="`background-image: url('${ data.cover_image_url }')`"></div>
+    <div class="w-full flex flex-wrap space-x-4 items-start">
+      <div class="flex flex-col mt-4 justify-center items-center w-full sm:w-7/12 h-auto">
+        <div class="bg-gray-300 h-56 w-full rounded-lg shadow-md bg-cover bg-center" :style="`background-image: url('${ data.cover_image_url }')`"></div>
 
-      <div class="prose w-80 bg-white -mt-10 shadow-lg rounded-lg overflow-hidden p-5">
-        <h3>{{ data.title }}</h3>
+        <div class="block prose w-10/12 sm:w-72 bg-white -mt-10 shadow-lg rounded-lg overflow-hidden p-5">
+          <h3>{{ data.title }}</h3>
 
-        <div class="text-base">
-          {{ data.subTitle }}
+          <div class="text-base text-justify">
+            {{ data.subTitle }}
+          </div>
+
+          <span class="float-right mt-4 text-sm text-gray-400 font-semibold text-right">
+              Created {{ $moment(data.created_at).fromNow() }}
+          </span>
         </div>
+      </div>
 
+      <div class="hidden sm:block rounded-lg shadow-md mt-4 bg-gray-50 px-4 py-5 flex-1">
+        <dt class="text-sm font-medium text-gray-500">
+          Attached Servers
+        </dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          <ul class="border border-gray-200 rounded-md divide-y divide-gray-200">
+            <li v-if="data.servers.length === 0"
+                class="pl-3 pr-4 py-3 flex items-center text-sm">
+              <span class="truncate">
+                No attached servers.
+              </span>
+            </li>
+            <li v-for="server of data.servers" v-else :key="server.id"
+                class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+              <div class="w-0 flex-1 flex items-center">
+                <svg class="flex-shrink-0 h-5 w-5 text-gray-400"
+                     fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                     xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"/>
+                </svg>
+                <span class="ml-2 flex-1 w-0 truncate">
+                                                    {{ server.name }}
+                                            </span>
+              </div>
+              <div class="ml-4 flex-shrink-0">
+                <a class="font-medium text-indigo-600 hover:text-indigo-500" href="#">
+                  See
+                </a>
+              </div>
+            </li>
+          </ul>
+        </dd>
       </div>
     </div>
   </div>
