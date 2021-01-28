@@ -157,8 +157,8 @@
                   :tags="true"
               />
               <jet-input-error
-                  v-if="form.errors.modPack"
-                  :message="form.errors.modPack"
+                  v-if="form.errors.modPacks"
+                  :message="form.errors.modPacks"
                   class="mt-2"
               />
             </div>
@@ -296,7 +296,6 @@ export default class CreateServerForm extends Mixins(Route) {
 
   availableModPacks: MultiSelectOptions = this.initAvailableModPacks()
 
-  // TODO: Multiselect ModPacks
   form = this.$inertia.form({
     _method: 'PUT',
     name: this.server.name,

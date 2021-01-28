@@ -2,22 +2,20 @@
 
 namespace App\Actions\Emodyz\Servers;
 
-use App\Models\Article;
 use App\Models\Server;
-use Illuminate\Support\Str;
 
 class CreateServer
 {
     /**
      * @param array $input
-     * @return void
+     * @return Server
      */
-    public function storeNewServer(array $input)
+    public function storeNewServer(array $input): Server
     {
         $server = new Server();
 
         $gameId = $input['game'];
-        $modPackId = $input['modPack'];
+        $modPacks = $input['modPacks'];
 
         $server->setAttribute('name', $input['name']);
         $server->setAttribute('ip', $input['ip']);
@@ -31,8 +29,10 @@ class CreateServer
 
         $server->save();
 
-        if ($modPackId) {
-            $server->modpacks()->sync([$modPackId]);
+        if (!empty($modPacks)) {
+            $server->modpacks()->sync($modPacks);
         }
+
+        return $server;
     }
 }

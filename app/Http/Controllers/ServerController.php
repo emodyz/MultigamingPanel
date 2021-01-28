@@ -10,6 +10,7 @@ use App\Http\Requests\Servers\EditServerRequest;
 use App\Http\Resources\ModPack\ModPackResource;
 use App\Http\Resources\Server\ServerModpackResource;
 use App\Http\Resources\Server\ServerResource;
+use App\Jobs\ProcessServerStatus;
 use App\Models\Game;
 use App\Models\Modpack;
 use App\Models\Server;
@@ -88,10 +89,12 @@ class ServerController extends Controller
      */
     public function store(CreateServerRequest $request, CreateServer $store): RedirectResponse
     {
-        $store->storeNewServer($request->all());
+        $server = $store->storeNewServer($request->all());
+
+        dispatch_now(new ProcessServerStatus($server));
 
         flash($request->get('name'), 'Your new server has ben successfully created!')->success();
-        return back();
+        return redirect(route('servers.edit', $server));
     }
 
     /**

@@ -19,8 +19,8 @@
                             class="w-full p-6">
 
                     <template #action>
+                      <create-server-button/>
                     </template>
-
                 </data-table>
             </div>
         </div>
@@ -42,6 +42,7 @@ import DtBasicProfile from '@/Shared/DataTable/Components/BasicProfile.vue'
 import DtDate from '@/Shared/DataTable/Components/Date.vue'
 import DtServerModPacks from '@/Shared/DataTable/Components/ServerModPacks.vue'
 import DtServerStatus from '@/Shared/DataTable/Components/ServerStatus.vue'
+import CreateServerButton from '@/Pages/Servers/Components/CreateServerButton.vue'
 
 @Component({
   components: {
@@ -49,6 +50,7 @@ import DtServerStatus from '@/Shared/DataTable/Components/ServerStatus.vue'
     AppLayout,
     JetNavLink,
     JetDangerButton,
+    CreateServerButton,
   },
 })
 export default class ServersIndex extends Mixins(Route) {

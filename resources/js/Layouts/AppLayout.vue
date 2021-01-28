@@ -15,20 +15,15 @@
             <!-- Navigation Links -->
             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
               <jet-nav-link
-                :href="route('dashboard')"
-                :active="route().current('dashboard')"
+                  :href="route('dashboard')"
+                  :active="route().current('dashboard')"
               >
                 Dashboard
               </jet-nav-link>
-                <jet-nav-link
-                        :href="route('settings.edit')"
-                        :active="route().current('settings.*')"
-                >
-                    Settings
-                </jet-nav-link>
+
               <jet-nav-link
-                :href="route('users.index')"
-                :active="route().current('users.*')"
+                  :href="route('users.index')"
+                  :active="route().current('users.*')"
               >
                 Users
               </jet-nav-link>
@@ -47,6 +42,13 @@
                             :href="route('articles.index')">
                 Articles
               </jet-nav-link>
+
+              <jet-nav-link
+                  :href="route('settings.edit')"
+                  :active="route().current('settings.*')"
+              >
+                Settings
+              </jet-nav-link>
             </div>
           </div>
 
@@ -54,37 +56,37 @@
           <div class="hidden sm:flex sm:items-center sm:ml-6">
             <div class="ml-3 relative">
               <jet-dropdown
-                align="right"
-                width="48"
+                  align="right"
+                  width="48"
               >
                 <template #trigger>
                   <button
-                    v-if="$page.props.jetstream.managesProfilePhotos"
-                    class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out"
+                      v-if="$page.props.jetstream.managesProfilePhotos"
+                      class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out"
                   >
                     <img
-                      class="h-8 w-8 rounded-full object-cover"
-                      :src="$page.props.user.profile_photo_url"
-                      :alt="$page.props.user.name"
+                        class="h-8 w-8 rounded-full object-cover"
+                        :src="$page.props.user.profile_photo_url"
+                        :alt="$page.props.user.name"
                     >
                   </button>
 
                   <button
-                    v-else
-                    class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
+                      v-else
+                      class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
                   >
                     <div>{{ $page.props.user.name }}</div>
 
                     <div class="ml-1">
                       <svg
-                        class="fill-current h-4 w-4"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
+                          class="fill-current h-4 w-4"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
                       >
                         <path
-                          fill-rule="evenodd"
-                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                          clip-rule="evenodd"
+                            fill-rule="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clip-rule="evenodd"
                         />
                       </svg>
                     </div>
@@ -102,8 +104,8 @@
                   </jet-dropdown-link>
 
                   <jet-dropdown-link
-                    v-if="$page.props.jetstream.hasApiFeatures"
-                    :href="route('api-tokens.index')"
+                      v-if="$page.props.jetstream.hasApiFeatures"
+                      :href="route('api-tokens.index')"
                   >
                     API Tokens
                   </jet-dropdown-link>
@@ -122,8 +124,8 @@
                     </jet-dropdown-link>
 
                     <jet-dropdown-link
-                      v-if="$page.props.jetstream.canCreateTeams"
-                      :href="route('teams.create')"
+                        v-if="$page.props.jetstream.canCreateTeams"
+                        :href="route('teams.create')"
                     >
                       Create New Team
                     </jet-dropdown-link>
@@ -137,20 +139,20 @@
 
                     <template v-for="team in $page.props.user.all_teams">
                       <form
-                        :key="team.id"
-                        @submit.prevent="switchToTeam(team)"
+                          :key="team.id"
+                          @submit.prevent="switchToTeam(team)"
                       >
                         <jet-dropdown-link as="button">
                           <div class="flex items-center">
                             <svg
-                              v-if="team.id == $page.props.user.current_team_id"
-                              class="mr-2 h-5 w-5 text-green-400"
-                              fill="none"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
+                                v-if="team.id == $page.props.user.current_team_id"
+                                class="mr-2 h-5 w-5 text-green-400"
+                                fill="none"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
                             >
                               <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
@@ -177,28 +179,28 @@
           <!-- Hamburger -->
           <div class="-mr-2 flex items-center sm:hidden">
             <button
-              class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
-              @click="showingNavigationDropdown = ! showingNavigationDropdown"
+                class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
+                @click="showingNavigationDropdown = ! showingNavigationDropdown"
             >
               <svg
-                class="h-6 w-6"
-                stroke="currentColor"
-                fill="none"
-                viewBox="0 0 24 24"
+                  class="h-6 w-6"
+                  stroke="currentColor"
+                  fill="none"
+                  viewBox="0 0 24 24"
               >
                 <path
-                  :class="{'hidden': showingNavigationDropdown, 'inline-flex': ! showingNavigationDropdown }"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4 6h16M4 12h16M4 18h16"
+                    :class="{'hidden': showingNavigationDropdown, 'inline-flex': ! showingNavigationDropdown }"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16"
                 />
                 <path
-                  :class="{'hidden': ! showingNavigationDropdown, 'inline-flex': showingNavigationDropdown }"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M6 18L18 6M6 6l12 12"
+                    :class="{'hidden': ! showingNavigationDropdown, 'inline-flex': showingNavigationDropdown }"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
                 />
               </svg>
             </button>
@@ -208,13 +210,13 @@
 
       <!-- Responsive Navigation Menu -->
       <div
-        :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}"
-        class="sm:hidden"
+          :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}"
+          class="sm:hidden"
       >
         <div class="pt-2 pb-3 space-y-1">
           <jet-responsive-nav-link
-            :href="route('dashboard')"
-            :active="route().current('dashboard')"
+              :href="route('dashboard')"
+              :active="route().current('dashboard')"
           >
             Dashboard
           </jet-responsive-nav-link>
@@ -241,6 +243,12 @@
           >
             Articles
           </jet-responsive-nav-link>
+          <jet-responsive-nav-link
+              :active="route().current('settings.*')"
+              :href="route('settings.edit')"
+          >
+            Settings
+          </jet-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
@@ -248,9 +256,9 @@
           <div class="flex items-center px-4">
             <div class="flex-shrink-0">
               <img
-                class="h-10 w-10 rounded-full"
-                :src="$page.props.user.profile_photo_url"
-                :alt="$page.props.user.name"
+                  class="h-10 w-10 rounded-full"
+                  :src="$page.props.user.profile_photo_url"
+                  :alt="$page.props.user.name"
               >
             </div>
 
@@ -266,24 +274,24 @@
 
           <div class="mt-3 space-y-1">
             <jet-responsive-nav-link
-              :href="route('profile.show')"
-              :active="route().current('profile.show')"
+                :href="route('profile.show')"
+                :active="route().current('profile.show')"
             >
               Profile
             </jet-responsive-nav-link>
 
             <jet-responsive-nav-link
-              v-if="$page.props.jetstream.hasApiFeatures"
-              :href="route('api-tokens.index')"
-              :active="route().current('api-tokens.index')"
+                v-if="$page.props.jetstream.hasApiFeatures"
+                :href="route('api-tokens.index')"
+                :active="route().current('api-tokens.index')"
             >
               API Tokens
             </jet-responsive-nav-link>
 
             <!-- Authentication -->
             <form
-              method="POST"
-              @submit.prevent="logout"
+                method="POST"
+                @submit.prevent="logout"
             >
               <jet-responsive-nav-link as="button">
                 Logout
@@ -300,15 +308,15 @@
 
               <!-- Team Settings -->
               <jet-responsive-nav-link
-                :href="route('teams.show', $page.props.user.current_team)"
-                :active="route().current('teams.show')"
+                  :href="route('teams.show', $page.props.user.current_team)"
+                  :active="route().current('teams.show')"
               >
                 Team Settings
               </jet-responsive-nav-link>
 
               <jet-responsive-nav-link
-                :href="route('teams.create')"
-                :active="route().current('teams.create')"
+                  :href="route('teams.create')"
+                  :active="route().current('teams.create')"
               >
                 Create New Team
               </jet-responsive-nav-link>
@@ -322,20 +330,20 @@
 
               <template v-for="team in $page.props.user.all_teams">
                 <form
-                  :key="team.id"
-                  @submit.prevent="switchToTeam(team)"
+                    :key="team.id"
+                    @submit.prevent="switchToTeam(team)"
                 >
                   <jet-responsive-nav-link as="button">
                     <div class="flex items-center">
                       <svg
-                        v-if="team.id == $page.props.user.current_team_id"
-                        class="mr-2 h-5 w-5 text-green-400"
-                        fill="none"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
+                          v-if="team.id == $page.props.user.current_team_id"
+                          class="mr-2 h-5 w-5 text-green-400"
+                          fill="none"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
                       >
                         <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                       </svg>
@@ -364,13 +372,14 @@
 
     <!-- Modal Portal -->
     <portal-target
-      name="modal"
-      multiple
+        name="modal"
+        multiple
     />
 
     <!-- Notifications -->
     <!-- TODO: Add Support for multiple flashes -->
-    <flash-notification v-if="!doesNotExist($page.props.flash.notifications)" :flash="$page.props.flash.notifications[0]"/>
+    <flash-notification v-if="!doesNotExist($page.props.flash.notifications)"
+                        :flash="$page.props.flash.notifications[0]"/>
   </div>
 </template>
 

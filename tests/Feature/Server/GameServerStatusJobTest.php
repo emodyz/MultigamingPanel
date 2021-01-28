@@ -29,7 +29,7 @@ class GameServerStatusJobTest extends TestCase
     ]);
 
     $this->assertCount(0, ServerStatus::all());
-    ProcessServersStatuses::dispatch();
+      ProcessServersStatuses::dispatch();
     $this->assertCount(3, ServerStatus::all());
   }
 
@@ -64,7 +64,7 @@ class GameServerStatusJobTest extends TestCase
     });
 
     $this->assertCount(0, ServerStatus::all());
-    ProcessServersStatuses::dispatch();
+      ProcessServersStatuses::dispatch();
     $this->assertCount(3, ServerStatus::all());
 
     foreach (Server::cursor() as $server) {

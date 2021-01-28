@@ -93,18 +93,16 @@
                 Game & ModPack
               </template>
               <template #description>
-                Associate your server to a game & modpack
-                <required/>
+                Associate your server to a game <required/> & mod-packs
               </template>
             </jet-section-title>
           </template>
           <template #input>
             <!-- Game -->
             <div class="col-span-6 sm:col-span-4">
-              <jet-label
-                  for="game"
-                  value="Game"
-              />
+              <jet-label for="game">
+                Game <required/>
+              </jet-label>
               <select
                   id="game"
                   v-model="form.game"
@@ -138,29 +136,15 @@
                   for="modPack"
                   value="ModPack"
               />
-              <select
-                  id="modPack"
-                  v-model="form.modPack"
-                  class="mt-1 block w-full rounded-md shadow-sm form-input"
-              >
-                <option
-                    :value="null"
-                    disabled
-                    selected
-                >
-                  Choose a modPack
-                </option>
-                <option
-                    v-for="(item, index) in availableModPacks"
-                    :key="index"
-                    :value="item.id"
-                >
-                  {{ item.name }}
-                </option>
-              </select>
+              <multi-select
+                  placeholder="Chose a ModPack"
+                  :options-list="availableModPacks"
+                  v-model="form.modPacks"
+                  :tags="true"
+              />
               <jet-input-error
-                  v-if="form.errors.modPack"
-                  :message="form.errors.modPack"
+                  v-if="form.errors.modPacks"
+                  :message="form.errors.modPacks"
                   class="mt-2"
               />
             </div>
@@ -265,6 +249,8 @@ import JetSectionBorder from '@/Jetstream/SectionBorder.vue'
 import Required from '@/Shared/Forms/Required.vue'
 import JetSectionTitle from '@/Jetstream/SectionTitle.vue'
 import MonolithicFormInputCard from '@/Shared/Forms/MonolithicFormInputCard.vue'
+import { MultiSelectOptions } from '@/Shared/Forms/Types/MultiSelectOptions'
+import MultiSelect from '@/Shared/Forms/MultiSelect.vue'
 
 @Component({
   components: {
@@ -280,6 +266,7 @@ import MonolithicFormInputCard from '@/Shared/Forms/MonolithicFormInputCard.vue'
     JetSectionBorder,
     Required,
     JetSectionTitle,
+    MultiSelect,
   },
 })
 export default class CreateServerForm extends Mixins(Route) {
@@ -291,23 +278,37 @@ export default class CreateServerForm extends Mixins(Route) {
 
   logoPreview: any = null
 
-  availableModPacks: Array<any> = []
-
   form = this.$inertia.form({
     name: null,
     logo: null,
     ip: null,
     port: null,
     game: null,
-    modPack: null,
+    modPacks: [],
   })
 
+  availableModPacks: MultiSelectOptions = []
+
   @Watch('form.game')
-  onSelectedGameChanged(val: any) {
-    this.availableModPacks = this.modPacks.filter((mod) => mod.game.id === val)
-    if (!this.availableModPacks.includes({ id: this.form.modPack })) {
-      this.form.modPack = null
-    }
+  onSelectedGameChanged() {
+    this.availableModPacks = this.initAvailableModPacks()
+  }
+
+  isModPackLinked(s: any): boolean {
+    return !!this.form.modPacks.find((e: any) => e.id === s.id)
+  }
+
+  initAvailableModPacks(): MultiSelectOptions {
+    const opts: MultiSelectOptions = []
+    const filteredModPacks = this.modPacks.filter((mod) => mod.game.id === this.form.game)
+    filteredModPacks.forEach((s: any) => {
+      opts.push({
+        name: s.name,
+        value: s.id,
+        selected: this.isModPackLinked(s),
+      })
+    })
+    return opts
   }
 
   selectNewLogo() {
