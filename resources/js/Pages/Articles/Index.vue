@@ -42,6 +42,7 @@ import DtDate from '@/Shared/DataTable/Components/Date.vue'
 import DtUserProfile from '@/Shared/DataTable/Components/UserProfile.vue'
 import DtArticleTitle from '@/Shared/DataTable/Components/ArticleTitle.vue'
 import DtArticleStatus from '@/Shared/DataTable/Components/ArticleStatus.vue'
+import DeleteArticle from '@/Shared/DataTable/Components/Dialogs/DeleteArticle.vue'
 
 @Component({
   components: {
@@ -93,6 +94,7 @@ export default class UsersIndex extends Vue {
   actions: DataTableActionsOptions = {
     enabled: true,
     baseUrl: '/articles',
+    destroyDialog: DeleteArticle,
     actions: [
       {
         displayName: 'Edit',
