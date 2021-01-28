@@ -85,7 +85,7 @@ trait HasLogo
      */
     #[Pure] protected function defaultLogoUrl(): string
     {
-        return 'https://ui-avatars.com/api/?name='.urlencode($this->name).'&color=7F9CF5&background=EBF4FF';
+        return 'https://ui-avatars.com/api/?name&size=512='.urlencode($this->name).'&color=7F9CF5&background=EBF4FF';
     }
 
     /**
