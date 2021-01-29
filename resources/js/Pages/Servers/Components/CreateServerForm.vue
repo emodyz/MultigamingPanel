@@ -93,7 +93,7 @@
                 Game & ModPack
               </template>
               <template #description>
-                Associate your server to a game <required/> & mod-packs
+                Link your server to a game <required/> & modpacks
               </template>
             </jet-section-title>
           </template>
