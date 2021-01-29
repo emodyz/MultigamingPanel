@@ -64,7 +64,7 @@
                   class="mb-6"
               >
                 <span
-                  class="block rounded-full w-40 h-40 shadow-lg"
+                  class="block rounded-lg w-40 h-40 shadow-lg"
                   :style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' + logoPreview + '\');'"
                 />
               </div>

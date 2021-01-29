@@ -2,11 +2,11 @@
   <div>
     <monolithic-form-section @submitted="submitForm">
       <template #title>
-        Create a new server
+        Edit this server
       </template>
 
       <template #description>
-        Name it
+        Edit the name this server
         <required/>
       </template>
 
@@ -45,7 +45,7 @@
                 Logo
               </template>
               <template #description>
-                Add a Logo to distinguish this server
+                Add, change or remove this server's logo
               </template>
             </jet-section-title>
           </template>
@@ -58,37 +58,25 @@
                   class="hidden"
                   @change="updateLogoPreview"
               >
-
-              <jet-label
-                  for="logo"
-                  value="Logo"
-              />
-
               <!-- Current Logo -->
-              <div
-                  v-show="! logoPreview"
-                  class="mt-2"
-              >
+              <div v-show="! logoPreview">
                 <img
                     :src="server.logo_url"
                     alt="Current Server Logo"
-                    class="rounded-full h-20 w-20 object-cover"
+                    class="rounded-lg w-40 h-40 object-cover"
                 >
               </div>
 
               <!-- New Logo Preview -->
-              <div
-                  v-show="logoPreview"
-                  class="mt-2"
-              >
-          <span
-              class="block rounded-full w-20 h-20"
-              :style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' + logoPreview + '\');'"
-          />
+              <div v-show="logoPreview">
+                <span
+                    class="block rounded-lg w-40 h-40"
+                    :style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' + logoPreview + '\');'"
+                />
               </div>
 
               <jet-secondary-button
-                  class="mt-2 mr-2"
+                  class="mt-6 mr-2"
                   type="button"
                   @click.native.prevent="selectNewLogo"
               >
@@ -118,11 +106,10 @@
           <template #label>
             <jet-section-title class="pb-6">
               <template #title>
-                Game & ModPack
+                ModPacks
               </template>
               <template #description>
-                Associate your server to a game & modpack
-                <required/>
+                Link one or more modpacks to this server
               </template>
             </jet-section-title>
           </template>
