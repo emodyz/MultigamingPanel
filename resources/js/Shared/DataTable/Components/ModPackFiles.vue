@@ -12,8 +12,9 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 
 @Component
-// eslint-disable-next-line camelcase
 export default class DataTable_ModPackFiles extends Vue {
-    @Prop({ type: Number, required: true }) readonly files!: string
+  @Prop({ required: true }) readonly data!: any
+
+  files: any = this.data.manifest_info.files
 }
 </script>

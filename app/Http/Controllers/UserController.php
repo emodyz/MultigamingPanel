@@ -13,19 +13,19 @@ use Inertia\Inertia;
 
 class UserController extends Controller
 {
-  public function __construct()
-  {
-    $this->middleware('can:users-index', ['only' => ['index']]);
+    public function __construct()
+    {
+        $this->middleware('can:users-index', ['only' => ['index']]);
 
-    $this->middleware('can:users-create', ['only' => ['create', 'store']]);
+        $this->middleware('can:users-create', ['only' => ['create', 'store']]);
 
-    $this->middleware('can:users-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('can:users-edit', ['only' => ['edit', 'update']]);
 
-    $this->middleware('can:users-destroy', ['only' => ['destroy']]);
-  }
+        $this->middleware('can:users-destroy', ['only' => ['destroy']]);
+    }
 
 
-  /**
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -38,13 +38,13 @@ class UserController extends Controller
         $initialSearch = $request->query('search', '');
 
         $userQuery = User::query()
-            ->select('id', 'email', 'name', 'profile_photo_path', 'role', 'email_verified_at','created_at')
-            ->when($request->filled('search'),function($query) use ($initialSearch){
-                $query->where('name','LIKE','%'.$initialSearch.'%')
-                    ->orWhere('email','LIKE','%'.$initialSearch.'%')
-                    ->orWhere('role','LIKE','%'.$initialSearch.'%');
+            ->select('id', 'email', 'name', 'profile_photo_path', 'role', 'email_verified_at', 'created_at')
+            ->when($request->filled('search'), function ($query) use ($initialSearch) {
+                $query->where('name', 'LIKE', '%' . $initialSearch . '%')
+                    ->orWhere('email', 'LIKE', '%' . $initialSearch . '%')
+                    ->orWhere('role', 'LIKE', '%' . $initialSearch . '%');
             })
-            ->when($request->filled('orderBy'),function($query) use ($orderBy){
+            ->when($request->filled('orderBy'), function ($query) use ($orderBy) {
                 $orderByKey = $orderBy['key'];
                 $orderByDirection = $orderBy['direction'];
                 $query->orderBy($orderByKey === 'roleName' ? 'role' : $orderByKey, $orderByDirection);
@@ -61,7 +61,7 @@ class UserController extends Controller
             $user->roleName = config('cerberus.roles.' . $user->role . '.displayName');
         }
 
-        return Inertia::render('Users/Index',compact('users', 'initialSearch', 'totalItemCount'));
+        return Inertia::render('Users/Index', compact('users', 'initialSearch', 'totalItemCount'));
     }
 
     /**
@@ -113,7 +113,7 @@ class UserController extends Controller
 
         $roles = collect(config('cerberus.roles'));
 
-        return Inertia::render('Users/Edit',compact('userBeingEdited', 'roles'));
+        return Inertia::render('Users/Edit', compact('userBeingEdited', 'roles'));
     }
 
     /**

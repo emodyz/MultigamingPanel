@@ -27,4 +27,19 @@ class GameFactory extends Factory
             'appid' => $this->faker->randomNumber(),
         ];
     }
+
+    /**
+     * @return GameFactory
+     */
+    public function asArma3(): GameFactory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'name' => 'ArmA 3',
+                'identifier' => 'arma3',
+                'appid' => 107410,
+                'logo_path' => 'games/arma3.png'
+            ];
+        });
+    }
 }

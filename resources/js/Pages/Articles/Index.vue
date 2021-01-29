@@ -13,7 +13,6 @@
             :query-param="'articles'"
             :headers="headers"
             :data-object="articles"
-            data-type="Articles"
             :initial-query="initialSearch"
             :actions="actions"
             :total-item-count="totalItemCount"
@@ -39,6 +38,11 @@ import AppLayout from '@/Layouts/AppLayout.vue'
 import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions'
 import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader'
 import CreateArticleButton from '@/Pages/Articles/Components/CreateArticleButton.vue'
+import DtDate from '@/Shared/DataTable/Components/Date.vue'
+import DtUserProfile from '@/Shared/DataTable/Components/UserProfile.vue'
+import DtArticleTitle from '@/Shared/DataTable/Components/ArticleTitle.vue'
+import DtArticleStatus from '@/Shared/DataTable/Components/ArticleStatus.vue'
+import DeleteArticle from '@/Shared/DataTable/Components/Dialogs/DeleteArticle.vue'
 
 @Component({
   components: {
@@ -60,12 +64,12 @@ export default class UsersIndex extends Vue {
     {
       title: 'Title',
       key: 'title',
-      type: 'Article.Title',
+      component: DtArticleTitle,
     },
     {
       title: 'Written By',
       key: 'author.name',
-      type: 'User.Profile',
+      component: DtUserProfile,
       dataAccessors: {
         name: 'author.name',
         email: 'author.email',
@@ -75,18 +79,22 @@ export default class UsersIndex extends Vue {
     {
       title: 'Status',
       key: 'status',
-      type: 'Article.Status',
+      component: DtArticleStatus,
     },
     {
       title: 'Written On',
       key: 'created_at',
-      type: 'Date.Formatted',
+      component: DtDate,
+      options: {
+        type: 'Date.Formatted',
+      },
     },
   ]
 
   actions: DataTableActionsOptions = {
     enabled: true,
     baseUrl: '/articles',
+    destroyDialog: DeleteArticle,
     actions: [
       {
         displayName: 'Edit',

@@ -81,7 +81,7 @@ module.exports = {
 
   variants: {
     extend: {
-      backgroundColor: ['group-focus', 'active', 'even', 'odd'],
+      backgroundColor: ['group-focus', 'active', 'even', 'odd', 'disabled'],
       borderColor: ['group-focus'],
       boxShadow: ['group-focus'],
       opacity: ['group-focus', 'disabled'],

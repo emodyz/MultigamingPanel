@@ -14,9 +14,9 @@ class CreateArticle
 {
     /**
      * @param array $input
-     * @return void
+     * @return Article
      */
-    public function storeNewArticle(array $input)
+    public function storeNewArticle(array $input): Article
     {
         $article = new Article();
 
@@ -45,5 +45,6 @@ class CreateArticle
             }
         }
 
+        return $article;
     }
 }

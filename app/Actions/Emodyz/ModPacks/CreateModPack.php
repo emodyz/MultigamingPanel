@@ -11,11 +11,12 @@ use Illuminate\Support\Str;
 
 class CreateModPack
 {
-  /**
-   * @param array $input
-   * @throws ModPackException
-   */
-  public function storeNewModPack(array $input)
+    /**
+     * @param array $input
+     * @return Modpack
+     * @throws ModPackException
+     */
+  public function storeNewModPack(array $input): Modpack
   {
     $modPack = new Modpack;
 
@@ -37,5 +38,7 @@ class CreateModPack
     $modPack->save();
 
     $modPack->servers()->sync($servers);
+
+    return $modPack;
   }
 }

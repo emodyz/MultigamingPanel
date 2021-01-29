@@ -29,7 +29,7 @@ class GameServerStatusJobTest extends TestCase
     ]);
 
     $this->assertCount(0, ServerStatus::all());
-    ProcessServersStatuses::dispatch();
+      ProcessServersStatuses::dispatch();
     $this->assertCount(3, ServerStatus::all());
   }
 
@@ -64,15 +64,15 @@ class GameServerStatusJobTest extends TestCase
     });
 
     $this->assertCount(0, ServerStatus::all());
-    ProcessServersStatuses::dispatch();
+      ProcessServersStatuses::dispatch();
     $this->assertCount(3, ServerStatus::all());
 
     foreach (Server::cursor() as $server) {
       $serverMockedResponse = $mockedReturnObject[$server->host()];
 
-      $this->assertEquals($serverMockedResponse['gq_online'], $server->latestStatus()->online);
-      $this->assertEquals($serverMockedResponse['gq_maxplayers'], $server->latestStatus()->players_max);
-      $this->assertEquals($serverMockedResponse['gq_numplayers'], $server->latestStatus()->players_online);
+      $this->assertEquals($serverMockedResponse['gq_online'], $server->latest_status->online);
+      $this->assertEquals($serverMockedResponse['gq_maxplayers'], $server->latest_status->players_max);
+      $this->assertEquals($serverMockedResponse['gq_numplayers'], $server->latest_status->players_online);
     }
   }
 }

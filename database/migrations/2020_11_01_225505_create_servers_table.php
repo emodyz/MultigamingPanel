@@ -25,6 +25,7 @@ class CreateServersTable extends Migration
                 ->constrained();
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

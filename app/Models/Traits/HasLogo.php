@@ -21,7 +21,7 @@ trait HasLogo
      * @param UploadedFile $logo
      * @return void
      */
-    public function setInitialCoverImage(UploadedFile $logo)
+    public function setInitialLogo(UploadedFile $logo)
     {
         $path = $logo->storePublicly(
             'logos/' . $this->getDiskPath(), ['disk' => $this->logoDisk()]
@@ -85,7 +85,7 @@ trait HasLogo
      */
     #[Pure] protected function defaultLogoUrl(): string
     {
-        return 'https://ui-avatars.com/api/?name='.urlencode($this->name).'&color=7F9CF5&background=EBF4FF';
+        return 'https://ui-avatars.com/api/?size=512&name='.urlencode($this->name).'&color=7F9CF5&background=EBF4FF';
     }
 
     /**

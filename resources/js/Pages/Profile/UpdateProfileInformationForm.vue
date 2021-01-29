@@ -187,7 +187,7 @@ export default class UpdateProfileInformationForm extends Mixins(Route) {
       preserveState: true,
       errorBag: 'updateProfileInformation',
       onSuccess: () => {
-        this.photoPreview = null
+        this.resetPhotoInput()
       },
     })
   }
@@ -212,11 +212,16 @@ export default class UpdateProfileInformationForm extends Mixins(Route) {
       {
         preserveScroll: true,
         onSuccess: () => {
-          this.photoPreview = null
-          this.form.photo = null
+          this.resetPhotoInput()
         },
       },
     )
+  }
+
+  resetPhotoInput() {
+    this.photoPreview = null
+    this.form.photo = null
+    this.photo.files = null
   }
 }
 </script>

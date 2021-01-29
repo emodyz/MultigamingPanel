@@ -2,6 +2,8 @@ export interface DataTableHeader {
     title: string
     key: string
     order?: boolean | null
-    type?: string | null
-    dataAccessors?: object | null
+    component?: any
+    options?: any
+    data?: any
+    dataAccessors?: any
 }

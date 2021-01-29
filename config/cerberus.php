@@ -31,7 +31,9 @@ return [
         ],
         'default' => [
             'displayName' => 'User',
-            'can' => []
+            'can' => [
+                'servers-index'
+            ]
         ]
     ],
     'authorizations' => [
@@ -109,6 +111,27 @@ return [
             'slug' => 'modpacks-destroy',
             'description' => 'a user can delete a modpack'
         ],
+
+        /**
+         * Servers
+         */
+        [
+            'slug' => 'servers-index',
+            'description' => 'a user can see a list of all servers'
+        ],
+        [
+            'slug' => 'servers-create',
+            'description' => 'a user can create a servers'
+        ],
+        [
+            'slug' => 'servers-edit',
+            'description' => 'a user can edit a servers'
+        ],
+        [
+            'slug' => 'servers-destroy',
+            'description' => 'a user can delete a servers'
+        ],
+
         /**
          * Settings
          */

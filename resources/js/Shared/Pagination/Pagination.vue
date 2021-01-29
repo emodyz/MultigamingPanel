@@ -38,7 +38,7 @@
               v-if="link.label === 'Previous'"
               :key="key"
               preserve-scroll
-              :only="[queryParam, 'orderBy', 'page', 'totalItemCount']"
+              :only="[queryParam, 'orderBy', 'page', 'totalItemCount', 'initialSearch']"
               :href="link.url ? link.url : '#'"
               class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
             >
@@ -63,7 +63,7 @@
               v-else-if="link.label === 'Next'"
               :key="key"
               preserve-scroll
-              :only="[queryParam, 'orderBy', 'page', 'totalItemCount']"
+              :only="[queryParam, 'orderBy', 'page', 'totalItemCount', 'initialSearch']"
               :href="link.url ? link.url : '#'"
               class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
             >
@@ -96,7 +96,7 @@
               v-else
               :key="key"
               preserve-scroll
-              :only="[queryParam, 'orderBy', 'page', 'totalItemCount']"
+              :only="[queryParam, 'orderBy', 'page', 'totalItemCount', 'initialSearch']"
               :href="link.url"
               :class="{'bg-gray-100': link.active}"
               class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"

@@ -162,7 +162,7 @@ export default class EditUserProfileForm extends Mixins(Route) {
       preserveScroll: true,
       preserveState: true,
       onSuccess: () => {
-        this.photoPreview = null
+        this.resetPhotoInput()
       },
     })
   }
@@ -183,15 +183,20 @@ export default class EditUserProfileForm extends Mixins(Route) {
 
   deletePhoto() {
     this.$inertia.delete(
-      this.route('users.destroy.avatar', this.user),
+      this.route('users.destroy.avatar', this.user.id),
       {
         preserveScroll: true,
         onSuccess: () => {
-          this.photoPreview = null
-          this.form.photo = null
+          this.resetPhotoInput()
         },
       },
     )
+  }
+
+  resetPhotoInput() {
+    this.photoPreview = null
+    this.form.photo = null
+    this.photo.files = null
   }
 }
 </script>

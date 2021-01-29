@@ -1,17 +1,22 @@
 <template>
   <div>
     <span>
-      {{ data }}
+      {{ printable }}
     </span>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Component, Prop, Mixins } from 'vue-property-decorator'
+import Helpers from '@/Mixins/Helpers'
 
 @Component
 // eslint-disable-next-line camelcase
-export default class DataTable_DefaultRow extends Vue {
+export default class DataTable_DefaultRow extends Mixins(Helpers) {
   @Prop({ required: true }) readonly data!: string | null
+
+  @Prop({ required: true }) readonly itemKey!: any
+
+  printable = this.getWithDataAccessors(this.data, this.itemKey)
 }
 </script>

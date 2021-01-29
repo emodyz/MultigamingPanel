@@ -19,10 +19,11 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 
 @Component
-// eslint-disable-next-line camelcase
 export default class DataTable_ArticleStatus extends Vue {
-  @Prop({ required: true }) readonly status!: string | null
+  @Prop({ required: true }) readonly data!: any
 
-  @Prop({ required: true }) readonly published_at!: string | null
+  status: string = this.data.status
+
+  published_at: any = this.data.published_at
 }
 </script>

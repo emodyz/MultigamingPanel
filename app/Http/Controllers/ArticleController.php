@@ -43,6 +43,7 @@ class ArticleController extends Controller
         $initialSearch = $request->query('search', '');
 
         $articlesQuery = Article::query()
+            ->with('servers')
             ->select('id', 'title', 'subTitle', 'slug', 'status', 'cover_image_path', 'user_id', 'created_at', 'published_at', 'created_at')
             ->when($request->filled('search'), function ($query) use ($initialSearch) {
                 $query->where('title', 'LIKE', '%' . $initialSearch . '%')
@@ -85,12 +86,13 @@ class ArticleController extends Controller
      */
     public function store(CreateArticleRequest $request, CreateArticle $store): RedirectResponse
     {
-        $store->storeNewArticle($request->all());
+        $article = $store->storeNewArticle($request->all());
 
         $request->get('status') === 'draft'
             ? flash('Draft', 'Your new draft has ben saved!')->success()
             : flash($request->get('title'), 'Your new article has ben published!')->success();
-        return back();
+
+        return redirect(route('articles.edit', $article));
     }
 
     /**

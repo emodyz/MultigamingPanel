@@ -45,6 +45,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     // Servers
     Route::resource('servers', ServerController::class);
+    Route::delete('servers/{server}/logo', [ServerController::class, 'destroyLogo'])->name('servers.destroy.logo');
 
     // Settings
     Route::get('settings/edit', [SettingsController::class, 'edit'])->name('settings.edit');

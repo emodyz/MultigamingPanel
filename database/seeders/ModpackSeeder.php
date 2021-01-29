@@ -30,11 +30,14 @@ class ModpackSeeder extends Seeder
         $modpack2 = Modpack::factory()->create([
           'game_id' => $arma3->id
         ]);
+        $modpack3 = Modpack::factory()->create([
+            'game_id' => $arma3->id
+        ]);
         $servers = Server::whereGameId($arma3->id)->get();
 
         foreach ($servers as $server) {
             $server->modpacks()->attach($modpack1->id);
         }
-        $servers->first()->modpacks()->attach($modpack2->id);
+        $servers->first()->modpacks()->attach([$modpack2->id, $modpack3->id]);
     }
 }

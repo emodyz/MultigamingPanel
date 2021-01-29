@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property mixed logo_path
@@ -16,12 +17,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property mixed name
  * @property mixed modpacks
  * @property mixed articles
+ * @property mixed port
  */
 class Server extends Model
 {
     use HasFactory;
     use HasPrimaryKeyAsUuid;
     use HasLogo;
+    use SoftDeletes;
 
     protected string $logoDiskPath = 'servers';
 
@@ -39,7 +42,10 @@ class Server extends Model
      *
      * @var array
      */
-    protected $appends = ['logo_url'];
+    protected $appends = [
+      'logo_url',
+      'latest_status'
+    ];
 
     /**
      * @return BelongsTo
@@ -60,11 +66,10 @@ class Server extends Model
     /**
      * @return ServerStatus|Model|HasMany|object
      */
-    public function latestStatus()
+    public function getLatestStatusAttribute()
     {
-      return $this->status()->latest()->first();
+        return $this->status()->latest()->first();
     }
-
     /**
      * @return HasMany
      */

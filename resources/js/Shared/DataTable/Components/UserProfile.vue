@@ -2,7 +2,7 @@
   <div class="flex items-center">
     <div class="flex-shrink-0 h-10 w-10">
       <img
-        class="h-10 w-10 rounded-full"
+        class="h-10 w-10 rounded-full object-cover"
         :src="profile_photo_url"
         :alt="`Avatar of user ${name}`"
       >
@@ -19,16 +19,19 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Component, Prop, Mixins } from 'vue-property-decorator'
+import Helpers from '@/Mixins/Helpers'
 
 @Component
-// eslint-disable-next-line camelcase
-export default class DataTable_UserProfile extends Vue {
-    @Prop({ type: String, required: true }) readonly name!: string
+export default class DataTable_UserProfile extends Mixins(Helpers) {
+  @Prop({ required: true }) readonly data!: any
 
-    @Prop({ type: String, required: true }) readonly email!: string
+  @Prop({ required: true }) readonly dataAccessors!: any
 
-    // eslint-disable-next-line camelcase
-    @Prop({ type: String, required: true }) readonly profile_photo_url!: string
+  name: string = this.getWithDataAccessors(this.data, this.dataAccessors.name)
+
+  email: string = this.getWithDataAccessors(this.data, this.dataAccessors.email)
+
+  profile_photo_url: string = this.getWithDataAccessors(this.data, this.dataAccessors.profile_photo_url)
 }
 </script>

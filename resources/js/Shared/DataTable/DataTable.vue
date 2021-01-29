@@ -77,32 +77,32 @@
                 :key="index"
                 v-else>
               <td
-                  v-for="{ key, type, dataAccessors } in headers"
+                  v-for="{ key, component, options, dataAccessors } in headers"
                   :key="key"
                   class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
               >
                 <span
                     :key="key"
-                    v-if="type === 'Index'"
+                    v-if="component === 'Index'"
                     class="text-md text-gray-600"
                 >
                   {{ ((pageNumber * 10) - 10) + (index + 1) }}
                 </span>
-                <component :key="key" v-else-if="type !== ''"
-                           :is="getRowComponent(type)"
-                           v-bind="{...getRowComponentProps(item, type, key, dataAccessors)}"/>
+                <component v-else
+                           :key="Math.random()"
+                           :itemKey="key"
+                           :is="getRowComponent(component)"
+                           :data="item"
+                           :options="options"
+                           :dataAccessors="dataAccessors"/>
               </td>
               <td
                   v-if="actions.enabled"
                   class="px-6 py-4 whitespace-nowrap"
               >
                 <dt-actions
-                    :actions-options="actions"
-                    :item="{
-                      id: item.id,
-                      type: dataType ? dataType : false,
-                      metaData: dataType ? initActionsMetaData(item) : null,
-                    }"
+                    :options="actions"
+                    :item="item"
                 />
               </td>
             </tr>
@@ -130,23 +130,14 @@ import qs, { stringify } from 'qs'
 import Pagination from '@/Shared/Pagination/Pagination.vue'
 import JetInput from '@/Jetstream/Input.vue'
 import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions'
-import DtUserProfile from '@/Shared/DataTable/Components/UserProfile.vue'
-import DtUserStatus from '@/Shared/DataTable/Components/UserStatus.vue'
-import DtModPackFiles from '@/Shared/DataTable/Components/ModPackFiles.vue'
-import DtModPackSize from '@/Shared/DataTable/Components/ModPackSize.vue'
-import DtDate from '@/Shared/DataTable/Components/Date.vue'
-import DtArticleTitle from '@/Shared/DataTable/Components/ArticleTitle.vue'
-import DtArticleStatus from '@/Shared/DataTable/Components/ArticleStatus.vue'
 import DtDefaultRow from '@/Shared/DataTable/Components/DefaultRow.vue'
 import DtActions from '@/Shared/DataTable/Components/Actions.vue'
-import DtGameProfile from '@/Shared/DataTable/Components/GameProfile.vue'
-import { User } from '@/Shared/DataTable/Types/User'
-import { PaginatedDate } from '@/Shared/DataTable/Types/PaginatedData'
+import { PaginatedData } from '@/Shared/DataTable/Types/PaginatedData'
 import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader'
 import Cerberus from '@/Mixins/Cerberus'
 import ChevronUp from '@/Shared/Svgs/ChevronUp.vue'
 import ChevronDown from '@/Shared/Svgs/ChevronDown.vue'
-import { Article } from '@/Shared/DataTable/Types/Article'
+import Helpers from '@/Mixins/Helpers'
 
 @Component({
   components: {
@@ -154,19 +145,10 @@ import { Article } from '@/Shared/DataTable/Types/Article'
     JetInput,
     ChevronUp,
     ChevronDown,
-    DtUserProfile,
-    DtUserStatus,
-    DtGameProfile,
-    DtModPackFiles,
-    DtModPackSize,
-    DtDate,
-    DtDefaultRow,
     DtActions,
-    DtArticleTitle,
-    DtArticleStatus,
   },
 })
-export default class DataTable extends Mixins(Cerberus) {
+export default class DataTable extends Mixins(Cerberus, Helpers) {
   @Prop({
     type: Array,
     required: true,
@@ -175,9 +157,7 @@ export default class DataTable extends Mixins(Cerberus) {
   @Prop({
     type: Object,
     required: true,
-  }) readonly dataObject!: PaginatedDate
-
-  @Prop() readonly dataType!: null | string
+  }) dataObject!: PaginatedData
 
   @Prop({
     type: Number,
@@ -218,7 +198,7 @@ export default class DataTable extends Mixins(Cerberus) {
     Inertia.visit(query ? `${this.queryUrl}?${query}` : this.queryUrl, {
       preserveScroll: true,
       preserveState: true,
-      only: [this.queryParam, 'totalItemCount'],
+      only: [this.queryParam, 'totalItemCount', 'initialSearch'],
       onFinish: () => {
         this.resetOrderBy()
       },
@@ -242,23 +222,10 @@ export default class DataTable extends Mixins(Cerberus) {
       Inertia.visit(orderBy ? `${this.queryUrl}?${orderBy}` : this.queryUrl, {
         preserveScroll: true,
         preserveState: true,
-        only: [this.queryParam, 'totalItemCount'],
+        only: [this.queryParam, 'totalItemCount', 'initialSearch'],
       })
     }
   }, 250)
-
-  // eslint-disable-next-line consistent-return
-  initActionsMetaData(item: object): User | Article | object {
-    // eslint-disable-next-line default-case
-    switch (this.dataType) {
-      case 'ModPacks':
-        return item
-      case 'Users':
-        return item
-      case 'Articles':
-        return item
-    }
-  }
 
   resetOrderBy() {
     this.order = {
@@ -290,84 +257,8 @@ export default class DataTable extends Mixins(Cerberus) {
     }
   }
 
-  /**
-   * TODO: Simply pass the item object as data and the accessors to a component instance provided by the header and let the individual component deal with it to reduce boilerplate
-   */
-
-  getRowComponent(_type: string | null): string {
-    switch (_type) {
-      case 'Date.Formatted':
-        return 'DtDate'
-      case 'Date.FromNow':
-        return 'DtDate'
-      case 'User.Profile':
-        return 'DtUserProfile'
-      case 'User.Status':
-        return 'DtUserStatus'
-      case 'Game.Profile':
-        return 'DtGameProfile'
-      case 'ModPack.Size':
-        return 'DtModPackSize'
-      case 'ModPack.Files':
-        return 'DtModPackFiles'
-      case 'Article.Title':
-        return 'DtArticleTitle'
-      case 'Article.Status':
-        return 'DtArticleStatus'
-      default:
-        return 'DtDefaultRow'
-    }
-  }
-
-  getWithAccs(item: any, acss: any) {
-    return acss.split('.')
-      .reduce((acc: any, part: any) => acc && acc[part], item)
-  }
-
-  getRowComponentProps(_item: any, _type: string | null, key: any, _dataAccs: any = null): any {
-    switch (this.getRowComponent(_type)) {
-      case 'DtDate':
-        return {
-          date: _item[key],
-          type: _type,
-        }
-      case 'DtUserProfile':
-        return {
-          name: this.getWithAccs(_item, _dataAccs.name),
-          email: this.getWithAccs(_item, _dataAccs.email),
-          profile_photo_url: this.getWithAccs(_item, _dataAccs.profile_photo_url),
-        }
-      case 'DtGameProfile':
-        return {
-          name: this.getWithAccs(_item, _dataAccs.name),
-          logo_url: this.getWithAccs(_item, _dataAccs.logo_url),
-        }
-      case 'DtUserStatus':
-        return { email_verified_at: _item.email_verified_at }
-      case 'DtArticleTitle':
-        return {
-          title: _item.title,
-          subTitle: _item.subTitle,
-        }
-      case 'DtArticleStatus':
-        return {
-          status: _item.status,
-          published_at: _item.published_at,
-        }
-      case 'DtModPackSize':
-        return {
-          size: _item.manifest_info.size,
-        }
-      case 'DtModPackFiles':
-        return {
-          files: _item.manifest_info.files,
-        }
-      default:
-        return {
-          data: key.split('.')
-            .reduce((acc: any, part: any) => acc && acc[part], _item),
-        }
-    }
+  getRowComponent(_comp: any): any {
+    return !this.doesNotExist(_comp) ? _comp : DtDefaultRow
   }
 
   checkActionsPermissions() {

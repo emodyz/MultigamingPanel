@@ -45,7 +45,7 @@ class ArticleFactory extends Factory
     public function withCover(): ArticleFactory
     {
         return $this->state(function (array $attributes) {
-            $fakeImage = Http::get($this->faker->imageUrl(640, 480, 'cats', true, 'Placeholder'));
+            $fakeImage = Http::get('https://picsum.photos/640/480');
             $imagePath = 'cover-images/articles/placeholder-'. $this->faker->uuid .'.jpg';
             Storage::disk('public')->put($imagePath, $fakeImage->body());
 
