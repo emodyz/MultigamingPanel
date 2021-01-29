@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\Emodyz\Articles\CreateArticle;
 use App\Actions\Emodyz\Servers\CreateServer;
 use App\Actions\Emodyz\Servers\EditServer;
 use App\Http\Requests\Servers\CreateServerRequest;
 use App\Http\Requests\Servers\EditServerRequest;
-use App\Http\Resources\ModPack\ModPackResource;
 use App\Http\Resources\Server\ServerModpackResource;
 use App\Http\Resources\Server\ServerResource;
 use App\Jobs\ProcessServerStatus;
@@ -20,10 +18,20 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Inertia\Inertia;
-use function Symfony\Component\String\b;
 
 class ServerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:servers-index', ['only' => ['index']]);
+
+        $this->middleware('can:servers-create', ['only' => ['create', 'store']]);
+
+        $this->middleware('can:servers-edit', ['only' => ['edit', 'update', 'destroyLogo']]);
+
+        $this->middleware('can:servers-destroy', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

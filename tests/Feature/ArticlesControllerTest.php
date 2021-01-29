@@ -40,7 +40,7 @@ class ArticlesControllerTest extends TestCase
         $this->put(route('articles.update', $article))
             ->assertForbidden();
 
-        $this->put(route('articles.destroy', $article))
+        $this->delete(route('articles.destroy', $article))
             ->assertForbidden();
     }
 
