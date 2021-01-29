@@ -31,7 +31,9 @@ return [
         ],
         'default' => [
             'displayName' => 'User',
-            'can' => []
+            'can' => [
+                'servers-index'
+            ]
         ]
     ],
     'authorizations' => [
@@ -114,8 +116,8 @@ return [
          * Servers
          */
         [
-            'slug' => 'servers-index', // This is currently disabled & the list of servers is considered public
-            'description' => 'a user can manage servers'
+            'slug' => 'servers-index',
+            'description' => 'a user can see a list of all servers'
         ],
         [
             'slug' => 'servers-create',
