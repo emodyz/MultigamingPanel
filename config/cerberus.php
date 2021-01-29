@@ -114,7 +114,7 @@ return [
          * Servers
          */
         [
-            'slug' => 'servers-index',
+            'slug' => 'servers-index', // This is currently disabled & the list of servers is considered public
             'description' => 'a user can manage servers'
         ],
         [

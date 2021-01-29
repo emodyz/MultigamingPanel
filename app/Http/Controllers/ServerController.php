@@ -23,7 +23,7 @@ class ServerController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('can:servers-index', ['only' => ['index']]);
+        // $this->middleware('can:servers-index', ['only' => ['index']]);
 
         $this->middleware('can:servers-create', ['only' => ['create', 'store']]);
 
