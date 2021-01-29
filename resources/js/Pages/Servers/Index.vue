@@ -37,13 +37,13 @@ import Route from '@/Mixins/Route'
 import DataTable from '@/Shared/DataTable/DataTable.vue'
 import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader'
 import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions'
-// import DeleteModPack from '@/Shared/DataTable/Components/Dialogs/DeleteModPack.vue'
 import DtBasicProfile from '@/Shared/DataTable/Components/BasicProfile.vue'
 import DtServerProfile from '@/Shared/DataTable/Components/ServerProfile.vue'
 import DtDate from '@/Shared/DataTable/Components/Date.vue'
 import DtServerModPacks from '@/Shared/DataTable/Components/ServerModPacks.vue'
 import DtServerStatus from '@/Shared/DataTable/Components/ServerStatus.vue'
 import CreateServerButton from '@/Pages/Servers/Components/CreateServerButton.vue'
+import DeleteServer from '@/Shared/DataTable/Components/Dialogs/DeleteServer.vue'
 
 @Component({
   components: {
@@ -123,7 +123,7 @@ export default class ServersIndex extends Mixins(Route) {
   actions: DataTableActionsOptions = {
     enabled: true,
     baseUrl: '/servers',
-    // destroyDialog: DeleteModPack,
+    destroyDialog: DeleteServer,
     actions: [
       {
         displayName: 'Edit',

@@ -2,7 +2,7 @@
   <div class="flex items-center">
     <div class="flex-shrink-0 h-10 w-10">
       <img
-        class="h-10 w-10 rounded-full"
+        class="h-10 w-10 rounded-full object-cover"
         :src="profile_photo_url"
         :alt="`Avatar of user ${name}`"
       >

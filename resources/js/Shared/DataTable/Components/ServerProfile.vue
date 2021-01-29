@@ -2,7 +2,7 @@
   <div class="flex items-center">
     <div class="flex-shrink-0 h-10 w-10">
       <img
-        class="h-10 w-10 rounded-lg"
+        class="h-10 w-10 rounded-lg object-cover"
         :src="logo_url"
         :alt="`log of server ${name}`"
       >
