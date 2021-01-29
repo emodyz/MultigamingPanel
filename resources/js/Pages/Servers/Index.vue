@@ -39,6 +39,7 @@ import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader'
 import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions'
 // import DeleteModPack from '@/Shared/DataTable/Components/Dialogs/DeleteModPack.vue'
 import DtBasicProfile from '@/Shared/DataTable/Components/BasicProfile.vue'
+import DtServerProfile from '@/Shared/DataTable/Components/ServerProfile.vue'
 import DtDate from '@/Shared/DataTable/Components/Date.vue'
 import DtServerModPacks from '@/Shared/DataTable/Components/ServerModPacks.vue'
 import DtServerStatus from '@/Shared/DataTable/Components/ServerStatus.vue'
@@ -72,11 +73,13 @@ export default class ServersIndex extends Mixins(Route) {
     },
     {
       title: 'Name',
-      component: DtBasicProfile,
+      component: DtServerProfile,
       key: 'name',
       dataAccessors: {
         name: 'name',
         logo_url: 'logo_url',
+        ip: 'ip',
+        port: 'port',
       },
     },
     {

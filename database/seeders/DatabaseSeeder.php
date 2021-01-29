@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Jobs\ProcessServersStatuses;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,5 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ServerSeeder::class);
         $this->call(ModpackSeeder::class);
         $this->call(ArticleSeeder::class);
+
+        dispatch_now(new ProcessServersStatuses);
     }
 }
