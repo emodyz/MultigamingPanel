@@ -86,12 +86,13 @@ class ArticleController extends Controller
      */
     public function store(CreateArticleRequest $request, CreateArticle $store): RedirectResponse
     {
-        $store->storeNewArticle($request->all());
+        $article = $store->storeNewArticle($request->all());
 
         $request->get('status') === 'draft'
             ? flash('Draft', 'Your new draft has ben saved!')->success()
             : flash($request->get('title'), 'Your new article has ben published!')->success();
-        return back();
+
+        return redirect(route('articles.edit', $article));
     }
 
     /**

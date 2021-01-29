@@ -88,14 +88,14 @@ class ModPackController extends Controller
    */
     public function store(CreateModPackRequest $request, CreateModPack $store)
     {
-      $store->storeNewModPack($request->all());
+      $modPack = $store->storeNewModPack($request->all());
 
       if ($request->wantsJson()) {
         return response()->noContent(Response::HTTP_CREATED);
       }
 
       flash($request->get('name'), 'Your new ModPack has been successfully created!')->success();
-      return back();
+      return redirect(route('modpacks.update.show', $modPack));
     }
 
     /**
