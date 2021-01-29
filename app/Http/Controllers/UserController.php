@@ -21,6 +21,8 @@ class UserController extends Controller
 
         $this->middleware('can:users-edit', ['only' => ['edit', 'update']]);
 
+        $this->middleware('can:users-edit-account', ['only' => ['updateAccount']]);
+
         $this->middleware('can:users-destroy', ['only' => ['destroy']]);
     }
 
@@ -100,15 +102,10 @@ class UserController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param User $user
-     * @param Request $request
      * @return \Inertia\Response
      */
-    public function edit(User $user, Request $request): \Inertia\Response
+    public function edit(User $user): \Inertia\Response
     {
-        if ($request->user()->cannot('users-edit')) {
-            abort(403);
-        }
-
         $userBeingEdited = $user;
 
         $roles = collect(config('cerberus.roles'));
@@ -127,10 +124,6 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user, EditUser $editor): RedirectResponse
     {
-        if ($request->user()->cannot('users-edit')) {
-            abort(403);
-        }
-
         $editor->editUserProfile($user, $request->all());
 
         flash('Profile Information', $user->getAttribute('name') . '\'s profile has been successfully updated!')->success();
@@ -160,28 +153,23 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      *
      * @param User $user
-     * @param Request $request
      * @return RedirectResponse
      * @throws Exception
      */
-    public function destroy(User $user, Request $request): RedirectResponse
+    public function destroy(User $user): RedirectResponse
     {
-        if ($request->user()->cannot('users-destroy')) {
-            abort(403);
-        }
-
         $user->delete();
 
         flash('User Deleted', $user->getAttribute('name') . '\'s account has been successfully deleted!')->danger();
         return back(303);
     }
 
-    public function destroyAvatar(User $user, Request $request): RedirectResponse
+    /**
+     * @param User $user
+     * @return RedirectResponse
+     */
+    public function destroyAvatar(User $user): RedirectResponse
     {
-        if ($request->user()->cannot('users-edit')) {
-            abort(403);
-        }
-
         $user->deleteProfilePhoto();
 
         flash('Profile Photo', $user->getAttribute('name') . '\'s avatar has been reset!')->warning();
