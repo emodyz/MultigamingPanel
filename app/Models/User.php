@@ -66,5 +66,14 @@ class User extends Authenticatable
      */
     protected $appends = [
         'profile_photo_url',
+        'authorizations',
     ];
+
+    // TODO: Move this append to the 'HasAuthorizations' trait in the cerberus package
+    public function getAuthorizationsAttribute()
+    {
+        $role = $this->getAttribute('role');
+
+        return config('cerberus.roles.'. $role .'.can');
+    }
 }

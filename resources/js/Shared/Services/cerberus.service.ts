@@ -1,13 +1,17 @@
 import axios, { AxiosInstance } from 'axios'
+import { User } from '@/Shared/DataTable/Types/User'
 
 class CerberusService {
   private http: AxiosInstance
 
-  // eslint-disable-next-line no-useless-constructor
-  constructor(baseUrl?: string | null) {
-    // do something construct...
+  private readonly user: User
+
+  constructor(page: any, baseUrl?: string | null) {
+    this.user = page?.props?.user
     this.http = axios
   }
+
+  // can = (_ability: string) => this.user.authorizations.includes('*') || this.user.authorizations.includes(_ability)
 
   public async getAllAuthorizations() {
     try {

@@ -30,7 +30,6 @@ import EditUserProfileForm from '@/Pages/Users/EditUserProfileForm.vue'
 import EditUserAccountForm from '@/Pages/Users/EditUserAccountForm.vue'
 import JetSectionBorder from '@/Jetstream/SectionBorder.vue'
 import Cerberus from '@/Mixins/Cerberus'
-import Route from '@/Mixins/Route'
 
 @Component({
   components: {
@@ -40,18 +39,17 @@ import Route from '@/Mixins/Route'
     JetSectionBorder,
   },
 })
-export default class UsersEdit extends Mixins(Cerberus, Route) {
+export default class UsersEdit extends Mixins(Cerberus) {
   @Prop() readonly userBeingEdited!: User
 
   @Prop() readonly roles!: any
 
-  canEditProfile = false
+  canEditProfile = this.can('users-edit')
 
-  canEditAccount = false
+  canEditAccount = this.can('users-edit-account')
 
-  async created() {
-    this.canEditProfile = await this.Cerberus.can('users-edit')
-    this.canEditAccount = await this.Cerberus.can('users-edit-account')
+  created() {
+    //
   }
 }
 </script>

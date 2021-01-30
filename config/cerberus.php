@@ -5,7 +5,7 @@ return [
         'owner' => [
             'displayName' => 'Owner',
             'can' => [
-                '*'
+                '*',
             ]
         ],
         'developer' => [
@@ -100,8 +100,8 @@ return [
             'description' => 'a user can create a modpack'
         ],
         [
-          'slug' => 'modpacks-update',
-          'description' => 'a user can manage modpack updates'
+            'slug' => 'modpacks-update',
+            'description' => 'a user can manage modpack updates'
         ],
         [
             'slug' => 'modpacks-edit',
@@ -136,12 +136,12 @@ return [
          * Settings
          */
         [
-          'slug' => 'settings-edit',
-          'description' => 'a user can view the settings page'
+            'slug' => 'settings-edit',
+            'description' => 'a user can view the settings page'
         ],
         [
-          'slug' => 'settings-edit-voice',
-          'description' => 'a user can edit voice provider settings'
+            'slug' => 'settings-edit-voice',
+            'description' => 'a user can edit voice provider settings'
         ],
     ]
 ];
