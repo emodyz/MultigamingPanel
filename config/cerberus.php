@@ -13,18 +13,22 @@ return [
             'can' => [
                 'dashboard',
                 'users-index',
+                'servers-index',
+                'modpacks-*',
 
+                /*
                 'modpacks-create',
                 'modpacks-index',
                 'modpacks-edit',
                 'modpacks-update',
-                'modpacks-destroy',
+                'modpacks-destroy',*/
             ]
         ],
         'admin' => [
             'displayName' => 'Administrator',
             'can' => [
                 'dashboard',
+                'servers-index',
                 'users-index',
                 'users-edit'
             ]
