@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0cf29644a5b5f946d9461f4c05cda526",
+    "content-hash": "01d1ebe2407f4640ce492f504aa7ff26",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1030,16 +1030,16 @@
         },
         {
             "name": "emodyz/cerberus",
-            "version": "v0.0.2-alpha.2",
+            "version": "v0.0.2-alpha.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/emodyz/Cerberus.git",
-                "reference": "a420c4d1a64bbb3998597dd7dd7eacb9aa46f823"
+                "reference": "d99f134464a76a9af0c4d6601f118c3bfdca8054"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/emodyz/Cerberus/zipball/a420c4d1a64bbb3998597dd7dd7eacb9aa46f823",
-                "reference": "a420c4d1a64bbb3998597dd7dd7eacb9aa46f823",
+                "url": "https://api.github.com/repos/emodyz/Cerberus/zipball/d99f134464a76a9af0c4d6601f118c3bfdca8054",
+                "reference": "d99f134464a76a9af0c4d6601f118c3bfdca8054",
                 "shasum": ""
             },
             "require": {
@@ -1085,9 +1085,9 @@
             ],
             "support": {
                 "issues": "https://github.com/emodyz/Cerberus/issues",
-                "source": "https://github.com/emodyz/Cerberus/tree/v0.0.2-alpha.2"
+                "source": "https://github.com/emodyz/Cerberus/tree/v0.0.2-alpha.3"
             },
-            "time": "2020-12-19T20:15:53+00:00"
+            "time": "2021-01-31T10:28:44+00:00"
         },
         {
             "name": "emodyz/flash",

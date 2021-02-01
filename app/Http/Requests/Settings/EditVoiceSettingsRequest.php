@@ -14,7 +14,7 @@ class EditVoiceSettingsRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('settings-edit-voice');
+        return $this->user()->can('settings-edit_voice');
     }
 
     /**

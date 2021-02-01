@@ -270,11 +270,8 @@ export default class DataTable extends Mixins(Cerberus, Helpers) {
     })
   }
 
-  // eslint-disable-next-line class-methods-use-this
   created() {
     this.checkActionsPermissions()
-    // console.log(this.dataObject)
-    // console.log(this.query.orderBy['key'])
   }
 }
 </script>

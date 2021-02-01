@@ -1,8 +1,9 @@
 <template>
   <app-layout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Users <span class="text-gray-400">/</span> Edit <span class="text-gray-400">/</span> {{ userBeingEdited.name }}
+      <!-- TODO: Create a breadcrumb component -->
+      <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight">
+        Users <span class="text-gray-600">/</span> Edit <span class="text-gray-600">/</span> {{ userBeingEdited.name }}
       </h2>
     </template>
     <div class="py-12">
@@ -30,7 +31,6 @@ import EditUserProfileForm from '@/Pages/Users/EditUserProfileForm.vue'
 import EditUserAccountForm from '@/Pages/Users/EditUserAccountForm.vue'
 import JetSectionBorder from '@/Jetstream/SectionBorder.vue'
 import Cerberus from '@/Mixins/Cerberus'
-import Route from '@/Mixins/Route'
 
 @Component({
   components: {
@@ -40,18 +40,17 @@ import Route from '@/Mixins/Route'
     JetSectionBorder,
   },
 })
-export default class UsersEdit extends Mixins(Cerberus, Route) {
+export default class UsersEdit extends Mixins(Cerberus) {
   @Prop() readonly userBeingEdited!: User
 
   @Prop() readonly roles!: any
 
-  canEditProfile = false
+  canEditProfile = this.can('users-edit')
 
-  canEditAccount = false
+  canEditAccount = this.can('users-edit_account')
 
-  async created() {
-    this.canEditProfile = await this.Cerberus.can('users-edit')
-    this.canEditAccount = await this.Cerberus.can('users-edit-account')
+  created() {
+    // console.log(this.can('users-edit'))
   }
 }
 </script>

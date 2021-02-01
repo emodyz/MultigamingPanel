@@ -16,7 +16,7 @@ class SettingsController extends Controller
     {
         $this->middleware('can:settings-edit')->only(['edit']);
 
-        $this->middleware('can:settings-edit-voice')->only(['updateVoice']);
+        $this->middleware('can:settings-edit_voice')->only(['updateVoice']);
     }
 
     /**

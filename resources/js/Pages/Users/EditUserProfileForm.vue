@@ -30,7 +30,7 @@
         <!-- Current Profile Photo -->
         <div
             v-show="! photoPreview"
-            class="mt-2"
+            class="my-2"
         >
           <img
               :src="user.profile_photo_url"
@@ -42,7 +42,7 @@
         <!-- New Profile Photo Preview -->
         <div
             v-show="photoPreview"
-            class="mt-2"
+            class="my-2"
         >
           <span
               class="block rounded-full w-20 h-20"
@@ -85,6 +85,7 @@
             v-model="form.name"
             type="text"
             class="mt-1 block w-full"
+            placeholder="John Doe..."
             autocomplete="name"
         />
         <jet-input-error

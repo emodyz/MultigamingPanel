@@ -5,7 +5,7 @@ return [
         'owner' => [
             'displayName' => 'Owner',
             'can' => [
-                '*'
+                '*',
             ]
         ],
         'developer' => [
@@ -13,20 +13,18 @@ return [
             'can' => [
                 'dashboard',
                 'users-index',
-
-                'modpacks-create',
-                'modpacks-index',
-                'modpacks-edit',
-                'modpacks-update',
-                'modpacks-destroy',
+                'servers-index',
+                'modpacks-*',
             ]
         ],
         'admin' => [
             'displayName' => 'Administrator',
             'can' => [
                 'dashboard',
+                'servers-index',
                 'users-index',
-                'users-edit'
+                'users-edit',
+                'articles-*'
             ]
         ],
         'default' => [
@@ -57,7 +55,7 @@ return [
             'description' => 'a user can edit another user\'s profile'
         ],
         [
-            'slug' => 'users-edit-account',
+            'slug' => 'users-edit_account',
             'description' => 'a user can edit another user\'s account'
         ],
         [
@@ -100,8 +98,8 @@ return [
             'description' => 'a user can create a modpack'
         ],
         [
-          'slug' => 'modpacks-update',
-          'description' => 'a user can manage modpack updates'
+            'slug' => 'modpacks-update',
+            'description' => 'a user can manage modpack updates'
         ],
         [
             'slug' => 'modpacks-edit',
@@ -136,12 +134,12 @@ return [
          * Settings
          */
         [
-          'slug' => 'settings-edit',
-          'description' => 'a user can view the settings page'
+            'slug' => 'settings-edit',
+            'description' => 'a user can view the settings page'
         ],
         [
-          'slug' => 'settings-edit-voice',
-          'description' => 'a user can edit voice provider settings'
+            'slug' => 'settings-edit_voice',
+            'description' => 'a user can edit voice provider settings'
         ],
     ]
 ];

@@ -28,7 +28,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
-
     // ModPacks
     Route::resource('modpacks', ModPackController::class);
     Route::get('/modpacks/{modpack}/update', [ModPackController::class, 'showUpdate'])->name('modpacks.update.show');
@@ -50,5 +49,4 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     // Settings
     Route::get('settings/edit', [SettingsController::class, 'edit'])->name('settings.edit');
     Route::put('settings/voices', [SettingsController::class, 'updateVoice'])->name('settings.update.voice');
-
 });

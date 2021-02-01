@@ -21,7 +21,7 @@ class UserController extends Controller
 
         $this->middleware('can:users-edit', ['only' => ['edit', 'update']]);
 
-        $this->middleware('can:users-edit-account', ['only' => ['updateAccount']]);
+        $this->middleware('can:users-edit_account', ['only' => ['updateAccount']]);
 
         $this->middleware('can:users-destroy', ['only' => ['destroy']]);
     }
