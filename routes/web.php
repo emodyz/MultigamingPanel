@@ -29,6 +29,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
 
+    Route::middleware('can:users-edit')->get('/test', function () {
+        echo 'test OK';
+    })->name('test');
+
     // ModPacks
     Route::resource('modpacks', ModPackController::class);
     Route::get('/modpacks/{modpack}/update', [ModPackController::class, 'showUpdate'])->name('modpacks.update.show');

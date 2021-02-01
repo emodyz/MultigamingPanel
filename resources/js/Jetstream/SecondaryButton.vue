@@ -3,7 +3,11 @@
     @click="$emit('click', $event)"
     :disabled="disabled"
     :type="type"
-    class="disabled:cursor-not-allowed disabled:opacity-75 inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:text-gray-500 focus:outline-none focus:border-indigo-300 focus:ring focus:ring-indigo-400 active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150"
+    class="disabled:cursor-not-allowed disabled:opacity-75 inline-flex items-center px-4 py-2 bg-white border border-gray-300
+    rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:text-gray-500 focus:outline-none
+    focus:border-indigo-300 focus:ring focus:ring-indigo-400 active:text-gray-800 active:bg-gray-50 subpixel-antialiased
+    transition ease-in-out duration-150
+    dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 dark:hover:bg-gray-900"
   >
     <slot />
   </button>

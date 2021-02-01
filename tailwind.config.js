@@ -2,6 +2,7 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 const colors = require('tailwindcss/colors')
 
 module.exports = {
+  darkMode: 'class',
   purge: {
     content: [
       './vendor/laravel/jetstream/**/*.blade.php',
@@ -11,6 +12,8 @@ module.exports = {
     ],
     options: {
       safelist: [
+        //THE DARK SIDE
+        'dark',
         // Colors
         'text-green-600', 'text-green-900',
         'text-indigo-600', 'text-indigo-900',
@@ -74,15 +77,16 @@ module.exports = {
         '112': '28rem',
       },
       colors: {
-        orange: colors.orange,
+        // ...colors
+        gray: colors.gray
       },
     },
   },
 
   variants: {
     extend: {
-      backgroundColor: ['group-focus', 'active', 'even', 'odd', 'disabled'],
-      borderColor: ['group-focus'],
+      backgroundColor: ['group-focus', 'active', 'even', 'odd', 'disabled', 'checked'],
+      borderColor: ['group-focus', 'checked'],
       boxShadow: ['group-focus'],
       opacity: ['group-focus', 'disabled'],
       cursor: ['hover', 'focus', 'disabled'],

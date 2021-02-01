@@ -1,8 +1,9 @@
 <template>
   <app-layout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Users <span class="text-gray-400">/</span> Edit <span class="text-gray-400">/</span> {{ userBeingEdited.name }}
+      <!-- TODO: Create a breadcrumb component -->
+      <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight">
+        Users <span class="text-gray-600">/</span> Edit <span class="text-gray-600">/</span> {{ userBeingEdited.name }}
       </h2>
     </template>
     <div class="py-12">
@@ -46,10 +47,10 @@ export default class UsersEdit extends Mixins(Cerberus) {
 
   canEditProfile = this.can('users-edit')
 
-  canEditAccount = this.can('users-edit-account')
+  canEditAccount = this.can('users-edit_account')
 
   created() {
-    //
+    // console.log(this.can('users-edit'))
   }
 }
 </script>

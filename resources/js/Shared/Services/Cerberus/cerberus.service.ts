@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios'
 import { User } from '@/Shared/DataTable/Types/User'
 
-class CerberusService {
+export default class CerberusService {
   private http: AxiosInstance
 
   private readonly user: User
@@ -37,5 +37,3 @@ class CerberusService {
     return this.checkAuthorization(_ability)
   }
 }
-
-export default CerberusService

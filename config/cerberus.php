@@ -61,7 +61,7 @@ return [
             'description' => 'a user can edit another user\'s profile'
         ],
         [
-            'slug' => 'users-edit-account',
+            'slug' => 'users-edit_account',
             'description' => 'a user can edit another user\'s account'
         ],
         [
@@ -144,7 +144,7 @@ return [
             'description' => 'a user can view the settings page'
         ],
         [
-            'slug' => 'settings-edit-voice',
+            'slug' => 'settings-edit_voice',
             'description' => 'a user can edit voice provider settings'
         ],
     ]
