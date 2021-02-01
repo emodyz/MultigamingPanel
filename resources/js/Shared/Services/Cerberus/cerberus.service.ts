@@ -11,8 +11,6 @@ export default class CerberusService {
     this.http = axios
   }
 
-  // can = (_ability: string) => this.user.authorizations.includes('*') || this.user.authorizations.includes(_ability)
-
   public async getAllAuthorizations() {
     try {
       // @ts-ignore
