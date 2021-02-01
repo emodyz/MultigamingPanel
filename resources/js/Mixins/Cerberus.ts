@@ -20,8 +20,6 @@ export default class Cerberus extends Vue {
     }
 
     return false
-    /*
     // TODO: Move this condition inside the cerberus package to enable better handling of partial wildcards ie. 'users-*'
-    return _user.authorizations.includes('*') || _user.authorizations.includes(_ability) */
   }
 }

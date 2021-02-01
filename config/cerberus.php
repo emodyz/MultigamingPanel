@@ -15,13 +15,6 @@ return [
                 'users-index',
                 'servers-index',
                 'modpacks-*',
-
-                /*
-                'modpacks-create',
-                'modpacks-index',
-                'modpacks-edit',
-                'modpacks-update',
-                'modpacks-destroy',*/
             ]
         ],
         'admin' => [
