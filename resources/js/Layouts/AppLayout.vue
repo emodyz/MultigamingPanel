@@ -23,28 +23,36 @@
                 </jet-nav-link>
 
                 <jet-nav-link
+                    v-if="can('users-index')"
                     :href="route('users.index')"
                     :active="route().current('users.*')"
                 >
                   Users
                 </jet-nav-link>
 
-                <jet-nav-link :active="route().current('servers.*')"
-                              :href="route('servers.index')">
+                <jet-nav-link
+                    v-if="can('servers-index')"
+                    :active="route().current('servers.*')"
+                    :href="route('servers.index')">
                   Servers
                 </jet-nav-link>
 
-                <jet-nav-link :active="route().current('modpacks.*')"
-                              :href="route('modpacks.index')">
+                <jet-nav-link
+                    v-if="can('modpacks-index')"
+                    :active="route().current('modpacks.*')"
+                    :href="route('modpacks.index')">
                   ModPacks
                 </jet-nav-link>
 
-                <jet-nav-link :active="route().current('articles.*')"
-                              :href="route('articles.index')">
+                <jet-nav-link
+                    v-if="can('articles-index')"
+                    :active="route().current('articles.*')"
+                    :href="route('articles.index')">
                   Articles
                 </jet-nav-link>
 
                 <jet-nav-link
+                    v-if="can('settings-edit')"
                     :href="route('settings.edit')"
                     :active="route().current('settings.*')"
                 >
@@ -227,29 +235,34 @@
               Dashboard
             </jet-responsive-nav-link>
             <jet-responsive-nav-link
+                v-if="can('users-index')"
                 :href="route('users.index')"
                 :active="route().current('users.*')"
             >
               Users
             </jet-responsive-nav-link>
             <jet-responsive-nav-link
+                v-if="can('servers-index')"
                 :active="route().current('servers.*')"
                 :href="route('servers.index')">
               Servers
             </jet-responsive-nav-link>
             <jet-responsive-nav-link
+                v-if="can('modpacks-index')"
                 :active="route().current('modpacks.*')"
                 :href="route('modpacks.index')"
             >
               ModPacks
             </jet-responsive-nav-link>
             <jet-responsive-nav-link
+                v-if="can('articles-index')"
                 :active="route().current('articles.*')"
                 :href="route('articles.index')"
             >
               Articles
             </jet-responsive-nav-link>
             <jet-responsive-nav-link
+                v-if="can('settings-edit')"
                 :active="route().current('settings.*')"
                 :href="route('settings.edit')"
             >
@@ -404,6 +417,7 @@ import axios from 'axios'
 import Route from '@/Mixins/Route'
 import Helpers from '@/Mixins/Helpers'
 import ToggleSwitch from '@/Shared/Forms/ToggleSwitch.vue'
+import Cerberus from '@/Mixins/Cerberus'
 
 @Component({
   components: {
@@ -416,7 +430,7 @@ import ToggleSwitch from '@/Shared/Forms/ToggleSwitch.vue'
     FlashNotification,
   },
 })
-export default class AppLayout extends Mixins(Route, Helpers) {
+export default class AppLayout extends Mixins(Route, Helpers, Cerberus) {
   showingNavigationDropdown: boolean = false
 
   darkMode = true

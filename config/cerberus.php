@@ -30,7 +30,8 @@ return [
                 'dashboard',
                 'servers-index',
                 'users-index',
-                'users-edit'
+                'users-edit',
+                'articles-*'
             ]
         ],
         'default' => [
