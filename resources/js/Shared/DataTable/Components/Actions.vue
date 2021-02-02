@@ -1,6 +1,6 @@
 <template>
   <div class="text-left text-sm font-medium">
-    <div class="divide-x divide-gray-200">
+    <div class="divide-x divide-gray-200 dark:divide-gray-700">
       <template v-for="action in options.actions">
         <a
             v-if="action.enabled"

@@ -131,14 +131,14 @@ export default class ServersIndex extends Mixins(Route) {
         permission: 'servers-edit',
         path: 'edit',
         type: 'edit',
-        class: 'text-indigo-600 hover:text-indigo-900',
+        class: 'link-brand',
       },
       {
         displayName: 'Delete',
         enabled: true,
         permission: 'servers-destroy',
         type: 'destroy',
-        class: 'text-red-600 hover:text-red-900',
+        class: 'link-danger',
       },
     ],
   }

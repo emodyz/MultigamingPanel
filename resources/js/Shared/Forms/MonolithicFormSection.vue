@@ -11,7 +11,7 @@
 
     <div class="mt-5 md:mt-0 md:col-span-2">
       <div class="shadow overflow-hidden sm:rounded-md">
-        <div class="px-4 py-5 bg-white sm:p-6">
+        <div class="px-4 py-5 bg-white dark:bg-gray-800 sm:p-6">
           <div class="grid grid-cols-6 gap-6">
             <slot name="form"/>
           </div>
@@ -28,7 +28,7 @@
         <div class="grid grid-cols-6 gap-6">
           <div
               v-if="hasActions"
-              class="col-span-6 flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6"
+              class="col-span-6 flex items-center justify-end px-4 py-3 bg-gray-50 dark:bg-gray-700 text-right sm:px-6"
           >
             <slot name="actions"/>
           </div>

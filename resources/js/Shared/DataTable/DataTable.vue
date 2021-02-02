@@ -2,11 +2,11 @@
   <div class="flex flex-col">
     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-        <div class="shadow-md overflow-hidden border border-gray-200 sm:rounded-lg divide-y divide-gray-200">
-          <div class="w-full flex flex-row">
+        <div class="shadow-md overflow-hidden border border-gray-300 dark:border-gray-700 sm:rounded-lg divide-y divide-gray-300 dark:divide-gray-700">
+          <div class="w-full flex flex-row dark:bg-gray-800">
               <jet-input
                       v-model="search"
-                      class="w-1/3 my-3 mx-6 border-gray-200"
+                      class="w-1/3 my-3 mx-6"
                       type="search"
                       placeholder="Search..."
               />
@@ -14,14 +14,14 @@
                   <slot name="action"/>
               </div>
           </div>
-          <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
+          <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <thead class="bg-gray-50 dark:bg-gray-900">
             <tr v-if="!(_.isEmpty(dataObject.data))">
               <th
                   v-for="item in headers"
                   :key="item.key"
                   scope="col"
-                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-100 uppercase tracking-wider"
               >
                   <span
                       v-if="item.key !== 'index' && item.order !== false"
@@ -34,30 +34,30 @@
                   </span>
                 <span v-else>
                     {{ item.title }}
-                  </span>
+                </span>
               </th>
               <th
                   v-if="actions.enabled && !(_.isEmpty(dataObject.data))"
                   scope="col"
-                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-100 uppercase tracking-wider"
               >
                 Actions
               </th>
               <th
                   v-else-if="_.isEmpty(dataObject.data)"
-                  class="px-4 py-2"
+                  class="px-4 py-2 dark:text-gray-100"
               >
                 Search query
               </th>
               <th
                   v-else
-                  class="px-4 py-2"
+                  class="px-4 py-2 dark:text-gray-100"
               >
                 Page {{ pageNumber }}
               </th>
             </tr>
             </thead>
-            <tbody class="divide-y divide-gray-200 bg-white">
+            <tbody class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
             <tr v-if="pageNumber > (totalItemCount / 10) + 10 || pageNumber < 1">
               <td class="px-6 py-4 whitespace-nowrap">
                 <div class="text-sm text-gray-900">
@@ -84,7 +84,7 @@
                 <span
                     :key="key"
                     v-if="component === 'Index'"
-                    class="text-md text-gray-600"
+                    class="text-md text-gray-600 dark:text-gray-400"
                 >
                   {{ ((pageNumber * 10) - 10) + (index + 1) }}
                 </span>

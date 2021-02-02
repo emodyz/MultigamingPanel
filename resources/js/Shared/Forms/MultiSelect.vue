@@ -23,11 +23,12 @@
                 <template v-for="option in options">
                   <div v-if="option.selected"
                        :key="option.value"
-                       class="flex justify-center items-center m-1 font-medium py-1 px-2 rounded-full text-indigo-700 bg-indigo-100 border border-indigo-300 ">
-                    <div class="text-xs font-normal leading-none max-w-full flex-initial">{{ option.name }}</div>
+                       class="flex justify-center items-center m-1 font-medium py-1 px-2 rounded-full text-indigo-700
+                       bg-indigo-100 border border-indigo-300 dark:bg-indigo-500 dark:text-gray-100 dark:border-transparent">
+                    <div class="text-xs font-medium leading-none max-w-full flex-initial">{{ option.name }}</div>
                     <div class="flex flex-auto flex-row-reverse">
-                      <div @click="handleOptionSelection(option)" class="hover:text-indigo-500 hover:cursor-pointer">
-                        <cross-icon class="cursor-pointer hover:text-indigo-400 rounded-full"/>
+                      <div @click="handleOptionSelection(option)" class="hover:text-indigo-500 dark:hover:text-gray-300 hover:cursor-pointer">
+                        <cross-icon class="rounded-full"/>
                       </div>
                     </div>
                   </div>
@@ -43,7 +44,7 @@
                 <cross-icon class="cursor-pointer hover:text-indigo-400 rounded-full"/>
               </div>
             </div>
-            <div class="text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200 ">
+            <div class="text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200 dark:border-gray-700">
               <button
                   type="button"
                   @click="handleSowOption()"
@@ -58,13 +59,14 @@
         </div>
         <!-- DROPDOWN -->
         <div v-show="isOpened"
-             class="absolute shadow top-100 bg-white z-40 w-full lef-0 rounded max-h-select overflow-y-auto">
+             class="absolute shadow top-100 bg-white dark:bg-gray-700 dark:text-gray-300 border dark:border-gray-600 z-40 w-full lef-0 rounded max-h-select overflow-y-auto">
           <div class="flex flex-col w-full">
             <template v-for="option in options">
               <div :key="option.value" @click="handleOptionSelection(option)"
-                   class="cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-indigo-100">
-                <div class="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative"
-                     :class="option.selected ? 'border-indigo-700' : 'hover:border-indigo-100'">
+                   :class="{ 'dark:bg-gray-800': option.selected }"
+                   class="cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-indigo-100 dark:border-gray-600 dark:hover:bg-gray-800">
+                <div class="flex w-full items-center p-2 pl-2 border-transparent dark:border-gray-600 border-l-2 relative"
+                     :class="option.selected ? 'border-indigo-700 dark:border-indigo-500' : 'hover:border-indigo-100 dark:hover:border-indigo-400'">
                   <div class="w-full items-center flex">
                     <div v-if="doesNotExist(option.component)" class="mx-2 leading-6">{{ option.name }}</div>
                     <component v-else :is="option.component.instance" :name="option.name" v-bind="{...option.component.properties}"/>
@@ -77,7 +79,7 @@
         <!-- TODO: Combine Dropdown and search results into one reusable scaffolding component -->
         <!-- SEARCH RESULTS -->
         <div v-if="!_.isNull(searchResults)"
-             class="absolute shadow top-100 bg-white z-40 w-full lef-0 rounded max-h-select overflow-y-auto">
+             class="absolute shadow top-100 bg-white dark:bg-gray-700 dark:text-gray-100 z-40 w-full lef-0 rounded max-h-select overflow-y-auto">
           <div class="flex flex-col w-full">
             <template v-for="option in searchResults">
               <div :key="option.value" @click="handleOptionSelection(option)"

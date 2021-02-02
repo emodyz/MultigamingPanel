@@ -8,7 +8,7 @@
       >
     </div>
     <div class="ml-4">
-      <div class="text-sm font-semibold text-gray-900">
+      <div class="text-sm font-semibold text-gray-900 dark:text-gray-100">
         {{ name }}
       </div>
     </div>

@@ -78,7 +78,8 @@ module.exports = {
       },
       colors: {
         // ...colors
-        gray: colors.gray
+        gray: colors.gray,
+        emerald: colors.emerald
       },
     },
   },
