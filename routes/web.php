@@ -24,6 +24,8 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    flash('test', str_repeat('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 3))
+    ->warning();
     return Inertia\Inertia::render('Dashboard');
 })->name('dashboard');
 

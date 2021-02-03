@@ -17,7 +17,7 @@ module.exports = {
         // Colors
         'text-green-600', 'text-green-900',
         'text-indigo-600', 'text-indigo-900',
-        'text-red-600', 'text-red-900',
+        'text-red-600', 'text-red-900', 'text-orange-500',
         // Utilities
         'py-8', 'pb-5', 'pt-6',
         'w-88', 'w-96',
@@ -79,7 +79,8 @@ module.exports = {
       colors: {
         // ...colors
         gray: colors.gray,
-        emerald: colors.emerald
+        emerald: colors.emerald,
+        orange: colors.orange
       },
     },
   },
