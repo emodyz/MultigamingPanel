@@ -1,9 +1,9 @@
 <template>
     <select v-model="selected"
-            class="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            class="block w-full mt-1 rounded-md shadow-sm form-input"
             @change="$emit('selected', $event)">
         <option :value="null" :disabled="!canBeNull">
-            {{ placeholder || 'Select a option' }}
+            {{ placeholder || 'Select an option' }}
         </option>
         <option v-for="option of options" :key="option.value" :value="option.value">{{ option.display }}</option>
     </select>

@@ -19,7 +19,7 @@
         />
         <div class="text-center mt-4">
             <a target="_blank" href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-">
-                <span class="text-indigo-600 font-semibold">Where can I find my Discord ServerId ?</span>
+                <span class="link-brand font-semibold">Where can I find my Discord ServerId ?</span>
             </a>
         </div>
     </div>
