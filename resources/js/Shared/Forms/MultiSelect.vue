@@ -37,11 +37,11 @@
               <div class="flex-1">
                 <input :placeholder="placeholder"
                        v-model="searchOption"
-                       class="bg-transparent py-1 px-1 appearance-none outline-none h-full w-full text-gray-800">
+                       class="bg-transparent py-1 px-1 appearance-none outline-none h-full w-full text-gray-800 dark:text-gray-300">
               </div>
               <div v-show="!_.isNull(searchResults)" @click="searchOption = ''"
-                   class="justify-self-end text-indigo-700 pr-2 flex items-center">
-                <cross-icon class="cursor-pointer hover:text-indigo-400 rounded-full"/>
+                   class="justify-self-end text-indigo-700 dark:text-indigo-400 font-semibold pr-2 flex items-center">
+                <cross-icon class="cursor-pointer hover:text-indigo-400 dark:hover:text-indigo-300 rounded-full"/>
               </div>
             </div>
             <div class="text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200 dark:border-gray-700">
