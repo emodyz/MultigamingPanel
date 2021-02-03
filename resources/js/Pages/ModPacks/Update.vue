@@ -1,8 +1,8 @@
 <template>
     <app-layout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                ModPacks <span class="text-gray-400">/</span> Update <span class="text-gray-400">/</span>
+            <h2 class="breadcrumb">
+                ModPacks <span class="breadcrumb-separator">/</span> Update <span class="breadcrumb-separator">/</span>
                 {{ modpack.name }}
             </h2>
         </template>

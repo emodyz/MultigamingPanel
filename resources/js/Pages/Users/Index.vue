@@ -1,8 +1,8 @@
 <template>
   <app-layout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight">
-        Users <span class="text-gray-400 dark:text-gray-500">/</span> Index
+      <h2 class="breadcrumb">
+        Users <span class="breadcrumb-separator">/</span> Index
       </h2>
     </template>
 

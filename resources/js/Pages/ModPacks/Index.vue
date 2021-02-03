@@ -1,8 +1,8 @@
 <template>
     <app-layout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                ModPacks <span class="text-gray-400">/</span> Index
+            <h2 class="breadcrumb">
+                ModPacks <span class="breadcrumb-separator">/</span> Index
             </h2>
         </template>
 
@@ -132,7 +132,7 @@ export default class ModPacks_Index extends Mixins(Route) {
         permission: 'modpacks-update',
         path: 'update',
         type: 'custom',
-        class: 'text-green-600 hover:text-green-900',
+        class: 'link-success',
       },
       {
         displayName: 'Edit',
@@ -140,14 +140,14 @@ export default class ModPacks_Index extends Mixins(Route) {
         permission: 'modpacks-edit',
         path: 'edit',
         type: 'edit',
-        class: 'text-indigo-600 hover:text-indigo-900',
+        class: 'link-brand',
       },
       {
         displayName: 'Delete',
         enabled: true,
         permission: 'modpacks-destroy',
         type: 'destroy',
-        class: 'text-red-600 hover:text-red-900',
+        class: 'link-danger',
       },
     ],
   }

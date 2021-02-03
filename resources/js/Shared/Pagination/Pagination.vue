@@ -44,7 +44,7 @@
               :href="link.url ? link.url : '#'"
               class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm
               font-medium text-gray-500 hover:bg-gray-50 shadow-sm focus:outline-none focus:ring focus:ring-indigo-400
-              dark:text-gray-100 dark:bg-gray-700 dark:border-gray-600 dark:hover:bg-gray-900"
+              dark:text-gray-100 dark:bg-gray-700 dark:border-gray-600 dark:hover:bg-gray-800"
           >
             <span class="sr-only">Previous</span>
             <!-- Heroicon name: chevron-left -->
@@ -71,7 +71,7 @@
               :href="link.url ? link.url : '#'"
               class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm
               font-medium text-gray-500 hover:bg-gray-50 focus:outline-none focus:ring focus:ring-indigo-400
-              dark:text-gray-100 dark:bg-gray-700 dark:border-gray-600 dark:hover:bg-gray-900"
+              dark:text-gray-100 dark:bg-gray-700 dark:border-gray-600 dark:hover:bg-gray-800"
           >
             <span class="sr-only">Next</span>
             <!-- Heroicon name: chevron-right -->
@@ -106,8 +106,8 @@
               :href="link.url"
               class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700
               hover:bg-gray-50 focus:outline-none focus:ring focus:ring-indigo-400 dark:text-gray-100 dark:bg-gray-700
-              dark:border-gray-600 dark:hover:bg-gray-900"
-              :class="{'bg-gray-100 dark:bg-gray-900': link.active}"
+              dark:border-gray-600 dark:hover:bg-gray-800"
+              :class="{'bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900': link.active}"
           >
             {{ link.label }}
           </Inertia-link>

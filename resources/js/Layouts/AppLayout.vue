@@ -404,7 +404,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Mixins, Watch } from 'vue-property-decorator'
 
 import JetApplicationMark from '@/Jetstream/ApplicationMark.vue'
 import JetDropdown from '@/Jetstream/Dropdown.vue'
@@ -433,7 +433,15 @@ import Cerberus from '@/Mixins/Cerberus'
 export default class AppLayout extends Mixins(Route, Helpers, Cerberus) {
   showingNavigationDropdown: boolean = false
 
-  darkMode = true
+  store = localStorage
+
+  darkMode = JSON.parse(this.store.getItem('darkMode'))
+
+  @Watch('darkMode')
+  onDarkModChanged(newVal: any) {
+    this.store.setItem('darkMode', newVal)
+    console.log()
+  }
 
   switchToTeam(team: any) {
     this.$inertia.put(this.route('current-team.update'), {

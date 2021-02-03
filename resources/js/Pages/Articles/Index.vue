@@ -1,8 +1,8 @@
 <template>
   <app-layout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Articles <span class="text-gray-400">/</span> Index
+      <h2 class="breadcrumb">
+        Articles <span class="breadcrumb-separator">/</span> Index
       </h2>
     </template>
 
