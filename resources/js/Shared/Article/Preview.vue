@@ -4,20 +4,11 @@
 
 <script lang="ts">
 import {
-  Vue, Component, Prop, Watch,
+  Vue, Component, Prop,
 } from 'vue-property-decorator'
 
 @Component
 export default class ArticlePreview extends Vue {
-  @Prop({
-    type: String,
-    default: null,
-    required: true,
-  }) content !: string
-
-  @Watch('content')
-  onCc(newVal: any) {
-    console.log(newVal)
-  }
+  @Prop({ type: String, required: true }) content !: string
 }
 </script>

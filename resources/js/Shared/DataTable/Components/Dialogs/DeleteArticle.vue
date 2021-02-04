@@ -4,13 +4,13 @@
 
     <div class="w-full flex flex-wrap space-x-4 items-start">
       <div class="flex flex-col mt-4 justify-center items-center w-full sm:w-7/12 h-auto">
-        <div class="bg-gray-300 h-56 w-full rounded-lg shadow-md bg-cover bg-center"
+        <div class="bg-gray-300 dark:bg-gray-900 h-56 w-full rounded-lg shadow-md bg-cover bg-center"
              :style="`background-image: url('${ data.cover_image_url }')`"></div>
 
-        <div class="block prose w-10/12 sm:w-72 bg-white -mt-10 shadow-lg rounded-lg overflow-hidden p-5">
+        <div class="block prose dark:prose-light w-10/12 sm:w-72 dark:bg-gray-700 dar -mt-10 shadow-lg rounded-lg overflow-hidden p-5">
           <h3>{{ data.title }}</h3>
 
-          <div class="text-base text-justify">
+          <div class="text-base text-justify dark:text-gray-300">
             {{ data.subTitle }}
           </div>
 
@@ -23,12 +23,14 @@
         </div>
       </div>
 
-      <div class="hidden sm:block rounded-lg shadow-md mt-4 bg-gray-50 px-4 py-5 flex-1">
-        <dt class="text-sm font-medium text-gray-500">
-          Attached Servers
-        </dt>
-        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-          <ul class="border border-gray-200 rounded-md divide-y divide-gray-200">
+      <div class="hidden sm:block rounded-lg shadow-md mt-4 bg-gray-50 dark:bg-gray-700 px-4 py-5 flex-1">
+        <div class="w-full mb-5">
+          <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">
+            Attached servers
+          </h3>
+        </div>
+        <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:mt-0 sm:col-span-2">
+          <ul class="border border-gray-200 dark:border dark:border-gray-600 rounded-md divide-y divide-gray-200 dark:divide-gray-600">
             <li v-if="data.servers.length === 0"
                 class="pl-3 pr-4 py-3 flex items-center text-sm">
               <span class="truncate">
@@ -52,7 +54,7 @@
                 </span>
               </div>
               <div class="ml-4 flex-shrink-0">
-                <a class="font-medium text-indigo-600 hover:text-indigo-500" href="#">
+                <a class="font-medium link-brand" href="#">
                   See
                 </a>
               </div>

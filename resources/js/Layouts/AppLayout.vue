@@ -1,5 +1,5 @@
 <template>
-  <div :class="{'dark': darkMode}">
+  <div>
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
       <nav class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 dark:text-gray-100">
         <!-- Primary Navigation Menu -->
@@ -441,9 +441,19 @@ export default class AppLayout extends Mixins(Route, Helpers, Cerberus) {
   darkMode = JSON.parse(this.store.getItem('darkMode'))
 
   @Watch('darkMode')
-  onDarkModChanged(newVal: any) {
-    this.store.setItem('darkMode', newVal)
-    console.log()
+  onDarkModeChanged(isDark: any) {
+    this.store.setItem('darkMode', isDark)
+    this.switchTheme(isDark)
+  }
+
+  switchTheme(isDark: boolean) {
+    const body = document.body
+
+    if (isDark) {
+      body.classList.add('dark')
+    } else {
+      body.classList.remove('dark')
+    }
   }
 
   switchToTeam(team: any) {
@@ -461,6 +471,10 @@ export default class AppLayout extends Mixins(Route, Helpers, Cerberus) {
       .then((response) => {
         window.location.href = '/'
       })
+  }
+
+  created() {
+    this.switchTheme(this.darkMode)
   }
 }
 </script>
