@@ -75,10 +75,11 @@
                     <template #trigger>
                       <button
                           v-if="$page.props.jetstream.managesProfilePhotos"
-                          class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out"
+                          class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:ring
+                          focus:ring-gray-300 dark:focus:ring-indigo-400 transition duration-150 ease-in-out"
                       >
                         <img
-                            class="h-8 w-8 rounded-full object-cover"
+                            class="h-10 w-10 rounded-full object-cover"
                             :src="$page.props.user.profile_photo_url"
                             :alt="$page.props.user.name"
                         >
@@ -123,7 +124,7 @@
                         API Tokens
                       </jet-dropdown-link>
 
-                      <div class="border-t border-gray-100"/>
+                      <div class="border-t border-gray-100 dark:border-gray-600"/>
 
                       <!-- Team Management -->
                       <template v-if="$page.props.jetstream.hasTeamFeatures">
@@ -143,7 +144,7 @@
                           Create New Team
                         </jet-dropdown-link>
 
-                        <div class="border-t border-gray-100"/>
+                        <div class="border-t border-gray-100 dark:border-gray-600"/>
 
                         <!-- Team Switcher -->
                         <div class="text-left block px-4 py-2 text-xs text-gray-400">
@@ -175,7 +176,7 @@
                           </form>
                         </template>
 
-                        <div class="border-t border-gray-100"/>
+                        <div class="border-t border-gray-100 dark:border-gray-600"/>
                       </template>
 
                       <!-- Authentication -->
@@ -192,7 +193,9 @@
               <!-- Hamburger -->
               <div class="-mr-2 flex items-center sm:hidden">
                 <button
-                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
+                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500
+                    hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition
+                    duration-150 ease-in-out dark:hover:bg-gray-700 dark:focus:bg-gray-900 dark:text-gray-100"
                     @click="showingNavigationDropdown = ! showingNavigationDropdown"
                 >
                   <svg
@@ -271,21 +274,21 @@
           </div>
 
           <!-- Responsive Settings Options -->
-          <div class="pt-4 pb-1 border-t border-gray-200">
+          <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
             <div class="flex items-center px-4">
               <div class="flex-shrink-0">
                 <img
-                    class="h-10 w-10 rounded-full"
+                    class="h-10 w-10 rounded-full object-cover"
                     :src="$page.props.user.profile_photo_url"
                     :alt="$page.props.user.name"
                 >
               </div>
 
               <div class="ml-3">
-                <div class="font-medium text-base text-gray-800">
+                <div class="font-medium text-base text-gray-800 dark:text-gray-100">
                   {{ $page.props.user.name }}
                 </div>
-                <div class="font-medium text-sm text-gray-500">
+                <div class="font-medium text-sm text-gray-500 dark:text-gray-400">
                   {{ $page.props.user.email }}
                 </div>
               </div>

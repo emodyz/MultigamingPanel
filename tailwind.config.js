@@ -80,7 +80,7 @@ module.exports = {
         // ...colors
         gray: colors.gray,
         emerald: colors.emerald,
-        orange: colors.orange
+        orange: colors.orange,
       },
     },
   },
