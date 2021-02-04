@@ -1,4 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
+const typographyConfig = require('./tailwind.typography.config')
 const colors = require('tailwindcss/colors')
 
 module.exports = {
@@ -27,6 +28,7 @@ module.exports = {
 
   theme: {
     extend: {
+      typography: typographyConfig,
       fontFamily: {
         sans: ['Nunito', ...defaultTheme.fontFamily.sans],
       },
@@ -87,6 +89,7 @@ module.exports = {
 
   variants: {
     extend: {
+      typography: ['dark'],
       backgroundColor: ['group-focus', 'active', 'even', 'odd', 'disabled', 'checked'],
       borderColor: ['group-focus', 'checked'],
       boxShadow: ['group-focus'],

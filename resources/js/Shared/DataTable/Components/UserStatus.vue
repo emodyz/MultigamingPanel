@@ -10,7 +10,7 @@
     <span
         v-else
         class="px-2 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800
-        dark:bg-gray-900 dark:border dark:broder-geay-700 dark:text-gray-300"
+        dark:bg-gray-900 border dark:border-gray-700 dark:text-gray-300"
     >
       Awaiting Email Validation
     </span>

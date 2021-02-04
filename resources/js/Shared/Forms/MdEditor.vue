@@ -2,8 +2,8 @@
   <div class="flex flex-col">
     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-        <div class="shadow overflow-hidden bg-gray-50 border border-gray-200 sm:rounded-lg divide-y divide-gray-200 sm:h-page">
-          <div class="flex flex-row divide-x divide-gray-200 h-full">
+        <div class="shadow overflow-hidden bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-600 sm:rounded-lg divide-y divide-gray-200 dark:divide-gray-600 sm:h-page">
+          <div class="flex flex-row divide-x divide-gray-200 dark:divide-gray-600 h-full">
             <div class="w-1/2 py-3 px-6">
               <textarea
                   maxlength="4294967294"
@@ -57,6 +57,7 @@ export default class MdEditor extends Mixins(Route) {
   parsedContent = ''
 
   handleInput(val: any) {
+    // TODO: add support for 'highlight.js'
     this.parsedContent = marked(val)
     this.$emit('input', val)
   }

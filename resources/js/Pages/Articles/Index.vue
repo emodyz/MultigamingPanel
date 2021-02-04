@@ -102,14 +102,14 @@ export default class UsersIndex extends Vue {
         path: 'edit',
         permission: 'articles-edit',
         type: 'edit',
-        class: 'text-indigo-600 hover:text-indigo-900',
+        class: 'link-brand',
       },
       {
         displayName: 'Delete',
         enabled: true,
         permission: 'articles-destroy',
         type: 'destroy',
-        class: 'text-red-600 hover:text-red-900',
+        class: 'link-danger',
       },
     ],
   }
