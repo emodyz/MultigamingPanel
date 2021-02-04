@@ -19,7 +19,7 @@ module.exports = (theme) => ({
           backgroundColor: theme('colors.gray.700'),
         },
         hr: {
-          borderColor: theme('colors.gray.300'),
+          borderColor: theme('colors.gray.600'),
         },
         blockquote: {
           color: theme('colors.gray.300'),
@@ -52,7 +52,7 @@ module.exports = (theme) => ({
         },
         thead: {
           color: theme('colors.gray.100'),
-          borderBottomColor: theme('colors.gray.400'),
+          borderBottomColor: theme('colors.gray.600'),
         },
         'tbody tr': {
           borderBottomColor: theme('colors.gray.700'),
