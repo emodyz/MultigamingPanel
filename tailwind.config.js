@@ -12,9 +12,14 @@ module.exports = {
       './resources/js/**/*.vue',
     ],
     options: {
+      // ⚠️ DO NOT camelCase this prop or it will break!
       safelist: [
-        //THE DARK SIDE
+        //THE DARK SIDE 😈
         'dark',
+        // Scrollbar
+        'body', 'body.dark', '::-webkit-scrollbar',
+        '::-webkit-scrollbar-track', '::-webkit-scrollbar-thumb',
+        '::-webkit-scrollbar-thumb:hover ',
         // Colors
         'text-green-600', 'text-green-900',
         'text-indigo-600', 'text-indigo-900',
