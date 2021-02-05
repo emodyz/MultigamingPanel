@@ -17,8 +17,19 @@
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.js" defer></script>
     </head>
     <body>
-        <div class="font-sans text-gray-900 antialiased">
+        <div class="font-sans text-gray-900 dark:text-gray-100 subpixel-antialiased">
             {{ $slot }}
         </div>
+        <script>
+          let __isDark = JSON.parse(localStorage.getItem('darkMode'))
+
+          const body = document.body
+
+          if (__isDark) {
+            body.classList.add('dark')
+          } else {
+            body.classList.remove('dark')
+          }
+        </script>
     </body>
 </html>
