@@ -19,13 +19,13 @@ use Tests\TestCase;
 class ModPackUpdaterProcessTest extends TestCase
 {
 
-    const FILE_1MB_URL = 'http://www.ovh.net/files/1Mb.dat';
-    const FILE_1MB_SHA256 = '9ff676db83b10b3ce4012dc6ffc4d7de6ce62adb8c006e9267854b7ef850164e';
-    const FILE_1MB_SIZE = 125000;
+    const FILE_1MB_URL = 'https://github.com/emodyz/SpeedTest/blob/master/1MB.bin?raw=true';
+    const FILE_1MB_SHA256 = '8c3add6c443e009d32da6d96161cb9254f8309ace39fbf5c9bd58f18ad86fed2';
+    const FILE_1MB_SIZE = 1000000;
 
-    const FILE_10MB_URL = 'http://www.ovh.net/files/10Mb.dat';
-    const FILE_10MB_SHA256 = '0fa9f14f884a0f2c289996e0c95837ebf175c27e4f05869b379f854fb7d9b7ba';
-    const FILE_10MB_SIZE = 1250000;
+    const FILE_10MB_URL = 'https://github.com/emodyz/SpeedTest/blob/master/10MB.bin?raw=true';
+    const FILE_10MB_SHA256 = '97a9371082314da9d92f71e285d454d9639218c517e3ba164429489af6573be5';
+    const FILE_10MB_SIZE = 10000000;
 
     /**
      * @test
