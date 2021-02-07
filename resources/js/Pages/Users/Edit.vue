@@ -2,8 +2,8 @@
   <app-layout>
     <template #header>
       <!-- TODO: Create a breadcrumb component -->
-      <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight">
-        Users <span class="text-gray-600">/</span> Edit <span class="text-gray-600">/</span> {{ userBeingEdited.name }}
+      <h2 class="breadcrumb">
+        Users <span class="breadcrumb-separator">/</span> Edit <span class="breadcrumb-separator">/</span> {{ userBeingEdited.name }}
       </h2>
     </template>
     <div class="py-12">

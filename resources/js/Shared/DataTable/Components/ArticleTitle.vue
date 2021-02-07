@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h1 class="font-bold text-lg text-gray-700">
+    <h1 class="font-bold text-lg text-gray-700 dark:text-gray-100">
       {{ title }}
     </h1>
     <div v-if="subTitle">
-      <h3 class="font-semibold">
+      <h3 class="font-semibold dark:text-gray-400">
         {{ subTitle.trunc(80) }}
       </h3>
     </div>

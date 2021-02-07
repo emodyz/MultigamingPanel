@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="text-gray-300">
     <span :key="item.id" v-for="(item, index) in array">
       <span v-if="index > 0">, </span>
-      <inertia-link preserve-scroll class="text-indigo-600 hover:text-indigo-900" :href="route('modpacks.update.show', item.id)">{{ item.name }}</inertia-link>
+      <inertia-link preserve-scroll class="link-brand" :href="route('modpacks.update.show', item.id)">{{ item.name }}</inertia-link>
     </span>
   </div>
 </template>

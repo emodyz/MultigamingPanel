@@ -1,8 +1,8 @@
 <template>
   <app-layout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Users <span class="text-gray-400">/</span> Index
+      <h2 class="breadcrumb">
+        Users <span class="breadcrumb-separator">/</span> Index
       </h2>
     </template>
 
@@ -102,14 +102,14 @@ export default class UsersIndex extends Vue {
         path: 'edit',
         permission: 'users-edit',
         type: 'edit',
-        class: 'text-indigo-600 hover:text-indigo-900',
+        class: 'link-brand',
       },
       {
         displayName: 'Delete',
         enabled: true,
         permission: 'users-destroy',
         type: 'destroy',
-        class: 'text-red-600 hover:text-red-900',
+        class: 'link-danger',
       },
     ],
   }

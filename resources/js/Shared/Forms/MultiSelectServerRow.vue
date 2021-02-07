@@ -8,7 +8,8 @@
       >
     </div>
     <div class="flex-1">{{ name }}</div>
-    <div class="justify-self-end font-semibold px-2 rounded-full text-indigo-700 bg-indigo-100 border border-indigo-300">{{ game.name }}</div>
+    <div class="justify-self-end font-semibold px-2 rounded-full text-indigo-700 bg-indigo-100 border border-indigo-300
+    dark:bg-indigo-500 dark:text-gray-100 dark:border-transparent">{{ game.name }}</div>
   </div>
 </template>
 

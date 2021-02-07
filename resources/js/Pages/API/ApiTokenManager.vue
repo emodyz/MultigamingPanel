@@ -53,7 +53,7 @@
                     class="form-checkbox"
                     :value="permission"
                 >
-                <span class="ml-2 text-sm text-gray-600">{{ permission }}</span>
+                <span class="ml-2 text-sm text-gray-600 dark:text-gray-300">{{ _.capitalize(permission) }}</span>
               </label>
             </div>
           </div>
@@ -99,21 +99,21 @@
                   :key="token.id"
                   class="flex items-center justify-between"
               >
-                <div>
+                <div class="text-gray-100">
                   {{ token.name }}
                 </div>
 
                 <div class="flex items-center">
                   <div
                       v-if="token.last_used_at"
-                      class="text-sm text-gray-400"
+                      class="text-sm text-gray-400 dark:text-gray-300"
                   >
                     Last used {{ fromNow(token.last_used_at) }}
                   </div>
 
                   <button
                       v-if="availablePermissions.length > 0"
-                      class="cursor-pointer ml-6 text-sm text-gray-400 underline focus:outline-none"
+                      class="cursor-pointer ml-6 text-sm underline link-brand"
                       @click="manageApiTokenPermissions(token)"
                   >
                     Permissions
@@ -149,7 +149,7 @@
 
         <div
             v-if="$page.props.jetstream.flash.token"
-            class="mt-4 bg-gray-100 px-4 py-2 rounded font-mono text-sm text-gray-500"
+            class="mt-4 px-4 py-2 rounded-md font-mono text-sm form-input"
         >
           {{ $page.props.jetstream.flash.token }}
         </div>
@@ -184,7 +184,7 @@
                   class="form-checkbox"
                   :value="permission"
               >
-              <span class="ml-2 text-sm text-gray-600">{{ permission }}</span>
+              <span class="ml-2 text-sm text-gray-600 dark:text-gray-300">{{ _.capitalize(permission) }}</span>
             </label>
           </div>
         </div>

@@ -49,7 +49,7 @@ const widths: any = {
 export default class Dropdown extends Vue {
   open: boolean = false
 
-  contentClasses: any = ['py-1', 'bg-white']
+  contentClasses: any = ['py-1', 'bg-white', 'dark:bg-gray-700']
 
   align: any = 'right'
 

@@ -1,5 +1,5 @@
 <template>
-  <article class="prose" v-html="content"/>
+  <article class="prose dark:prose-light" v-html="content"/>
 </template>
 
 <script lang="ts">
@@ -9,6 +9,6 @@ import {
 
 @Component
 export default class ArticlePreview extends Vue {
-@Prop({ type: String, default: null, required: true }) content !: string
+  @Prop({ type: String, required: true }) content !: string
 }
 </script>

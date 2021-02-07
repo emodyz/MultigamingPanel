@@ -1,20 +1,20 @@
 <template>
   <div>
-    <div class="p-3 rounded-md bg-red-500 text-red-50 font-semibold">
+    <div class="p-3 rounded-md bg-red-500 text-red-50 dark:bg-red-800 font-semibold">
       This action will delete all modpacks files !
     </div>
     <div class="my-3">
       <span class="text-md">Are you sure you would like to delete this modpack ?</span>
     </div>
-    <div class="flex justify-between items-center border rounded-md p-3">
+    <div class="flex justify-between items-center border dark:border-gray-700 rounded-md p-3">
       <div class="flex flex-col text-sm">
         <div>
           <span class="font-medium">Name:</span>
-          <span class="font-bold">{{ data.name }}</span>
+          <span class="font-bold dark:text-gray-100">{{ data.name }}</span>
         </div>
         <div>
           <span class="font-medium">Assigned Servers:</span>
-          <span class="font-bold">{{ data.servers.length }}</span>
+          <span class="font-bold dark:text-gray-100">{{ data.servers.length }}</span>
         </div>
         <div>
           <span class="font-medium">Size:</span>

@@ -5,8 +5,33 @@
 @layer components {
     @variants dark {
         .form-input {
-            @apply border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent
+            @apply border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent
             dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700 dark:placeholder-gray-600;
+        }
+
+        .form-checkbox {
+            @apply rounded-md p-3 border border-gray-300 bg-gray-50 dark:bg-gray-900 dark:checked:bg-indigo-400 dark:border-gray-700 checked:border-transparent
+            focus:outline-none focus:ring-indigo-300 focus:ring-offset-0 hover:cursor-pointer;
+        }
+
+        .link-brand {
+            @apply text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 focus:outline-none;
+        }
+
+        .link-success {
+            @apply text-emerald-600 hover:text-emerald-900 dark:text-emerald-500 dark:hover:text-emerald-400 focus:outline-none;
+        }
+
+        .link-danger {
+            @apply text-red-600 hover:text-red-900 dark:text-red-500 dark:hover:text-red-400 focus:outline-none;
+        }
+
+        .breadcrumb {
+            @apply font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight;
+        }
+
+        .breadcrumb-separator {
+            @apply text-gray-400 dark:text-gray-500;
         }
     }
 }
@@ -26,5 +51,55 @@
         .w-prose {
             width: calc(65ch + 1.5rem)
         }
+    }
+}
+
+@layer base {
+
+    body {
+        --scrollbarBG: theme('colors.white');
+        --thumbBG: theme('colors.gray.300');
+        --thumbBG_Hover: theme('colors.gray.400');
+        --scrollbarBG_Hover: theme('colors.gray.50');
+        --scrollbarBG_Shadow: none;
+    }
+
+    body.dark {
+        --scrollbarBG: theme('colors.gray.800');
+        --thumbBG: theme('colors.gray.700');
+        --thumbBG_Hover: theme('colors.gray.600');
+        --scrollbarBG_Hover: theme('colors.gray.600');
+        --scrollbarBG_Shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+    }
+
+    body {
+        scrollbar-width: thin;
+        scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+    }
+
+    ::-webkit-scrollbar {
+        width: 16px;
+    }
+
+    /* background of the scrollbar except button or resizer */
+    ::-webkit-scrollbar-track {
+        background-color: var(--scrollbarBG);
+        box-shadow: var(--scrollbarBG_Shadow);
+    }
+    /*
+    ::-webkit-scrollbar-track:hover {
+        --scrollbarBG: var(--scrollbarBG_Hover)
+    }*/
+
+    /* scrollbar itself */
+    /* TODO: use an svg bg image with a transparent bg */
+    ::-webkit-scrollbar-thumb {
+        background-color: var(--thumbBG);
+        border-radius: 16px;
+        border: 5px solid var(--scrollbarBG);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: var(--thumbBG_Hover);
     }
 }

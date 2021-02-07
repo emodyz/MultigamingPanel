@@ -14,21 +14,23 @@
       leave-active-class="origin-top-right transition transform-gpu duration-500 ease-in-out"
   >
     <div v-if="!dismissed"
-         class="w-112 fixed top-5 right-5 z-40 shadow-lg border border-gray-100 rounded-lg bg-white p-4 flex">
+         class="w-112 fixed top-5 right-5 z-40 shadow-lg border border-gray-100 p-4 flex rounded-lg bg-white
+         dark:border-transparent dark:bg-gray-700">
       <div :class="[!doesNotExist(icon.component) ? 'pr-2': '' , icon.color]">
         <component :is="icon.component" />
       </div>
       <div class="w-104">
         <div>
-          <span :class="!doesNotExist(icon.component) ? 'w-88': 'w-96'" class="text-md inline-block break-words">
+          <span :class="!doesNotExist(icon.component) ? 'w-88': 'w-96'" class="text-md inline-block break-words dark:text-gray-100">
             {{ flash.title }}
           </span>
           <button @click="dismissed = true" type="button" aria-label="Close Notification"
-                  class="ml-2 float-right hover:cursor-pointer rounded-full focus:outline-none focus:text-gray-600">
+                  class="ml-2 float-right hover:cursor-pointer rounded-full dark:text-gray-100 dark:focus:text-gray-300
+                  focus:outline-none focus:text-gray-600">
             <cross-icon class="w-5 h-5"/>
           </button>
         </div>
-        <div v-if="!doesNotExist(flash.message)" class="text-sm text-gray-600 tracking-tight pt-2">
+        <div v-if="!doesNotExist(flash.message)" class="text-sm text-gray-600 dark:text-gray-300 tracking-tight pt-2">
           {{ flash.message }}
         </div>
       </div>
@@ -85,9 +87,9 @@ export default class FlashNotification extends Mixins(Helpers) {
   initNotificationIcon(): any {
     switch (this.flash.level) {
       case 'info':
-        return { component: 'InfoCircleSolid', color: 'text-blue-500' }
+        return { component: 'InfoCircleSolid', color: 'text-indigo-500 dark:text-indigo-400' }
       case 'success':
-        return { component: 'CheckMarkSolid', color: 'text-green-500' }
+        return { component: 'CheckMarkSolid', color: 'text-green-500 dark:text-emerald-500' }
       case 'warning':
         return { component: 'WarningSignSolid', color: 'text-orange-500' }
       case 'danger':

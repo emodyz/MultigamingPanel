@@ -1,6 +1,7 @@
 <template>
     <div class="flex items-center">
-    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-200 text-indigo-800">
+    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-200 text-indigo-800
+     dark:bg-indigo-500 dark:text-gray-100">
         <span v-if="files === 0"> No Files</span>
         <span v-else-if="files === 1">{{ files }} File</span>
         <span v-else-if="files > 1">{{ files }} Files</span>

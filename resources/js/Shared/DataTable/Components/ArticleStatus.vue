@@ -2,13 +2,15 @@
   <div>
     <span
         v-if="status === 'published'"
-        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
+        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800
+        dark:text-emerald-300 dark:bg-emerald-900"
     >
       Published | {{ $moment(published_at).fromNow() }}
     </span>
     <span
         v-else
-        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800"
+        class="px-2 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800
+        dark:bg-gray-900 border dark:border-gray-700 dark:text-gray-300"
     >
       Draft
     </span>

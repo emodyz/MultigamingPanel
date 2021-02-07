@@ -1,8 +1,8 @@
 <template>
   <app-layout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Servers <span class="text-gray-400">/</span> {{ server.name }} <span class="text-gray-400">/</span> Edit
+      <h2 class="breadcrumb">
+        Servers <span class="breadcrumb-separator">/</span> {{ server.name }} <span class="breadcrumb-separator">/</span> Edit
       </h2>
     </template>
     <div class="py-12">

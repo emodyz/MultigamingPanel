@@ -1,86 +1,77 @@
 <template>
-    <div class="ml-auto">
-        <button
-                :disabled="opened"
-                class="
-      disabled:cursor-not-allowed disabled:opacity-75 inline-flex items-center px-4 py-2 bg-gray-800 border
-      border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-gray-700
-      active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-400 transition ease-in-out
-      duration-150 text-base dark:bg-indigo-500 dark:text-gray-100"
-                type="button"
-                @click="open"
-        >
-            Create a new modpack
-            <FolderAdd class="ml-2 h-6 w-6"/>
-        </button>
+  <div class="ml-auto">
+    <jet-button @click="open" :disabled="opened" type="button" class="text-base ml-auto">
+      Create a new modpack
+      <FolderAdd class="ml-2 h-6 w-6"/>
+    </jet-button>
 
-        <div v-if="opened" class="fixed z-10 inset-0">
-            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0 rounded-lg">
-                <div aria-hidden="true" class="fixed inset-0 transition-opacity">
-                    <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-                </div>
-                <span aria-hidden="true" class="hidden sm:inline-block sm:align-middle sm:h-screen">&#8203;</span>
-                <div v-click-outside="close" aria-labelledby="modal-headline"
-                     aria-modal="true"
-                     class="inline-block align-bottom bg-white rounded-lg text-left shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
-                     role="dialog">
-                    <form @submit.prevent="createModPack">
-                        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 rounded-lg">
-                        <span class="text-md font-bold">
-                            Create a new ModPack
-                        </span>
-                            <div class="flex flex-col mt-3">
-
-                                <jet-label for="name" value="Name"/>
-                                <jet-input
-                                        id="name"
-                                        v-model="form.name"
-                                        autofocus
-                                        class="mt-1 block w-full"
-                                        placeholder="Enter Name"
-                                        type="text"/>
-                                <jet-input-error :message="form.errors.name"/>
-
-                                <jet-label class="mt-3" for="servers" value="Game"/>
-                                <select
-                                        id="servers"
-                                        v-model="form.game"
-                                        class="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                    <option :value="null" disabled>Select a game</option>
-                                    <option v-for="game of games" :key="game.id" :value="game.id">{{game.name}}</option>
-                                </select>
-                                <jet-input-error :message="form.errors.game"/>
-
-                                <div v-if="form.game">
-                                    <jet-label class="mt-3" for="servers" value="Assigned Servers"/>
-                                    <multi-select
-                                            v-model="form.servers"
-                                            :options-list="serversOptions"
-                                            :tags="true"
-                                            placeholder="Chose a server"
-                                    />
-                                    <jet-input-error :message="form.errors.servers"/>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse rounded-b-lg">
-                            <jet-button
-                                    :class="{ 'opacity-25': form.processing }"
-                                    :disabled="form.processing"
-                                    class="ml-2">
-                                <spinner v-if="form.processing"/>
-                                Create
-                            </jet-button>
-                            <jet-secondary-button type="button" @click="close">
-                                Cancel
-                            </jet-secondary-button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    <div v-if="opened" class="fixed z-10 inset-0">
+      <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0 rounded-lg">
+        <div aria-hidden="true" class="fixed inset-0 transition-opacity">
+          <div class="absolute inset-0 bg-gray-500 dark:bg-gray-700 opacity-75"></div>
         </div>
+        <span aria-hidden="true" class="hidden sm:inline-block sm:align-middle sm:h-screen">&#8203;</span>
+        <div v-click-outside="close" aria-labelledby="modal-headline"
+             aria-modal="true"
+             class="inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+             role="dialog">
+          <form @submit.prevent="createModPack">
+            <div class="bg-white dark:bg-gray-800 dark:text-gray-300 px-4 pt-5 pb-4 sm:p-6 sm:pb-4 rounded-lg">
+              <span class="text-md font-bold">
+                Create a new ModPack
+              </span>
+              <div class="flex flex-col mt-3">
+
+                <jet-label for="name" value="Name"/>
+                <jet-input
+                    id="name"
+                    v-model="form.name"
+                    autofocus
+                    class="mt-1 block w-full"
+                    placeholder="Enter Name"
+                    type="text"/>
+                <jet-input-error :message="form.errors.name"/>
+
+                <jet-label class="mt-3" for="servers" value="Game"/>
+                <select
+                    id="servers"
+                    v-model="form.game"
+                    class="block w-full mt-1 rounded-md shadow-sm form-input">
+                  <option :value="null" disabled>Select a game</option>
+                  <option v-for="game of games" :key="game.id" :value="game.id">{{ game.name }}</option>
+                </select>
+                <jet-input-error :message="form.errors.game"/>
+
+                <div v-if="form.game">
+                  <jet-label class="mt-3" for="servers" value="Assigned Servers"/>
+                  <multi-select
+                      v-model="form.servers"
+                      :options-list="serversOptions"
+                      :tags="true"
+                      placeholder="Chose a server"
+                  />
+                  <jet-input-error :message="form.errors.servers"/>
+                </div>
+
+              </div>
+            </div>
+            <div class="bg-gray-100 dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse rounded-b-lg">
+              <jet-button
+                  :class="{ 'opacity-25': form.processing }"
+                  :disabled="form.processing"
+                  class="ml-2">
+                <spinner v-if="form.processing"/>
+                Create
+              </jet-button>
+              <jet-secondary-button type="button" @click="close">
+                Cancel
+              </jet-secondary-button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script lang="ts">

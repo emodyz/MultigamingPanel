@@ -1,4 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
+const typographyConfig = require('./tailwind.typography.config')
 const colors = require('tailwindcss/colors')
 
 module.exports = {
@@ -11,13 +12,18 @@ module.exports = {
       './resources/js/**/*.vue',
     ],
     options: {
+      // ⚠️ DO NOT camelCase this prop or it will break!
       safelist: [
-        //THE DARK SIDE
+        //THE DARK SIDE 😈
         'dark',
+        // Scrollbar
+        'body', 'body.dark', '::-webkit-scrollbar',
+        '::-webkit-scrollbar-track', '::-webkit-scrollbar-thumb',
+        '::-webkit-scrollbar-thumb:hover ',
         // Colors
         'text-green-600', 'text-green-900',
         'text-indigo-600', 'text-indigo-900',
-        'text-red-600', 'text-red-900',
+        'text-red-600', 'text-red-900', 'text-orange-500',
         // Utilities
         'py-8', 'pb-5', 'pt-6',
         'w-88', 'w-96',
@@ -27,6 +33,7 @@ module.exports = {
 
   theme: {
     extend: {
+      typography: typographyConfig,
       fontFamily: {
         sans: ['Nunito', ...defaultTheme.fontFamily.sans],
       },
@@ -78,13 +85,16 @@ module.exports = {
       },
       colors: {
         // ...colors
-        gray: colors.gray
+        gray: colors.gray,
+        emerald: colors.emerald,
+        orange: colors.orange,
       },
     },
   },
 
   variants: {
     extend: {
+      typography: ['dark'],
       backgroundColor: ['group-focus', 'active', 'even', 'odd', 'disabled', 'checked'],
       borderColor: ['group-focus', 'checked'],
       boxShadow: ['group-focus'],
