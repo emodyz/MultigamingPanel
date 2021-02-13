@@ -13,11 +13,13 @@ class DashboardController extends Controller
 {
    public function __invoke(): Response
    {
+       // TODO: Check for authorization to vue stats on the dashboard
        $usersStats = $this->getUsersStats();
        return Inertia::render('Dashboard/Dashboard', compact('usersStats'));
    }
 
-   private function getUsersStats()
+   // TODO: Make an interface to represent the data needed to display a graph on the dashboard page
+   private function getUsersStats(): \stdClass
    {
        $newUsersToday = User::whereDay('created_at', Carbon::today())->count();
        $newUsersYesterday = User::whereDay('created_at', Carbon::yesterday())->count();
