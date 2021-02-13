@@ -1,13 +1,12 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\ServerController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ModPackController;
 use Illuminate\Support\Facades\Route;
-// use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------

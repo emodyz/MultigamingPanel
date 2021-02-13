@@ -1,20 +1,22 @@
 <template>
-  <div class="h-40 rounded-lg bg-white dark:bg-gray-800 box-border shadow-lg md:shadow-xl relative overflow-hidden">
+  <div class="h-40 rounded-lg bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-lg relative overflow-hidden">
     <div class="px-3 pt-8 pb-10 text-center relative z-10">
       <h4 class="text-sm uppercase text-gray-500 dark:text-gray-100 leading-tight">Users</h4>
       <h3 class="text-3xl text-gray-700 dark:text-gray-300 font-semibold leading-tight my-3">{{ stats.total }}</h3>
-      <p v-if="stats.isPositive" class="text-xs text-green-500 dark:text-emerald-500 leading-tight">▲ {{stats.dailyDifferance}}%</p>
-      <p v-else class="text-xs text-red-500 leading-tight">▼ {{stats.dailyDifferance}}%</p>
+      <div v-if="stats.dailyDiff">
+        <p v-if="stats.isDailyDiffPositive" class="text-xs text-green-500 dark:text-emerald-500 leading-tight">▲ {{stats.dailyDiff}}%</p>
+        <p v-else class="text-xs text-red-500 leading-tight">▼ {{stats.dailyDiff}}%</p>
+      </div>
     </div>
     <div class="absolute h-40 bottom-0 inset-x-0">
-      <canvas ref="chart1" class="h-40"></canvas>
+      <canvas ref="chart" class="h-40"></canvas>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import {
-  Vue, Component, Ref, Prop,
+  Component, Ref, Prop, Vue,
 } from 'vue-property-decorator'
 import { Chart, ChartOptions } from 'chart.js'
 
@@ -22,12 +24,13 @@ import { Chart, ChartOptions } from 'chart.js'
 export default class UsersChart extends Vue {
   @Prop({ required: true }) readonly stats!:any
 
-  @Ref('chart1') readonly chart1!: any
+  @Ref('chart') readonly chart!: any
 
   mounted() {
     const chartOptions: ChartOptions | any = {
       layout: {
         padding: {
+          top: 5,
           left: 0,
           bottom: 0,
         },
@@ -68,8 +71,9 @@ export default class UsersChart extends Vue {
       },
     }
     //
-    const ctx = this.chart1.getContext('2d')
-    const chart = new Chart(ctx, {
+    const ctx = this.chart.getContext('2d')
+    // eslint-disable-next-line no-new
+    /* const chart = */ new Chart(ctx, {
       type: 'line',
       data: {
         labels: this.stats.graphData,
@@ -84,7 +88,6 @@ export default class UsersChart extends Vue {
       },
       options: chartOptions,
     })
-    console.log(chart)
   }
 }
 </script>

@@ -11,7 +11,7 @@ return [
         'developer' => [
             'displayName' => 'Developer',
             'can' => [
-                'dashboard',
+                'dashboard-stats',
                 'users-index',
                 'servers-index',
                 'modpacks-*',
@@ -20,7 +20,7 @@ return [
         'admin' => [
             'displayName' => 'Administrator',
             'can' => [
-                'dashboard',
+                'dashboard-stats',
                 'servers-index',
                 'users-index',
                 'users-edit',
@@ -40,8 +40,8 @@ return [
             'description' => 'a user can do everything'
         ],
         [
-            'slug' => 'dashboard',
-            'description' => 'a user can view the administration dashboard'
+            'slug' => 'dashboard-stats',
+            'description' => 'a user can view the stats displayed on the dashboard'
         ],
         /**
          * Users Management
