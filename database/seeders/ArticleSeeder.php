@@ -22,17 +22,13 @@ class ArticleSeeder extends Seeder
         $user = User::where('email', 'root@root.com')->first();
         $server = Server::first();
 
-        tap(Article::factory()->withCover()->withContent()->create([
-            'user_id' => $user->id
-        ]),function (Article $article) use ($server) {
-            $article->servers()->attach($server);
-        });
-
-        Article::factory()->withCover()->withContent()->count(10)->create([
+        Article::factory()->withCover()->withContent()->count(rand(3, 10))->create([
             'user_id' => $user->id
         ]);
 
-        $articles = Article::all();
+        $articles = Article::factory()->withCover()->withContent()->count(10)->create([
+            'user_id' => $user->id
+        ]);
 
         foreach ($articles as $a) {
             $a->servers()->attach($server);

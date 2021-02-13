@@ -42,13 +42,12 @@ class Article extends Model
         return $this->belongsToMany(Server::class)->withTimestamps();
     }
 
-    public static function getAllGlobalArticles()
+    public static function getGlobalArticles(int|null $n = null)
     {
-        return self::where('status', 'published')->latest()->get();
-    }
+        if ($n && $n > 0) {
+            return self::where('status', 'published')->doesntHave('servers')->latest()->take($n)->get();
+        }
 
-    public static function getLastGlobalArticles($n = 1)
-    {
-        return self::where('status', 'published')->latest()->take($n)->get();
+        return self::where('status', 'published')->doesntHave('servers')->latest()->get();
     }
 }

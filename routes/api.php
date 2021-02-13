@@ -51,7 +51,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/modpacks/{modpack}/servers/{server}', [ModPackServerController::class, 'detach']);
 
     // Articles
-    Route::get('/servers/{server}/articles', function (Server $server) { return response()->json($server->articles); });
+    Route::get('/servers/{server}/articles', function (Server $server) {
+        return response()->json($server->articles()->where('status', 'published')->latest()->get());
+    });
     Route::get('/servers/{server}/articles/latest/{n?}', function (Server $server, $n = 5) {
         return response()->json($server->articles()->where('status', 'published')->latest()->take($n)->get());
     });
@@ -61,5 +63,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 });
 // Articles
-Route::get('/articles', function () { return response()->json(Article::getAllGlobalArticles()); });
-Route::get('/articles/latest/{n?}', function ($n = 5) { return response()->json(Article::getLastGlobalArticles($n)); });
+Route::get('/articles', function () { return response()->json(Article::getGlobalArticles()); });
+Route::get('/articles/latest/{n?}', function ($n = 5) { return response()->json(Article::getGlobalArticles($n)); });
