@@ -8,7 +8,7 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                   <welcome/>
+                  <users-chart :stats="usersStats"/>
                 </div>
             </div>
         </div>
@@ -17,21 +17,21 @@
 
 <script lang="ts">
 import {
-  Vue, Component,
+  Vue, Component, Prop,
 } from 'vue-property-decorator'
 
 import AppLayout from '@/Layouts/AppLayout.vue'
 import Welcome from '@/Jetstream/Welcome.vue'
+import UsersChart from '@/Pages/Dashboard/Components/UsersChart.vue'
 
 @Component({
   components: {
     AppLayout,
     Welcome,
+    UsersChart,
   },
 })
 export default class Dashboard extends Vue {
-  created() {
-    //
-  }
+  @Prop() usersStats !: any
 }
 </script>
