@@ -19,7 +19,7 @@
             class="w-full p-6">
 
             <template #action>
-                <create-article-button/>
+                <create-article-button v-if="can('articles-create')"/>
             </template>
 
         </data-table>
@@ -33,7 +33,7 @@ import Pagination from '@/Shared/Pagination/Pagination.vue'
 import JetInput from '@/Jetstream/Input.vue'
 import DataTable from '@/Shared/DataTable/DataTable.vue'
 
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Component, Prop, Mixins } from 'vue-property-decorator'
 import AppLayout from '@/Layouts/AppLayout.vue'
 import { DataTableActionsOptions } from '@/Shared/DataTable/Types/DataTableActionsOptions'
 import { DataTableHeader } from '@/Shared/DataTable/Types/DataTableHeader'
@@ -43,6 +43,7 @@ import DtUserProfile from '@/Shared/DataTable/Components/UserProfile.vue'
 import DtArticleTitle from '@/Shared/DataTable/Components/ArticleTitle.vue'
 import DtArticleStatus from '@/Shared/DataTable/Components/ArticleStatus.vue'
 import DeleteArticle from '@/Shared/DataTable/Components/Dialogs/DeleteArticle.vue'
+import Cerberus from '@/Mixins/Cerberus'
 
 @Component({
   components: {
@@ -53,7 +54,7 @@ import DeleteArticle from '@/Shared/DataTable/Components/Dialogs/DeleteArticle.v
     CreateArticleButton,
   },
 })
-export default class UsersIndex extends Vue {
+export default class UsersIndex extends Mixins(Cerberus) {
   @Prop() readonly articles!: null | object
 
   @Prop() readonly totalItemCount!: null | number
