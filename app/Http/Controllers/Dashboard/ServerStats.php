@@ -88,5 +88,7 @@ class ServerStats extends Contracts\DashboardStats
         $this->total = $this->server->latest_status->players_online;
     }
 
-    public function setMetaData(): void {}
+    public function setMetaData(): void {
+        $this->metaData = ['serverName' => $this->server->name];
+    }
 }

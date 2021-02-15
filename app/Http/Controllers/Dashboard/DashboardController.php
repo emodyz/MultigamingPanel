@@ -9,7 +9,6 @@ use App\Models\User;
 use Illuminate\Support\Carbon;
 use Inertia\Inertia;
 use Inertia\Response;
-use Mattiasgeniar\Percentage\Percentage;
 
 class DashboardController extends Controller
 {
