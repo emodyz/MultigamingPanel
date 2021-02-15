@@ -8,14 +8,11 @@
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div v-if="can('dashboard-stats')" class="grid grid-cols-6 gap-6">
-          <users-chart class="col-span-6 md:col-span-3" :stats="usersStats"/>
-          <users-chart class="col-span-6 md:col-span-1" :stats="usersStats"/>
-          <users-chart class="col-span-6 md:col-span-1" :stats="usersStats"/>
-          <users-chart class="col-span-6 md:col-span-1" :stats="usersStats"/>
           <users-chart class="col-span-6 md:col-span-6" :stats="usersStats"/>
-          <users-chart class="col-span-6 md:col-span-3" :stats="usersStats"/>
-          <users-chart class="col-span-6 md:col-span-2" :stats="usersStats"/>
-          <users-chart class="col-span-6 md:col-span-1" :stats="usersStats"/>
+          <users-chart v-for="server in serversStats"
+                       :key="server.total+Math.random()"
+                       class="col-span-6 md:col-span-3"
+                       :stats="server"/>
         </div>
       </div>
     </div>
@@ -41,5 +38,7 @@ import Cerberus from '@/Mixins/Cerberus'
 })
 export default class Dashboard extends Mixins(Cerberus) {
   @Prop() usersStats !: any
+
+  @Prop() serversStats !: any
 }
 </script>

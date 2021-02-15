@@ -17,7 +17,7 @@ class UsersStats extends DashboardStats
         $newUsersYesterday = User::whereDay('created_at', Carbon::yesterday())->count();
 
         $this->dailyDiff = $newUsersYesterday
-            ? (int)round(Percentage::differenceBetween($newUsersYesterday, $newUsersToday), 2)
+            ? round(Percentage::differenceBetween($newUsersYesterday, $newUsersToday), 2)
             : null;
 
         $this->isDailyDiffPositive = $this->dailyDiff > 0;
@@ -47,4 +47,6 @@ class UsersStats extends DashboardStats
     {
         $this->total = User::count();
     }
+
+    public function setMetaData(): void {}
 }
