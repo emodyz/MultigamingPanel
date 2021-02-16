@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Dashboard\StatsController;
 use App\Http\Controllers\ModPackController;
 use App\Http\Controllers\ModPackServerController;
 use App\Http\Controllers\ServerController;
@@ -60,6 +61,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // Settings
     Route::get('/settings/voice', fn(VoiceSettings $settings) => $settings->toArray())->name('settings.show.voice');
+
+    // Dashboard
+    Route::get('/dashboard/stats/users', [StatsController::class, 'users'])->name('dashboard.stats.users');
+    Route::get('/dashboard/stats/servers', [StatsController::class, 'servers'])->name('dashboard.stats.servers');
 
 });
 // Articles
