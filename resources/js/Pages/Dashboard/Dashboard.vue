@@ -9,6 +9,7 @@
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div v-if="can('dashboard-stats')" class="grid grid-cols-6 gap-6">
           <users-chart class="col-span-6 md:col-span-6" :stats="usersStats"/>
+          <jet-section-border class="col-span-6" padding="py-0"/>
           <server-chart v-for="server in serversStats"
                        :key="server.total+Math.random()"
                        class="col-span-6 md:col-span-3"
@@ -29,6 +30,7 @@ import Welcome from '@/Jetstream/Welcome.vue'
 import UsersChart from '@/Pages/Dashboard/Components/UsersChart.vue'
 import Cerberus from '@/Mixins/Cerberus'
 import ServerChart from '@/Pages/Dashboard/Components/ServerChart.vue'
+import JetSectionBorder from '@/Jetstream/SectionBorder.vue'
 
 @Component({
   components: {
@@ -36,6 +38,7 @@ import ServerChart from '@/Pages/Dashboard/Components/ServerChart.vue'
     Welcome,
     UsersChart,
     ServerChart,
+    JetSectionBorder,
   },
 })
 export default class Dashboard extends Mixins(Cerberus) {
