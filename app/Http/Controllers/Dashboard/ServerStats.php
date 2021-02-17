@@ -36,7 +36,9 @@ class ServerStats extends Contracts\DashboardStats
                 ->map(function ($el) {
                     return $el->players_online;
                 });
-            $q = $q->count() > 0  ?: $q->push(0);
+            if ($q->count() <= 0) {
+                $q->push(0);
+            }
             return $q;
         });
 
@@ -52,7 +54,9 @@ class ServerStats extends Contracts\DashboardStats
                 ->map(function ($el) {
                     return $el->players_online;
                 });
-            $q = $q->count() > 0  ?: $q->push(0);
+            if ($q->count() <= 0) {
+                $q->push(0);
+            }
             return $q;
         });
 
