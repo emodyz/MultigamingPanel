@@ -98,6 +98,7 @@ export default class UsersChart extends Mixins(Route) {
       },
       options: this.chartOptions,
     })
+    console.log(this.stats)
   }
 }
 </script>

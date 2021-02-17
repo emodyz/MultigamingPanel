@@ -27,34 +27,38 @@ class ServerStats extends Contracts\DashboardStats
     public function setDailyDiff(): void
     {
         $playersToday = Cache::remember('playersToday'. $this->serverId, $this->cacheTtl, function () {
-            return ServerStatus::select('players_online', 'created_at')
+            $q = ServerStatus::select('players_online', 'created_at')
                 ->where('online', true)
                 ->where('server_id', $this->serverId)
                 ->where('online', true)
-                ->whereDay('created_at', Carbon::today())
+                ->whereDate('created_at', Carbon::today())
                 ->get()
                 ->map(function ($el) {
                     return $el->players_online;
                 });
+            $q = $q->count() > 0  ?: $q->push(0);
+            return $q;
         });
 
         $averagePlayersToday = $playersToday->average();
 
         $playersYesterday = Cache::remember('playersYesterday'. $this->serverId, $this->cacheTtl, function () {
-            return ServerStatus::select('players_online', 'created_at')
+            $q = ServerStatus::select('players_online', 'created_at')
                 ->where('online', true)
                 ->where('server_id', $this->serverId)
                 ->where('online', true)
-                ->whereDay('created_at', Carbon::yesterday())
+                ->whereDate('created_at', Carbon::yesterday())
                 ->get()
                 ->map(function ($el) {
                     return $el->players_online;
                 });
+            $q = $q->count() > 0  ?: $q->push(0);
+            return $q;
         });
 
         $averagePlayersYesterday = $playersYesterday->average();
 
-        $this->dailyDiff = $playersYesterday
+        $this->dailyDiff = ($averagePlayersYesterday && $averagePlayersToday)
             ? round(Percentage::differenceBetween($averagePlayersYesterday, $averagePlayersToday), 2)
             : null;
 

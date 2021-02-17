@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Models\Server;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 
 class StatsController extends Controller
 {
@@ -21,8 +22,12 @@ class StatsController extends Controller
 
     public function servers(): JsonResponse
     {
+        $servers = Cache::remember('servers-online', 60, function () {
+            return Server::online();
+        });
+
         $serversStats = collect();
-        foreach (Server::online() as $server)
+        foreach ($servers as $server)
         {
             $serversStats->push(new ServerStats($server));
         }

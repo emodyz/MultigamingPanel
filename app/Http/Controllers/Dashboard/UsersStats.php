@@ -18,14 +18,14 @@ class UsersStats extends DashboardStats
     {
 
         $newUsersToday = Cache::remember('newUsersToday', $this->cacheTtl, function () {
-            return User::whereDay('created_at', Carbon::today())->count();
+            return User::whereDate('created_at', Carbon::today())->count();
         });
 
         $newUsersYesterday = Cache::remember('newUsersYesterday', $this->cacheTtl, function () {
-            return User::whereDay('created_at', Carbon::yesterday())->count();
+            return User::whereDate('created_at', Carbon::yesterday())->count();
         });
 
-        $this->dailyDiff = $newUsersYesterday
+        $this->dailyDiff = ($newUsersToday && $newUsersYesterday)
             ? round(Percentage::differenceBetween($newUsersYesterday, $newUsersToday), 2)
             : null;
 
