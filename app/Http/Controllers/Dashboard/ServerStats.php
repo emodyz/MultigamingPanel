@@ -7,12 +7,14 @@ namespace App\Http\Controllers\Dashboard;
 use App\Models\Server;
 use App\Models\ServerStatus;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cache;
 use Mattiasgeniar\Percentage\Percentage;
 
 class ServerStats extends Contracts\DashboardStats
 {
     protected mixed $serverId;
     protected Server $server;
+    private int $cacheTtl = 600;
 
     public function __construct(Server $server)
     {
@@ -24,27 +26,31 @@ class ServerStats extends Contracts\DashboardStats
 
     public function setDailyDiff(): void
     {
-        $playersToday = ServerStatus::select('players_online', 'created_at')
-            ->where('online', true)
-            ->where('server_id', $this->serverId)
-            ->where('online', true)
-            ->whereDay('created_at', Carbon::today())
-            ->get()
-            ->map(function ($el) {
-                return $el->players_online;
-            });
+        $playersToday = Cache::remember('playersToday'. $this->serverId, $this->cacheTtl, function () {
+            return ServerStatus::select('players_online', 'created_at')
+                ->where('online', true)
+                ->where('server_id', $this->serverId)
+                ->where('online', true)
+                ->whereDay('created_at', Carbon::today())
+                ->get()
+                ->map(function ($el) {
+                    return $el->players_online;
+                });
+        });
 
         $averagePlayersToday = $playersToday->average();
 
-        $playersYesterday = ServerStatus::select('players_online', 'created_at')
-            ->where('online', true)
-            ->where('server_id', $this->serverId)
-            ->where('online', true)
-            ->whereDay('created_at', Carbon::yesterday())
-            ->get()
-            ->map(function ($el) {
-                return $el->players_online;
-            });
+        $playersYesterday = Cache::remember('playersYesterday'. $this->serverId, $this->cacheTtl, function () {
+            return ServerStatus::select('players_online', 'created_at')
+                ->where('online', true)
+                ->where('server_id', $this->serverId)
+                ->where('online', true)
+                ->whereDay('created_at', Carbon::yesterday())
+                ->get()
+                ->map(function ($el) {
+                    return $el->players_online;
+                });
+        });
 
         $averagePlayersYesterday = $playersYesterday->average();
 
@@ -57,14 +63,16 @@ class ServerStats extends Contracts\DashboardStats
 
     public function setGraphData(): void
     {
-        $monthlyPlayersByDay = ServerStatus::select('players_online', 'created_at')
-            ->where('server_id', $this->serverId)->where('online', true)
-            ->where('created_at', '>=', Carbon::today()->subMonth())
-            ->orderBy('created_at')
-            ->get()
-            ->groupBy(function ($val) {
-                return Carbon::parse($val->created_at)->format('d');
-            });
+        $monthlyPlayersByDay = Cache::remember('monthlyPlayersByDay'. $this->serverId, $this->cacheTtl, function () {
+            return ServerStatus::select('players_online', 'created_at')
+                ->where('server_id', $this->serverId)->where('online', true)
+                ->where('created_at', '>=', Carbon::today()->subMonth())
+                ->orderBy('created_at')
+                ->get()
+                ->groupBy(function ($val) {
+                    return Carbon::parse($val->created_at)->format('d');
+                });
+        });
 
         $averagePlayers = $monthlyPlayersByDay->map(function ($el) {
             $stats = $el->map(function ($stat) {
@@ -79,13 +87,13 @@ class ServerStats extends Contracts\DashboardStats
         }
 
         $this->graphData = $averagePlayers->values();
-
-        // <dd($this->graphData);
     }
 
     public function setTotal(): void
     {
-        $this->total = $this->server->latest_status->players_online;
+        $this->total = Cache::remember('total'. $this->serverId, $this->cacheTtl, function () {
+            return $this->server->latest_status->players_online;
+        });
     }
 
     public function setMetaData(): void {
