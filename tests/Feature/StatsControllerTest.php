@@ -34,8 +34,6 @@ class StatsControllerTest extends TestCase
      */
     public function an_authorized_user_can_view_the_users_growth_graph()
     {
-        $faker = Factory::create();
-
         $this->initUser('owner');
 
 
@@ -44,7 +42,7 @@ class StatsControllerTest extends TestCase
         ]);
 
         User::factory()->count(10)->create([
-            'created_at' => Carbon::today()->subDays(1),
+            'created_at' => Carbon::today()->subDays(),
         ]);
 
         User::factory()->count(7)->create([
@@ -54,6 +52,47 @@ class StatsControllerTest extends TestCase
         $this->get(route('api.dashboard.stats.users'))
             ->assertOk()
             ->assertJson(['dailyDiff' => -30, 'isDailyDiffPositive' => false, 'graphData' => [1,5,10,7], 'total' => 23]);
+    }
+
+    /**
+     * @test
+     */
+    public function an_authorized_user_can_view_the_servers_graph()
+    {
+        $faker = Factory::create();
+
+        $serverName = $faker->domainName;
+
+        $this->initUser('owner');
+
+        $server = Server::factory()->create([
+            'name' => $serverName,
+        ]);
+
+        ServerStatus::factory()->create([
+            'online' => true,
+            'server_id' => $server->id,
+            'players_online' => 1,
+            'created_at' => Carbon::today()->subDays(),
+        ]);
+
+        ServerStatus::factory()->create([
+            'online' => true,
+            'server_id' => $server->id,
+            'players_online' => 20,
+            'created_at' => Carbon::today()->subDays(2),
+        ]);
+
+        ServerStatus::factory()->create([
+            'online' => true,
+            'server_id' => $server->id,
+            'players_online' => 30,
+            'created_at' => Carbon::today(),
+        ]);
+
+        $this->get(route('api.dashboard.stats.servers'))
+            ->assertOk()
+            ->assertJson([['dailyDiff' => 2900, 'isDailyDiffPositive' => true, 'graphData' => [20,1,30], 'total' => 30, 'metaData' => ['serverName' => $serverName]]]);
     }
 
 }
