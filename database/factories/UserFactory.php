@@ -33,7 +33,7 @@ class UserFactory extends Factory
             'role' => array_rand($roles),
             'password' => Hash::make('password'), // password
             'remember_token' => Str::random(10),
-            'created_at' => $random = Carbon::today()->subDays(rand(0, 30)),
+            'created_at' => Carbon::today()->subDays(rand(0, 30)),
         ];
     }
 }
