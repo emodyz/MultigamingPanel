@@ -27,11 +27,11 @@ abstract class TestCase extends BaseTestCase
         }
     }
 
-    public function initUser($role = 'default'): User
+    public function initUser($role = 'default', array $props = []): User
     {
-        $user = User::factory()->create([
-            'role' => $role
-        ]);
+        $user = User::factory()->create(array_merge([
+            'role' => $role,
+        ], $props));
 
         Sanctum::actingAs($user);
 

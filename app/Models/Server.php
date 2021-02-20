@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\HasLogo;
 use App\Models\Traits\HasPrimaryKeyAsUuid;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,6 +19,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property mixed modpacks
  * @property mixed articles
  * @property mixed port
+ * @property mixed latest_status
  */
 class Server extends Model
 {
@@ -46,6 +48,9 @@ class Server extends Model
       'logo_url',
       'latest_status'
     ];
+    /**
+     * @var mixed
+     */
 
     /**
      * @return BelongsTo
@@ -92,5 +97,24 @@ class Server extends Model
     public function articles(): BelongsToMany
     {
         return $this->belongsToMany(Article::class)->withTimestamps();
+    }
+
+    /**
+     * Returns a list of all the servers that are currently online
+     *
+     * @return Collection
+     */
+    public static function online(): Collection
+    {
+        return self::with(['status' => function ($query) {
+            $query
+                ->where('online', true)
+                ->latest()
+                ->first();
+        }])
+            ->get()
+            ->filter(function ($server, $key) {
+                return $server->latest_status->online === true;
+            });
     }
 }

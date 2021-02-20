@@ -4,7 +4,10 @@ namespace Database\Seeders;
 
 use App\Models\Game;
 use App\Models\Server;
+use App\Models\ServerStatus;
+use Faker\Factory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
 
 class ServerSeeder extends Seeder
 {
@@ -18,12 +21,18 @@ class ServerSeeder extends Seeder
         $arma3 = Game::whereIdentifier('arma3')->first();
         $minecraft = Game::whereIdentifier('minecraft')->first();
 
-        Server::factory()->create([
+        $server = Server::factory()->create([
             'name' => 'LiveYourLife',
             'ip' => 'altis.lyl.gg',
             'port' => 2302,
             'game_id' => $arma3->id
         ]);
+
+        ServerStatus::factory()->count(rand(5000, 10000))->create([
+            'online' => true,
+            'server_id' => $server->id,
+        ]);
+
 
         Server::factory()->create([
             'name' => 'Projet Renaissance',

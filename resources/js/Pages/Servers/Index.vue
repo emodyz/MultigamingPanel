@@ -1,30 +1,30 @@
 <template>
-    <app-layout>
-        <template #header>
-            <h2 class="breadcrumb">
-                ModPacks <span class="breadcrumb-separator">/</span> Index
-            </h2>
-        </template>
+  <app-layout>
+    <template #header>
+      <h2 class="breadcrumb">
+        ModPacks <span class="breadcrumb-separator">/</span> Index
+      </h2>
+    </template>
 
-        <div class="py-12">
-            <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8">
-                <data-table
-                            :actions="actions"
-                            :data-object="servers"
-                            :headers="headers"
-                            :initial-query="initialSearch"
-                            :query-param="'servers'"
-                            :query-url="'/servers'"
-                            :total-item-count="totalItemCount"
-                            class="w-full p-6">
+    <div class="py-12">
+      <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8">
+        <data-table
+            :actions="actions"
+            :data-object="servers"
+            :headers="headers"
+            :initial-query="initialSearch"
+            :query-param="'servers'"
+            :query-url="'/servers'"
+            :total-item-count="totalItemCount"
+            class="w-full p-6">
 
-                    <template #action>
-                      <create-server-button/>
-                    </template>
-                </data-table>
-            </div>
-        </div>
-    </app-layout>
+          <template #action>
+            <create-server-button v-if="can('servers-create')"/>
+          </template>
+        </data-table>
+      </div>
+    </div>
+  </app-layout>
 </template>
 
 <script lang="ts">
@@ -44,6 +44,7 @@ import DtServerModPacks from '@/Shared/DataTable/Components/ServerModPacks.vue'
 import DtServerStatus from '@/Shared/DataTable/Components/ServerStatus.vue'
 import CreateServerButton from '@/Pages/Servers/Components/CreateServerButton.vue'
 import DeleteServer from '@/Shared/DataTable/Components/Dialogs/DeleteServer.vue'
+import Cerberus from '@/Mixins/Cerberus'
 
 @Component({
   components: {
@@ -54,7 +55,7 @@ import DeleteServer from '@/Shared/DataTable/Components/Dialogs/DeleteServer.vue
     CreateServerButton,
   },
 })
-export default class ServersIndex extends Mixins(Route) {
+export default class ServersIndex extends Mixins(Route, Cerberus) {
   @Prop() readonly servers!: null | object
 
   @Prop() readonly totalItemCount!: null | number

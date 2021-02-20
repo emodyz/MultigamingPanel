@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -32,6 +33,7 @@ class UserFactory extends Factory
             'role' => array_rand($roles),
             'password' => Hash::make('password'), // password
             'remember_token' => Str::random(10),
+            'created_at' => Carbon::today()->subDays(rand(0, 30)),
         ];
     }
 }

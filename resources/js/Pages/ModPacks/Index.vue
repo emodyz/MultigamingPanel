@@ -1,34 +1,35 @@
 <template>
-    <app-layout>
-        <template #header>
-            <h2 class="breadcrumb">
-                ModPacks <span class="breadcrumb-separator">/</span> Index
-            </h2>
-        </template>
+  <app-layout>
+    <template #header>
+      <h2 class="breadcrumb">
+        ModPacks <span class="breadcrumb-separator">/</span> Index
+      </h2>
+    </template>
 
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <data-table
-                            :actions="actions"
-                            :data-object="modpacks"
-                            :headers="headers"
-                            :initial-query="initialSearch"
-                            :query-param="'modpacks'"
-                            :query-url="'/modpacks'"
-                            :total-item-count="totalItemCount"
-                            class="w-full p-6">
+    <div class="py-12">
+      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <data-table
+            :actions="actions"
+            :data-object="modpacks"
+            :headers="headers"
+            :initial-query="initialSearch"
+            :query-param="'modpacks'"
+            :query-url="'/modpacks'"
+            :total-item-count="totalItemCount"
+            class="w-full p-6">
 
-                    <template #action>
-                        <CreateModPackModal
-                                :servers="servers"
-                                :games="games"
-                        />
-                    </template>
+          <template #action>
+            <CreateModPackModal
+                v-if="can('modpacks-create')"
+                :servers="servers"
+                :games="games"
+            />
+          </template>
 
-                </data-table>
-            </div>
-        </div>
-    </app-layout>
+        </data-table>
+      </div>
+    </div>
+  </app-layout>
 </template>
 
 <script lang="ts">
@@ -47,6 +48,7 @@ import DtBasicProfile from '@/Shared/DataTable/Components/BasicProfile.vue'
 import DtDate from '@/Shared/DataTable/Components/Date.vue'
 import DtModPackSize from '@/Shared/DataTable/Components/ModPackSize.vue'
 import DtModPackFiles from '@/Shared/DataTable/Components/ModPackFiles.vue'
+import Cerberus from '@/Mixins/Cerberus'
 
 @Component({
   components: {
@@ -57,7 +59,7 @@ import DtModPackFiles from '@/Shared/DataTable/Components/ModPackFiles.vue'
     JetDangerButton,
   },
 })
-export default class ModPacks_Index extends Mixins(Route) {
+export default class ModPacks_Index extends Mixins(Route, Cerberus) {
   @Prop() readonly modpacks!: null | object
 
   @Prop() readonly servers!: null | object

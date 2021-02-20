@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\ServerStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
 
 class ServerStatusFactory extends Factory
 {
@@ -23,8 +24,9 @@ class ServerStatusFactory extends Factory
     {
         return [
             'online' => $this->faker->boolean,
-            'players_max' => $this->faker->randomNumber(3),
-            'players_online' => $this->faker->randomNumber(3)
+            'players_max' => 230,
+            'players_online' => $this->faker->numberBetween(10, 230),
+            'created_at' => $random = Carbon::today()->subDays(rand(0, 30))->subMinutes(rand(0, 1439)),
         ];
     }
 }

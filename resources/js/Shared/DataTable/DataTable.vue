@@ -60,14 +60,14 @@
             <tbody class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
             <tr v-if="pageNumber > (totalItemCount / 10) + 10 || pageNumber < 1">
               <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-900">
+                <div class="text-sm text-gray-900 dark:text-gray-100">
                   Page n° {{ pageNumber }} is out of range
                 </div>
               </td>
             </tr>
             <tr v-else-if="_.isEmpty(dataObject.data)">
               <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-900">
+                <div class="text-sm text-gray-900 dark:text-gray-100">
                   No result matching "{{ search }}"
                 </div>
               </td>
