@@ -6,7 +6,7 @@
     <div class="bg-white w-4 h-4 rounded-full shadow-md transform duration-300 ease-in-out hover:cursor-pointer"
          :class="{ 'translate-x-4': isActive}">
           <moon class="text-indigo-400" v-if="isActive" />
-          <sun  class="text-gray-900" v-else/>
+          <sun  class="text-yellow-400" v-else/>
     </div>
   </div>
 </template>
