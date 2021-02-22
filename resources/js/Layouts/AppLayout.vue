@@ -64,7 +64,7 @@
             <!-- Right Section -->
             <div class="flex justify-between items-center">
               <!-- DARK SWITCH -->
-              <toggle-switch v-model="darkMode" />
+              <theme-switch v-model="darkMode" />
               <!-- Settings Dropdown -->
               <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <div class="ml-3 relative">
@@ -419,12 +419,12 @@ import FlashNotification from '@/Shared/Notifications/Flash.vue'
 import axios from 'axios'
 import Route from '@/Mixins/Route'
 import Helpers from '@/Mixins/Helpers'
-import ToggleSwitch from '@/Shared/Forms/ToggleSwitch.vue'
 import Cerberus from '@/Mixins/Cerberus'
+import ThemeSwitch from '@/Layouts/ThemeSwitch.vue'
 
 @Component({
   components: {
-    ToggleSwitch,
+    ThemeSwitch,
     JetApplicationMark,
     JetDropdown,
     JetDropdownLink,
