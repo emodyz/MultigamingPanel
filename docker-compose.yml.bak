@@ -1,73 +1,65 @@
-# TODO: Generate a masterKey for meilisearch : export MEILI_MASTER_KEY=xxx
+# For more information: https://laravel.com/docs/sail
 version: '3'
 services:
-    ezgames:
+    laravel.test:
         build:
-            context: .
-            dockerfile: docker/app/Dockerfile
-        image: emodyz/ezgames
+            context: ./vendor/laravel/sail/runtimes/8.0
+            dockerfile: Dockerfile
+            args:
+                WWWGROUP: '${WWWGROUP}'
+        image: sail-8.0/app
         ports:
-            - '80:80'
-            - "443:443"
+            - '${APP_PORT:-80}:80'
+        environment:
+            WWWUSER: '${WWWUSER}'
+            LARAVEL_SAIL: 1
         volumes:
             - '.:/var/www/html'
         networks:
-            - ezgames
+            - sail
         depends_on:
-            - php
             - pgsql
             - redis
-            - meilisearch
-    php:
-        build:
-            context: ./docker/php
-            dockerfile: Dockerfile
-        image: emodyz/ezgames-php
-        ports:
-            - '9000:9000'
-        volumes:
-            - '.:/var/www/html'
-        networks:
-            - ezgames
     pgsql:
-        image: postgres:13-alpine
+        image: postgres:13
         ports:
             - '${FORWARD_DB_PORT:-5432}:5432'
         environment:
+            PGPASSWORD: '${DB_PASSWORD:-secret}'
             POSTGRES_DB: '${DB_DATABASE}'
             POSTGRES_USER: '${DB_USERNAME}'
             POSTGRES_PASSWORD: '${DB_PASSWORD:-secret}'
         volumes:
-            - 'ezgamespgsql:/var/lib/postgresql/data'
+            - 'sailpostgresql:/var/lib/postgresql/data'
         networks:
-            - ezgames
+            - sail
         healthcheck:
           test: ["CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}"]
     redis:
-        image: redis:alpine
+        image: 'redis:alpine'
         ports:
             - '${FORWARD_REDIS_PORT:-6379}:6379'
         volumes:
-            - 'ezgamesredis:/data'
+            - 'sailredis:/data'
         networks:
-            - ezgames
+            - sail
         healthcheck:
           test: ["CMD", "redis-cli", "ping"]
     meilisearch:
-        image: getmeili/meilisearch:latest
+        image: 'getmeili/meilisearch:latest'
         ports:
             - '${FORWARD_MEILISEARCH_PORT:-7700}:7700'
         volumes:
-            - 'ezgamesmeilisearch:/data.ms'
+            - 'sailmeilisearch:/data.ms'
         networks:
-            - ezgames
+            - sail
 networks:
-    ezgames:
+    sail:
         driver: bridge
 volumes:
-    ezgamespgsql:
+    sailpgsql:
         driver: local
-    ezgamesredis:
+    sailredis:
         driver: local
-    ezgamesmeilisearch:
+    sailmeilisearch:
         driver: local
