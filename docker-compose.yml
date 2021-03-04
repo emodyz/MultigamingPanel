@@ -10,7 +10,8 @@ services:
             - '80:80'
             - "443:443"
         volumes:
-            - '.:/var/www/html'
+            - '.:/var/www/app'
+            - './docker/app/index.php:/var/www/test/index.php'
         networks:
             - ezgames
         depends_on:
@@ -26,7 +27,8 @@ services:
         ports:
             - '9000:9000'
         volumes:
-            - '.:/var/www/html'
+            - '.:/var/www/app'
+            - './docker/app/index.php:/var/www/test/index.php'
         networks:
             - ezgames
     pgsql:

@@ -2,11 +2,16 @@ FROM php:8.0-fpm-alpine
 
 LABEL maintainer="Saber Nouira"
 
+WORKDIR /var/www/app
+
 # Ensure the container is up-to-date
 RUN apk update && apk upgrade
 
+# Prepare BUILD dependencies
+RUN apk add --no-cache --update --virtual buildDeps autoconf gcc musl-dev make
+
 # Prepare PHP dependencies
-RUN apk add --no-cache --update --virtual buildDeps bzip2-dev postgresql-dev oniguruma-dev libzip-dev autoconf gcc musl-dev make
+RUN apk add --no-cache bzip2-dev postgresql-dev oniguruma-dev libzip-dev
 
 # Install PHP exentions
 RUN docker-php-ext-install pgsql pdo_pgsql bcmath zip bz2 opcache
@@ -14,6 +19,9 @@ RUN docker-php-ext-install pgsql pdo_pgsql bcmath zip bz2 opcache
 # Install PECL exentions
 RUN pecl install redis-5.3.3 \
     && docker-php-ext-enable redis
+
+# Install composer
+RUN apk add --no-cache composer
 
 # Cleanup build dependencies
 RUN apk del buildDeps
