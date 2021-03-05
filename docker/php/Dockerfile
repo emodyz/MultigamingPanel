@@ -1,5 +1,5 @@
 FROM php:8.0-fpm-alpine
-
+# TODO: Add supervisord for laravel queue:work
 LABEL maintainer="Saber Nouira"
 
 WORKDIR /var/www/app
@@ -29,3 +29,15 @@ RUN apk del buildDeps
 # Deploy php.ini
 COPY php.ini $PHP_INI_DIR/conf.d/99-ezgames.ini
 
+# Install node
+RUN apk add --no-cache --update nodejs yarn
+
+# Install SupervisorD
+RUN apk add --no-cache --update supervisor
+
+# Deploy SupervisorD configuration
+RUN mkdir /etc/supervisor && mkdir /etc/supervisor/conf.d && mkdir /var/log/supervisor
+COPY supervisord.conf /etc/supervisor
+COPY supervisor.d/* /etc/supervisor/conf.d
+
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
