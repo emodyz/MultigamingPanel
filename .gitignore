@@ -16,3 +16,4 @@ npm-debug.log
 yarn-error.log
 .idea
 phpunit.local.xml
+supervisord.pid
