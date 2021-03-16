@@ -35,24 +35,25 @@ axios.defaults.withCredentials = true
 // @ts-ignore
 window.Pusher = require('pusher-js')
 
-/*
 // @ts-ignore
 window.Echo = new Echo({
   broadcaster: 'pusher',
-  key: 'app-key',
+  key: process.env.MIX_PUSHER_APP_KEY,
   wsHost: window.location.hostname,
   wsPort: 6001,
-  wssPort: 6001,
+  forceTLS: false,
   disableStats: true,
-}) */
+})
 
 // @ts-ignore
+/*
 window.Echo = new Echo({
   broadcaster: 'pusher',
   key: process.env.MIX_PUSHER_APP_KEY,
   cluster: process.env.MIX_PUSHER_APP_CLUSTER,
   forceTLS: true,
 })
+*/
 
 // @ts-ignore
 Vue.prototype.$echo = window.Echo
