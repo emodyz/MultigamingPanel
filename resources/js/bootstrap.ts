@@ -41,19 +41,10 @@ window.Echo = new Echo({
   key: process.env.MIX_PUSHER_APP_KEY,
   wsHost: window.location.hostname,
   wsPort: 6001,
-  forceTLS: false,
+  wssPort: 6001,
+  forceTLS: window.location.protocol === 'https:',
   disableStats: true,
 })
-
-// @ts-ignore
-/*
-window.Echo = new Echo({
-  broadcaster: 'pusher',
-  key: process.env.MIX_PUSHER_APP_KEY,
-  cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-  forceTLS: true,
-})
-*/
 
 // @ts-ignore
 Vue.prototype.$echo = window.Echo
