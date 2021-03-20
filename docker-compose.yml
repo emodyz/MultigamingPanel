@@ -6,6 +6,7 @@ services:
             context: .
             dockerfile: docker/app/Dockerfile
         image: emodyz/ezgames
+        restart: always
         ports:
             - '80:80'
             - "443:443"
@@ -19,11 +20,13 @@ services:
             - pgsql
             - redis
             - meilisearch
+            - smtp
     php:
         build:
             context: ./docker/php
             dockerfile: Dockerfile
         image: emodyz/ezgames-php
+        restart: always
         ports:
             - '9000:9000'
         volumes:
@@ -33,6 +36,7 @@ services:
             - ezgames
     pgsql:
         image: postgres:13-alpine
+        restart: always
         ports:
             - '${FORWARD_DB_PORT:-5432}:5432'
         environment:
@@ -47,6 +51,7 @@ services:
           test: ["CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}"]
     redis:
         image: redis:alpine
+        restart: always
         ports:
             - '${FORWARD_REDIS_PORT:-6379}:6379'
         volumes:
@@ -57,12 +62,21 @@ services:
           test: ["CMD", "redis-cli", "ping"]
     meilisearch:
         image: getmeili/meilisearch:latest
+        restart: always
         ports:
             - '${FORWARD_MEILISEARCH_PORT:-7700}:7700'
         volumes:
             - 'ezgamesmeilisearch:/data.ms'
         networks:
             - ezgames
+    smtp:
+        image: namshi/smtp:latest
+        restart: always
+        ports:
+            - "25:25"
+        networks:
+            - ezgames
+
 networks:
     ezgames:
         driver: bridge
