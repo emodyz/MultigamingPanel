@@ -27,7 +27,7 @@ RUN apk add --no-cache composer
 RUN apk del buildDeps
 
 # Deploy php.ini
-COPY php.ini $PHP_INI_DIR/conf.d/99-ezgames.ini
+COPY docker/php/php.ini $PHP_INI_DIR/conf.d/99-ezgames.ini
 
 # Install App Deps
 RUN composer install
@@ -40,7 +40,7 @@ RUN apk add --no-cache --update supervisor
 
 # Deploy SupervisorD configuration
 RUN mkdir /etc/supervisor && mkdir /etc/supervisor/conf.d && mkdir /var/log/supervisor
-COPY supervisord.conf /etc/supervisor
-COPY supervisor.d/* /etc/supervisor/conf.d
+COPY docker/php/supervisord.conf /etc/supervisor
+COPY docker/php/supervisor.d/* /etc/supervisor/conf.d
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
