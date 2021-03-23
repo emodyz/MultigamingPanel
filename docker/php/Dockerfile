@@ -29,9 +29,6 @@ RUN apk del buildDeps
 # Deploy php.ini
 COPY docker/php/php.ini $PHP_INI_DIR/conf.d/99-ezgames.ini
 
-# Install App Deps
-RUN composer install
-
 # Install node
 RUN apk add --no-cache --update nodejs yarn
 
@@ -43,4 +40,4 @@ RUN mkdir /etc/supervisor && mkdir /etc/supervisor/conf.d && mkdir /var/log/supe
 COPY docker/php/supervisord.conf /etc/supervisor
 COPY docker/php/supervisor.d/* /etc/supervisor/conf.d
 
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+CMD composer install && /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
