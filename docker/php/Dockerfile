@@ -29,6 +29,9 @@ RUN apk del buildDeps
 # Deploy php.ini
 COPY php.ini $PHP_INI_DIR/conf.d/99-ezgames.ini
 
+# Install App Deps
+RUN composer install
+
 # Install node
 RUN apk add --no-cache --update nodejs yarn
 
