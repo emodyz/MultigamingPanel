@@ -13,6 +13,7 @@ services:
         volumes:
             - '.:/var/www/app'
             - './docker/app/index.php:/var/www/test/index.php'
+            - 'ezgamestls:/etc/letsencrypt'
         networks:
             - ezgames
         depends_on:
@@ -32,6 +33,7 @@ services:
         volumes:
             - '.:/var/www/app'
             - './docker/app/index.php:/var/www/test/index.php'
+            - 'ezgamestls:/etc/letsencrypt'
         networks:
             - ezgames
     pgsql:
@@ -81,6 +83,8 @@ networks:
     ezgames:
         driver: bridge
 volumes:
+    ezgamestls:
+        driver: local
     ezgamespgsql:
         driver: local
     ezgamesredis:
