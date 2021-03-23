@@ -24,8 +24,8 @@ services:
             - smtp
     php:
         build:
-            context: ./docker/php
-            dockerfile: Dockerfile
+            context: .
+            dockerfile: docker/php/Dockerfile
         image: emodyz/ezgames-php
         restart: always
         ports:
