@@ -72,10 +72,12 @@ services:
         networks:
             - ezgames
     smtp:
-        image: namshi/smtp:latest
+        image: boky/postfix:latest
         restart: always
         ports:
-            - "25:25"
+            - "587:587"
+        environment:
+            ALLOW_EMPTY_SENDER_DOMAINS: "yes"
         networks:
             - ezgames
 
