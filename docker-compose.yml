@@ -21,7 +21,7 @@ services:
             - pgsql
             - redis
             - meilisearch
-            - smtp
+            # - smtp
     php:
         build:
             context: .
