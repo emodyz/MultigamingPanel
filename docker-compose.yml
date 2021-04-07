@@ -71,15 +71,15 @@ services:
             - 'ezgamesmeilisearch:/data.ms'
         networks:
             - ezgames
-    smtp:
-        image: boky/postfix:latest
-        restart: always
-        ports:
-            - "587:587"
-        environment:
-            ALLOW_EMPTY_SENDER_DOMAINS: "yes"
-        networks:
-            - ezgames
+    #smtp:
+    #    image: boky/postfix:latest
+    #    restart: always
+    #    ports:
+    #        - "587:587"
+    #    environment:
+    #        ALLOW_EMPTY_SENDER_DOMAINS: "yes"
+    #    networks:
+    #        - ezgames
 
 networks:
     ezgames:
