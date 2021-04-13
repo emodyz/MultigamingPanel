@@ -20,7 +20,7 @@ services:
             - php
             - pgsql
             - redis
-            - meilisearch
+            # - meilisearch
             # - smtp
     php:
         build:
@@ -62,15 +62,15 @@ services:
             - ezgames
         healthcheck:
           test: ["CMD", "redis-cli", "ping"]
-    meilisearch:
-        image: getmeili/meilisearch:latest
-        restart: always
-        ports:
-            - '${FORWARD_MEILISEARCH_PORT:-7700}:7700'
-        volumes:
-            - 'ezgamesmeilisearch:/data.ms'
-        networks:
-            - ezgames
+    #meilisearch:
+    #    image: getmeili/meilisearch:latest
+    #    restart: always
+    #    ports:
+    #        - '${FORWARD_MEILISEARCH_PORT:-7700}:7700'
+    #    volumes:
+    #        - 'ezgamesmeilisearch:/data.ms'
+    #    networks:
+    #        - ezgames
     #smtp:
     #    image: boky/postfix:latest
     #    restart: always
