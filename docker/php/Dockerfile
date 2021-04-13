@@ -30,7 +30,7 @@ RUN apk del buildDeps
 COPY docker/php/php.ini $PHP_INI_DIR/conf.d/99-ezgames.ini
 
 # Install node
-RUN apk add --no-cache --update nodejs yarn
+RUN apk add --no-cache --update nodejs yarn npm
 
 # Install SupervisorD
 RUN apk add --no-cache --update supervisor
