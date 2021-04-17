@@ -31,7 +31,7 @@ class ModpackSeeder extends Seeder
           'game_id' => $arma3->id
         ]);
         $modpack3 = Modpack::factory()->create([
-            'game_id' => $arma3->id
+          'game_id' => $arma3->id
         ]);
         $servers = Server::whereGameId($arma3->id)->get();
 
