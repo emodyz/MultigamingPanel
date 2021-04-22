@@ -37,7 +37,7 @@ class CreateUser extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $userName = $this->argument('userName');
         $email = $this->argument('email');
