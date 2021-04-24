@@ -54,12 +54,12 @@ class CreateUser extends Command
            return 1;
         }
 
-        User::factory()->create([
+        User::create([
             'name' => $userName,
             'email' => $email,
+            'email_verified_at' => now(),
             'password' => Hash::make($password),
             'role' => $role,
-            'email_verified_at' => now()
         ]);
 
         $this->info('A new user has benn successfully registered!');
