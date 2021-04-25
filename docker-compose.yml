@@ -1,4 +1,3 @@
-# TODO: Generate a masterKey for meilisearch : export MEILI_MASTER_KEY=xxx
 version: '3'
 services:
     ezgames:
@@ -23,6 +22,7 @@ services:
             # - meilisearch
             # - smtp
     php:
+        # TODO: Publish a pre-built container with the required php extensions
         build:
             context: .
             dockerfile: docker/php/Dockerfile
@@ -52,7 +52,7 @@ services:
         healthcheck:
           test: ["CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}"]
     redis:
-        image: redis:alpine
+        image: redis:6-alpine
         restart: always
         ports:
             - '${FORWARD_REDIS_PORT:-6379}:6379'
@@ -63,6 +63,7 @@ services:
         healthcheck:
           test: ["CMD", "redis-cli", "ping"]
     #meilisearch:
+    # TODO: Generate a masterKey for meilisearch : export MEILI_MASTER_KEY=xxx
     #    image: getmeili/meilisearch:latest
     #    restart: always
     #    ports:
