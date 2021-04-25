@@ -1,10 +1,10 @@
 server {
-    listen 80;
-    listen [::]:80;
+    listen 80 default_server;
+    listen [::]:80 default_server;
 
-    root /var/www/test;
+    root /var/www/app/public;
 
-    server_name test.ezgames.eu;
+    server_name ${EZG_HOST};
 
     index index.php index.html index.htm;
 

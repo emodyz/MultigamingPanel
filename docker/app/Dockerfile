@@ -7,8 +7,7 @@ WORKDIR /var/www/app
 # Ensure the container is up-to-date
 RUN apk update && apk upgrade && crond
 
-# Deploy nginx conf
-COPY ./docker/app/app.conf /etc/nginx/conf.d/default.conf
+# Deploy nginx TEST conf
 COPY ./docker/app/test.conf /etc/nginx/conf.d/test.conf
 
 
