@@ -41,7 +41,7 @@ COPY docker/php/supervisord.conf /etc/supervisor
 COPY docker/php/supervisor.d/* /etc/supervisor/conf.d
 
 CMD chgrp -R www-data ./ \
-&& chmod -R 755 ./storage \
+&& chmod -R 775 ./storage \
 && yarn install \
 && composer install --no-dev \
 && php artisan key:generate --no-interaction \
