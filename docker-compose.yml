@@ -15,7 +15,8 @@ services:
             - '.:/var/www/app'
             - './docker/app/index.php:/var/www/test/index.php'
             - './docker/app/app.conf.template:/etc/nginx/templates/app.conf.template'
-            - 'ezgamestls:/etc/letsencrypt'
+            - 'ezgames_tls:/etc/letsencrypt'
+            - 'ezgames_nginx:/etc/nginx'
         networks:
             - ezgames
         depends_on:
@@ -36,7 +37,7 @@ services:
         volumes:
             - '.:/var/www/app'
             - './docker/app/index.php:/var/www/test/index.php'
-            - 'ezgamestls:/etc/letsencrypt'
+            - 'ezgames_tls:/etc/letsencrypt'
         networks:
             - ezgames
     pgsql:
@@ -49,7 +50,7 @@ services:
             POSTGRES_USER: '${DB_USERNAME}'
             POSTGRES_PASSWORD: '${DB_PASSWORD:-secret}'
         volumes:
-            - 'ezgamespgsql:/var/lib/postgresql/data'
+            - 'ezgames_pgsql:/var/lib/postgresql/data'
         networks:
             - ezgames
         healthcheck:
@@ -60,7 +61,7 @@ services:
         ports:
             - '${FORWARD_REDIS_PORT:-6379}:6379'
         volumes:
-            - 'ezgamesredis:/data'
+            - 'ezgames_redis:/data'
         networks:
             - ezgames
         healthcheck:
@@ -72,7 +73,7 @@ services:
     #    ports:
     #        - '${FORWARD_MEILISEARCH_PORT:-7700}:7700'
     #    volumes:
-    #        - 'ezgamesmeilisearch:/data.ms'
+    #        - 'ezgames_meilisearch:/data.ms'
     #    networks:
     #        - ezgames
     #smtp:
@@ -89,11 +90,13 @@ networks:
     ezgames:
         driver: bridge
 volumes:
-    ezgamestls:
+    ezgames_nginx:
         driver: local
-    ezgamespgsql:
+    ezgames_tls:
         driver: local
-    ezgamesredis:
+    ezgames_pgsql:
         driver: local
-    ezgamesmeilisearch:
+    ezgames_redis:
+        driver: local
+    ezgames_meilisearch:
         driver: local
