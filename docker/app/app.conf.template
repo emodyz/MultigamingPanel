@@ -4,7 +4,7 @@ server {
 
     root /var/www/app/public;
 
-    server_name ${EZG_HOST};
+    server_name ${NGINX_HOST};
 
     index index.php index.html index.htm;
 

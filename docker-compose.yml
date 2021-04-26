@@ -9,6 +9,8 @@ services:
         ports:
             - '80:80'
             - "443:443"
+        environment:
+            - NGINX_HOST: '${EZG_HOST}'
         volumes:
             - '.:/var/www/app'
             - './docker/app/index.php:/var/www/test/index.php'

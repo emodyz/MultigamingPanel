@@ -7,9 +7,5 @@ WORKDIR /var/www/app
 # Ensure the container is up-to-date
 RUN apk update && apk upgrade && crond
 
-# Deploy nginx TEST conf
-COPY ./docker/app/test.conf /etc/nginx/conf.d/test.conf
-
-
 # Install LetsEncrypt's certbot
 RUN apk add --no-cache --update certbot certbot-nginx
