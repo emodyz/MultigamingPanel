@@ -40,9 +40,12 @@ RUN mkdir /etc/supervisor && mkdir /etc/supervisor/conf.d && mkdir /var/log/supe
 COPY docker/php/supervisord.conf /etc/supervisor
 COPY docker/php/supervisor.d/* /etc/supervisor/conf.d
 
+# CERTBOT LOL
+RUN mkdir -p /var/www/letsencrypt/.well-known/acme-challenge/ && echo hi > /var/www/letsencrypt/.well-known/acme-challenge/hi
+
 CMD yarn install \
 && composer install --no-dev \
-&& chgrp -R www-data ./ \
+&& chgrp -R www-data /var/www/ \
 && chmod -R 775 ./storage \
 && php artisan key:generate --no-interaction \
 && php artisan migrate --force \

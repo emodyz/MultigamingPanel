@@ -8,8 +8,8 @@ server {
 
     index index.php index.html index.htm;
 
-    #ssl_certificate /etc/letsencrypt/live/emodyz.com/fullchain.pem;
-    #ssl_certificate_key /etc/letsencrypt/live/emodyz.com/privkey.pem;
+    #ssl_certificate /etc/letsencrypt/live/${NGINX_HOST}/fullchain.pem;
+    #ssl_certificate_key /etc/letsencrypt/live/${NGINX_HOST}/privkey.pem;
 
     #include /etc/letsencrypt/options-ssl-nginx.conf;
     #ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
@@ -31,5 +31,11 @@ server {
 
     location ~ /\.ht {
         deny all;
+    }
+
+    location ^~ /.well-known/acme-challenge/ {
+      default_type "text/plain";
+      rewrite /.well-known/acme-challenge/(.*) /$1 break;
+      root /var/www/letsencrypt;
     }
 }
