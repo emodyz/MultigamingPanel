@@ -14,7 +14,7 @@ services:
         volumes:
             - '.:/var/www/app'
             - './docker/app/index.php:/var/www/test/index.php'
-            - './docker/app/app.conf.template:/etc/nginx/templates/app.conf.template'
+            - './docker/app/app.conf.template:/etc/nginx/templates/default.conf.template'
             - 'ezgames_tls:/etc/letsencrypt'
             - 'ezgames_nginx:/etc/nginx'
         networks:

@@ -32,10 +32,4 @@ server {
     location ~ /\.ht {
         deny all;
     }
-
-    location ^~ /.well-known/acme-challenge/ {
-      default_type "text/plain";
-      rewrite /.well-known/acme-challenge/(.*) /$1 break;
-      root /var/www/letsencrypt;
-    }
 }
