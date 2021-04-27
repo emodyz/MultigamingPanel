@@ -12,4 +12,5 @@ RUN apk update && apk upgrade && apk add vim && crond
 # Install LetsEncrypt's certbot
 RUN apk add --no-cache --update certbot certbot-nginx
 
+# TODO: Maybe manualy run envsubst or trick it by changing NGINX_ENVSUBST_TEMPLATE_SUFFIX after ssl gen ?????
 COPY docker/app/default.conf.template /etc/nginx/templates/default.conf.template

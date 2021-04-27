@@ -11,6 +11,7 @@ services:
             - "443:443"
         environment:
             NGINX_HOST: '${EZG_HOST}'
+            NGINX_ENVSUBST_TEMPLATE_SUFFIX: '${EZG_SHOULD_PUBLISH_TEMPLATE}'
         volumes:
             - '.:/var/www/app'
             - './docker/app/index.php:/var/www/test/index.php'
