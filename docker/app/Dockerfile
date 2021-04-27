@@ -4,7 +4,7 @@ LABEL maintainer="Saber Nouira"
 
 WORKDIR /var/www/app
 
-ARG PUBLISH_TEMPLATE
+# ARG PUBLISH_TEMPLATE
 
 # Ensure the container is up-to-date
 RUN apk update && apk upgrade && apk add vim && crond
