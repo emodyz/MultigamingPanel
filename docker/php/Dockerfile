@@ -11,10 +11,10 @@ RUN apk update && apk upgrade
 RUN apk add --no-cache --update --virtual buildDeps autoconf gcc musl-dev make
 
 # Prepare PHP dependencies
-RUN apk add --no-cache bzip2-dev postgresql-dev oniguruma-dev libzip-dev
+RUN apk add --no-cache bzip2-dev postgresql-dev oniguruma-dev libzip-dev libevent-dev
 
 # Install PHP extentions
-RUN docker-php-ext-install pgsql pdo_pgsql bcmath zip bz2 opcache
+RUN docker-php-ext-install pgsql pdo_pgsql bcmath zip bz2 opcache sockets
 
 # Install REDIS extention
 RUN pecl install redis-5.3.3 \
