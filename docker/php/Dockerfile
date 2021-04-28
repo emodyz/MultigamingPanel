@@ -13,14 +13,14 @@ RUN apk add --no-cache --update --virtual buildDeps autoconf gcc musl-dev make
 # Prepare PHP dependencies
 RUN apk add --no-cache bzip2-dev postgresql-dev oniguruma-dev libzip-dev
 
-# Install PHP exentions
+# Install PHP extentions
 RUN docker-php-ext-install pgsql pdo_pgsql bcmath zip bz2 opcache
 
-# Install REDIS exention
+# Install REDIS extention
 RUN pecl install redis-5.3.3 \
     && docker-php-ext-enable redis
 
-# Install EVENT exention
+# Install EVENT extention
 RUN pecl install event-3.0.4 \
     && docker-php-ext-enable event
 
