@@ -39,7 +39,7 @@ services:
             - '.:/var/www/app'
             - './docker/app/index.php:/var/www/test/index.php'
             - 'ezgames_tls:/etc/letsencrypt'
-            - 'ezgames_dotenv:/var/www/app/.env'
+            - 'ezgames_dotenv/.env:/var/www/app/.env'
         networks:
             - ezgames
     pgsql:
