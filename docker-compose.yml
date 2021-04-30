@@ -10,8 +10,8 @@ services:
             - '80:80'
             - "443:443"
         environment:
-            NGINX_HOST: '${EZG_HOST}'
-            NGINX_ENVSUBST_TEMPLATE_SUFFIX: '${EZG_SHOULD_PUBLISH_TEMPLATE}'
+            NGINX_HOST: '${EZG_NGINX_HOST}'
+            NGINX_ENVSUBST_TEMPLATE_SUFFIX: '${EZG_NGINX_SHOULD_PUBLISH_TEMPLATES}'
         volumes:
             - '.:/var/www/app'
             - './docker/app/index.php:/var/www/test/index.php'
@@ -39,6 +39,7 @@ services:
             - '.:/var/www/app'
             - './docker/app/index.php:/var/www/test/index.php'
             - 'ezgames_tls:/etc/letsencrypt'
+            - 'ezgames_dotenv:/var/www/app/.env'
         networks:
             - ezgames
     pgsql:
@@ -91,6 +92,8 @@ networks:
     ezgames:
         driver: bridge
 volumes:
+    ezgames_dotenv:
+        driver: local
     ezgames_nginx:
         driver: local
     ezgames_tls:
