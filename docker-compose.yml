@@ -91,7 +91,7 @@ networks:
     ezgames:
         driver: bridge
 volumes:
-    # TODO: Find a way to save .env in a volume since we cant map to sa single file
+    # TODO: Find a way to save .env in a volume since we cant map a volume to a single file
     ezgames_nginx:
         driver: local
     ezgames_tls:
