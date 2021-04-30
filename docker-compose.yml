@@ -39,7 +39,6 @@ services:
             - '.:/var/www/app'
             - './docker/app/index.php:/var/www/test/index.php'
             - 'ezgames_tls:/etc/letsencrypt'
-            - 'ezgames_dotenv/.env:/var/www/app/.env'
         networks:
             - ezgames
     pgsql:
@@ -92,8 +91,7 @@ networks:
     ezgames:
         driver: bridge
 volumes:
-    ezgames_dotenv:
-        driver: local
+    # TODO: Find a way to save .env in a volume since we cant map to sa single file
     ezgames_nginx:
         driver: local
     ezgames_tls:
