@@ -1,5 +1,5 @@
 FROM php:8.0-fpm-alpine
-# TODO: Add supervisord for laravel queue:work
+
 LABEL maintainer="Saber Nouira"
 
 WORKDIR /var/www/app

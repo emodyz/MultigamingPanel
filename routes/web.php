@@ -48,7 +48,3 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('settings/edit', [SettingsController::class, 'edit'])->name('settings.edit');
     Route::put('settings/voices', [SettingsController::class, 'updateVoice'])->name('settings.update.voice');
 });
-
-Route::get('test', function () {
-    Mail::send('welcome', [], function ($message) { $message->to('saber.nouira1999@gmail.com')->subject('this works!'); });
-});
