@@ -40,6 +40,9 @@ RUN apk add --no-cache --update nodejs yarn npm
 # Install SupervisorD
 RUN apk add --no-cache --update supervisor
 
+# Install Crond
+RUN apk add --no-cache --update busybox
+
 # Deploy SupervisorD configuration
 RUN mkdir /etc/supervisor && mkdir /etc/supervisor/conf.d && mkdir /var/log/supervisor
 COPY docker/php/supervisord.conf /etc/supervisor
@@ -51,4 +54,5 @@ CMD yarn install \
 && chmod -R 775 ./storage \
 && php artisan key:generate --no-interaction \
 && php artisan migrate --force \
+&& crond -f -L /dev/stdout \
 && /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
