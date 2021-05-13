@@ -17,5 +17,4 @@ RUN apk add --no-cache --update busybox
 
 COPY docker/app/default.conf.template /etc/nginx/templates/default.conf.template
 
-CMD crond -b -L /dev/stdout \
-    && nginx -g 'daemon off;'
+COPY docker/app/docker-entrypoint.d/99-crond.sh /docker-entrypoint.d
