@@ -54,6 +54,6 @@ CMD yarn install \
 && chmod -R 775 ./storage \
 && php artisan key:generate --no-interaction \
 && php artisan migrate --force \
-&& php storage:link \
+&& php artisan storage:link \
 && crond -b -L /dev/stdout \
 && /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
