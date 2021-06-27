@@ -20,6 +20,10 @@ RUN docker-php-ext-install pgsql pdo_pgsql bcmath zip bz2 opcache sockets
 RUN pecl install redis-5.3.3 \
     && docker-php-ext-enable redis
 
+# Install REDIS extention
+RUN pecl install grpc-1.38.0 \
+    && docker-php-ext-enable grpc
+
 # Install EVENT extention
 # RUN apk add --no-cache libevent-dev
 # RUN pecl install event-3.0.4 \
