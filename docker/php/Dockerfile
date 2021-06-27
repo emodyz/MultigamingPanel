@@ -8,21 +8,23 @@ WORKDIR /var/www/app
 RUN apk update && apk upgrade
 
 # Prepare BUILD dependencies
-RUN apk add --no-cache --update --virtual buildDeps autoconf gcc musl-dev make
+#RUN apk add --no-cache --update --virtual buildDeps autoconf gcc musl-dev make
 
 # Prepare PHP dependencies
-RUN apk add --no-cache bzip2-dev postgresql-dev oniguruma-dev libzip-dev protobuf
+#RUN apk add --no-cache bzip2-dev postgresql-dev oniguruma-dev libzip-dev protobuf
 
 # Install PHP extentions
-RUN docker-php-ext-install pgsql pdo_pgsql bcmath zip bz2 opcache sockets
+#RUN docker-php-ext-install pgsql pdo_pgsql bcmath zip bz2 opcache sockets
 
 # Install REDIS extention
-RUN pecl install redis-5.3.3 \
-    && docker-php-ext-enable redis
+#RUN pecl install redis-5.3.3 \
+#    && docker-php-ext-enable redis
 
-# Install REDIS extention
-RUN pecl install grpc-1.38.0 \
-    && docker-php-ext-enable grpc
+# Install PHP extention
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+
+RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
+    install-php-extensions grpc redis pgsql pdo_pgsql bcmath zip bz2 opcache sockets
 
 # Install EVENT extention
 # RUN apk add --no-cache libevent-dev
@@ -30,10 +32,11 @@ RUN pecl install grpc-1.38.0 \
 #     && docker-php-ext-enable event
 
 # Install composer
-RUN apk add --no-cache composer
+#RUN apk add --no-cache composer
+RUN install-php-extensions @composer
 
 # Cleanup build dependencies
-RUN apk del buildDeps
+#RUN apk del buildDeps
 
 # Deploy php.ini
 COPY docker/php/php.ini $PHP_INI_DIR/conf.d/99-ezgames.ini
