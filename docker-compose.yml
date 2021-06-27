@@ -14,7 +14,6 @@ services:
             NGINX_ENVSUBST_TEMPLATE_SUFFIX: '${EZG_NGINX_SHOULD_PUBLISH_TEMPLATES}'
         volumes:
             - '.:/var/www/app'
-            - './docker/app/index.php:/var/www/test/index.php'
             - 'ezgames_tls:/etc/letsencrypt'
             - 'ezgames_nginx:/etc/nginx/conf.d'
         networks:
@@ -37,7 +36,6 @@ services:
             - '6001:6001'
         volumes:
             - '.:/var/www/app'
-            - './docker/app/index.php:/var/www/test/index.php'
             - 'ezgames_tls:/etc/letsencrypt'
         networks:
             - ezgames
