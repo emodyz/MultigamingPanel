@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
+// TODO: REWRITE THESE TESTS
 class StatsControllerTest extends TestCase
 {
     /**

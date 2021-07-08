@@ -22,8 +22,8 @@ class ServerSeeder extends Seeder
         $minecraft = Game::whereIdentifier('minecraft')->first();
 
         $server = Server::factory()->create([
-            'name' => 'LiveYourLife',
-            'ip' => 'altis.lyl.gg',
+            'name' => 'GrandTheftArma',
+            'ip' => 's1.grandtheftarma.com',
             'port' => 2302,
             'game_id' => $arma3->id
         ]);
