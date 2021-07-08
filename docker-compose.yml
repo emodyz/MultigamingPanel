@@ -25,10 +25,6 @@ services:
             # - meilisearch
             # - smtp
     php:
-        # TODO: Publish a pre-built container with the required php extensions
-        # build:
-        #     context: .
-        #     dockerfile: docker/php/Dockerfile
         image: emodyz/ezgames-php:0.0.1
         restart: always
         ports:
