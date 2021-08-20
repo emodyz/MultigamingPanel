@@ -13,9 +13,9 @@
         "⚠️ The project will not build unless you specifically set the version of postcss-loader to >= 4.1.0"
     ],
     "devDependencies": {
-        "@inertiajs/inertia": "^0.8.2",
-        "@inertiajs/inertia-vue": "^0.5.4",
-        "@inertiajs/progress": "^0.2.4",
+        "@inertiajs/inertia": "^0.9.0",
+        "@inertiajs/inertia-vue": "^0.6.0",
+        "@inertiajs/progress": "^0.2.6",
         "@tailwindcss/aspect-ratio": "^0.2.0",
         "@tailwindcss/forms": "^0.2.1",
         "@tailwindcss/typography": "^0.3.1",
