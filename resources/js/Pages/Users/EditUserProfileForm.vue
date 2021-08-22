@@ -159,7 +159,7 @@ export default class EditUserProfileForm extends Mixins(Route) {
       this.form.photo = this.photo.files[0]
     }
 
-    this.form.post(this.route('users.update', this.user.id), {
+    this.form.post(this.route('users.update', this.user.id).url(), {
       preserveScroll: true,
       preserveState: true,
       onSuccess: () => {
@@ -184,7 +184,7 @@ export default class EditUserProfileForm extends Mixins(Route) {
 
   deletePhoto() {
     this.$inertia.delete(
-      this.route('users.destroy.avatar', this.user.id),
+      this.route('users.destroy.avatar', this.user.id).url(),
       {
         preserveScroll: true,
         onSuccess: () => {

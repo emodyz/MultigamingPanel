@@ -1,7 +1,9 @@
 import './bootstrap'
 
 import Vue from 'vue'
-import { App, plugin } from '@inertiajs/inertia-vue'
+import {
+  App, Head, Link, plugin,
+} from '@inertiajs/inertia-vue'
 import { Inertia } from '@inertiajs/inertia'
 import PortalVue from 'portal-vue'
 

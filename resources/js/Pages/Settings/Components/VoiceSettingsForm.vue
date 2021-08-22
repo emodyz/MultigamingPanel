@@ -111,7 +111,7 @@ export default class VoiceSettingsForm extends Mixins(Route) {
   }
 
   async updateVoiceSettings() {
-    await this.form.put(this.route('settings.update.voice'))
+    await this.form.put(this.route('settings.update.voice').url())
   }
 
   reset() {

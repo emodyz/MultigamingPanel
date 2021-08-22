@@ -112,7 +112,7 @@ export default class DeleteUserForm extends Mixins(Route) {
   }
 
   deleteUser() {
-    this.form.delete(this.route('current-user.destroy'), {
+    this.form.delete(this.route('current-user.destroy').url(), {
       preserveScroll: true,
       preserveState: true,
       errorBag: 'deleteUser',

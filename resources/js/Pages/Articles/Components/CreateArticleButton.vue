@@ -20,7 +20,7 @@ export default class CreateArticleButton extends Mixins(Route) {
   disabled = false
 
   handleClick() {
-    this.$inertia.visit(this.route('articles.create'))
+    this.$inertia.visit(this.route('articles.create').url())
   }
 }
 </script>

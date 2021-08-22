@@ -93,7 +93,7 @@ export default class CreateTeamForm extends Mixins(Route) {
   })
 
   createTeam() {
-    this.form.post(this.route('teams.store'), {
+    this.form.post(this.route('teams.store').url(), {
       preserveScroll: true,
       preserveState: true,
       errorBag: 'createTeam',

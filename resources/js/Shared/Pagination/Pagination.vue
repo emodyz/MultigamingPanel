@@ -36,7 +36,7 @@
           aria-label="Pagination"
       >
         <template v-for="(link, key) in links">
-          <Inertia-link
+          <Link
               v-if="link.label === 'Previous'"
               :key="key"
               preserve-scroll
@@ -61,9 +61,9 @@
                   clip-rule="evenodd"
               />
             </svg>
-          </Inertia-link>
+          </Link>
 
-          <Inertia-link
+          <Link
               v-else-if="link.label === 'Next'"
               :key="key"
               preserve-scroll
@@ -88,7 +88,7 @@
                   clip-rule="evenodd"
               />
             </svg>
-          </Inertia-link>
+          </Link>
 
           <span
               :key="key"
@@ -100,7 +100,7 @@
               ...
           </span>
 
-          <Inertia-link
+          <Link
               v-else
               :key="key"
               preserve-scroll
@@ -112,7 +112,7 @@
               :class="{'bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900': link.active}"
           >
             {{ link.label }}
-          </Inertia-link>
+          </Link>
         </template>
       </nav>
     </div>
@@ -125,11 +125,13 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 import JetButton from '@/Jetstream/Button.vue'
 import qs from 'qs'
+import { Link } from '@inertiajs/inertia-vue'
 
 // TODO: Fix pagination on sm screen size
 
 @Component({
   components: {
+    Link,
     JetSecondaryButton,
     JetButton,
   },
