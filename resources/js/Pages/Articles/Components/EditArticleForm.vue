@@ -150,7 +150,7 @@
       </template>
 
       <template #actions>
-        <!-- TODO: Add a status indicator. ie. BADGES: Draft Or Published
+        <!-- TODO: Add a status indicator. ie. BADGES: Draft Or Published -->
 
         <jet-action-message
             :on="form.recentlySuccessful"
