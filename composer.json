@@ -11,6 +11,8 @@
         "php": "^8.0",
         "ext-curl": "*",
         "ext-json": "*",
+        "ext-grpc": "3.*",
+        "ext-protobuf": "3.*",
         "austinb/gameq": "^3.0",
         "beyondcode/laravel-websockets": "^1.11",
         "emodyz/cerberus": "v0.0.2-alpha.3",
