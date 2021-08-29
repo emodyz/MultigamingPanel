@@ -11,8 +11,9 @@
         "php": "^8.0",
         "ext-curl": "*",
         "ext-json": "*",
-        "ext-grpc": "1.*",
-        "ext-protobuf": "3.*",
+        "ext-grpc": "^1",
+        "ext-protobuf": "^3",
+        "grpc/grpc": "^1.39",
         "austinb/gameq": "^3.0",
         "beyondcode/laravel-websockets": "^1.11",
         "emodyz/cerberus": "v0.0.2-alpha.3",
@@ -54,7 +55,9 @@
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "Database\\Seeders\\": "database/seeders/",
+            "GPBMetadata\\": "bridge/GPBMetadata",
+            "Bridge\\": "bridge/Bridge"
         }
     },
     "autoload-dev": {
