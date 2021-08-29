@@ -18,6 +18,9 @@ services:
             - 'ezgames_nginx:/etc/nginx/conf.d'
         networks:
             - ezgames
+        extra_hosts:
+            # todo: is this really needed ??
+            - "host.docker.internal:host-gateway"
         depends_on:
             - php
             - pgsql
@@ -35,6 +38,8 @@ services:
             - 'ezgames_tls:/etc/letsencrypt'
         networks:
             - ezgames
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
     pgsql:
         image: postgres:13-alpine
         restart: always
@@ -83,6 +88,7 @@ services:
 
 networks:
     ezgames:
+        # TODO: is this networking mode suitable for production ??
         driver: bridge
 volumes:
     # TODO: Find a way to save .env in a volume since we cant map a volume to a single file
