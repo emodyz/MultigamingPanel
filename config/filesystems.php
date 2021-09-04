@@ -71,6 +71,12 @@ return [
             'url' => env('APP_URL').'/modpacks',
             'visibility' => 'public',
         ],
+
+        'bridge' => [
+            'driver' => 'local',
+            'root' => storage_path('bridge'),
+            'visibility' => 'private',
+        ],
     ],
 
     /*

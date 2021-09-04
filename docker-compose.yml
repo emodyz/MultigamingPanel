@@ -18,9 +18,6 @@ services:
             - 'ezgames_nginx:/etc/nginx/conf.d'
         networks:
             - ezgames
-        extra_hosts:
-            # todo: is this really needed ??
-            - "host.docker.internal:host-gateway"
         depends_on:
             - php
             - pgsql
