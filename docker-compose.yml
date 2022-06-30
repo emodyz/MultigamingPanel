@@ -53,7 +53,8 @@ services:
         healthcheck:
           test: ["CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}"]
     redis:
-        image: redis:6-alpine
+        image: redis:7-alpine
+        command: redis-server --appendonly yes
         restart: always
         ports:
             - '6379:6379'
