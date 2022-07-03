@@ -38,6 +38,9 @@ services:
             - ezgames
         extra_hosts:
             - "host.docker.internal:host-gateway"
+        depends_on:
+            - pgsql
+            - redis
     pgsql:
         image: postgres:13-alpine
         restart: always
