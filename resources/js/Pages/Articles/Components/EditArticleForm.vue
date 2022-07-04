@@ -150,6 +150,8 @@
       </template>
 
       <template #actions>
+        <!-- TODO: Add a status indicator. ie. BADGES: Draft Or Published -->
+
         <jet-action-message
             :on="form.recentlySuccessful"
             class="mr-3"
@@ -298,7 +300,7 @@ export default class EditArticleForm extends Mixins(Route) {
   }
 
   submitForm() {
-    this.form.post(this.route('articles.update', this.article.id),
+    this.form.post(this.route('articles.update', this.article.id).url(),
       {
         preserveScroll: true,
         preserveState: true,

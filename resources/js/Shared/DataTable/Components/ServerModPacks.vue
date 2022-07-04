@@ -2,7 +2,7 @@
   <div class="text-gray-300">
     <span :key="item.id" v-for="(item, index) in array">
       <span v-if="index > 0">, </span>
-      <inertia-link preserve-scroll class="link-brand" :href="route('modpacks.update.show', item.id)">{{ item.name }}</inertia-link>
+      <Link preserve-scroll class="link-brand" :href="route('modpacks.update.show', item.id)">{{ item.name }}</Link>
     </span>
   </div>
 </template>
@@ -11,8 +11,13 @@
 import { Component, Mixins, Prop } from 'vue-property-decorator'
 import Helpers from '@/Mixins/Helpers'
 import Route from '@/Mixins/Route'
+import { Link } from '@inertiajs/inertia-vue'
 
-@Component
+@Component({
+  components: {
+    Link,
+  },
+})
 export default class DataTable_ServerModPacks extends Mixins(Helpers, Route) {
   @Prop({ required: false, default: () => ({ separator: ', ', itemKey: 'name' }) }) readonly options!: any
 

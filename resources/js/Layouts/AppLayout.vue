@@ -8,9 +8,9 @@
             <div class="flex">
               <!-- Logo -->
               <div class="flex-shrink-0 flex items-center">
-                <inertia-link :href="route('dashboard')">
+                <Link :href="route('dashboard')">
                   <jet-application-mark class="block h-9 w-auto"/>
-                </inertia-link>
+                </Link>
               </div>
 
               <!-- Navigation Links -->
@@ -421,9 +421,11 @@ import Route from '@/Mixins/Route'
 import Helpers from '@/Mixins/Helpers'
 import Cerberus from '@/Mixins/Cerberus'
 import ThemeSwitch from '@/Layouts/ThemeSwitch.vue'
+import { Link } from '@inertiajs/inertia-vue'
 
 @Component({
   components: {
+    Link,
     ThemeSwitch,
     JetApplicationMark,
     JetDropdown,
@@ -457,7 +459,7 @@ export default class AppLayout extends Mixins(Route, Helpers, Cerberus) {
   }
 
   switchToTeam(team: any) {
-    this.$inertia.put(this.route('current-team.update'), {
+    this.$inertia.put(this.route('current-team.update').url(), {
       team_id: team.id,
     }, {
       preserveState: false,

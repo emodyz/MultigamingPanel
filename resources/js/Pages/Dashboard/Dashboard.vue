@@ -47,7 +47,7 @@ export default class Dashboard extends Mixins(Cerberus, Route) {
   serversStats = collect()
 
   async created() {
-    const res = await this.$axios.get(this.route('api.dashboard.stats.servers'))
+    const res = await this.$axios.get(this.route('api.dashboard.stats.servers').url())
 
     this.serversStats = collect(res.data)
   }

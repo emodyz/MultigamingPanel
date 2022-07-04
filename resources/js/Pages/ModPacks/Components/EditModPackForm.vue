@@ -217,11 +217,11 @@ export default class EditModPackForm extends Mixins(Route) {
   formSuccessMsg = 'Saved.'
 
   goToUpdate() {
-    this.$inertia.visit(this.route('modpacks.update.show', this.modpack.id))
+    this.$inertia.visit(this.route('modpacks.update.show', this.modpack.id).url())
   }
 
   submitForm() {
-    this.form.put(this.route('modpacks.update', this.modpack.id),
+    this.form.put(this.route('modpacks.update', this.modpack.id).url(),
       {
         preserveScroll: true,
         preserveState: true,

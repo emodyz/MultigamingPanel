@@ -106,7 +106,7 @@ export default class UpdateTeamNameForm extends Mixins(Route) {
   })
 
   updateTeamName() {
-    this.form.put(this.route('teams.update', this.team), {
+    this.form.put(this.route('teams.update', this.team).url(), {
       preserveScroll: true,
       preserveState: true,
       errorBag: 'updateTeamName',

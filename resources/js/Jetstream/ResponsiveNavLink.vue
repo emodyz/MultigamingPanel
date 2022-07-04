@@ -8,18 +8,19 @@
       <slot/>
     </button>
 
-    <inertia-link
+    <Link
         v-else
         :href="href"
         :class="classes"
     >
       <slot/>
-    </inertia-link>
+    </Link>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
+import { Link } from '@inertiajs/inertia-vue'
 
 // TODO: Refactor 'classes' using @Watch
 
@@ -37,7 +38,11 @@ const respNavLink = Vue.extend({
   },
 })
 
-@Component
+@Component({
+  components: {
+    Link,
+  },
+})
 export default class ResponsiveNavLink extends respNavLink {
   //
 }

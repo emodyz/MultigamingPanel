@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ModpackSeeder::class);
         $this->call(ArticleSeeder::class);
 
+        //TODO: Fix These (Deprecated)!
         dispatch_now(new ProcessServersStatuses);
     }
 }

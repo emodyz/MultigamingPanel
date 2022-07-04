@@ -1,12 +1,15 @@
 /node_modules
 /public/hot
 /public/storage
+/public/modpacks
+/public/modpacks-data
 /public/js
 /public/css
 /public/mix-manifest.json
 /storage/*.key
 /storage/debugbar
 /vendor
+/.ezg
 .env
 .env.backup
 .phpunit.result.cache
@@ -16,3 +19,4 @@ npm-debug.log
 yarn-error.log
 .idea
 phpunit.local.xml
+supervisord.pid

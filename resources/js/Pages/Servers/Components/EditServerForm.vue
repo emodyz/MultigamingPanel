@@ -336,7 +336,7 @@ export default class CreateServerForm extends Mixins(Route) {
       this.form.logo = this.logo.files[0]
     }
     this.form.port = parseInt(this.form.port, 10)
-    this.form.post(this.route('servers.update', this.server.id),
+    this.form.post(this.route('servers.update', this.server.id).url(),
       {
         preserveScroll: true,
         preserveState: true,
@@ -349,7 +349,7 @@ export default class CreateServerForm extends Mixins(Route) {
 
   deleteLogo() {
     this.$inertia.delete(
-      this.route('servers.destroy.logo', this.server.id),
+      this.route('servers.destroy.logo', this.server.id).url(),
       {
         preserveScroll: true,
         onSuccess: () => {

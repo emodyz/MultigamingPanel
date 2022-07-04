@@ -1,14 +1,17 @@
 <template>
-  <inertia-link
+  <Link
     :href="href"
     :class="classes"
   >
     <slot/>
-  </inertia-link>
+  </Link>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
+import { Link } from '@inertiajs/inertia-vue'
+
+// TODO: Refactor 'classes' using @Watch
 
 const navLink = Vue.extend({
   props: ['href', 'active'],
@@ -21,7 +24,11 @@ const navLink = Vue.extend({
   },
 })
 
-@Component
+@Component({
+  components: {
+    Link,
+  },
+})
 export default class NavLink extends navLink {
   //
 }

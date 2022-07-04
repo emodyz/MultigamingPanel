@@ -113,8 +113,18 @@ class Server extends Model
                 ->first();
         }])
             ->get()
-            ->filter(function ($server, $key) {
-                return $server->latest_status->online === true;
-            });
+            ->filter(fn($server, $key) => $server->latest_status->online === true);
+    }
+
+    /**
+     * @return string
+     */
+    public function getUpdateHashAttribute(): string
+    {
+        $hash = "";
+        $this->modpacks->each(function (Modpack $modpack) use (&$hash) {
+            $hash .= $modpack->manifest_last_update;
+        });
+        return hash('sha256', $hash);
     }
 }
