@@ -40,7 +40,7 @@ return [
             'options' => [
                 'cluster' => env('PUSHER_APP_CLUSTER'),
                 'encrypted' => true,
-                'host' => '127.0.0.1',
+                'host' => env('SESSION_DOMAIN'),
                 'port' => 6001,
                 'scheme' => Str::startsWith(config('app.url'), 'https') ? 'https' : 'http',
                 'curl_options' => config('app.debug') ? [
