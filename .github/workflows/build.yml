@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [ 12.x, 14.x, 15.x ]
+        node-version: [ 16.x, 18.x]
 
     steps:
       - uses: actions/checkout@v2
@@ -60,6 +60,10 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
+    - name: Install PHP 8.1
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1'
     - uses: actions/checkout@v2
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.ci', '.env');"
