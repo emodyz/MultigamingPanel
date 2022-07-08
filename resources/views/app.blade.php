@@ -22,7 +22,7 @@
         <script src="{{ mix('js/vendor.js') }}" defer></script>
         <script src="{{ mix('js/manifest.js') }}" defer></script>
     </head>
-    <body class="font-sans subpixel-antialiased transition duration-300">
+    <body class="font-sans subpixel-antialiased">
         @inertia
     </body>
 </html>

@@ -13,9 +13,9 @@
         "⚠️ The project will not build unless you specifically set the version of postcss-loader to >= 4.1.0"
     ],
     "devDependencies": {
-        "@inertiajs/inertia": "^0.10.1",
-        "@inertiajs/inertia-vue": "^0.7.2",
-        "@inertiajs/progress": "^0.2.6",
+        "@inertiajs/inertia": "^0.11.0",
+        "@inertiajs/inertia-vue": "^0.8.0",
+        "@inertiajs/progress": "^0.2.7",
         "@tailwindcss/aspect-ratio": "^0.4.0",
         "@tailwindcss/forms": "^0.5.2",
         "@tailwindcss/typography": "^0.5.3",
@@ -63,7 +63,7 @@
         "v-click-outside": "^3.1.2",
         "vue": "^2.7.4",
         "vue-class-component": "^7.2.6",
-        "vue-loader": "^15.9.6",
+        "vue-loader": "legacy",
         "vue-lodash": "^2.1.2",
         "vue-property-decorator": "^9.1.2",
         "vue-template-compiler": "^2.7.4",
