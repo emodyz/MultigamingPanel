@@ -117,11 +117,13 @@ export default class EditUserProfileForm extends Mixins(Route) {
   })
 
   editUserAccount() {
-    this.form.put(this.route('users.update.account', this.user.id).url(),
+    this.form.put(
+      this.route('users.update.account', this.user.id).url(),
       {
         preserveScroll: true,
         preserveState: true,
-      })
+      },
+    )
   }
 }
 </script>

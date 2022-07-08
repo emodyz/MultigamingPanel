@@ -329,7 +329,8 @@ export default class CreateServerForm extends Mixins(Route) {
 
   submitForm() {
     this.form.port = parseInt(this.form.port, 10)
-    this.form.post(this.route('servers.store').url(),
+    this.form.post(
+      this.route('servers.store').url(),
       {
         preserveScroll: true,
         preserveState: true,
@@ -337,7 +338,8 @@ export default class CreateServerForm extends Mixins(Route) {
           this.logoPreview = null
           this.form.reset()
         },
-      })
+      },
+    )
   }
 
   created() {

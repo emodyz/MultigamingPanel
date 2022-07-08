@@ -101,7 +101,8 @@ export default class DataTable_Actions extends Mixins(Helpers) {
   }
 
   goToDestroy(_action: Action) {
-    Inertia.delete(`${this.options.baseUrl}/${this.item.id}/${_action.path ? _action.path : ''}`,
+    Inertia.delete(
+      `${this.options.baseUrl}/${this.item.id}/${_action.path ? _action.path : ''}`,
       {
         preserveScroll: true,
         onSuccess: () => {
@@ -109,7 +110,8 @@ export default class DataTable_Actions extends Mixins(Helpers) {
           this.actionUsedToDestroy = null
           this.destructionInProgress = false
         },
-      })
+      },
+    )
   }
 
   goTo(_action: Action) {

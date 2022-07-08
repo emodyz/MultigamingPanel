@@ -336,7 +336,8 @@ export default class CreateServerForm extends Mixins(Route) {
       this.form.logo = this.logo.files[0]
     }
     this.form.port = parseInt(this.form.port, 10)
-    this.form.post(this.route('servers.update', this.server.id).url(),
+    this.form.post(
+      this.route('servers.update', this.server.id).url(),
       {
         preserveScroll: true,
         preserveState: true,
@@ -344,7 +345,8 @@ export default class CreateServerForm extends Mixins(Route) {
           this.logoPreview = null
           this.form.logo = null
         },
-      })
+      },
+    )
   }
 
   deleteLogo() {

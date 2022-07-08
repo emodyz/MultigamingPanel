@@ -1,5 +1,6 @@
 import './bootstrap'
 
+// eslint-disable-next-line import/no-unresolved
 import Vue from 'vue'
 import {
   App, Head, Link, plugin,

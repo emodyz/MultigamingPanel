@@ -29,5 +29,10 @@ rules: {
   'camelcase': 'off',
   'class-methods-use-this': 'off',
   'prefer-destructuring': 'off',
+  'vuejs-accessibility/click-events-have-key-events': 'off',
+  'vuejs-accessibility/form-control-has-label': 'off',
+  'vuejs-accessibility/label-has-for': 'off',
+  'vuejs-accessibility/no-autofocus': 'off',
+  'vuejs-accessibility/alt-text': 'off',
   'semi': ['error', 'never']
 }

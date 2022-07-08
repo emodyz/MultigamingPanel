@@ -300,7 +300,8 @@ export default class EditArticleForm extends Mixins(Route) {
   }
 
   submitForm() {
-    this.form.post(this.route('articles.update', this.article.id).url(),
+    this.form.post(
+      this.route('articles.update', this.article.id).url(),
       {
         preserveScroll: true,
         preserveState: true,
@@ -308,7 +309,8 @@ export default class EditArticleForm extends Mixins(Route) {
           this.coverPreview = page.props.article.cover_image_url
           this.form.coverImage = null
         },
-      })
+      },
+    )
   }
 
   handlePublish() {

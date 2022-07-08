@@ -221,11 +221,13 @@ export default class EditModPackForm extends Mixins(Route) {
   }
 
   submitForm() {
-    this.form.put(this.route('modpacks.update', this.modpack.id).url(),
+    this.form.put(
+      this.route('modpacks.update', this.modpack.id).url(),
       {
         preserveScroll: true,
         preserveState: true,
-      })
+      },
+    )
   }
 
   getLinkedServersIds() {

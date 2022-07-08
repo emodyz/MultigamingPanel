@@ -281,7 +281,8 @@ export default class CreateArticleForm extends Mixins(Route) {
   }
 
   submitForm() {
-    this.form.post(this.route('articles.store').url(),
+    this.form.post(
+      this.route('articles.store').url(),
       {
         preserveScroll: true,
         preserveState: true,
@@ -289,7 +290,8 @@ export default class CreateArticleForm extends Mixins(Route) {
           this.coverPreview = null
           this.form.reset()
         },
-      })
+      },
+    )
   }
 
   handlePublish() {

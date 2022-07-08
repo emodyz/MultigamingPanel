@@ -6,7 +6,10 @@ const ForkTsCheckerNotifierWebpackPlugin = require('fork-ts-checker-notifier-web
 module.exports = env =>{
   // const inDev = !(process.env.NODE_ENV === 'production')
   return {
-    stats: 'minimal',
+    // stats: 'minimal',
+    stats: {
+      children: true,
+    },
     resolve: {
       alias: {
         '@': path.resolve('resources/js'),
