@@ -53,7 +53,7 @@
                     class="form-checkbox"
                     :value="permission"
                 >
-                <span class="ml-2 text-sm text-gray-600 dark:text-gray-300">{{ _.capitalize(permission) }}</span>
+                <span class="ml-2 text-sm text-zinc-600 dark:text-zinc-300">{{ _.capitalize(permission) }}</span>
               </label>
             </div>
           </div>
@@ -99,14 +99,14 @@
                   :key="token.id"
                   class="flex items-center justify-between"
               >
-                <div class="text-gray-100">
+                <div class="text-zinc-100">
                   {{ token.name }}
                 </div>
 
                 <div class="flex items-center">
                   <div
                       v-if="token.last_used_at"
-                      class="text-sm text-gray-400 dark:text-gray-300"
+                      class="text-sm text-zinc-400 dark:text-zinc-300"
                   >
                     Last used {{ fromNow(token.last_used_at) }}
                   </div>
@@ -184,7 +184,7 @@
                   class="form-checkbox"
                   :value="permission"
               >
-              <span class="ml-2 text-sm text-gray-600 dark:text-gray-300">{{ _.capitalize(permission) }}</span>
+              <span class="ml-2 text-sm text-zinc-600 dark:text-zinc-300">{{ _.capitalize(permission) }}</span>
             </label>
           </div>
         </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="dark:text-gray-300">
+  <div class="dark:text-zinc-300">
     <span v-if="options.type === 'Date.Formatted'">
       {{
         $moment(date)

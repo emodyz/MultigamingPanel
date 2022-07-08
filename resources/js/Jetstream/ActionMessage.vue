@@ -7,7 +7,7 @@
     >
       <div
         v-show="on"
-        class="text-sm text-gray-600 dark:text-gray-300"
+        class="text-sm text-zinc-600 dark:text-zinc-300"
       >
         <slot />
       </div>

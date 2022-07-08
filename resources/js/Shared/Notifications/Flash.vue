@@ -14,23 +14,23 @@
       leave-active-class="origin-top-right transition transform-gpu duration-500 ease-in-out"
   >
     <div v-if="!dismissed"
-         class="w-112 fixed top-5 right-5 z-40 shadow-lg border border-gray-100 p-4 flex rounded-lg bg-white
-         dark:border-transparent dark:bg-gray-700">
+         class="w-112 fixed top-5 right-5 z-40 shadow-lg border border-zinc-100 p-4 flex rounded-lg bg-white
+         dark:border-transparent dark:bg-zinc-700">
       <div :class="[!doesNotExist(icon.component) ? 'pr-2': '' , icon.color]">
         <component :is="icon.component" />
       </div>
       <div class="w-104">
         <div>
-          <span :class="!doesNotExist(icon.component) ? 'w-88': 'w-96'" class="text-md inline-block break-words dark:text-gray-100">
+          <span :class="!doesNotExist(icon.component) ? 'w-88': 'w-96'" class="text-md inline-block break-words dark:text-zinc-100">
             {{ flash.title }}
           </span>
           <button @click="dismissed = true" type="button" aria-label="Close Notification"
-                  class="ml-2 float-right hover:cursor-pointer rounded-full dark:text-gray-100 dark:focus:text-gray-300
-                  focus:outline-none focus:text-gray-600">
+                  class="ml-2 float-right hover:cursor-pointer rounded-full dark:text-zinc-100 dark:focus:text-zinc-300
+                  focus:outline-none focus:text-zinc-600">
             <cross-icon class="w-5 h-5"/>
           </button>
         </div>
-        <div v-if="!doesNotExist(flash.message)" class="text-sm text-gray-600 dark:text-gray-300 tracking-tight pt-2">
+        <div v-if="!doesNotExist(flash.message)" class="text-sm text-zinc-600 dark:text-zinc-300 tracking-tight pt-2">
           {{ flash.message }}
         </div>
       </div>

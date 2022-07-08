@@ -3,54 +3,50 @@
 @tailwind utilities;
 
 @layer components {
-    @variants dark {
-        .form-input {
-            @apply border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent
-            dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700 dark:placeholder-gray-600;
-        }
+    .form-input {
+        @apply border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent
+        dark:bg-zinc-900 dark:text-zinc-100 dark:border-zinc-700 dark:placeholder-zinc-600;
+    }
 
-        .form-checkbox {
-            @apply rounded-md p-3 border border-gray-300 bg-gray-50 dark:bg-gray-900 dark:checked:bg-indigo-400 dark:border-gray-700 checked:border-transparent
-            focus:outline-none focus:ring-indigo-300 focus:ring-offset-0 hover:cursor-pointer;
-        }
+    .form-checkbox {
+        @apply rounded-md p-3 border border-zinc-300 bg-zinc-50 dark:bg-zinc-900 dark:checked:bg-indigo-400 dark:border-zinc-700 checked:border-transparent
+        focus:outline-none focus:ring-indigo-300 focus:ring-offset-0 hover:cursor-pointer;
+    }
 
-        .link-brand {
-            @apply text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 focus:outline-none;
-        }
+    .link-brand {
+        @apply text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 focus:outline-none;
+    }
 
-        .link-success {
-            @apply text-emerald-600 hover:text-emerald-900 dark:text-emerald-500 dark:hover:text-emerald-400 focus:outline-none;
-        }
+    .link-success {
+        @apply text-emerald-600 hover:text-emerald-900 dark:text-emerald-500 dark:hover:text-emerald-400 focus:outline-none;
+    }
 
-        .link-danger {
-            @apply text-red-600 hover:text-red-900 dark:text-red-500 dark:hover:text-red-400 focus:outline-none;
-        }
+    .link-danger {
+        @apply text-red-600 hover:text-red-900 dark:text-red-500 dark:hover:text-red-400 focus:outline-none;
+    }
 
-        .breadcrumb {
-            @apply font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight;
-        }
+    .breadcrumb {
+        @apply font-semibold text-xl text-zinc-800 dark:text-zinc-100 leading-tight;
+    }
 
-        .breadcrumb-separator {
-            @apply text-gray-400 dark:text-gray-500;
-        }
+    .breadcrumb-separator {
+        @apply text-zinc-400 dark:text-zinc-500;
     }
 }
 
 @layer utilities {
-    @variants responsive {
-        .h-page {
-            height: calc(100vh - 14.6rem);
-            max-height: 30rem;
-        }
+    .h-page {
+        height: calc(100vh - 14.6rem);
+        max-height: 30rem;
+    }
 
-        .w-page {
-            width: 80rem;
-            max-width: 80rem;
-        }
+    .w-page {
+        width: 80rem;
+        max-width: 80rem;
+    }
 
-        .w-prose {
-            width: calc(65ch + 1.5rem)
-        }
+    .w-prose {
+        width: calc(65ch + 1.5rem)
     }
 }
 
@@ -58,17 +54,17 @@
 
     body {
         --scrollbarBG: theme('colors.white');
-        --thumbBG: theme('colors.gray.300');
-        --thumbBG_Hover: theme('colors.gray.400');
-        --scrollbarBG_Hover: theme('colors.gray.50');
+        --thumbBG: theme('colors.zinc.300');
+        --thumbBG_Hover: theme('colors.zinc.400');
+        --scrollbarBG_Hover: theme('colors.zinc.50');
         --scrollbarBG_Shadow: none;
     }
 
     body.dark {
-        --scrollbarBG: theme('colors.gray.800');
-        --thumbBG: theme('colors.gray.700');
-        --thumbBG_Hover: theme('colors.gray.600');
-        --scrollbarBG_Hover: theme('colors.gray.600');
+        --scrollbarBG: theme('colors.zinc.800');
+        --thumbBG: theme('colors.zinc.700');
+        --thumbBG_Hover: theme('colors.zinc.600');
+        --scrollbarBG_Hover: theme('colors.zinc.600');
         --scrollbarBG_Shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
     }
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="text-gray-300">
+  <div class="text-zinc-300">
     <span :key="item.id" v-for="(item, index) in array">
       <span v-if="index > 0">, </span>
       <Link preserve-scroll class="link-brand" :href="route('modpacks.update.show', item.id)">{{ item.name }}</Link>

@@ -8,15 +8,15 @@
     <div v-if="opened" class="fixed z-10 inset-0">
       <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0 rounded-lg">
         <div aria-hidden="true" class="fixed inset-0 transition-opacity">
-          <div class="absolute inset-0 bg-gray-500 dark:bg-gray-700 opacity-75"></div>
+          <div class="absolute inset-0 bg-zinc-500 dark:bg-zinc-700 opacity-75"></div>
         </div>
         <span aria-hidden="true" class="hidden sm:inline-block sm:align-middle sm:h-screen">&#8203;</span>
         <div v-click-outside="close" aria-labelledby="modal-headline"
              aria-modal="true"
-             class="inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+             class="inline-block align-bottom bg-white dark:bg-zinc-800 rounded-lg text-left shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
              role="dialog">
           <form @submit.prevent="createModPack">
-            <div class="bg-white dark:bg-gray-800 dark:text-gray-300 px-4 pt-5 pb-4 sm:p-6 sm:pb-4 rounded-lg">
+            <div class="bg-white dark:bg-zinc-800 dark:text-zinc-300 px-4 pt-5 pb-4 sm:p-6 sm:pb-4 rounded-lg">
               <span class="text-md font-bold">
                 Create a new ModPack
               </span>
@@ -55,7 +55,7 @@
 
               </div>
             </div>
-            <div class="bg-gray-100 dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse rounded-b-lg">
+            <div class="bg-zinc-100 dark:bg-zinc-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse rounded-b-lg">
               <jet-button
                   :class="{ 'opacity-25': form.processing }"
                   :disabled="form.processing"

@@ -125,7 +125,7 @@
                   :disabled="true"
                   v-model="server.game.name"
                   autocomplete="game"
-                  class="mt-1 block w-full bg-gray-200 cursor-not-allowed"
+                  class="mt-1 block w-full bg-zinc-200 cursor-not-allowed"
                   maxlength="80"
                   placeholder="My Amazing Game..."
                   type="text"

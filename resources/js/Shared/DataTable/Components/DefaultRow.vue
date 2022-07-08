@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span class="dark:text-gray-300">
+    <span class="dark:text-zinc-300">
       {{ printable }}
     </span>
   </div>

@@ -8,10 +8,10 @@
       >
     </div>
     <div class="ml-4">
-      <div class="text-sm font-semibold text-gray-900 dark:text-gray-100">
+      <div class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
         {{ name }}
       </div>
-      <div class="text-sm text-gray-500 dark:text-gray-400">
+      <div class="text-sm text-zinc-500 dark:text-zinc-400">
         {{ email }}
       </div>
     </div>

@@ -15,7 +15,7 @@
 
         <template #form>
           <div class="col-span-6">
-            <div class="max-w-xl text-sm text-gray-600">
+            <div class="max-w-xl text-sm text-zinc-600">
               Please provide the email address of the person you would like to add to this team. The email address must
               be associated with an existing account.
             </div>
@@ -55,19 +55,19 @@
                 class="mt-2"
             />
 
-            <div class="mt-1 border border-gray-200 rounded-lg cursor-pointer">
+            <div class="mt-1 border border-zinc-200 rounded-lg cursor-pointer">
               <div
                   v-for="(role, i) in availableRoles"
                   :key="role.key"
                   class="px-4 py-3"
-                  :class="{'border-t border-gray-200': i > 0}"
+                  :class="{'border-t border-zinc-200': i > 0}"
                   @click="addTeamMemberForm.role = role.key"
               >
                 <div :class="{'opacity-50': addTeamMemberForm.role && addTeamMemberForm.role != role.key}">
                   <!-- Role Name -->
                   <div class="flex items-center">
                     <div
-                        class="text-sm text-gray-600"
+                        class="text-sm text-zinc-600"
                         :class="{'font-semibold': addTeamMemberForm.role == role.key}"
                     >
                       {{ role.name }}
@@ -88,7 +88,7 @@
                   </div>
 
                   <!-- Role Description -->
-                  <div class="mt-2 text-xs text-gray-600">
+                  <div class="mt-2 text-xs text-zinc-600">
                     {{ role.description }}
                   </div>
                 </div>
@@ -151,7 +151,7 @@
                 <!-- Manage Team Member Role -->
                 <button
                     v-if="userPermissions.canAddTeamMembers && availableRoles.length"
-                    class="ml-2 text-sm text-gray-400 underline"
+                    class="ml-2 text-sm text-zinc-400 underline"
                     @click="manageRole(user)"
                 >
                   {{ displayableRole(user.membership.role) }}
@@ -159,7 +159,7 @@
 
                 <div
                     v-else-if="availableRoles.length"
-                    class="ml-2 text-sm text-gray-400"
+                    class="ml-2 text-sm text-zinc-400"
                 >
                   {{ displayableRole(user.membership.role) }}
                 </div>
@@ -199,19 +199,19 @@
 
       <template #content>
         <div v-if="managingRoleFor">
-          <div class="mt-1 border border-gray-200 rounded-lg cursor-pointer">
+          <div class="mt-1 border border-zinc-200 rounded-lg cursor-pointer">
             <div
                 v-for="(role, i) in availableRoles"
                 :key="role.key"
                 class="px-4 py-3"
-                :class="{'border-t border-gray-200': i > 0}"
+                :class="{'border-t border-zinc-200': i > 0}"
                 @click="updateRoleForm.role = role.key"
             >
               <div :class="{'opacity-50': updateRoleForm.role && updateRoleForm.role != role.key}">
                 <!-- Role Name -->
                 <div class="flex items-center">
                   <div
-                      class="text-sm text-gray-600"
+                      class="text-sm text-zinc-600"
                       :class="{'font-semibold': updateRoleForm.role == role.key}"
                   >
                     {{ role.name }}
@@ -232,7 +232,7 @@
                 </div>
 
                 <!-- Role Description -->
-                <div class="mt-2 text-xs text-gray-600">
+                <div class="mt-2 text-xs text-zinc-600">
                   {{ role.description }}
                 </div>
               </div>

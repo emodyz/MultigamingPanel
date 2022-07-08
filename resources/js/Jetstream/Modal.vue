@@ -18,7 +18,7 @@
               class="fixed inset-0 transform transition-all"
               @click="close"
           >
-            <div class="absolute inset-0 bg-gray-500 dark:bg-gray-700 opacity-75"/>
+            <div class="absolute inset-0 bg-zinc-500 dark:bg-zinc-700 opacity-75"/>
           </div>
         </transition>
 
