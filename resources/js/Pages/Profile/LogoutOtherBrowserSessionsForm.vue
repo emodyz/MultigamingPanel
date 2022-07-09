@@ -194,7 +194,7 @@ export default class LogoutOtherBrowserSessionsForm extends Mixins(Route) {
   }
 
   logoutOtherBrowserSessions() {
-    this.form.delete(this.route('other-browser-sessions.destroy').url(), {
+    this.form.delete(this.route('other-browser-sessions.destroy'), {
       preserveScroll: true,
       preserveState: true,
       errorBag: 'logoutOtherBrowserSessions',

@@ -95,8 +95,7 @@ export default class ConfirmsPassword extends Mixins(Route) {
   startConfirmingPassword() {
     this.form.error = ''
 
-    axios.get(this.route('password.confirmation')
-      .url())
+    axios.get(this.route('password.confirmation'))
       .then((response) => {
         if (response.data.confirmed) {
           this.$emit('confirmed')
@@ -114,10 +113,12 @@ export default class ConfirmsPassword extends Mixins(Route) {
   confirmPassword() {
     this.form.processing = true
 
-    axios.post(this.route('password.confirm')
-      .url(), {
-      password: this.form.password,
-    })
+    axios.post(
+      this.route('password.confirm'),
+      {
+        password: this.form.password,
+      },
+    )
       // eslint-disable-next-line no-unused-vars
       .then((response) => {
         this.confirmingPassword = false

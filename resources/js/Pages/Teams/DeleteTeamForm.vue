@@ -88,7 +88,7 @@ export default class DeleteTeamForm extends Mixins(Route) {
   }
 
   deleteTeam() {
-    this.form.delete(this.route('teams.destroy', this.team).url(), {
+    this.form.delete(this.route('teams.destroy', this.team), {
       preserveScroll: true,
       preserveState: true,
       errorBag: 'deleteTeam',

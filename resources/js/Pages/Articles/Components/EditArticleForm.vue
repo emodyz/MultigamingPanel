@@ -301,7 +301,7 @@ export default class EditArticleForm extends Mixins(Route) {
 
   submitForm() {
     this.form.post(
-      this.route('articles.update', this.article.id).url(),
+      this.route('articles.update', this.article.id),
       {
         preserveScroll: true,
         preserveState: true,

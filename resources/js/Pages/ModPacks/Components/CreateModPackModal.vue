@@ -144,7 +144,7 @@ export default class CreateModPackModal extends Mixins(Route) {
   }
 
   createModPack() {
-    this.form.post(this.route('modpacks.store').url(), {
+    this.form.post(this.route('modpacks.store'), {
       preserveScroll: true,
       preserveState: true,
       onSuccess: () => {

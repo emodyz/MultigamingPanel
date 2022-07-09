@@ -77,7 +77,7 @@ export default class UsersChart extends Mixins(Route) {
   }
 
   async initChart() {
-    const res = await this.$axios.get(this.route('api.dashboard.stats.users').url())
+    const res = await this.$axios.get(this.route('api.dashboard.stats.users'))
 
     this.stats = res.data
     //

@@ -383,7 +383,7 @@ export default class TeamMemberManager extends Mixins(Route) {
   teamMemberBeingRemoved: any = null
 
   addTeamMember() {
-    this.addTeamMemberForm.post(this.route('team-members.store', this.team).url(), {
+    this.addTeamMemberForm.post(this.route('team-members.store', this.team), {
       preserveScroll: true,
       preserveState: true,
       errorBag: 'addTeamMember',
@@ -400,7 +400,7 @@ export default class TeamMemberManager extends Mixins(Route) {
   }
 
   updateRole() {
-    this.updateRoleForm.put(this.route('team-members.update', [this.team, this.managingRoleFor]).url(), {
+    this.updateRoleForm.put(this.route('team-members.update', [this.team, this.managingRoleFor]), {
       preserveScroll: true,
       preserveState: true,
       errorBag: 'updateRole',
@@ -417,7 +417,7 @@ export default class TeamMemberManager extends Mixins(Route) {
 
   leaveTeam() {
     // @ts-ignore
-    this.leaveTeamForm.delete(this.route('team-members.destroy', [this.team, this.$page.props.user]).url(), {
+    this.leaveTeamForm.delete(this.route('team-members.destroy', [this.team, this.$page.props.user]), {
       preserveScroll: true,
       preserveState: true,
       errorBag: 'leaveTeam',
@@ -433,7 +433,7 @@ export default class TeamMemberManager extends Mixins(Route) {
 
   removeTeamMember() {
     this.removeTeamMemberForm.delete(
-      this.route('team-members.destroy', [this.team, this.teamMemberBeingRemoved]).url(),
+      this.route('team-members.destroy', [this.team, this.teamMemberBeingRemoved]),
       {
         preserveScroll: true,
         preserveState: true,

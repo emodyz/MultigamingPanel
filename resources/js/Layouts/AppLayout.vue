@@ -459,7 +459,7 @@ export default class AppLayout extends Mixins(Route, Helpers, Cerberus) {
   }
 
   switchToTeam(team: any) {
-    this.$inertia.put(this.route('current-team.update').url(), {
+    this.$inertia.put(this.route('current-team.update'), {
       team_id: team.id,
     }, {
       preserveState: false,
@@ -467,8 +467,7 @@ export default class AppLayout extends Mixins(Route, Helpers, Cerberus) {
   }
 
   logout() {
-    axios.post(this.route('logout')
-      .url())
+    axios.post(this.route('logout'))
       // eslint-disable-next-line no-unused-vars
       .then((response) => {
         window.location.href = '/'

@@ -182,8 +182,8 @@ export default class UpdateProfileInformationForm extends Mixins(Route) {
       this.form.photo = this.photo.files[0]
     }
 
-    // TODO: Without ".url()" vue/inertia seems unable to rebuild url from the ziggy object when a uploading a file. track in future update
-    this.form.post(this.route('user-profile-information.update').url(), {
+    // TODO: Without "" vue/inertia seems unable to rebuild url from the ziggy object when a uploading a file. track in future update
+    this.form.post(this.route('user-profile-information.update'), {
       preserveScroll: true,
       preserveState: true,
       errorBag: 'updateProfileInformation',
@@ -209,7 +209,7 @@ export default class UpdateProfileInformationForm extends Mixins(Route) {
 
   deletePhoto() {
     this.$inertia.delete(
-      this.route('current-user-photo.destroy').url(),
+      this.route('current-user-photo.destroy'),
       {
         preserveScroll: true,
         onSuccess: () => {

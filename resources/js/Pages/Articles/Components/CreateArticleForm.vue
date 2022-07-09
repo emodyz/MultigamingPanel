@@ -282,7 +282,7 @@ export default class CreateArticleForm extends Mixins(Route) {
 
   submitForm() {
     this.form.post(
-      this.route('articles.store').url(),
+      this.route('articles.store'),
       {
         preserveScroll: true,
         preserveState: true,

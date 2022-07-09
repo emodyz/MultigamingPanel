@@ -251,7 +251,7 @@ export default class ModPacks_Update extends Mixins(Route) {
   }
 
   goToModPackEdit() {
-    this.$inertia.visit(this.route('modpacks.edit', this.modpack.id).url())
+    this.$inertia.visit(this.route('modpacks.edit', this.modpack.id))
   }
 
   async startUpdate() {
@@ -259,7 +259,7 @@ export default class ModPacks_Update extends Mixins(Route) {
     this.waitToStart = true
     try {
       await this.$axios.post(
-        this.route('modpacks.update.start', this.modpack.id).url(),
+        this.route('modpacks.update.start', this.modpack.id),
         {},
       )
       this.loadingGif = (await fetch('https://api.thecatapi.com/v1/images/search?mime_types=gif')
@@ -276,7 +276,7 @@ export default class ModPacks_Update extends Mixins(Route) {
     this.waitToCancel = true
 
     await this.$axios.delete(
-      this.route('modpacks.update.cancel', this.modpack.id).url(),
+      this.route('modpacks.update.cancel', this.modpack.id),
       {},
     )
     this.modpackUpdateLoading = false

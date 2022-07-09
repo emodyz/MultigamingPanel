@@ -20,7 +20,7 @@ export default class CreateServerButton extends Mixins(Route) {
   disabled = false
 
   handleClick() {
-    this.$inertia.visit(this.route('servers.create').url())
+    this.$inertia.visit(this.route('servers.create'))
   }
 }
 </script>

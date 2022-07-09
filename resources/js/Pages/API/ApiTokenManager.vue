@@ -297,7 +297,7 @@ export default class ApiTokenManager extends Mixins(Route) {
   apiTokenBeingDeleted: any = null
 
   createApiToken() {
-    this.createApiTokenForm.post(this.route('api-tokens.store').url(), {
+    this.createApiTokenForm.post(this.route('api-tokens.store'), {
       preserveScroll: true,
       preserveState: true,
       onSuccess: () => {
@@ -317,7 +317,7 @@ export default class ApiTokenManager extends Mixins(Route) {
   }
 
   updateApiToken() {
-    this.updateApiTokenForm.put(this.route('api-tokens.update', this.managingPermissionsFor).url(), {
+    this.updateApiTokenForm.put(this.route('api-tokens.update', this.managingPermissionsFor), {
       preserveScroll: true,
       preserveState: true,
       onSuccess: () => {
@@ -336,7 +336,7 @@ export default class ApiTokenManager extends Mixins(Route) {
 
   deleteApiToken() {
     this.$inertia.delete(
-      this.route('api-tokens.destroy', this.apiTokenBeingDeleted).url(),
+      this.route('api-tokens.destroy', this.apiTokenBeingDeleted),
       {
         preserveScroll: true,
         preserveState: true,
