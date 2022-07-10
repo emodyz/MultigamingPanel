@@ -23,12 +23,13 @@ class SettingsController extends Controller
      * Display a listing of the resource.
      *
      * @param  VoiceSettings  $voiceSettings
-     * @return \Illuminate\Http\Response|Response|ResponseFactory
+     * @return Response|ResponseFactory
      */
     public function edit(VoiceSettings $voiceSettings)
     {
         return inertia('Settings/Edit', [
-          'voiceSettings' => $voiceSettings->toArray()
+            'currentVersion' => 'v0.21.0',
+            'voiceSettings' => $voiceSettings->toArray()
         ]);
     }
 
