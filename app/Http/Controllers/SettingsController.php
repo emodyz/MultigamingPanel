@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Actions\Emodyz\Settings\EditSettings;
 use App\Http\Requests\Settings\EditVoiceSettingsRequest;
+use App\Services\Bridge\BridgeClientService;
 use App\Settings\VoiceSettings;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Response;
@@ -22,13 +24,18 @@ class SettingsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  VoiceSettings  $voiceSettings
+     * @param VoiceSettings $voiceSettings
      * @return Response|ResponseFactory
+     * @throws Exception
      */
     public function edit(VoiceSettings $voiceSettings)
     {
+        $bridgeClient = new BridgeClientService();
+
+        $version = $bridgeClient->getControlPanelVersion();
+
         return inertia('Settings/Edit', [
-            'currentVersion' => 'v0.21.0',
+            'currentVersion' => $version,
             'voiceSettings' => $voiceSettings->toArray()
         ]);
     }
