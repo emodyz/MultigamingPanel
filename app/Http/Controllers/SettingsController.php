@@ -23,16 +23,20 @@ class SettingsController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
      * @param VoiceSettings $voiceSettings
      * @return Response|ResponseFactory
-     * @throws Exception
      */
     public function edit(VoiceSettings $voiceSettings)
     {
-        $bridgeClient = new BridgeClientService();
+        $version = 'unknown';
+        try {
+            $bridgeClient = new BridgeClientService();
 
-        $version = $bridgeClient->getControlPanelVersion();
+            $version = $bridgeClient->getControlPanelVersion();
+        } catch (Exception $e) {
+            flash('BRIDGE ERROR: ', $e->getMessage(), 'error');
+        }
+
 
         return inertia('Settings/Edit', [
             'currentVersion' => $version,
