@@ -79,7 +79,7 @@ class SettingsController extends Controller
             flash('BRIDGE ERROR', $e->getMessage(), 'error');
         }
 
-        if ($target === 'none') {
+        if ($target !== 'none') {
             flash('A new version of the Control Panel is available.', $target, 'info');
         }
 
