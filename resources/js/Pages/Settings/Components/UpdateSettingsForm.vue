@@ -82,7 +82,7 @@ export default class UpdateSettingsForm extends Mixins(Route) {
 
   isUpToDate: boolean = false
 
-  isUpdateAvailable: boolean = !(this.checkingVersion && this.isUpToDate)
+  isUpdateAvailable: boolean = false
 
   mounted() {
     this.checkForUpdate()
@@ -93,6 +93,7 @@ export default class UpdateSettingsForm extends Mixins(Route) {
 
     if (res.data.target !== this.currentVersion && res.data.target !== 'none') {
       this.newVersion = res.data.target
+      this.isUpdateAvailable = true
     } else {
       this.isUpToDate = true
     }
