@@ -141,5 +141,9 @@ return [
             'slug' => 'settings-edit_voice',
             'description' => 'a user can edit voice provider settings'
         ],
+        [
+            'slug' => 'settings-cp_update_check',
+            'description' => 'a user can check if an update of the control panel is available'
+        ],
     ]
 ];

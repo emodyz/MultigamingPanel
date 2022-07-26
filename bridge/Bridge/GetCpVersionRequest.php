@@ -9,9 +9,9 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Generated from protobuf message <code>bridge.GetVersionRequest</code>
+ * Generated from protobuf message <code>bridge.GetCpVersionRequest</code>
  */
-class GetVersionRequest extends \Google\Protobuf\Internal\Message
+class GetCpVersionRequest extends \Google\Protobuf\Internal\Message
 {
 
     /**

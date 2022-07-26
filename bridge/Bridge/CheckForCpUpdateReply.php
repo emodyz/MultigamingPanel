@@ -9,14 +9,14 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Generated from protobuf message <code>bridge.GetVersionReply</code>
+ * Generated from protobuf message <code>bridge.CheckForCpUpdateReply</code>
  */
-class GetVersionReply extends \Google\Protobuf\Internal\Message
+class CheckForCpUpdateReply extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Generated from protobuf field <code>string version = 1;</code>
+     * Generated from protobuf field <code>string target = 1;</code>
      */
-    protected $version = '';
+    protected $target = '';
 
     /**
      * Constructor.
@@ -24,7 +24,7 @@ class GetVersionReply extends \Google\Protobuf\Internal\Message
      * @param array $data {
      *     Optional. Data for populating the Message object.
      *
-     *     @type string $version
+     *     @type string $target
      * }
      */
     public function __construct($data = NULL) {
@@ -33,23 +33,23 @@ class GetVersionReply extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string version = 1;</code>
+     * Generated from protobuf field <code>string target = 1;</code>
      * @return string
      */
-    public function getVersion()
+    public function getTarget()
     {
-        return $this->version;
+        return $this->target;
     }
 
     /**
-     * Generated from protobuf field <code>string version = 1;</code>
+     * Generated from protobuf field <code>string target = 1;</code>
      * @param string $var
      * @return $this
      */
-    public function setVersion($var)
+    public function setTarget($var)
     {
         GPBUtil::checkString($var, True);
-        $this->version = $var;
+        $this->target = $var;
 
         return $this;
     }

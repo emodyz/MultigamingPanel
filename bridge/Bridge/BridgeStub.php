@@ -25,15 +25,29 @@ class BridgeStub {
 
     /**
      * Get the current version of the control panel
-     * @param \Bridge\GetVersionRequest $request client request
+     * @param \Bridge\GetCpVersionRequest $request client request
      * @param \Grpc\ServerContext $context server request context
-     * @return \Bridge\GetVersionReply for response data, null if if error occured
+     * @return \Bridge\GetCpVersionReply for response data, null if if error occured
      *     initial metadata (if any) and status (if not ok) should be set to $context
      */
-    public function GetVersion(
-        \Bridge\GetVersionRequest $request,
+    public function GetCpVersion(
+        \Bridge\GetCpVersionRequest $request,
         \Grpc\ServerContext $context
-    ): ?\Bridge\GetVersionReply {
+    ): ?\Bridge\GetCpVersionReply {
+        $context->setStatus(\Grpc\Status::unimplemented());
+        return null;
+    }
+
+    /**
+     * @param \Bridge\CheckForCpUpdateRequest $request client request
+     * @param \Grpc\ServerContext $context server request context
+     * @return \Bridge\CheckForCpUpdateReply for response data, null if if error occured
+     *     initial metadata (if any) and status (if not ok) should be set to $context
+     */
+    public function CheckForCpUpdate(
+        \Bridge\CheckForCpUpdateRequest $request,
+        \Grpc\ServerContext $context
+    ): ?\Bridge\CheckForCpUpdateReply {
         $context->setStatus(\Grpc\Status::unimplemented());
         return null;
     }
@@ -52,10 +66,16 @@ class BridgeStub {
                 '\Bridge\HelloRequest',
                 \Grpc\MethodDescriptor::UNARY_CALL
             ),
-            '/bridge.Bridge/GetVersion' => new \Grpc\MethodDescriptor(
+            '/bridge.Bridge/GetCpVersion' => new \Grpc\MethodDescriptor(
                 $this,
-                'GetVersion',
-                '\Bridge\GetVersionRequest',
+                'GetCpVersion',
+                '\Bridge\GetCpVersionRequest',
+                \Grpc\MethodDescriptor::UNARY_CALL
+            ),
+            '/bridge.Bridge/CheckForCpUpdate' => new \Grpc\MethodDescriptor(
+                $this,
+                'CheckForCpUpdate',
+                '\Bridge\CheckForCpUpdateRequest',
                 \Grpc\MethodDescriptor::UNARY_CALL
             ),
         ];

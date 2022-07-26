@@ -34,16 +34,30 @@ class BridgeClient extends \Grpc\BaseStub {
 
     /**
      * Get the current version of the control panel
-     * @param \Bridge\GetVersionRequest $argument input argument
+     * @param \Bridge\GetCpVersionRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
      * @return \Grpc\UnaryCall
      */
-    public function GetVersion(\Bridge\GetVersionRequest $argument,
+    public function GetCpVersion(\Bridge\GetCpVersionRequest $argument,
       $metadata = [], $options = []) {
-        return $this->_simpleRequest('/bridge.Bridge/GetVersion',
+        return $this->_simpleRequest('/bridge.Bridge/GetCpVersion',
         $argument,
-        ['\Bridge\GetVersionReply', 'decode'],
+        ['\Bridge\GetCpVersionReply', 'decode'],
+        $metadata, $options);
+    }
+
+    /**
+     * @param \Bridge\CheckForCpUpdateRequest $argument input argument
+     * @param array $metadata metadata
+     * @param array $options call options
+     * @return \Grpc\UnaryCall
+     */
+    public function CheckForCpUpdate(\Bridge\CheckForCpUpdateRequest $argument,
+      $metadata = [], $options = []) {
+        return $this->_simpleRequest('/bridge.Bridge/CheckForCpUpdate',
+        $argument,
+        ['\Bridge\CheckForCpUpdateReply', 'decode'],
         $metadata, $options);
     }
 

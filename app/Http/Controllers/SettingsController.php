@@ -7,6 +7,7 @@ use App\Http\Requests\Settings\EditVoiceSettingsRequest;
 use App\Services\Bridge\BridgeClientService;
 use App\Settings\VoiceSettings;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Response;
@@ -19,6 +20,8 @@ class SettingsController extends Controller
         $this->middleware('can:settings-edit')->only(['edit']);
 
         $this->middleware('can:settings-edit_voice')->only(['updateVoice']);
+
+        $this->middleware('can:settings-cp_update_check')->only(['checkForCpUpdate']);
     }
 
     /**
@@ -34,7 +37,7 @@ class SettingsController extends Controller
 
             $version = $bridgeClient->getControlPanelVersion();
         } catch (Exception $e) {
-            flash('BRIDGE ERROR: ', $e->getMessage(), 'error');
+            flash('BRIDGE ERROR', $e->getMessage(), 'error');
         }
 
 
@@ -51,12 +54,37 @@ class SettingsController extends Controller
      * @param  EditSettings  $editor
      * @return RedirectResponse
      */
-   public function updateVoice(EditVoiceSettingsRequest $request, EditSettings $editor): RedirectResponse
-   {
+    public function updateVoice(EditVoiceSettingsRequest $request, EditSettings $editor): RedirectResponse
+    {
         $editor->editVoiceSettings($request->all());
 
         flash('Voice Settings', "Your voice settings has been successfully saved.")->success();
 
         return redirect()->back();
-   }
+    }
+
+    /**
+     * Check for control panel updates
+     *
+     * @return JsonResponse
+     */
+    public function checkForCpUpdate(): JsonResponse
+    {
+        $target = 'none';
+        try {
+            $bridgeClient = new BridgeClientService();
+
+            $target = $bridgeClient->checkForControlPanelUpdate();
+        } catch (Exception $e) {
+            flash('BRIDGE ERROR', $e->getMessage(), 'error');
+        }
+
+        if ($target === 'none') {
+            flash('A new version of the Control Panel is available.', $target, 'info');
+        }
+
+        return response()->json([
+            $target
+        ]);
+    }
 }

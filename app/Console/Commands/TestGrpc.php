@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use Bridge\BridgeClient;
-use Bridge\GetVersionRequest;
 use Bridge\HelloRequest;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
@@ -70,14 +69,6 @@ class TestGrpc extends Command
             exit(1);
         }
         echo $response->getMessage() . PHP_EOL;
-
-        $request2 = new GetVersionRequest();
-        list($response2, $status2) = $client->GetVersion($request2)->wait();
-        if ($status2->code !== \Grpc\STATUS_OK) {
-            echo "ERROR: " . $status2->code . ", " . $status2->details . PHP_EOL;
-            exit(1);
-        }
-        echo $response2->getVersion() . PHP_EOL;
         return 0;
     }
 }

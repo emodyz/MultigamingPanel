@@ -52,6 +52,7 @@ import Spinner from '@/Shared/Svgs/Spinner.vue'
 import CheckMarkSolid from '@/Shared/Svgs/CheckMarkSolid.vue'
 import CloudDownload from '@/Shared/Svgs/CloudDownload.vue'
 import InfoCircleSolid from '@/Shared/Svgs/InfoCircleSolid.vue'
+import axios from 'axios'
 
 @Component({
   components: {
@@ -77,11 +78,27 @@ export default class UpdateSettingsForm extends Mixins(Route) {
 
   newVersion: string = ''
 
-  checkingVersion: boolean = false
+  checkingVersion: boolean = true
 
   isUpToDate: boolean = false
 
   isUpdateAvailable: boolean = !(this.checkingVersion && this.isUpToDate)
+
+  mounted() {
+    this.checkForUpdate()
+  }
+
+  async checkForUpdate() {
+    const res = await axios.get(this.route('settings.update.check'))
+
+    if (res.data.target !== this.currentVersion && res.data.target !== 'none') {
+      this.newVersion = res.data.target
+    } else {
+      this.isUpToDate = true
+    }
+
+    this.checkingVersion = false
+  }
 }
 
 </script>
