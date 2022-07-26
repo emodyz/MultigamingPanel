@@ -83,8 +83,6 @@ class SettingsController extends Controller
             flash('A new version of the Control Panel is available.', $target, 'info');
         }
 
-        return response()->json([
-            $target
-        ]);
+        return response()->json(compact($target));
     }
 }
