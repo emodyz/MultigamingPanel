@@ -13,7 +13,7 @@
       <!-- Name -->
       <div class="col-span-6 sm:col-span-4">
         <div class="inline-flex items-center text-zinc-700 dark:text-zinc-300">
-          <spinner v-show="checkingVersion" class="h-7 w-7 mr-4 text-indigo-500"/>
+          <spinner v-show="checkingVersion || isUpdating" class="h-7 w-7 mr-4 text-indigo-500"/>
           <check-mark-solid v-show="isUpToDate" class="h-7 w-7 mr-4 text-indigo-500"/>
           <info-circle-solid v-show="isUpdateAvailable" class="h-7 w-7 mr-4 text-green-500"/>
           <div class="flex flex-col items-start">
@@ -25,7 +25,7 @@
             </div>
           </div>
         </div>
-        <div class="w-full">
+        <div v-show="isUpdateAvailable" class="w-full">
           <jet-button class="mt-6 ml-11 inline-flex items-center">
             <cloud-download class="mr-2"/> UPDATE
           </jet-button>
@@ -83,6 +83,8 @@ export default class UpdateSettingsForm extends Mixins(Route) {
   isUpToDate: boolean = false
 
   isUpdateAvailable: boolean = false
+
+  isUpdating: boolean = false
 
   mounted() {
     this.checkForUpdate()

@@ -77,6 +77,13 @@ return [
             'root' => storage_path('bridge'),
             'visibility' => 'private',
         ],
+
+        'launcher' => [
+            'driver' => 'local',
+            'root' => storage_path('launcher'),
+            'url' => env('APP_URL').'/launcher',
+            'visibility' => 'public',
+        ],
     ],
 
     /*
@@ -93,6 +100,7 @@ return [
     'links' => [
         public_path('storage') => storage_path('app/public'),
         public_path('modpacks-data') => storage_path('app/modpacks'),
+        public_path('launcher') => storage_path('launcher'),
     ],
 
 ];
