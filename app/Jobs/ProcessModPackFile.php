@@ -9,8 +9,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Throwable;
@@ -28,8 +28,8 @@ class ProcessModPackFile implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @param Modpack $modpack
-     * @param string $filePath
+     * @param  Modpack  $modpack
+     * @param  string  $filePath
      */
     public function __construct(Modpack $modpack, string $filePath)
     {
@@ -37,15 +37,6 @@ class ProcessModPackFile implements ShouldQueue
         $this->filePath = $filePath;
     }
 
-    /**
-     * Get the middleware the job should pass through.
-     *
-     * @return array
-     */
-    public function middleware()
-    {
-        return [new WithoutOverlapping($this->modpack->id)];
-    }
 
     /**
      * Execute the job.
@@ -55,9 +46,12 @@ class ProcessModPackFile implements ShouldQueue
      */
     public function handle()
     {
-        if ($this->batch()->cancelled()) {
+        if ($this->batch()->cancelled() || $this->batch()->hasFailures()) {
+            info('Batch canceled or has failures, file skipped '. $this->filePath);
             return;
         }
+
+        info('Processing file '. $this->filePath);
 
         $disk = $this->modpack->disk;
 
@@ -66,25 +60,25 @@ class ProcessModPackFile implements ShouldQueue
         $fileUrl = Storage::disk($disk)->url($this->filePath);
         $fileHash = hash_file('sha256', $filePath);
         $fileName = basename($filePath);
-        $filePath = (string)Str::of($this->filePath)->replaceFirst(
+        $filePath = (string) Str::of($this->filePath)->replaceFirst(
             $this->modpack->path,
             $this->modpack->name
         );
         $filePathPrevented = Str::of($filePath)
             ->replace('.', '-');
 
-        $this->modpack->forceFill([
-            "manifest_info->size" => $this->modpack->manifest_info['size'] + $fileSize,
-            "manifest_info->files" => $this->modpack->manifest_info['files'] + 1,
-            "manifest->{$filePathPrevented}" => [
-                'url' => $fileUrl,
-                'size' => $fileSize,
-                'name' => $fileName,
-                'path' => $filePath,
-                'sha256' => $fileHash
-            ]
-        ])->saveOrFail();
+        Redis::hIncrBy("modpackManifestInfoUpdate:{$this->modpack->id}", 'size', $fileSize);
+        Redis::hIncrBy("modpackManifestInfoUpdate:{$this->modpack->id}", 'files', 1);
+
+        Redis::hSet("modpackManifestUpdate:{$this->modpack->id}", $filePathPrevented, json_encode([
+            'url' => $fileUrl,
+            'size' => $fileSize,
+            'name' => $fileName,
+            'path' => $filePath,
+            'sha256' => $fileHash
+        ]));
 
         ModPackProcessProgress::broadcast($this->modpack, $this->batch()->progress());
     }
 }
+
