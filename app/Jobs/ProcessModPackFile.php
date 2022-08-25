@@ -4,13 +4,13 @@ namespace App\Jobs;
 
 use App\Events\ModPack\ModPackProcessProgress;
 use App\Models\Modpack;
+use App\Services\Modpacks\ModpackUpdaterService;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Throwable;
@@ -64,19 +64,15 @@ class ProcessModPackFile implements ShouldQueue
             $this->modpack->path,
             $this->modpack->name
         );
-        $filePathPrevented = Str::of($filePath)
-            ->replace('.', '-');
 
-        Redis::hIncrBy("modpackManifestInfoUpdate:{$this->modpack->id}", 'size', $fileSize);
-        Redis::hIncrBy("modpackManifestInfoUpdate:{$this->modpack->id}", 'files', 1);
-
-        Redis::hSet("modpackManifestUpdate:{$this->modpack->id}", $filePathPrevented, json_encode([
-            'url' => $fileUrl,
-            'size' => $fileSize,
-            'name' => $fileName,
-            'path' => $filePath,
-            'sha256' => $fileHash
-        ]));
+        ModpackUpdaterService::fileProcessed(
+            modPack: $this->modpack,
+            fileName: $fileName,
+            fileSize: $fileSize,
+            fileUrl: $fileUrl,
+            filePath: $filePath,
+            fileHash: $fileHash
+        );
 
         ModPackProcessProgress::broadcast($this->modpack, $this->batch()->progress());
     }

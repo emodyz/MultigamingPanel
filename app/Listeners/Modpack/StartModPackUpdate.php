@@ -8,16 +8,15 @@ use App\Events\ModPack\ModPackProcessFailed;
 use App\Events\ModPack\ModPackProcessStarted;
 use App\Events\ModPack\ModPackUpdateRequested;
 use App\Jobs\ProcessModPackFile;
+use App\Services\Modpacks\ModpackUpdaterService;
 use Exception;
 use Illuminate\Bus\Batch;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
 use Throwable;
-use function React\Promise\map;
 
 class StartModPackUpdate implements ShouldQueue
 {
@@ -40,8 +39,7 @@ class StartModPackUpdate implements ShouldQueue
             return true;
         }
 
-        Redis::del("modpackManifestUpdate:$modpack->id");
-        Redis::del("modpackManifestInfoUpdate:$modpack->id");
+        ModpackUpdaterService::flush($modpack);
 
         $jobs = $files->map(fn($file) => new ProcessModPackFile($modpack, $file));
         $batch = Bus::batch($jobs->toArray())
@@ -50,8 +48,8 @@ class StartModPackUpdate implements ShouldQueue
                     ModPackProcessCanceled::broadcast($modpack);
                     return;
                 }
-                $manifest = Redis::hGetAll("modpackManifestUpdate:$modpack->id");
-                $manifestInfo = Redis::hGetAll("modpackManifestInfoUpdate:$modpack->id");
+
+                [$manifest, $manifestInfo] = ModpackUpdaterService::getUpdate($modpack);
 
                 if (!empty($manifest) && !empty($manifestInfo)) {
                     $modpack->update([
