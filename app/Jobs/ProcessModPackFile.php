@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Events\ModPack\ModPackProcessProgress;
 use App\Models\Modpack;
+use App\Services\Modpacks\ModpackUpdaterService;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -27,14 +28,15 @@ class ProcessModPackFile implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @param Modpack $modpack
-     * @param string $filePath
+     * @param  Modpack  $modpack
+     * @param  string  $filePath
      */
     public function __construct(Modpack $modpack, string $filePath)
     {
         $this->modpack = $modpack;
         $this->filePath = $filePath;
     }
+
 
     /**
      * Execute the job.
@@ -44,9 +46,12 @@ class ProcessModPackFile implements ShouldQueue
      */
     public function handle()
     {
-        if ($this->batch()->cancelled()) {
+        if ($this->batch()->cancelled() || $this->batch()->hasFailures()) {
+            info('Batch canceled or has failures, file skipped '. $this->filePath);
             return;
         }
+
+        info('Processing file '. $this->filePath);
 
         $disk = $this->modpack->disk;
 
@@ -55,25 +60,21 @@ class ProcessModPackFile implements ShouldQueue
         $fileUrl = Storage::disk($disk)->url($this->filePath);
         $fileHash = hash_file('sha256', $filePath);
         $fileName = basename($filePath);
-        $filePath = (string)Str::of($this->filePath)->replaceFirst(
+        $filePath = (string) Str::of($this->filePath)->replaceFirst(
             $this->modpack->path,
             $this->modpack->name
         );
-        $filePathPrevented = Str::of($filePath)
-            ->replace('.', '-');
 
-        $this->modpack->forceFill([
-            "manifest_info->size" => $this->modpack->manifest_info['size'] + $fileSize,
-            "manifest_info->files" => $this->modpack->manifest_info['files'] + 1,
-            "manifest->{$filePathPrevented}" => [
-                'url' => $fileUrl,
-                'size' => $fileSize,
-                'name' => $fileName,
-                'path' => $filePath,
-                'sha256' => $fileHash
-            ]
-        ])->saveOrFail();
+        ModpackUpdaterService::fileProcessed(
+            modPack: $this->modpack,
+            fileName: $fileName,
+            fileSize: $fileSize,
+            fileUrl: $fileUrl,
+            filePath: $filePath,
+            fileHash: $fileHash
+        );
 
         ModPackProcessProgress::broadcast($this->modpack, $this->batch()->progress());
     }
 }
+

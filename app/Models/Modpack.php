@@ -89,18 +89,4 @@ class Modpack extends Model
         }
         return Bus::findBatch($this->job_batch_id);
     }
-
-    /**
-     * void
-     */
-    public function cleanManifest()
-    {
-        $this->update([
-            'manifest' => [],
-            'manifest_info' => [
-                "size" => 0,
-                "files" => 0
-            ]
-        ]);
-    }
 }
