@@ -2,7 +2,7 @@
   <div>
     <jet-form-section>
       <template #title>
-        Update Settings
+        Update Settings (Alpha)
       </template>
 
       <template #description>
