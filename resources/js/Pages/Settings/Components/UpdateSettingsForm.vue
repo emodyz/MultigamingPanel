@@ -133,6 +133,7 @@ export default class UpdateSettingsForm extends Mixins(Route) {
     const health = await this.waitForUpdate()
 
     if (health.status === 'OK') {
+      this.isUpdating = false
       // eslint-disable-next-line no-restricted-globals
       location.reload()
     } else {
