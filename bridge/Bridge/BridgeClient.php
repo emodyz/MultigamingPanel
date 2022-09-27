@@ -34,12 +34,12 @@ class BridgeClient extends \Grpc\BaseStub {
 
     /**
      * Get the current version of the control panel
-     * @param \Bridge\GetCpVersionRequest $argument input argument
+     * @param \Bridge\EmptyMessage $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
      * @return \Grpc\UnaryCall
      */
-    public function GetCpVersion(\Bridge\GetCpVersionRequest $argument,
+    public function GetCpVersion(\Bridge\EmptyMessage $argument,
       $metadata = [], $options = []) {
         return $this->_simpleRequest('/bridge.Bridge/GetCpVersion',
         $argument,
@@ -48,16 +48,30 @@ class BridgeClient extends \Grpc\BaseStub {
     }
 
     /**
-     * @param \Bridge\CheckForCpUpdateRequest $argument input argument
+     * @param \Bridge\EmptyMessage $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
      * @return \Grpc\UnaryCall
      */
-    public function CheckForCpUpdate(\Bridge\CheckForCpUpdateRequest $argument,
+    public function CheckForCpUpdate(\Bridge\EmptyMessage $argument,
       $metadata = [], $options = []) {
         return $this->_simpleRequest('/bridge.Bridge/CheckForCpUpdate',
         $argument,
         ['\Bridge\CheckForCpUpdateReply', 'decode'],
+        $metadata, $options);
+    }
+
+    /**
+     * @param \Bridge\UpgradeCpRequest $argument input argument
+     * @param array $metadata metadata
+     * @param array $options call options
+     * @return \Grpc\UnaryCall
+     */
+    public function UpgradeCp(\Bridge\UpgradeCpRequest $argument,
+      $metadata = [], $options = []) {
+        return $this->_simpleRequest('/bridge.Bridge/UpgradeCp',
+        $argument,
+        ['\Bridge\EmptyMessage', 'decode'],
         $metadata, $options);
     }
 

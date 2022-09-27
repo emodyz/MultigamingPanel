@@ -145,5 +145,9 @@ return [
             'slug' => 'settings-cp_update_check',
             'description' => 'a user can check if an update of the control panel is available'
         ],
+        [
+            'slug' => 'settings-cp_upgrade',
+            'description' => 'a user can initiate the upgrade process for the control panel.'
+        ],
     ]
 ];

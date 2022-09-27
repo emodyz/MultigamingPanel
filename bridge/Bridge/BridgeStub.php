@@ -25,13 +25,13 @@ class BridgeStub {
 
     /**
      * Get the current version of the control panel
-     * @param \Bridge\GetCpVersionRequest $request client request
+     * @param \Bridge\EmptyMessage $request client request
      * @param \Grpc\ServerContext $context server request context
      * @return \Bridge\GetCpVersionReply for response data, null if if error occured
      *     initial metadata (if any) and status (if not ok) should be set to $context
      */
     public function GetCpVersion(
-        \Bridge\GetCpVersionRequest $request,
+        \Bridge\EmptyMessage $request,
         \Grpc\ServerContext $context
     ): ?\Bridge\GetCpVersionReply {
         $context->setStatus(\Grpc\Status::unimplemented());
@@ -39,15 +39,29 @@ class BridgeStub {
     }
 
     /**
-     * @param \Bridge\CheckForCpUpdateRequest $request client request
+     * @param \Bridge\EmptyMessage $request client request
      * @param \Grpc\ServerContext $context server request context
      * @return \Bridge\CheckForCpUpdateReply for response data, null if if error occured
      *     initial metadata (if any) and status (if not ok) should be set to $context
      */
     public function CheckForCpUpdate(
-        \Bridge\CheckForCpUpdateRequest $request,
+        \Bridge\EmptyMessage $request,
         \Grpc\ServerContext $context
     ): ?\Bridge\CheckForCpUpdateReply {
+        $context->setStatus(\Grpc\Status::unimplemented());
+        return null;
+    }
+
+    /**
+     * @param \Bridge\UpgradeCpRequest $request client request
+     * @param \Grpc\ServerContext $context server request context
+     * @return \Bridge\EmptyMessage for response data, null if if error occured
+     *     initial metadata (if any) and status (if not ok) should be set to $context
+     */
+    public function UpgradeCp(
+        \Bridge\UpgradeCpRequest $request,
+        \Grpc\ServerContext $context
+    ): ?\Bridge\EmptyMessage {
         $context->setStatus(\Grpc\Status::unimplemented());
         return null;
     }
@@ -69,13 +83,19 @@ class BridgeStub {
             '/bridge.Bridge/GetCpVersion' => new \Grpc\MethodDescriptor(
                 $this,
                 'GetCpVersion',
-                '\Bridge\GetCpVersionRequest',
+                '\Bridge\EmptyMessage',
                 \Grpc\MethodDescriptor::UNARY_CALL
             ),
             '/bridge.Bridge/CheckForCpUpdate' => new \Grpc\MethodDescriptor(
                 $this,
                 'CheckForCpUpdate',
-                '\Bridge\CheckForCpUpdateRequest',
+                '\Bridge\EmptyMessage',
+                \Grpc\MethodDescriptor::UNARY_CALL
+            ),
+            '/bridge.Bridge/UpgradeCp' => new \Grpc\MethodDescriptor(
+                $this,
+                'UpgradeCp',
+                '\Bridge\UpgradeCpRequest',
                 \Grpc\MethodDescriptor::UNARY_CALL
             ),
         ];

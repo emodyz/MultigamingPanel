@@ -22,6 +22,8 @@ class SettingsController extends Controller
         $this->middleware('can:settings-edit_voice')->only(['updateVoice']);
 
         $this->middleware('can:settings-cp_update_check')->only(['checkForCpUpdate']);
+
+        $this->middleware('can:settings-cp_upgrade')->only(['checkForCpUpdate']);
     }
 
     /**
@@ -85,6 +87,28 @@ class SettingsController extends Controller
 
         return response()->json([
             'target' => $target
+        ]);
+    }
+
+    /**
+     * Initiates the upgrade process for the control panel by calling the cli using the gRpc Bridge
+     *
+     * @return JsonResponse
+     */
+    public function upgradeCp(): JsonResponse
+    {
+        try {
+            $bridgeClient = new BridgeClientService();
+
+            $bridgeClient->upgradeControlPanel();
+        } catch (Exception $e) {
+            flash('BRIDGE ERROR', $e->getMessage(), 'error');
+        }
+
+        flash('Control Panel update started.', 'the application will be offline for a few minutes ', 'warning');
+
+        return response()->json([
+            'upgrade' => 'started'
         ]);
     }
 }

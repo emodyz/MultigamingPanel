@@ -72,5 +72,8 @@
     },
     "resolutions": {
         "vue-loader": "^15.10.0"
+    },
+    "dependencies": {
+        "retry-axios": "^3.0.0"
     }
 }

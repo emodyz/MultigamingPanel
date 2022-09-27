@@ -3,8 +3,8 @@
 namespace App\Services\Bridge;
 
 use Bridge\BridgeClient;
-use Bridge\CheckForCpUpdateRequest;
-use Bridge\GetCpVersionRequest;
+use Bridge\EmptyMessage;
+use Bridge\UpgradeCpRequest;
 use Exception;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Support\Facades\Storage;
@@ -36,10 +36,10 @@ class BridgeClientService
      * @return string
      */
     public function getControlPanelVersion(): string {
-        $request = new GetCpVersionRequest();
+        $request = new EmptyMessage();
         list($response, $status) = $this->client->getCpVersion($request)->wait();
         if ($status->code !== \Grpc\STATUS_OK) {
-            throw new Exception('Error while getting version: ' . $status->code . ", " . $status->details . PHP_EOL);
+            throw new Exception('Error while retrieving current version: ' . $status->code . ", " . $status->details . PHP_EOL);
         }
         return $response->getVersion();
     }
@@ -49,11 +49,30 @@ class BridgeClientService
      * @return string
      */
     public function checkForControlPanelUpdate(): string {
-        $request = new CheckForCpUpdateRequest();
+        $request = new EmptyMessage();
         list($response, $status) = $this->client->CheckForCpUpdate($request)->wait();
         if ($status->code !== \Grpc\STATUS_OK) {
-            throw new Exception('Error while checking for Control Panel update: ' . $status->code . ", " . $status->details . PHP_EOL);
+            throw new Exception('Error while checking for Control Panel updates: ' . $status->code . ", " . $status->details . PHP_EOL);
         }
         return $response->getTarget();
+    }
+
+    /**
+     * @throws Exception
+     * @return void
+     */
+    public function upgradeControlPanel(): void {
+        $request = new UpgradeCpRequest();
+
+        $target = $this->checkForControlPanelUpdate();
+        if ($target === 'none') {
+            throw new Exception('Error while initiating Control Panel upgrade: No valid upgrade target found');
+        }
+
+        $request->setVersion($target);
+        list($response, $status) = $this->client->UpgradeCp($request)->wait();
+        if ($status->code !== \Grpc\STATUS_OK) {
+            throw new Exception('Error while initiating Control Panel upgrade: ' . $status->code . ", " . $status->details . PHP_EOL);
+        }
     }
 }
