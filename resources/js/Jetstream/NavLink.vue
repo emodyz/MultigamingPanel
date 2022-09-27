@@ -18,8 +18,8 @@ const navLink = Vue.extend({
   computed: {
     classes() {
       return this.active
-        ? 'inline-flex items-center px-1 pt-1 border-b-2 border-indigo-400 text-sm font-medium leading-5 text-gray-900 dark:text-gray-100 dark:font-semibold dark:hover:border-indigo-500 focus:outline-none focus:border-indigo-500 transition duration-150 ease-in-out'
-        : 'inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 dark:text-gray-300 hover:text-gray-700 hover:border-gray-300 dark:hover:border-gray-400 dark:hover:text-gray-100 focus:outline-none dark:focus:text-gray-100 focus:border-gray-300 transition duration-150 ease-in-out'
+        ? 'inline-flex items-center px-1 pt-1 border-b-2 border-indigo-400 text-sm font-medium leading-5 text-zinc-900 dark:text-zinc-100 dark:font-semibold dark:hover:border-indigo-500 focus:outline-none focus:border-indigo-500 transition duration-150 ease-in-out'
+        : 'inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-zinc-500 dark:text-zinc-300 hover:text-zinc-700 hover:border-zinc-300 dark:hover:border-zinc-400 dark:hover:text-zinc-100 focus:outline-none dark:focus:text-zinc-100 focus:border-zinc-300 transition duration-150 ease-in-out'
     },
   },
 })

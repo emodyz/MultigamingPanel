@@ -9,7 +9,7 @@
     </template>
 
     <template #content>
-      <div class="max-w-xl text-sm text-gray-600 dark:text-gray-300">
+      <div class="max-w-xl text-sm text-zinc-600 dark:text-zinc-300">
         Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your
         account, please download any data or information that you wish to retain.
       </div>
@@ -112,7 +112,7 @@ export default class DeleteUserForm extends Mixins(Route) {
   }
 
   deleteUser() {
-    this.form.delete(this.route('current-user.destroy').url(), {
+    this.form.delete(this.route('current-user.destroy'), {
       preserveScroll: true,
       preserveState: true,
       errorBag: 'deleteUser',

@@ -52,6 +52,13 @@ foo@bar:~/MultigamingPanel$ npm run prod && php artisan migrate
 
 ###### Step 6 Configure your webserver to point to the public/ sub-directory
 
+###### Step 6 Open the required ports
+```console
+foo@bar:~/MultigamingPanel$ ufw allow 443
+foo@bar:~/MultigamingPanel$ ufw allow 6001
+foo@bar:~/MultigamingPanel$ ufw allow 6660
+```
+
 ## Emodyz Sponsors
 
 You can sponsor us through various means. 

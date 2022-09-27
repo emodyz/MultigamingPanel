@@ -9,7 +9,7 @@
     </template>
 
     <template #content>
-      <div class="max-w-xl text-sm text-gray-600 dark:text-gray-300">
+      <div class="max-w-xl text-sm text-zinc-600 dark:text-zinc-300">
         If necessary, you may logout of all of your other browser sessions across all of your devices. Some of your
         recent sessions are listed below; however, this list may not be exhaustive. If you feel your account has been
         compromised, you should also update your password.
@@ -34,7 +34,7 @@
                 stroke-width="2"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
-                class="w-8 h-8 text-gray-500 dark:text-gray-400"
+                class="w-8 h-8 text-zinc-500 dark:text-zinc-400"
             >
               <path
                   d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
@@ -49,7 +49,7 @@
                 fill="none"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                class="w-8 h-8 text-gray-500 dark:text-gray-400"
+                class="w-8 h-8 text-zinc-500 dark:text-zinc-400"
             >
               <path
                   d="M0 0h24v24H0z"
@@ -67,12 +67,12 @@
           </div>
 
           <div class="ml-3">
-            <div class="text-sm text-gray-600 dark:text-gray-400">
+            <div class="text-sm text-zinc-600 dark:text-zinc-400">
               {{ session.agent.platform }} - {{ session.agent.browser }}
             </div>
 
             <div>
-              <div class="text-xs text-gray-500 dark:text-gray-300">
+              <div class="text-xs text-zinc-500 dark:text-zinc-300">
                 {{ session.ip_address }},
 
                 <span
@@ -194,7 +194,7 @@ export default class LogoutOtherBrowserSessionsForm extends Mixins(Route) {
   }
 
   logoutOtherBrowserSessions() {
-    this.form.delete(this.route('other-browser-sessions.destroy').url(), {
+    this.form.delete(this.route('other-browser-sessions.destroy'), {
       preserveScroll: true,
       preserveState: true,
       errorBag: 'logoutOtherBrowserSessions',

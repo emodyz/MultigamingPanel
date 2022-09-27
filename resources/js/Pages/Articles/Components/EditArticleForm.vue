@@ -111,7 +111,7 @@
                   v-show="coverPreview"
                   class="mb-6"
               >
-                <img class="border border-gray-300 dark:border-gray-700 rounded-xl shadow-lg max-h-96" :src="coverPreview"
+                <img class="border border-zinc-300 dark:border-zinc-700 rounded-xl shadow-lg max-h-96" :src="coverPreview"
                      alt="Cover Image">
               </div>
 
@@ -300,7 +300,8 @@ export default class EditArticleForm extends Mixins(Route) {
   }
 
   submitForm() {
-    this.form.post(this.route('articles.update', this.article.id).url(),
+    this.form.post(
+      this.route('articles.update', this.article.id),
       {
         preserveScroll: true,
         preserveState: true,
@@ -308,7 +309,8 @@ export default class EditArticleForm extends Mixins(Route) {
           this.coverPreview = page.props.article.cover_image_url
           this.form.coverImage = null
         },
-      })
+      },
+    )
   }
 
   handlePublish() {

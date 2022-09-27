@@ -40,7 +40,7 @@ module.exports = env =>{
         }
       }),
       new ForkTsCheckerNotifierWebpackPlugin({
-        skipSuccessful: true
+        // skipSuccessful: true
       }),
     ],
   }

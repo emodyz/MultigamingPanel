@@ -1,6 +1,6 @@
 <template>
   <div class="text-left text-sm font-medium">
-    <div class="divide-x divide-gray-200 dark:divide-gray-700">
+    <div class="divide-x divide-zinc-200 dark:divide-zinc-700">
       <template v-for="action in options.actions">
         <a
             v-if="action.enabled"
@@ -101,7 +101,8 @@ export default class DataTable_Actions extends Mixins(Helpers) {
   }
 
   goToDestroy(_action: Action) {
-    Inertia.delete(`${this.options.baseUrl}/${this.item.id}/${_action.path ? _action.path : ''}`,
+    Inertia.delete(
+      `${this.options.baseUrl}/${this.item.id}/${_action.path ? _action.path : ''}`,
       {
         preserveScroll: true,
         onSuccess: () => {
@@ -109,7 +110,8 @@ export default class DataTable_Actions extends Mixins(Helpers) {
           this.actionUsedToDestroy = null
           this.destructionInProgress = false
         },
-      })
+      },
+    )
   }
 
   goTo(_action: Action) {

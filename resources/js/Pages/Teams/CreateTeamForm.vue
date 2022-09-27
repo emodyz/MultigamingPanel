@@ -21,7 +21,7 @@
 
           <div class="ml-4 leading-tight">
             <div>{{ $page.props.user.name }}</div>
-            <div class="text-gray-700 text-sm">
+            <div class="text-zinc-700 text-sm">
               {{ $page.props.user.email }}
             </div>
           </div>
@@ -93,7 +93,7 @@ export default class CreateTeamForm extends Mixins(Route) {
   })
 
   createTeam() {
-    this.form.post(this.route('teams.store').url(), {
+    this.form.post(this.route('teams.store'), {
       preserveScroll: true,
       preserveState: true,
       errorBag: 'createTeam',

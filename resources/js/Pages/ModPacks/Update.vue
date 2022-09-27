@@ -9,46 +9,46 @@
 
     <div class="py-12">
       <div class="max-w-7xl mx-auto flex flex-col justify-center md:max-w-7xl md:flex-row">
-        <div class="w-full bg-white dark:bg-gray-800 shadow overflow-hidden md:w-1/2 md:mx-5 md:rounded-lg">
+        <div class="w-full bg-white dark:bg-zinc-800 shadow overflow-hidden md:w-1/2 md:mx-5 md:rounded-lg">
           <div class="px-4 py-5 sm:px-6">
-            <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">
+            <h3 class="text-lg leading-6 font-medium text-zinc-900 dark:text-zinc-100">
               ModPack Information
             </h3>
-            <p class="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-400">
+            <p class="mt-1 max-w-2xl text-sm text-zinc-500 dark:text-zinc-400">
               Files details and application.
             </p>
           </div>
-          <div class="border-t border-gray-200 dark:border-gray-600">
+          <div class="border-t border-zinc-200 dark:border-zinc-600">
             <dl>
-              <div class="bg-gray-50 dark:bg-gray-700 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
+              <div class="bg-zinc-50 dark:bg-zinc-700 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-zinc-500 dark:text-zinc-400">
                   Name
                 </dt>
-                <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:mt-0 sm:col-span-2">
+                <dd class="mt-1 text-sm text-zinc-900 dark:text-zinc-100 sm:mt-0 sm:col-span-2">
                   {{ modpack.name }}
                 </dd>
               </div>
-              <div class="bg-white dark:bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
+              <div class="bg-white dark:bg-zinc-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-zinc-500 dark:text-zinc-400">
                   Path
                 </dt>
-                <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:mt-0 sm:col-span-2">
+                <dd class="mt-1 text-sm text-zinc-900 dark:text-zinc-100 sm:mt-0 sm:col-span-2">
                   {{ modpack.path }}
                 </dd>
               </div>
-              <div class="bg-gray-50 dark:bg-gray-700 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
+              <div class="bg-zinc-50 dark:bg-zinc-700 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-zinc-500 dark:text-zinc-400">
                   Game
                 </dt>
-                <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:mt-0 sm:col-span-2">
+                <dd class="mt-1 text-sm text-zinc-900 dark:text-zinc-100 sm:mt-0 sm:col-span-2">
                   <basic-profile :data="modpack" :data-accessors="{name: 'game.name', logo_url: 'game.logo_url'}"/>
                 </dd>
               </div>
-              <div class="bg-white dark:bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
+              <div class="bg-white dark:bg-zinc-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-zinc-500 dark:text-zinc-400">
                   Last update
                 </dt>
-                <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:mt-0 sm:col-span-2">
+                <dd class="mt-1 text-sm text-zinc-900 dark:text-zinc-100 sm:mt-0 sm:col-span-2">
                   <span v-if="modpack.manifest_last_update === null">Never</span>
                   <span v-else>{{
                       $moment(modpack.manifest_last_update)
@@ -56,28 +56,28 @@
                     }}</span>
                 </dd>
               </div>
-              <div class="bg-gray-50 dark:bg-gray-700 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
+              <div class="bg-zinc-50 dark:bg-zinc-700 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-zinc-500 dark:text-zinc-400">
                   Total Files
                 </dt>
-                <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:mt-0 sm:col-span-2">
+                <dd class="mt-1 text-sm text-zinc-900 dark:text-zinc-100 sm:mt-0 sm:col-span-2">
                   <modpack-files :data="modpack"></modpack-files>
                 </dd>
               </div>
-              <div class="bg-white dark:bg-gray-700 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
+              <div class="bg-white dark:bg-zinc-700 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-zinc-500 dark:text-zinc-400">
                   Total Size
                 </dt>
-                <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:mt-0 sm:col-span-2">
+                <dd class="mt-1 text-sm text-zinc-900 dark:text-zinc-100 sm:mt-0 sm:col-span-2">
                   <modpack-size :data="modpack"></modpack-size>
                 </dd>
               </div>
-              <div class="bg-gray-50 dark:bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
+              <div class="bg-zinc-50 dark:bg-zinc-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-zinc-500 dark:text-zinc-400">
                   Attached Servers
                 </dt>
-                <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:mt-0 sm:col-span-2">
-                  <ul class="border border-gray-200 dark:border-gray-700 rounded-md divide-y divide-gray-200 dark:divide-gray-700">
+                <dd class="mt-1 text-sm text-zinc-900 dark:text-zinc-100 sm:mt-0 sm:col-span-2">
+                  <ul class="border border-zinc-200 dark:border-zinc-700 rounded-md divide-y divide-zinc-200 dark:divide-zinc-700">
                     <li v-if="modpack.servers.length === 0"
                         class="pl-3 pr-4 py-3 flex items-center text-sm">
                                             <span class="truncate">
@@ -87,7 +87,7 @@
                     <li v-for="server of modpack.servers" v-else :key="server.id"
                         class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
                       <div class="w-0 flex-1 flex items-center">
-                        <svg class="flex-shrink-0 h-5 w-5 text-gray-400"
+                        <svg class="flex-shrink-0 h-5 w-5 text-zinc-400"
                              fill="none" stroke="currentColor" viewBox="0 0 24 24"
                              xmlns="http://www.w3.org/2000/svg">
                           <path
@@ -109,7 +109,7 @@
                   </ul>
                 </dd>
               </div>
-              <div class="bg-gray-50 dark:bg-gray-700 px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
+              <div class="bg-zinc-50 dark:bg-zinc-700 px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
                 <jet-secondary-button class="ml-auto" @click="goToModPackEdit">
                   Edit
                 </jet-secondary-button>
@@ -119,17 +119,17 @@
         </div>
 
         <div
-            class="flex flex-col justify-end overflow-hidden w-full mt-4 md:mx-5 bg-white dark:bg-gray-800 shadow md:mt-0 md:w-1/2 md:rounded-lg">
+            class="flex flex-col justify-end overflow-hidden w-full mt-4 md:mx-5 bg-white dark:bg-zinc-800 shadow md:mt-0 md:w-1/2 md:rounded-lg">
           <div class="px-4 py-5 sm:px-6">
-            <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">
+            <h3 class="text-lg leading-6 font-medium text-zinc-900 dark:text-zinc-100">
               ModPack Update Control
             </h3>
-            <p class="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-400">
+            <p class="mt-1 max-w-2xl text-sm text-zinc-500 dark:text-zinc-400">
               Below, you can start a new modpack update.
             </p>
           </div>
           <div
-              class="flex flex-col justify-center items-center border-t border-gray-200 dark:border-gray-600 p-2 text-sm">
+              class="flex flex-col justify-center items-center border-t border-zinc-200 dark:border-zinc-600 p-2 text-sm">
             <div class="flex flex-col justify-center w-full p-4" v-if="inProgress">
                             <span class="text-indigo-500 text-center text-thin text-xl">
                                 {{ progress }} %
@@ -150,17 +150,17 @@
             </div>
           </div>
           <div
-              class="mt-auto px-4 py-5 bg-gray-50 dark:bg-gray-700 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6 md:rounded-b-lg">
+              class="mt-auto px-4 py-5 bg-zinc-50 dark:bg-zinc-700 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6 md:rounded-b-lg">
             <jet-button v-if="!inProgress" :disabled="waitToStart" class="w-full justify-center"
                         @click.native="startUpdate">
-              <spinner v-if="waitToStart" class="text-white dark:text-gray-100"/>
+              <spinner v-if="waitToStart" class="text-white dark:text-zinc-100"/>
               Update Now
             </jet-button>
 
             <!-- Test state in dark mode -->
             <jet-danger-button v-if="inProgress" :disabled="waitToCancel" class="w-full"
                                @click.native="cancelUpdate">
-              <spinner v-if="waitToCancel" class="text-white dark:text-gray-100"/>
+              <spinner v-if="waitToCancel" class="text-white dark:text-zinc-100"/>
               Cancel update
             </jet-danger-button>
           </div>
@@ -251,7 +251,7 @@ export default class ModPacks_Update extends Mixins(Route) {
   }
 
   goToModPackEdit() {
-    this.$inertia.visit(this.route('modpacks.edit', this.modpack.id).url())
+    this.$inertia.visit(this.route('modpacks.edit', this.modpack.id))
   }
 
   async startUpdate() {
@@ -259,7 +259,7 @@ export default class ModPacks_Update extends Mixins(Route) {
     this.waitToStart = true
     try {
       await this.$axios.post(
-        this.route('modpacks.update.start', this.modpack.id).url(),
+        this.route('modpacks.update.start', this.modpack.id),
         {},
       )
       this.loadingGif = (await fetch('https://api.thecatapi.com/v1/images/search?mime_types=gif')
@@ -276,7 +276,7 @@ export default class ModPacks_Update extends Mixins(Route) {
     this.waitToCancel = true
 
     await this.$axios.delete(
-      this.route('modpacks.update.cancel', this.modpack.id).url(),
+      this.route('modpacks.update.cancel', this.modpack.id),
       {},
     )
     this.modpackUpdateLoading = false

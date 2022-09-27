@@ -12,7 +12,7 @@
     </div>
     <div v-else class="relative inline-flex rounded-full shadow-sm">
       <span class="inline-flex items-center px-2 inline-flex text-xs leading-5 font-semibold rounded-full
-        bg-red-500 text-white dark:bg-red-900 dark:text-gray-300">
+        bg-red-500 text-white dark:bg-red-900 dark:text-zinc-300">
         Offline
       </span>
     </div>

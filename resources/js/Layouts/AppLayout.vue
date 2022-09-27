@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-      <nav class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 dark:text-gray-100">
+    <div class="min-h-screen bg-zinc-100 dark:bg-zinc-900">
+      <nav class="bg-white dark:bg-zinc-800 border-b border-zinc-100 dark:border-zinc-700 dark:text-zinc-100">
         <!-- Primary Navigation Menu -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex justify-between h-16">
@@ -76,7 +76,7 @@
                       <button
                           v-if="$page.props.jetstream.managesProfilePhotos"
                           class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:ring
-                          focus:ring-gray-300 dark:focus:ring-indigo-400 transition duration-150 ease-in-out"
+                          focus:ring-zinc-300 dark:focus:ring-indigo-400 transition duration-150 ease-in-out"
                       >
                         <img
                             class="h-10 w-10 rounded-full object-cover"
@@ -87,7 +87,7 @@
 
                       <button
                           v-else
-                          class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
+                          class="flex items-center text-sm font-medium text-zinc-500 hover:text-zinc-700 hover:border-zinc-300 focus:outline-none focus:text-zinc-700 focus:border-zinc-300 transition duration-150 ease-in-out"
                       >
                         <div>{{ $page.props.user.name }}</div>
 
@@ -109,7 +109,7 @@
 
                     <template #content>
                       <!-- Account Management -->
-                      <div class="text-left block px-4 py-2 text-xs text-gray-400">
+                      <div class="text-left block px-4 py-2 text-xs text-zinc-400">
                         Manage Account
                       </div>
 
@@ -124,11 +124,11 @@
                         API Tokens
                       </jet-dropdown-link>
 
-                      <div class="border-t border-gray-100 dark:border-gray-600"/>
+                      <div class="border-t border-zinc-100 dark:border-zinc-600"/>
 
                       <!-- Team Management -->
                       <template v-if="$page.props.jetstream.hasTeamFeatures">
-                        <div class="text-left block px-4 py-2 text-xs text-gray-400">
+                        <div class="text-left block px-4 py-2 text-xs text-zinc-400">
                           Manage Team
                         </div>
 
@@ -144,10 +144,10 @@
                           Create New Team
                         </jet-dropdown-link>
 
-                        <div class="border-t border-gray-100 dark:border-gray-600"/>
+                        <div class="border-t border-zinc-100 dark:border-zinc-600"/>
 
                         <!-- Team Switcher -->
-                        <div class="text-left block px-4 py-2 text-xs text-gray-400">
+                        <div class="text-left block px-4 py-2 text-xs text-zinc-400">
                           Switch Teams
                         </div>
 
@@ -176,7 +176,7 @@
                           </form>
                         </template>
 
-                        <div class="border-t border-gray-100 dark:border-gray-600"/>
+                        <div class="border-t border-zinc-100 dark:border-zinc-600"/>
                       </template>
 
                       <!-- Authentication -->
@@ -193,9 +193,9 @@
               <!-- Hamburger -->
               <div class="-mr-2 flex items-center sm:hidden">
                 <button
-                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500
-                    hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition
-                    duration-150 ease-in-out dark:hover:bg-gray-700 dark:focus:bg-gray-900 dark:text-gray-100"
+                    class="inline-flex items-center justify-center p-2 rounded-md text-zinc-400 hover:text-zinc-500
+                    hover:bg-zinc-100 focus:outline-none focus:bg-zinc-100 focus:text-zinc-500 transition
+                    duration-150 ease-in-out dark:hover:bg-zinc-700 dark:focus:bg-zinc-900 dark:text-zinc-100"
                     @click="showingNavigationDropdown = ! showingNavigationDropdown"
                 >
                   <svg
@@ -274,7 +274,7 @@
           </div>
 
           <!-- Responsive Settings Options -->
-          <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+          <div class="pt-4 pb-1 border-t border-zinc-200 dark:border-zinc-600">
             <div class="flex items-center px-4">
               <div class="flex-shrink-0">
                 <img
@@ -285,10 +285,10 @@
               </div>
 
               <div class="ml-3">
-                <div class="font-medium text-base text-gray-800 dark:text-gray-100">
+                <div class="font-medium text-base text-zinc-800 dark:text-zinc-100">
                   {{ $page.props.user.name }}
                 </div>
-                <div class="font-medium text-sm text-gray-500 dark:text-gray-400">
+                <div class="font-medium text-sm text-zinc-500 dark:text-zinc-400">
                   {{ $page.props.user.email }}
                 </div>
               </div>
@@ -322,9 +322,9 @@
 
               <!-- Team Management -->
               <template v-if="$page.props.jetstream.hasTeamFeatures">
-                <div class="border-t border-gray-200"/>
+                <div class="border-t border-zinc-200"/>
 
-                <div class="block px-4 py-2 text-xs text-gray-400">
+                <div class="block px-4 py-2 text-xs text-zinc-400">
                   Manage Team
                 </div>
 
@@ -343,10 +343,10 @@
                   Create New Team
                 </jet-responsive-nav-link>
 
-                <div class="border-t border-gray-200"/>
+                <div class="border-t border-zinc-200"/>
 
                 <!-- Team Switcher -->
-                <div class="block px-4 py-2 text-xs text-gray-400">
+                <div class="block px-4 py-2 text-xs text-zinc-400">
                   Switch Teams
                 </div>
 
@@ -381,7 +381,7 @@
       </nav>
 
       <!-- Page Heading -->
-      <header class="bg-white dark:bg-gray-800 shadow">
+      <header class="bg-white dark:bg-zinc-800 shadow">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
           <slot name="header"/>
         </div>
@@ -459,7 +459,7 @@ export default class AppLayout extends Mixins(Route, Helpers, Cerberus) {
   }
 
   switchToTeam(team: any) {
-    this.$inertia.put(this.route('current-team.update').url(), {
+    this.$inertia.put(this.route('current-team.update'), {
       team_id: team.id,
     }, {
       preserveState: false,
@@ -467,8 +467,7 @@ export default class AppLayout extends Mixins(Route, Helpers, Cerberus) {
   }
 
   logout() {
-    axios.post(this.route('logout')
-      .url())
+    axios.post(this.route('logout'))
       // eslint-disable-next-line no-unused-vars
       .then((response) => {
         window.location.href = '/'

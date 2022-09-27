@@ -119,7 +119,7 @@ export default class UpdatePasswordForm extends Mixins(Route) {
   })
 
   updatePassword() {
-    this.form.put(this.route('user-password.update').url(), {
+    this.form.put(this.route('user-password.update'), {
       preserveScroll: true,
       preserveState: true,
       errorBag: 'updatePassword',

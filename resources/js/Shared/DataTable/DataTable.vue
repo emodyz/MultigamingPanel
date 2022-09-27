@@ -2,26 +2,26 @@
   <div class="flex flex-col">
     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-        <div class="shadow-md overflow-hidden border border-gray-300 dark:border-gray-700 sm:rounded-lg divide-y divide-gray-300 dark:divide-gray-700">
-          <div class="w-full flex flex-row dark:bg-gray-800">
+        <div class="shadow-md overflow-hidden border border-zinc-300 dark:border-zinc-700 sm:rounded-lg divide-y divide-zinc-300 dark:divide-zinc-700">
+          <div class="w-full flex flex-row dark:bg-zinc-800">
               <jet-input
                       v-model="search"
                       class="w-1/3 my-3 mx-6"
                       type="search"
                       placeholder="Search..."
               />
-              <div class="w-1/3 my-3 ml-auto mr-6 border-gray-200 flex flex-row items-center align-middle">
+              <div class="w-1/3 my-3 ml-auto mr-6 border-zinc-200 flex flex-row items-center align-middle">
                   <slot name="action"/>
               </div>
           </div>
-          <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-            <thead class="bg-gray-50 dark:bg-gray-900">
+          <table class="min-w-full divide-y divide-zinc-200 dark:divide-zinc-700">
+            <thead class="bg-zinc-50 dark:bg-zinc-900">
             <tr v-if="!(_.isEmpty(dataObject.data))">
               <th
                   v-for="item in headers"
                   :key="item.key"
                   scope="col"
-                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-100 uppercase tracking-wider"
+                  class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-100 uppercase tracking-wider"
               >
                   <span
                       v-if="item.key !== 'index' && item.order !== false"
@@ -39,35 +39,35 @@
               <th
                   v-if="actions.enabled && !(_.isEmpty(dataObject.data))"
                   scope="col"
-                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-100 uppercase tracking-wider"
+                  class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-100 uppercase tracking-wider"
               >
                 Actions
               </th>
               <th
                   v-else-if="_.isEmpty(dataObject.data)"
-                  class="px-4 py-2 dark:text-gray-100"
+                  class="px-4 py-2 dark:text-zinc-100"
               >
                 Search query
               </th>
               <th
                   v-else
-                  class="px-4 py-2 dark:text-gray-100"
+                  class="px-4 py-2 dark:text-zinc-100"
               >
                 Page {{ pageNumber }}
               </th>
             </tr>
             </thead>
-            <tbody class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
+            <tbody class="divide-y divide-zinc-200 bg-white dark:divide-zinc-700 dark:bg-zinc-800">
             <tr v-if="pageNumber > (totalItemCount / 10) + 10 || pageNumber < 1">
               <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-900 dark:text-gray-100">
+                <div class="text-sm text-zinc-900 dark:text-zinc-100">
                   Page n° {{ pageNumber }} is out of range
                 </div>
               </td>
             </tr>
             <tr v-else-if="_.isEmpty(dataObject.data)">
               <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-900 dark:text-gray-100">
+                <div class="text-sm text-zinc-900 dark:text-zinc-100">
                   No result matching "{{ search }}"
                 </div>
               </td>
@@ -79,12 +79,12 @@
               <td
                   v-for="{ key, component, options, dataAccessors } in headers"
                   :key="key"
-                  class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                  class="px-6 py-4 whitespace-nowrap text-sm text-zinc-500"
               >
                 <span
                     :key="key"
                     v-if="component === 'Index'"
-                    class="text-md text-gray-600 dark:text-gray-400"
+                    class="text-md text-zinc-600 dark:text-zinc-400"
                 >
                   {{ ((pageNumber * 10) - 10) + (index + 1) }}
                 </span>

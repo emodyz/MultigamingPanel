@@ -65,7 +65,7 @@
                         :disabled="true"
                         v-model="form.game"
                         autocomplete="game"
-                        class="mt-1 block w-full bg-gray-200 cursor-not-allowed"
+                        class="mt-1 block w-full bg-zinc-200 cursor-not-allowed"
                         maxlength="80"
                         placeholder="Modpack Game"
                         type="text"
@@ -87,7 +87,7 @@
                         :disabled="true"
                         v-model="form.disk"
                         autocomplete="disk"
-                        class="mt-1 block w-full bg-gray-200 cursor-not-allowed"
+                        class="mt-1 block w-full bg-zinc-200 cursor-not-allowed"
                         maxlength="80"
                         placeholder="My Amazing Disk..."
                         type="text"
@@ -217,15 +217,17 @@ export default class EditModPackForm extends Mixins(Route) {
   formSuccessMsg = 'Saved.'
 
   goToUpdate() {
-    this.$inertia.visit(this.route('modpacks.update.show', this.modpack.id).url())
+    this.$inertia.visit(this.route('modpacks.update.show', this.modpack.id))
   }
 
   submitForm() {
-    this.form.put(this.route('modpacks.update', this.modpack.id).url(),
+    this.form.put(
+      this.route('modpacks.update', this.modpack.id),
       {
         preserveScroll: true,
         preserveState: true,
-      })
+      },
+    )
   }
 
   getLinkedServersIds() {

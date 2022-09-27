@@ -1,9 +1,9 @@
 <template>
-  <div class="h-40 rounded-lg bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-lg relative overflow-hidden"
+  <div class="h-40 rounded-lg bg-white dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 shadow-lg relative overflow-hidden"
       :class="{'animate-pulse': !stats}">
     <div v-if="stats" class="px-3 pt-8 pb-10 text-center relative z-10">
-      <h4 class="text-md uppercase text-gray-500 dark:text-gray-100 leading-tight">Users</h4>
-      <h3 class="text-3xl text-gray-700 dark:text-gray-300 font-semibold leading-tight my-3">{{ stats.total }}</h3>
+      <h4 class="text-md uppercase text-zinc-500 dark:text-zinc-100 leading-tight">Users</h4>
+      <h3 class="text-3xl text-zinc-700 dark:text-zinc-300 font-semibold leading-tight my-3">{{ stats.total }}</h3>
       <div v-if="stats.dailyDiff !== null">
         <p v-if="stats.isDailyDiffPositive" class="text-sm text-green-500 dark:text-emerald-500 leading-tight">▲ {{stats.dailyDiff}}%</p>
         <p v-else class="text-sm text-red-500 leading-tight">▼ {{stats.dailyDiff}}%</p>
@@ -77,7 +77,7 @@ export default class UsersChart extends Mixins(Route) {
   }
 
   async initChart() {
-    const res = await this.$axios.get(this.route('api.dashboard.stats.users').url())
+    const res = await this.$axios.get(this.route('api.dashboard.stats.users'))
 
     this.stats = res.data
     //

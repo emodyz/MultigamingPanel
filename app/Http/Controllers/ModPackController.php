@@ -125,7 +125,7 @@ class ModPackController extends Controller
           ->get()
           ->map(fn(Server $server) => $server->only(['id', 'name', 'logo_url', 'game']));
 
-        $modpack->servers;
+        $modpack->load('servers');
 
         return inertia('ModPacks/Edit', compact('servers', 'modpack'));
     }
@@ -209,6 +209,11 @@ class ModPackController extends Controller
         }
 
         $modpack->batch->cancel();
+
+        $modpack->update([
+            'job_batch_id' => null,
+        ]);
+
         return response()->noContent();
     }
 }

@@ -6,6 +6,8 @@
 
 import axios from 'axios'
 import Echo from 'laravel-echo'
+// TODO: investigate this error
+// eslint-disable-next-line import/no-unresolved
 import Vue from 'vue'
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'

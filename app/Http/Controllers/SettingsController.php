@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Actions\Emodyz\Settings\EditSettings;
 use App\Http\Requests\Settings\EditVoiceSettingsRequest;
+use App\Services\Bridge\BridgeClientService;
 use App\Settings\VoiceSettings;
+use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Response;
@@ -17,18 +20,32 @@ class SettingsController extends Controller
         $this->middleware('can:settings-edit')->only(['edit']);
 
         $this->middleware('can:settings-edit_voice')->only(['updateVoice']);
+
+        $this->middleware('can:settings-cp_update_check')->only(['checkForCpUpdate']);
+
+        $this->middleware('can:settings-cp_upgrade')->only(['checkForCpUpdate']);
     }
 
     /**
      * Display a listing of the resource.
-     *
-     * @param  VoiceSettings  $voiceSettings
-     * @return \Illuminate\Http\Response|Response|ResponseFactory
+     * @param VoiceSettings $voiceSettings
+     * @return Response|ResponseFactory
      */
     public function edit(VoiceSettings $voiceSettings)
     {
+        $version = 'unknown';
+        try {
+            $bridgeClient = new BridgeClientService();
+
+            $version = $bridgeClient->getControlPanelVersion();
+        } catch (Exception $e) {
+            flash('BRIDGE ERROR', $e->getMessage(), 'error');
+        }
+
+
         return inertia('Settings/Edit', [
-          'voiceSettings' => $voiceSettings->toArray()
+            'currentVersion' => $version,
+            'voiceSettings' => $voiceSettings->toArray()
         ]);
     }
 
@@ -39,12 +56,59 @@ class SettingsController extends Controller
      * @param  EditSettings  $editor
      * @return RedirectResponse
      */
-   public function updateVoice(EditVoiceSettingsRequest $request, EditSettings $editor): RedirectResponse
-   {
+    public function updateVoice(EditVoiceSettingsRequest $request, EditSettings $editor): RedirectResponse
+    {
         $editor->editVoiceSettings($request->all());
 
         flash('Voice Settings', "Your voice settings has been successfully saved.")->success();
 
         return redirect()->back();
-   }
+    }
+
+    /**
+     * Check for control panel updates
+     *
+     * @return JsonResponse
+     */
+    public function checkForCpUpdate(): JsonResponse
+    {
+        $target = 'none';
+        try {
+            $bridgeClient = new BridgeClientService();
+
+            $target = $bridgeClient->checkForControlPanelUpdate();
+        } catch (Exception $e) {
+            flash('BRIDGE ERROR', $e->getMessage(), 'error');
+        }
+
+        if ($target !== 'none') {
+            flash('A new version of the Control Panel is available.', $target, 'info');
+        }
+
+        return response()->json([
+            'target' => $target
+        ]);
+    }
+
+    /**
+     * Initiates the upgrade process for the control panel by calling the cli using the gRpc Bridge
+     *
+     * @return JsonResponse
+     */
+    public function upgradeCp(): JsonResponse
+    {
+        try {
+            $bridgeClient = new BridgeClientService();
+
+            $bridgeClient->upgradeControlPanel();
+        } catch (Exception $e) {
+            flash('BRIDGE ERROR', $e->getMessage(), 'error');
+        }
+
+        flash('Control Panel update started.', 'the application will be offline for a few minutes ', 'warning');
+
+        return response()->json([
+            'upgrade' => 'started'
+        ]);
+    }
 }

@@ -24,10 +24,10 @@
                   <div v-if="option.selected"
                        :key="option.value"
                        class="flex justify-center items-center m-1 font-medium py-1 px-2 rounded-full text-indigo-700
-                       bg-indigo-100 border border-indigo-300 dark:bg-indigo-500 dark:text-gray-100 dark:border-transparent">
+                       bg-indigo-100 border border-indigo-300 dark:bg-indigo-500 dark:text-zinc-100 dark:border-transparent">
                     <div class="text-xs font-medium leading-none max-w-full flex-initial">{{ option.name }}</div>
                     <div class="flex flex-auto flex-row-reverse">
-                      <div @click="handleOptionSelection(option)" class="hover:text-indigo-500 dark:hover:text-gray-300 hover:cursor-pointer">
+                      <div @click="handleOptionSelection(option)" class="hover:text-indigo-500 dark:hover:text-zinc-300 hover:cursor-pointer">
                         <cross-icon class="rounded-full"/>
                       </div>
                     </div>
@@ -37,19 +37,19 @@
               <div class="flex-1">
                 <input :placeholder="placeholder"
                        v-model="searchOption"
-                       class="bg-transparent py-1 px-1 appearance-none outline-none h-full w-full text-gray-800 dark:text-gray-300">
+                       class="bg-transparent py-1 px-1 appearance-none outline-none h-full w-full text-zinc-800 dark:text-zinc-300">
               </div>
               <div v-show="!_.isNull(searchResults)" @click="searchOption = ''"
                    class="justify-self-end text-indigo-700 dark:text-indigo-400 font-semibold pr-2 flex items-center">
                 <cross-icon class="cursor-pointer hover:text-indigo-400 dark:hover:text-indigo-300 rounded-full"/>
               </div>
             </div>
-            <div class="text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200 dark:border-gray-700">
+            <div class="text-zinc-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-zinc-200 dark:border-zinc-700">
               <button
                   type="button"
                   @click="handleSowOption()"
                   :disabled="!_.isNull(searchResults)"
-                  class="cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none disabled:cursor-not-allowed disabled:text-gray-300"
+                  class="cursor-pointer w-6 h-6 text-zinc-600 outline-none focus:outline-none disabled:cursor-not-allowed disabled:text-zinc-300"
               >
                 <chevron-down v-if="!isOpened"/>
                 <chevron-up v-else/>
@@ -59,13 +59,13 @@
         </div>
         <!-- DROPDOWN -->
         <div v-show="isOpened"
-             class="absolute shadow top-100 bg-white dark:bg-gray-700 dark:text-gray-300 border dark:border-gray-600 z-40 w-full lef-0 rounded max-h-select overflow-y-auto">
+             class="absolute shadow top-100 bg-white dark:bg-zinc-700 dark:text-zinc-300 border dark:border-zinc-600 z-40 w-full lef-0 rounded max-h-select overflow-y-auto">
           <div class="flex flex-col w-full">
             <template v-for="option in options">
               <div :key="option.value" @click="handleOptionSelection(option)"
-                   :class="{ 'dark:bg-gray-800 dark:hover:bg-gray-900': option.selected }"
-                   class="cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-indigo-100 dark:border-gray-600 dark:hover:bg-gray-800">
-                <div class="flex w-full items-center p-2 pl-2 border-transparent dark:border-gray-600 border-l-2 relative"
+                   :class="{ 'dark:bg-zinc-800 dark:hover:bg-zinc-900': option.selected }"
+                   class="cursor-pointer w-full border-zinc-100 rounded-t border-b hover:bg-indigo-100 dark:border-zinc-600 dark:hover:bg-zinc-800">
+                <div class="flex w-full items-center p-2 pl-2 border-transparent dark:border-zinc-600 border-l-2 relative"
                      :class="option.selected ? 'border-indigo-700 dark:border-indigo-500' : 'hover:border-indigo-100 dark:hover:border-indigo-400'">
                   <div class="w-full items-center flex">
                     <div v-if="doesNotExist(option.component)" class="mx-2 leading-6">{{ option.name }}</div>
@@ -79,13 +79,13 @@
         <!-- TODO: Combine Dropdown and search results into one reusable scaffolding component -->
         <!-- SEARCH RESULTS -->
         <div v-if="!doesNotExist(searchResults)"
-             class="absolute shadow top-100 bg-white dark:bg-gray-700 dark:text-gray-300 border dark:border-gray-600 z-40 w-full lef-0 rounded max-h-select overflow-y-auto">
+             class="absolute shadow top-100 bg-white dark:bg-zinc-700 dark:text-zinc-300 border dark:border-zinc-600 z-40 w-full lef-0 rounded max-h-select overflow-y-auto">
           <div class="flex flex-col w-full">
             <template v-for="option in searchResults">
               <div :key="option.item.value.toString() + Math.random()" @click="handleOptionSelection(option.item)"
-                   :class="{ 'dark:bg-gray-800 dark:hover:bg-gray-900': option.item.selected }"
-                   class="cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-indigo-100 dark:border-gray-600 dark:hover:bg-gray-800">
-                <div class="flex w-full items-center p-2 pl-2 border-transparent dark:border-gray-600 border-l-2 relative"
+                   :class="{ 'dark:bg-zinc-800 dark:hover:bg-zinc-900': option.item.selected }"
+                   class="cursor-pointer w-full border-zinc-100 rounded-t border-b hover:bg-indigo-100 dark:border-zinc-600 dark:hover:bg-zinc-800">
+                <div class="flex w-full items-center p-2 pl-2 border-transparent dark:border-zinc-600 border-l-2 relative"
                      :class="option.item.selected ? 'border-indigo-700 dark:border-indigo-500' : 'hover:border-indigo-100  dark:hover:border-indigo-400'">
                   <div class="w-full items-center flex">
                     <div v-if="doesNotExist(option.item.component)" class="mx-2 leading-6">{{ option.item.name }}</div>

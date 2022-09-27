@@ -4,17 +4,17 @@
 
     <div class="w-full flex flex-wrap space-x-4 items-start">
       <div class="flex flex-col mt-4 justify-center items-center w-full sm:w-7/12 h-auto">
-        <div class="bg-gray-300 dark:bg-gray-900 h-56 w-full rounded-lg shadow-md bg-cover bg-center"
+        <div class="bg-zinc-300 dark:bg-zinc-900 h-56 w-full rounded-lg shadow-md bg-cover bg-center"
              :style="`background-image: url('${ data.cover_image_url }')`"></div>
 
-        <div class="block prose dark:prose-light w-10/12 sm:w-72 dark:bg-gray-700 dar -mt-10 shadow-lg rounded-lg overflow-hidden p-5">
+        <div class="block prose dark:prose-light w-10/12 sm:w-72 dark:bg-zinc-700 dar -mt-10 shadow-lg rounded-lg overflow-hidden p-5">
           <h3>{{ data.title }}</h3>
 
-          <div class="text-base text-justify dark:text-gray-300">
+          <div class="text-base text-justify dark:text-zinc-300">
             {{ data.subTitle }}
           </div>
 
-          <span class="float-right mt-4 text-sm text-gray-400 font-semibold text-right">
+          <span class="float-right mt-4 text-sm text-zinc-400 font-semibold text-right">
               Created {{
               $moment(data.created_at)
                   .fromNow()
@@ -23,14 +23,14 @@
         </div>
       </div>
 
-      <div class="hidden sm:block rounded-lg shadow-md mt-4 bg-gray-50 dark:bg-gray-700 px-4 py-5 flex-1">
+      <div class="hidden sm:block rounded-lg shadow-md mt-4 bg-zinc-50 dark:bg-zinc-700 px-4 py-5 flex-1">
         <div class="w-full mb-5">
-          <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">
+          <h3 class="text-lg leading-6 font-medium text-zinc-900 dark:text-zinc-100">
             Attached servers
           </h3>
         </div>
-        <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:mt-0 sm:col-span-2">
-          <ul class="border border-gray-200 dark:border dark:border-gray-600 rounded-md divide-y divide-gray-200 dark:divide-gray-600">
+        <dd class="mt-1 text-sm text-zinc-900 dark:text-zinc-100 sm:mt-0 sm:col-span-2">
+          <ul class="border border-zinc-200 dark:border dark:border-zinc-600 rounded-md divide-y divide-zinc-200 dark:divide-zinc-600">
             <li v-if="data.servers.length === 0"
                 class="pl-3 pr-4 py-3 flex items-center text-sm">
               <span class="truncate">
@@ -40,7 +40,7 @@
             <li v-else v-for="server of data.servers" :key="server.id+Math.random()"
                 class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
               <div class="w-0 flex-1 flex items-center">
-                <svg class="flex-shrink-0 h-5 w-5 text-gray-400"
+                <svg class="flex-shrink-0 h-5 w-5 text-zinc-400"
                      fill="none" stroke="currentColor" viewBox="0 0 24 24"
                      xmlns="http://www.w3.org/2000/svg">
                   <path

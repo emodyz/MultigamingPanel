@@ -9,7 +9,7 @@
     </template>
 
     <template #content>
-      <div class="max-w-xl text-sm text-gray-600">
+      <div class="max-w-xl text-sm text-zinc-600">
         Once a team is deleted, all of its resources and data will be permanently deleted. Before deleting this team,
         please download any data or information regarding this team that you wish to retain.
       </div>
@@ -88,7 +88,7 @@ export default class DeleteTeamForm extends Mixins(Route) {
   }
 
   deleteTeam() {
-    this.form.delete(this.route('teams.destroy', this.team).url(), {
+    this.form.delete(this.route('teams.destroy', this.team), {
       preserveScroll: true,
       preserveState: true,
       errorBag: 'deleteTeam',

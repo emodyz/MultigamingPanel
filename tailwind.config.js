@@ -3,34 +3,28 @@ const typographyConfig = require('./tailwind.typography.config')
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-  mode: 'jit',
   darkMode: 'class',
-  purge: {
-    content: [
-      './vendor/laravel/jetstream/**/*.blade.php',
-      './storage/framework/views/*.php',
-      './resources/views/**/*.blade.php',
-      './resources/js/**/*.vue',
-    ],
-    options: {
-      // ⚠️ DO NOT camelCase this prop or it will break!
-      safelist: [
-        //THE DARK SIDE 😈
-        'dark',
-        // Scrollbar
-        'body', 'body.dark', '::-webkit-scrollbar',
-        '::-webkit-scrollbar-track', '::-webkit-scrollbar-thumb',
-        '::-webkit-scrollbar-thumb:hover ',
-        // Colors
-        'text-green-600', 'text-green-900',
-        'text-indigo-600', 'text-indigo-900',
-        'text-red-600', 'text-red-900', 'text-orange-500',
-        // Utilities
-        'py-8', 'pb-5', 'pt-6',
-        'w-88', 'w-96',
-      ],
-    }
-  },
+  content: [
+    './vendor/laravel/jetstream/**/*.blade.php',
+    './storage/framework/views/*.php',
+    './resources/views/**/*.blade.php',
+    './resources/js/**/*.vue',
+  ],
+  safelist: [
+    //THE DARK SIDE 😈
+    'dark',
+    // Scrollbar
+    'body', 'body.dark', '::-webkit-scrollbar',
+    '::-webkit-scrollbar-track', '::-webkit-scrollbar-thumb',
+    '::-webkit-scrollbar-thumb:hover ',
+    // Colors
+    'text-green-600', 'text-green-900',
+    'text-indigo-600', 'text-indigo-900',
+    'text-red-600', 'text-red-900', 'text-orange-500',
+    // Utilities
+    'py-8', 'pb-5', 'pt-6',
+    'w-88', 'w-96',
+  ],
 
   theme: {
     extend: {
@@ -84,27 +78,13 @@ module.exports = {
         '104': '26rem',
         '112': '28rem',
       },
-      colors: {
+      /*colors: {
         // ...colors
         gray: colors.gray,
         emerald: colors.emerald,
         orange: colors.orange,
-      },
+      },*/
     },
-  },
-
-  variants: {
-    extend: {
-      typography: ['dark'],
-      backgroundColor: ['group-focus', 'active', 'even', 'odd', 'disabled', 'checked'],
-      borderColor: ['group-focus', 'checked'],
-      boxShadow: ['group-focus'],
-      opacity: ['group-focus', 'disabled'],
-      cursor: ['hover', 'focus', 'disabled'],
-      textColor: ['group-focus', 'active', 'disabled'],
-      textDecoration: ['group-focus'],
-      fontWeight: ['hover', 'focus']
-    }
   },
 
   plugins: [

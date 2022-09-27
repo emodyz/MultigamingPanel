@@ -125,7 +125,7 @@
                   :disabled="true"
                   v-model="server.game.name"
                   autocomplete="game"
-                  class="mt-1 block w-full bg-gray-200 cursor-not-allowed"
+                  class="mt-1 block w-full bg-zinc-200 cursor-not-allowed"
                   maxlength="80"
                   placeholder="My Amazing Game..."
                   type="text"
@@ -336,7 +336,8 @@ export default class CreateServerForm extends Mixins(Route) {
       this.form.logo = this.logo.files[0]
     }
     this.form.port = parseInt(this.form.port, 10)
-    this.form.post(this.route('servers.update', this.server.id).url(),
+    this.form.post(
+      this.route('servers.update', this.server.id),
       {
         preserveScroll: true,
         preserveState: true,
@@ -344,12 +345,13 @@ export default class CreateServerForm extends Mixins(Route) {
           this.logoPreview = null
           this.form.logo = null
         },
-      })
+      },
+    )
   }
 
   deleteLogo() {
     this.$inertia.delete(
-      this.route('servers.destroy.logo', this.server.id).url(),
+      this.route('servers.destroy.logo', this.server.id),
       {
         preserveScroll: true,
         onSuccess: () => {

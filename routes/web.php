@@ -47,4 +47,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     // Settings
     Route::get('settings/edit', [SettingsController::class, 'edit'])->name('settings.edit');
     Route::put('settings/voices', [SettingsController::class, 'updateVoice'])->name('settings.update.voice');
+    Route::get('settings/update/check', [SettingsController::class, 'checkForCpUpdate'])->name('settings.update.check');
+    Route::get('settings/upgrade', [SettingsController::class, 'upgradeCp'])->name('settings.upgrade.cp');
 });

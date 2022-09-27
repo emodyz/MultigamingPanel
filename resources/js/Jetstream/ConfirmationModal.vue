@@ -5,7 +5,7 @@
     :closeable="closeable"
     @close="close"
   >
-    <div class="bg-white dark:bg-gray-800 dark:text-gray-300 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+    <div class="bg-white dark:bg-zinc-800 dark:text-zinc-300 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
       <div class="sm:flex sm:items-start">
         <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 dark:bg-red-800 sm:mx-0 sm:h-10 sm:w-10">
           <svg
@@ -35,7 +35,7 @@
       </div>
     </div>
 
-    <div class="px-6 py-4 bg-gray-100 dark:bg-gray-700 text-right">
+    <div class="px-6 py-4 bg-zinc-100 dark:bg-zinc-700 text-right">
       <slot name="footer" />
     </div>
   </modal>
