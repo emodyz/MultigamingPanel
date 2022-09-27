@@ -2,7 +2,7 @@
   <div>
     <jet-form-section>
       <template #title>
-        Update Settings Test 1
+        Update Settings Test 2
       </template>
 
       <template #description>
