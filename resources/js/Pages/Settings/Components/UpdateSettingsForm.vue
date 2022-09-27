@@ -2,7 +2,7 @@
   <div>
     <jet-form-section>
       <template #title>
-        Update Settings Test 2
+        Update Settings
       </template>
 
       <template #description>
@@ -127,13 +127,17 @@ export default class UpdateSettingsForm extends Mixins(Route) {
   }
 
   async upgradeCp() {
-    await axios.get(this.route('settings.upgrade.cp'))
+    this.isUpdating = true
+    await axios.get(this.route('settings.upgrade.cp', { timeout: 2000 }))
 
     const health = await this.waitForUpdate()
 
     if (health.status === 'OK') {
       // eslint-disable-next-line no-restricted-globals
       location.reload()
+    } else {
+      this.isUpdating = false
+      this.updateFailed = true
     }
   }
 
